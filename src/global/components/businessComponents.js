@@ -3,6 +3,5 @@
  */
 module.exports = {
   UploadImage: require('businessComponents/UploadImage'),
-  GroupUpload:require('businessComponents/GroupUpload'),
-  GridUpload:require('businessComponents/GridUpload'),
+  GroupUpload:require('businessComponents/GroupUpload')
 };

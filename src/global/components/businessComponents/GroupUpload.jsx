@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Button, Modal,Select, Checkbox,message} from 'antd';
 // import {connect} from 'react-redux';
 import UploadImage from './UploadImage';
+import { PRO_REQUEST } from 'publicDatas';
 // import {getPfopPictures} from "rootActions";
 // import {Base64} from "js-base64";
 import {PRO_BASE} from 'publicDatas'
@@ -29,6 +30,8 @@ class GroupUpload extends Component {
     this.onAutoSizeChange=this.onAutoSizeChange.bind(this);
 
     this.getPfop=this.getPfop.bind(this);
+    this.getPfopPictures=this.getPfopPictures.bind(this);
+    this.gotPfopPictures=this.gotPfopPictures.bind(this);
   }
   onAutoSizeChange(e){
     this.setState({onAutoSizeChange: e.target.checked});
@@ -123,8 +126,7 @@ class GroupUpload extends Component {
     let removedPic=_.remove(newPicturesObj,item=>{return !!~item.originPic.lastIndexOf("qn1d")});
     // console.log("getPfop removedPic",removedPic);
     if (newPicturesObj.length>0) {
-      // const {getPfopPictures} = this.props;
-      // getPfopPictures(newPicturesObj);
+      this.getPfopPictures(newPicturesObj);
     }
 
     // const args = {
@@ -153,6 +155,23 @@ class GroupUpload extends Component {
     }, 100);
     // },300);
   }
+  getPfopPictures(pictures){
+    PRO_REQUEST.ajax.fetchData(this.props.uploadConfig.QINIU_PFOP, {
+      "list": pictures
+    }, (data) => {
+      this.gotPfopPictures(data);
+    });
+  }
+  gotPfopPictures (theData)  {
+  // console.log("gotPfopPictures theData",theData);
+  if (theData.rc == "0") {
+    return (dispatch) => {
+      // dispatch(gotPfopPicturesSuccessfully(theData.data));
+    }
+  } else {
+    message.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
+  }
+}
   getPictures(listPicture) { //上传完毕
     let newPictures = listPicture.map(item => {
       if (typeof(item.url) != undefined) {
@@ -283,6 +302,7 @@ class GroupUpload extends Component {
               cbReceiver={this.getPictures}
               isMultiple={true}
               isShowUploadList={true}
+              uploadConfig={this.props.uploadConfig}
               limit={this.props.limitCount || 10}/>
           </div>
         </Modal>

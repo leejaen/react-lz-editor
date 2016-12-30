@@ -68,11 +68,16 @@ class VideoStyleControls extends Component {
           title="插入视频"
           visible={that.state.visible}
           closable={false}
-          footer={[< Button key = "back" size = "large" onClick = {
+          footer={[<Button key = "back" size = "large" onClick = {
             that.handleCancel
-          } > 取消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendVideoToEditor}> 确定 </Button >]}>
-          <UploadImage isMultiple={true} limit={10} fileList={that.state.videos} isOpenModel={that.state.visible} cbReceiver={that.getVideoObject} fileType="video"/>
-
+          }> 取消 </Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendVideoToEditor}> 确定 </Button>]}>
+          <UploadImage isMultiple={true}
+            limit={10}
+            fileList={that.state.videos}
+            isOpenModel={that.state.visible}
+            cbReceiver={that.getVideoObject}
+            uploadConfig={this.props.uploadConfig}
+            fileType="video"/>
         </Modal>
       </div>
     )
