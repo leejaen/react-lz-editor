@@ -46,7 +46,8 @@ module.exports = {
       data = Object.assign({}, urlObj.defaultData
         ? urlObj.defaultData
         : "", {
-        "tokenID": "yourTokenID"
+        "yourKey": "yourTokenID",
+        "tokenID":"4A79B7D419E2431DC7749AF107F0BA0F"
       }, data); //合并
       data = PRO_COMMON.obj.removeFalseEntity(data); //手动转换数值成字符串型数据
       data = PRO_COMMON.obj.stringifyPropsDeeply(data); //手动转换数值成字符串型数据
@@ -125,6 +126,7 @@ module.exports = {
       console.warn("服务器或接口返回出错或数据处理过程中出错，参考：", e);
     }) {
       let tokenID = "yourTokenID";
+      tokenID="4A79B7D419E2431DC7749AF107F0BA0F";//for test
       data = Object.assign({}, urlObj.hasOwnProperty("defaultData")
         ? urlObj.defaultData
         : {}, {

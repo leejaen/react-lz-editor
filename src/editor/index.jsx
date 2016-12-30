@@ -582,9 +582,9 @@ _openFull(e){
           {this.props.Alignment&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment}/>}
           {this.props.InlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle}/>}
           {this.props.Color&&<ColorControls editorState={editorState} onToggle={this.toggleColor}/>}
-          {this.props.Image&&<ImgStyleControls receiveImage={this.addImage}/>}
-          {this.props.Video&&<VideoStyleControls receiveVideo={this.addVideo}/>}
-          {this.props.Audio&&<AudioStyleControls receiveAudio={this.addAudio}/>}
+          {this.props.Image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}/>}
+          {this.props.Video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}/>}
+          {this.props.Audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}/>}
           {this.props.Url&&<AddUrl editorState={editorState} onToggle={this.promptForLink}/>}
           {this.props.Url&&<CloseUrl editorState={editorState} onToggle={this.removeLink}/>}
           {this.props.AutoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}
@@ -871,6 +871,18 @@ EditorConcist.propTypes = {
   Url: React.PropTypes.bool,
   AutoSave: React.PropTypes.bool,
   FullScreen: React.PropTypes.bool,
+  uploadConfig:React.PropTypes.shape({
+    QINIU_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_PFOP:React.PropTypes.shape({
+      url: React.PropTypes.string.isRequired
+    }),
+    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_DOMAIN_URL: React.PropTypes.string.isRequired,
+    QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
+    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
+   })
 }
 EditorConcist.defaultProps = {
   UndoRedo: true,

@@ -3,26 +3,16 @@
  */
 import PRO_BASE from './base.js';
 module.exports = {
-  VALIDATION_CODE: PRO_BASE.Config.server.ajax + "yzm.do",
-  QINIU_URL: "http://up.qiniu.com", //上传地址
-  QINIU_PFOP_URL: {
-    url: "http://api.qiniu.com/pfop/", //url
-    contentType: "JSON",
-    method: 'post'
-  },
-  QINIU_PFOPING_STATUS: {
-    url: "http://api.qiniu.com/status/get/prefop", //url
-    method: 'GET'
-  },
-  QINIU_IMG_TOKEN_URL: PRO_BASE.Config.server.ajax + "getQiniuUptoken.do", //请求图片的token
+  QINIU_URL: "", //上传地址
+  QINIU_IMG_TOKEN_URL:  "", //请求图片的token
   QINIU_PFOP: {
-    url: PRO_BASE.Config.server.ajax + "QiniuPicPersist.do"
+    url:  ""
   },
-  QINIU_VIDEO_TOKEN_URL: PRO_BASE.Config.server.ajax + "getQiniuUptoken.do", //请求视频资源的token
-  QINIU_FILE_TOKEN_URL: PRO_BASE.Config.server.ajax + "getQiniuUptoken.do?name=patch", //请求热补丁资源的token
-  QINIU_IMG_DOMAIN_URL: "https://image.qiluyidian.mobi", //图片的地址的前缀image.qlwbyidian.com
-  QINIU_DOMAIN_VIDEO_URL: "https://image.qiluyidian.mobi", //视频地址的前缀image.qlwbyidian.com
-  QINIU_DOMAIN_FILE_URL: "https://static.qiluyidian.com/", //ALL文件地址的前缀
+  QINIU_VIDEO_TOKEN_URL: "", //请求视频资源的token
+  QINIU_FILE_TOKEN_URL: "", //请求热补丁资源的token
+  QINIU_IMG_DOMAIN_URL: "", //图片的地址的前缀image.qlwbyidian.com
+  QINIU_DOMAIN_VIDEO_URL: "", //视频地址的前缀image.qlwbyidian.com
+  QINIU_DOMAIN_FILE_URL: "", //ALL文件地址的前缀
 
   activity_public: {
     visible: {

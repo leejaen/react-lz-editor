@@ -70,7 +70,13 @@ class AudioStyleControls extends Component {
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
           } > 取 消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendAudioToEditor}> 确 定 </Button >]}>
-          <UploadImage isMultiple={true} fileList={that.state.audios} isOpenModel={that.state.visible} limit={10} cbReceiver={that.getAudioObject} fileType="audio"/>
+          <UploadImage isMultiple={true}
+            fileList={that.state.audios}
+            isOpenModel={that.state.visible}
+            limit={10}
+            cbReceiver={that.getAudioObject}
+            fileType="audio"
+            uploadConfig={this.props.uploadConfig}/>
         </Modal>
       </div>
     )
