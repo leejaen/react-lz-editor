@@ -13,17 +13,19 @@ class Test extends React.Component {
         console.log("recieved content", content);
     }
     render() {
-      const uploadConfig={
-        
-      }
-        return <LzEditor
-          active={true}
-          HtmlContent={this.state.content}
-          cbReceiver={this.receiveHtml}
-          InlineStyle={false}
-          Color={false}
-          FullScreen={false}
-          />
+        const uploadConfig = {
+            QINIU_URL: "http://up.qiniu.com", //上传地址
+            QINIU_IMG_TOKEN_URL: "http://114.55.148.57:8083/getQiniuUptoken.do", //请求图片的token
+            QINIU_PFOP: {
+                url: "http://114.55.148.57:8083/QiniuPicPersist.do"
+            },
+            QINIU_VIDEO_TOKEN_URL: "http://114.55.148.57:8083/getQiniuUptoken.do", //请求视频资源的token
+            QINIU_FILE_TOKEN_URL: "http://114.55.148.57:8083/getQiniuUptoken.do?name=patch", //另一种资源的token的获取
+            QINIU_IMG_DOMAIN_URL: "https://image.qiluyidian.mobi", //图片文件地址的前缀
+            QINIU_DOMAIN_VIDEO_URL: "https://image.qiluyidian.mobi", //视频文件地址的前缀
+            QINIU_DOMAIN_FILE_URL: "https://static.qiluyidian.com/", //其他文件地址前缀
+        }
+        return <LzEditor active={true} HtmlContent={this.state.content} cbReceiver={this.receiveHtml} uploadConfig={uploadConfig} InlineStyle={false} Color={false} FullScreen={false}/>
     }
 }
 

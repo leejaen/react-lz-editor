@@ -119,8 +119,9 @@ class ImgStyleControls extends Component {
           imageList={this.state.images.map((item) => {
           item.url
         })}
-         atuoSize={[650,0]}
-          receiveSelectedPictures={this.groupAppend}>
+          atuoSize={[650,0]}
+          receiveSelectedPictures={this.groupAppend}
+          uploadConfig={this.props.uploadConfig}>
           <span className={className}>
             <Tooltip placement="top" title="水印图片">
               <Icon type="editor_image_masker"/>
@@ -161,6 +162,7 @@ class ImgStyleControls extends Component {
             fileList={that.state.images}
             isOpenModel={that.state.visible}
             cbReceiver={that.getImgObject}
+            uploadConfig={this.props.uploadConfig}
             limit={10}
             fileType="image"/>
         </Modal>
@@ -169,7 +171,19 @@ class ImgStyleControls extends Component {
   }
 }
 ImgStyleControls.propTypes = {
-  receiveImage: React.PropTypes.func.isRequired
+  receiveImage: React.PropTypes.func.isRequired,
+  uploadConfig:React.PropTypes.shape({
+    QINIU_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_PFOP:React.PropTypes.shape({
+      url: React.PropTypes.string.isRequired
+    }),
+    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_DOMAIN_URL: React.PropTypes.string.isRequired,
+    QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
+    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
+   })
 };
 
 ImgStyleControls.defaultProps = {};
