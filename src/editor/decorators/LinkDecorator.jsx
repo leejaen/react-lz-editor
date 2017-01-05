@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
 import {Entity} from 'draft-js';
-import {ENTITY_TYPE} from 'draft-js-utils';
+import {ENTITY_TYPE} from '../utils/stateUtils/main';
 
 import type {ContentBlock} from 'draft-js';
 
