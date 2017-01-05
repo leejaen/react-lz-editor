@@ -34,8 +34,8 @@ import {
   Icon,
   Tooltip
 } from 'antd';
-import {stateToHTML} from 'draft-js-export-html';
-import {stateFromHTML} from 'draft-js-import-html';
+import {stateToHTML,stateFromHTML} from './utils';
+// import {stateFromHTML} from 'draft-js-import-html';
 import {PRO_COMMON} from 'publicDatas';
 import LinkDecorator from "./decorators/LinkDecorator";
 import ImageDecorator from "./decorators/ImageDecorator";
@@ -53,7 +53,7 @@ import PasteNoStyleControls from "./toolBar/pasteNoStyleControls"
 import {AddUrl,CloseUrl} from "./toolBar/urlControls"
 import RemoveStyleControls from "./toolBar/removeStyleControls"
 import ColorButton from "./toolBar/colorButton"
-import colorStyleMap from "./config/colorStyleMap"
+import {colorStyleMap} from "./utils/colorConfig"
 import ExtendedRichUtils from "./utils/ExtendedRichUtils"
 import _ from "lodash";
 class EditorConcist extends React.Component {
@@ -323,7 +323,7 @@ _openFull(e){
   }
   _solidHtml(html) {
     // html=html.replace(/"((?:\\.|[^"\\])*)"/g,"");//去掉所有英文单引号里面的内容，比如style="" class=""
-    var walk_the_DOM = function walk(node, func) {
+    let walk_the_DOM = function walk(node, func) {
       func(node);
       node = node.firstChild;
       while (node) {
@@ -331,7 +331,7 @@ _openFull(e){
         node = node.nextSibling;
       }
     };
-    var wrapper = document.createElement('div');
+    let wrapper = document.createElement('div');
     wrapper.innerHTML = html;
     walk_the_DOM(wrapper.firstChild, function(element) {
       if (element.removeAttribute) {
@@ -401,6 +401,7 @@ _openFull(e){
     //   editorState: EditorState.push(editorState, alignBlock)
     // })
 
+    // right way:
     this.onChange(ExtendedRichUtils.toggleAlignment(this.state.editorState, alignment));
   }
 
@@ -411,7 +412,7 @@ _openFull(e){
   /*视频音频图片*/
 
   _addMedia(type, Object) {
-    var src = Object.url;
+    let src = Object.url;
     if (!src) {
       throw new Error("！！！！！！！！！！上传文件错误！！！！！！！！！！");
       return false;
@@ -565,13 +566,13 @@ _openFull(e){
     // If the user changes block type before entering any text, we can either style the placeholder or hide it. Let's just
     // hide it now.
     let className = 'RichEditor-editor';
-    var contentState = editorState.getCurrentContent();
+    let contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' RichEditor-hidePlaceholder';
       }
     }
-    console.log("this.props.UndoRedo",this.props.UndoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
+    // console.log("this.props.UndoRedo",this.props.UndoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
     return (
       <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
         <Affix offsetTop={0} id="text-editor-affix">
@@ -620,7 +621,7 @@ function findLinkEntities(contentBlock, callback) {
 
 const Link = (props) => {
   const {url} = Entity.get(props.entityKey).getData();
-  var currentStyle = props.editorState
+  let currentStyle = props.editorState
     ? props.editorState.getCurrentInlineStyle()
     : {};
   return (
@@ -749,94 +750,11 @@ const Media = (props) => {
   }
   return media;
 };
-//颜色
-
-var COLORS = [
-  {
-    label: '　',
-    alias: "grapeFruit1",
-    style: 'grapeFruit1'
-  }, {
-    label: '　',
-    alias: "grapeFruit2",
-    style: 'grapeFruit2'
-  }, {
-    label: '　',
-    alias: "bitterSweet1",
-    style: 'bitterSweet1'
-  }, {
-    label: '　',
-    alias: "bitterSweet2",
-    style: 'bitterSweet2'
-  }, {
-    label: '　',
-    alias: "sunFlower1",
-    style: 'sunFlower1'
-  }, {
-    label: '　',
-    alias: "sunFlower2",
-    style: 'sunFlower2'
-  }, {
-    label: '　',
-    alias: "grass1",
-    style: 'grass1'
-  }, {
-    label: '　',
-    alias: "grass2",
-    style: 'grass2'
-  }, {
-    label: '　',
-    alias: "mint1",
-    style: 'mint1'
-  }, {
-    label: '　',
-    alias: "mint2",
-    style: 'mint2'
-  }, {
-    label: '　',
-    alias: "aqua1",
-    style: 'aqua1'
-  }, {
-    label: '　',
-    alias: "aqua2",
-    style: 'aqua2'
-  }, {
-    label: '　',
-    alias: "blueJeans1",
-    style: 'blueJeans1'
-  }, {
-    label: '　',
-    alias: "blueJeans2",
-    style: 'blueJeans2'
-  }, {
-    label: '　',
-    alias: "lavander1",
-    style: 'lavander1'
-  }, {
-    label: '　',
-    alias: "lavander2",
-    style: 'lavander2'
-  }, {
-    label: '　',
-    alias: "mediumGray1",
-    style: 'mediumGray1'
-  }, {
-    label: '　',
-    alias: "mediumGray2",
-    style: 'mediumGray2'
-  }, {
-    label: '　',
-    alias: "darkGray1",
-    style: 'darkGray1'
-  }, {
-    label: '　',
-    alias: "darkGray2",
-    style: 'darkGray2'
-  }
-];
-
 const ColorControls = (props) => {
-  var currentStyle = props.editorState.getCurrentInlineStyle();
+  let currentStyle = props.editorState.getCurrentInlineStyle();
+  let COLORS = Object.keys(colorStyleMap).map(item => {
+    return {label: '　', alias: item, style: item}
+  });
   return (
     <div className="RichEditor-controls" style={{
       paddingRight: "20px"

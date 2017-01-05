@@ -1,0 +1,16 @@
+[ignore]
+.*/node_modules/
+.*/build/.*
+.*/.idea/.*
+.*/.git/.*
+.*/.global/.*
+
+[include]
+./src/editor/utils
+
+[libs]
+./node_modules/flow-bin/
+
+[options]
+module.system=haste
+esproposal.class_static_fields=enable

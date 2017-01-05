@@ -19,8 +19,8 @@ export default class ImageSpan extends Component {
       width,
       height
     };
-    this._onHover=this._onHover.bind(this);
-    this._onDoubleClick=this._onDoubleClick.bind(this);
+    this.onHover=this._onHover.bind(this);
+    this.onDoubleClick=this._onDoubleClick.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +65,7 @@ export default class ImageSpan extends Component {
     //<tips> {imageStyle.width&&imageStyle.height?`宽${imageStyle.width}px；高${imageStyle.height}px`:""}</tips>
     return (
       <figure className="editor-inline-image">
-        <img src={`${src}`} className="media-image" onClick={(event)=>{this._onHover(event);event.stopPropagation();}} onDoubleClick={this._onDoubleClick}/>
+        <img src={`${src}`} className="media-image" onClick={(event)=>{this.onHover(event);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
       </figure>
     );
   }
@@ -78,7 +78,7 @@ export default class ImageSpan extends Component {
       console.log("pictureSrc",pictureSrc);
       // currentPicture.src="http://www.cbinews.com/article/image/20161027/20161027091805_674.png"
   }
-  _onHover(e){
+  _onHover(e:any){
     let currentPicture=ReactDom.findDOMNode(this).querySelector("img");
     let pictureWidth=currentPicture.naturalWidth;
       console.log("pictureWidth：",pictureWidth);
