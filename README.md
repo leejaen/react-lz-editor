@@ -48,6 +48,7 @@ ReactDOM.render(
 
 # API:
 
+
   | 配置项 | 类型 | 默认值 | 说明 |  
   | -- | -- | -- | -- |  
   | active | bool | false | 有更新时是否刷新 |  
