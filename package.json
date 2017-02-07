@@ -1,16 +1,36 @@
 {
-  "name": "qlyd_cms",
+  "name": "react-lz-editor",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An open source react editor based on draft-Js and ant design.",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "typecheck": "flow",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build"
+    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build",
+    "release": "webpack -p --progress --colors --config webpack.release.config.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/leejaen/react-lz-editor.git"
+  },
+  "keywords": [
+    "react-editor",
+    "draft-js",
+    "draftjs",
+    "react-rich-editor",
+    "react-text-editor",
+    "react-lz-editor",
+    "contenteditable",
+    "richtext",
+    "editor"
+  ],
   "author": "leejaen@gmail.com",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leejaen/react-lz-editor/issues"
+  },
+  "homepage": "https://github.com/leejaen/react-lz-editor#readme",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.4",
@@ -19,6 +39,8 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "css-loader": "^0.23.1",
+    "eslint": "^3.12.2",
+    "eslint-plugin-react": "^6.8.0",
     "file-loader": "^0.8.5",
     "flow-bin": "^0.37.4",
     "less": "^2.7.1",
@@ -37,13 +59,5 @@
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "synthetic-dom": "^0.2.1"
-  },
-  "keywords": [
-    "draft-js",
-    "react-editor"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:leejaen/react-lz-editor.git"
   }
 }
