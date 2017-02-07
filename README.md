@@ -48,24 +48,24 @@ ReactDOM.render(
 
 # API:
 
-| 配置项 | 类型 | 默认值 | 说明 |
-| -- | -- | -- | -- |
-| active | bool | false | 有更新时是否刷新 |
-| HtmlContent | string | "" | 编辑器显示内容 |
-| cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
-| UndoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
-| RemoveStyle | bool | true | 是否启用移除格式功能，默认启用 |
-| PasteNoStyle | bool | true | 是否启用文本粘贴功能，默认启用 |
-| BlockStyle | bool | true | 是否启用段落样式设置功能（H1、列表、区段等），默认启用 |
-| Alignment | bool | true | 是否启用文本对齐设置功能，默认启用 |
-| InlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
-| Color | bool | true | 是否启用文字颜色设置功能，默认启用 |
-| Image | bool | true | 是否启用图片上传后插入功能，默认启用 |
-| Video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
-| Url | bool | true | 是否启用添加删除链接功能，默认启用 |
-| AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
-| FullScreen | bool | true | 是否启用全屏功能，默认启用 |
-| uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
+  | 配置项 | 类型 | 默认值 | 说明 |
+  | -- | -- | -- | -- |
+  | active | bool | false | 有更新时是否刷新 |
+  | HtmlContent | string | "" | 编辑器显示内容 |
+  | cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
+  | UndoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
+  | RemoveStyle | bool | true | 是否启用移除格式功能，默认启用 |
+  | PasteNoStyle | bool | true | 是否启用文本粘贴功能，默认启用 |
+  | BlockStyle | bool | true | 是否启用段落样式设置功能（H1、列表、区段等），默认启用 |
+  | Alignment | bool | true | 是否启用文本对齐设置功能，默认启用 |
+  | InlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
+  | Color | bool | true | 是否启用文字颜色设置功能，默认启用 |
+  | Image | bool | true | 是否启用图片上传后插入功能，默认启用 |
+  | Video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
+  | Url | bool | true | 是否启用添加删除链接功能，默认启用 |
+  | AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
+  | FullScreen | bool | true | 是否启用全屏功能，默认启用 |
+  | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
 
 
 # QA:
