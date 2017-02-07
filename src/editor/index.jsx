@@ -817,4 +817,5 @@ EditorConcist.defaultProps = {
   AutoSave: true,
   FullScreen:true,
 };
+// export default EditorConcist;
 module.exports = EditorConcist;

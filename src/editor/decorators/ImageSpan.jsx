@@ -19,7 +19,7 @@ export default class ImageSpan extends Component {
       width,
       height
     };
-    this.onHover=this._onHover.bind(this);
+    this.onImageClick=this._onImageClick.bind(this);
     this.onDoubleClick=this._onDoubleClick.bind(this);
   }
 
@@ -46,7 +46,8 @@ export default class ImageSpan extends Component {
   render() {
     const {width, height} = this.state;
     //let {className} = this.props;
-    const entity = Entity.get(this.props.entityKey);
+    let key=this.props.entityKey;
+    const entity = Entity.get(key);
     const {src} = entity.getData();
     //console.log("styles.root: ", styles.root); className = cx(className, styles.root);
     const imageStyle = {
@@ -64,9 +65,7 @@ export default class ImageSpan extends Component {
     // onClick={this._onClick}           >   {this.props.children} </span>   );
     //<tips> {imageStyle.width&&imageStyle.height?`宽${imageStyle.width}px；高${imageStyle.height}px`:""}</tips>
     return (
-      <figure className="editor-inline-image">
-        <img src={`${src}`} className="media-image" onClick={(event)=>{this.onHover(event);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
-      </figure>
+        <img src={`${src}`} className="media-image" onClick={(event)=>{this.onImageClick(event,key);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
     );
   }
 
@@ -78,10 +77,17 @@ export default class ImageSpan extends Component {
       console.log("pictureSrc",pictureSrc);
       // currentPicture.src="http://www.cbinews.com/article/image/20161027/20161027091805_674.png"
   }
-  _onHover(e:any){
+  _onImageClick(e:any,key){
     let currentPicture=ReactDom.findDOMNode(this).querySelector("img");
     let pictureWidth=currentPicture.naturalWidth;
-      console.log("pictureWidth：",pictureWidth);
+    // console.log("this.props",this.props);
+    // console.log("this.state.editorState",this.state.editorState);
+    // console.log("key",key);
+    // console.log("pictureWidth：",pictureWidth);
+    //
+    // const {editorState} = props;
+    // const selection = editorState.getSelection();
+
     if (pictureWidth==0) {
       message.error("图片地址错误！")
     }else if(pictureWidth>650) {
