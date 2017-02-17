@@ -3,7 +3,7 @@
 // import autobind from 'class-autobind';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
-import {Entity} from 'draft-js';
+import {Entity,EditorState} from 'draft-js';
 import {message} from 'antd';
 
 // $FlowIssue - Flow doesn't understand CSS Modules
@@ -17,7 +17,8 @@ export default class ImageSpan extends Component {
     const {width, height} = entity.getData();
     this.state = {
       width,
-      height
+      height,
+      imageSrc:''
     };
     this.onImageClick=this._onImageClick.bind(this);
     this.onDoubleClick=this._onDoubleClick.bind(this);
@@ -28,7 +29,8 @@ export default class ImageSpan extends Component {
     const entity = Entity.get(this.props.entityKey);
     const image = new Image();
     const {src} = entity.getData();
-    image.src = src;
+    this.setState({imageSrc:src});
+    image.src = this.state.imageSrc;
     image.onload = () => {
       if (width == null || height == null) {
         // TODO: isMounted?
@@ -49,10 +51,11 @@ export default class ImageSpan extends Component {
     let key=this.props.entityKey;
     const entity = Entity.get(key);
     const {src} = entity.getData();
+    // this.setState({imageSrc:src});
     //console.log("styles.root: ", styles.root); className = cx(className, styles.root);
     const imageStyle = {
       verticalAlign: 'bottom',
-      backgroundImage: `url("${src}")`,
+      backgroundImage: `url("${this.state.imageSrc}")`,
       backgroundSize: `${width}px ${height}px`,
       lineHeight: `${height}px`,
       fontSize: `${height}px`,
@@ -65,7 +68,9 @@ export default class ImageSpan extends Component {
     // onClick={this._onClick}           >   {this.props.children} </span>   );
     //<tips> {imageStyle.width&&imageStyle.height?`宽${imageStyle.width}px；高${imageStyle.height}px`:""}</tips>
     return (
-        <img src={`${src}`} className="media-image" onClick={(event)=>{this.onImageClick(event,key);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
+      <div className="editor-inline-image" onClick={this._onClick}>
+        <img src={`${this.state.imageSrc}`} className="media-image" onClick={(event)=>{this.onImageClick(event,key);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
+      </div>
     );
   }
 
@@ -79,19 +84,25 @@ export default class ImageSpan extends Component {
   }
   _onImageClick(e:any,key){
     let currentPicture=ReactDom.findDOMNode(this).querySelector("img");
+      console.log("currentPicture:",currentPicture.src);
     let pictureWidth=currentPicture.naturalWidth;
-    // console.log("this.props",this.props);
-    // console.log("this.state.editorState",this.state.editorState);
-    // console.log("key",key);
-    // console.log("pictureWidth：",pictureWidth);
-    //
-    // const {editorState} = props;
-    // const selection = editorState.getSelection();
+    console.log("this",this);
+    console.log("this.props.children[0].key",this.props.children[0].key);
+    console.log("this.state.editorState",EditorState);
+    console.log("key",key);
+    console.log("pictureWidth：",pictureWidth);
 
+const editorState=EditorState.createEmpty();
+    const selection = editorState.getSelection();
+    console.log("selection",selection);
+    const blockTree = editorState.getBlockTree(this.props.children[0].key);
+    console.log("blockTree",blockTree);
+
+    this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
     if (pictureWidth==0) {
       message.error("图片地址错误！")
     }else if(pictureWidth>650) {
-      message.error("图片尺寸过大将会导致用户流量浪费！请调整至最大650px。",10)
+      message.error("图片尺寸过大将会导致用户流量浪费！请调整至最大650px。",10);
     }
   }
 

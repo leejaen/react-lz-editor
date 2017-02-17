@@ -20,7 +20,8 @@ import {
   ContentState,
   getDefaultKeyBinding,
   KeyBindingUtil,
-  DraftPasteProcessor
+  DraftPasteProcessor,
+  SelectionState
 } from 'draft-js';
 import {
   Upload,
@@ -35,6 +36,8 @@ import {
   Tooltip
 } from 'antd';
 import {stateToHTML,stateFromHTML} from './utils';
+
+import getSelectedBlocks from './utils/stateUtils/getSelectedBlocks';
 // import {stateFromHTML} from 'draft-js-import-html';
 import {PRO_COMMON} from 'publicDatas';
 import LinkDecorator from "./decorators/LinkDecorator";
@@ -44,6 +47,7 @@ import AudioDecorator from "./decorators/AudioDecorator";
 import ImgStyleControls from "./toolBar/mediaImageUploader"
 import VideoStyleControls from "./toolBar/medioVideoUploader"
 import AudioStyleControls from "./toolBar/medioAudioUploader"
+import ColorControls from "./toolBar/colorControls"
 import AutoSaveControls from "./toolBar/autoSaveList"
 import StyleButton from "./toolBar/styleButton"
 import BlockStyleControls from "./toolBar/blockStyleControls"
@@ -51,8 +55,9 @@ import AlignmentControls from "./toolBar/alignmentControls"
 import InlineStyleControls from "./toolBar/inlineStyleControls"
 import PasteNoStyleControls from "./toolBar/pasteNoStyleControls"
 import {AddUrl,CloseUrl} from "./toolBar/urlControls"
+import {OpenFull,AutoSave} from "./toolBar/cookieControls"
 import RemoveStyleControls from "./toolBar/removeStyleControls"
-import ColorButton from "./toolBar/colorButton"
+import UndoRedo from "./toolBar/undoredoControls"
 import {colorStyleMap} from "./utils/colorConfig"
 import ExtendedRichUtils from "./utils/ExtendedRichUtils"
 import _ from "lodash";
@@ -60,10 +65,6 @@ class EditorConcist extends React.Component {
   constructor(props) {
     super(props);
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      },
       LinkDecorator,
       ImageDecorator,
       VideoDecorator,
@@ -148,10 +149,6 @@ class EditorConcist extends React.Component {
   componentDidMount() {
      let content = (this.state.HtmlContent);
     // const decorator = new CompositeDecorator([
-    //   {
-    //     strategy: findLinkEntities,
-    //     component: Link
-    //   },
     //   LinkDecorator,
     //   ImageDecorator
     // ]);
@@ -177,10 +174,6 @@ class EditorConcist extends React.Component {
       newContent = "<h1>空内容</h1>";
     }
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      },
       LinkDecorator,
       ImageDecorator,
       VideoDecorator,
@@ -287,7 +280,7 @@ _openFull(e){
 }
   //弹窗url，end
   _handleKeyCommand(command) {
-    // console.log("command",command);
+    console.log("command",command);
     const {editorState} = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (command === 'editor-save'&&this.props.AutoSave==true) {
@@ -366,10 +359,6 @@ _openFull(e){
     }
     this.state.hasPasted=true;
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      },
       LinkDecorator,
       ImageDecorator,
       VideoDecorator,
@@ -455,10 +444,6 @@ _openFull(e){
     text='<p>' + text.replace(/\n([ \t]*\n)+/g, '</p><p>')
                  .replace('\n', '<br />') + '</p>'
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      },
       LinkDecorator,
       ImageDecorator,
       VideoDecorator,
@@ -500,10 +485,6 @@ _openFull(e){
   }
   _choiceAutoSave(savedHtmlContent){
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      },
       LinkDecorator,
       ImageDecorator,
       VideoDecorator,
@@ -576,7 +557,7 @@ _openFull(e){
     return (
       <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
         <Affix offsetTop={0} id="text-editor-affix">
-          {this.props.UndoRedo&&<UndoRedoControls onToggle={this.undoRedo}/>}
+          {this.props.UndoRedo&&<UndoRedo onToggle={this.undoRedo}/>}
           {this.props.RemoveStyle&&<RemoveStyleControls onToggle={this.removeStyle}/>}
           {this.props.PasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle}/>}
           {this.props.BlockStyle&&<BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType}/>}
@@ -611,48 +592,6 @@ _openFull(e){
     );
   }
 }
-function findLinkEntities(contentBlock, callback) {
-  contentBlock.findEntityRanges((character) => {
-    const entityKey = character.getEntity();
-    // console.log("33333333333entityKey", entityKey);
-    return (entityKey !== null && Entity.get(entityKey).getType() === 'LINK');
-  }, callback);
-}
-
-const Link = (props) => {
-  const {url} = Entity.get(props.entityKey).getData();
-  let currentStyle = props.editorState
-    ? props.editorState.getCurrentInlineStyle()
-    : {};
-  return (
-    <a href={url} style={!!currentStyle.link
-      ? currentStyle.link
-      : {}}>
-      {props.children}
-    </a>
-  );
-};
-let i=1;
-const OpenFull =(props)=>{
-    return (
-    <div className="RichEditor-controls">
-      <span className="RichEditor-styleButton" onClick={props.onToggle}>
-        {
-          props.coverTitle
-        }
-      </span>
-    </div>
-    )
-}
-const AutoSave = (props) => {
-  return (
-    <div className="RichEditor-controls">
-      <span className="RichEditor-styleButton" onClick={props.onToggle}>
-        自动保存库
-      </span>
-    </div>
-  )
-};
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -697,19 +636,6 @@ function getBlockStyle(block) {
   // console.log("getBlockStyle mergedStyle",mergedStyle)
   return mergedStyle;
 }
-const UndoRedoControls = (props) => {
-  let className = 'RichEditor-styleButton';
-  return (
-    <div className="RichEditor-controls">
-      <span className='RichEditor-styleButton' onClick={()=>props.onToggle("undo")}>
-        <Icon key="_undo" type="editor_undo" />
-      </span>
-      <span className='RichEditor-styleButton' onClick={()=>props.onToggle("redo")}>
-        <Icon key="_redo" type="editor_redo" />
-      </span>
-    </div>
-  )
-}
 
 function mediaBlockRenderer(block) {
   // console.log("block",block); console.log("1111111block.getType() ",block.getType());
@@ -749,27 +675,6 @@ const Media = (props) => {
     media = <Video src={src}/>;
   }
   return media;
-};
-const ColorControls = (props) => {
-  let currentStyle = props.editorState.getCurrentInlineStyle();
-  let COLORS = Object.keys(colorStyleMap).map(item => {
-    return {label: '　', alias: item, style: item}
-  });
-  return (
-    <div className="RichEditor-controls" style={{
-      paddingRight: "20px"
-    }}>
-      {COLORS.map((type, i) => <ColorButton
-        active={currentStyle.has(type.style)}
-        label={type.label}
-        onToggle={props.onToggle}
-        style={type.style}
-        key={i}
-        split={((i == COLORS.length - 1)
-        ? "|"
-        : "")}/>)}
-    </div>
-  );
 };
 
 EditorConcist.propTypes = {

@@ -1,5 +1,3 @@
 
-module.exports = {
-  LzEditor: require('./editor/index.jsx'),
-};
-// export {EditorConcist as LzEditor} from './editor/index.jsx';
+module.exports = require('./editor/index');
+exports.LzEditor = require('./editor/index');

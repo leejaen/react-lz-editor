@@ -1,3 +1,4 @@
-module.exports = {
-  LzEditor: require('./dist/main.js'),
-};
+'use strict';
+
+module.exports = require('./editor/index');
+exports.LzEditor = require('./editor/index');
