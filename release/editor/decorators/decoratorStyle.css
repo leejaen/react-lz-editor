@@ -1,0 +1,70 @@
+.root {
+  background-repeat: no-repeat;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.resize {
+  border: 1px dashed #78a300;
+  position: relative;
+  max-width: 100%;
+  display: inline-block;
+  line-height: 0;
+  top: -1px;
+  left: -1px
+}
+
+.resizeHandle {
+  cursor: nwse-resize;
+  position: absolute;
+  z-index: 2;
+  line-height: 1;
+  bottom: -4px;
+  right: -5px;
+  border: 1px solid white;
+  background-color: #78a300;
+  width: 8px;
+  height: 8px;
+}
+figure{
+  text-align: center;
+  overflow: hidden;
+}
+figure video {
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 200px;
+    min-height: 200px;
+}
+figure img,
+figure video,
+figure audio {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.editor-inline-image,
+.editor-inline-video,
+.editor-inline-audio
+ {
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%!important;
+}
+.editor-inline-image:hover,
+.editor-inline-video:hover,
+.editor-inline-audio:hover{
+  background-color:#f7f7f7
+
+}
+.editor-inline-image span,
+.editor-inline-video span,
+.editor-inline-audio span {
+  font-size: 0px;
+  color: rgba(0, 0, 0, 0);
+  position: absolute;
+  left: -10000px
+}

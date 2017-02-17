@@ -20,6 +20,20 @@ function Link(props_: Props): React.Element {
   return (
     <a href={url}>{props_.children}</a>
   );
+
+
+
+    // const {url} = Entity.get(props.entityKey).getData();
+    // let currentStyle = props.editorState
+    //   ? props.editorState.getCurrentInlineStyle()
+    //   : {};
+    // return (
+    //   <a href={url} style={!!currentStyle.link
+    //     ? currentStyle.link
+    //     : {}}>
+    //     {props.children}
+    //   </a>
+    // );
 }
 
 function findLinkEntities(contentBlock: ContentBlock, callback: EntityRangeCallback) {
