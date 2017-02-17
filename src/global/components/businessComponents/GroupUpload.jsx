@@ -191,7 +191,7 @@ class GroupUpload extends Component {
     this.setState({showPictureSeletor: false});
   }
   componentWillReceiveProps(prevProps,nextProps){
-    console.log("nextProps",nextProps)
+    // console.log("nextProps",nextProps)
     if (!!nextProps&&nextProps.hasOwnProperty("imageList")) {
       this.setState({pictureList:nextProps.imageList,selectedPictureList: _.cloneDeep(nextProps.imageList)});
     }else {

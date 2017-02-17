@@ -1,9 +1,9 @@
-
-.editorHidden{
+.editorHidden {
   z-index: 10;
   overflow: hidden;
   position: relative;
 }
+
 .editor_container {
   border: 1px solid #E9E9E9;
   background-color: #F9F9F9;
@@ -30,6 +30,15 @@
   color: #999;
   font-style: italic;
   text-align: center;
+}
+/*.public-DraftEditor-content>div>div>div>div:before{content:"¶"}*/
+.editor-inline-image img,
+.editor-inline-video video,
+.editor-inline-audio audio {
+  padding: 0 5px;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .RichEditor-root {
@@ -151,6 +160,7 @@
 .RichEditor-styleButton i.anticon {
   margin-left: 0px !important;
 }
+
 .RichEditor-activeButton {
   color: #fff;
   background-color: #57c5f7;
