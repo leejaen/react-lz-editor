@@ -72,7 +72,8 @@
 
 
   ```
-  ![示例](https://image.qiluyidian.mobi/54541628992197066868.png)
+
+![示例](https://image.qiluyidian.mobi/54541628992197066868.png)
 
 # API:
 | 配置项 | 类型 | 默认值 | 说明 |
