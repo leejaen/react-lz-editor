@@ -94,4 +94,5 @@
 | AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | FullScreen | bool | true | 是否启用全屏功能，默认启用 |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
+
 # QA:
