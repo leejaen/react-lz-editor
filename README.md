@@ -75,7 +75,6 @@
   ![示例](https://image.qiluyidian.mobi/54541628992197066868.png)
 
 # API:
-
 | 配置项 | 类型 | 默认值 | 说明 |
 | -- | -- | -- | -- |
 | active | bool | false | 有更新时是否刷新 |
@@ -94,5 +93,4 @@
 | AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | FullScreen | bool | true | 是否启用全屏功能，默认启用 |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
-
 # QA:
