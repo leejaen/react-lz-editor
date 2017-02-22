@@ -8,7 +8,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _antd = require('antd');
 
-var _businessComponents = require('businessComponents');
+var _businessComponents = require('../../global/components/businessComponents');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

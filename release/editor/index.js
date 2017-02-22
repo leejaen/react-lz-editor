@@ -4,7 +4,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 require('./components.css');
 
-require('resources/system.less');
+require('../global/supports/resources/system.less');
 
 require('antd/dist/antd.css');
 
