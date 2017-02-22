@@ -1,0 +1,44 @@
+.openFullAll {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow: auto;
+}
+
+.watermark_grid {
+  display: block;
+  position: absolute;
+  top: 0;
+  background-repeat: no-repeat;
+}
+
+.watermark_grid span {
+  display: inline-block;
+  border: 1px dashed rgba(255, 255, 255, .2);
+  cursor: pointer;
+}
+
+.editor-inline-image tips {
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  color: #aaa;
+}
+
+.breakImages>div {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  background-clip: content-box;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #E9E9E9;
+  border-radius: 3px;
+  overflow: hidden;
+}
