@@ -10,7 +10,7 @@ import {
   Tooltip,
   Icon
 } from 'antd';
-import {UploadImage,GroupUpload} from 'businessComponents';
+import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
 /*视频音频图片*/
 class ImgStyleControls extends Component {
   constructor(props) {

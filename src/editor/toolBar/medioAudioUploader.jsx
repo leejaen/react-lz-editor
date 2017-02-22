@@ -10,7 +10,7 @@ import {
   Tooltip,
   Icon
 } from 'antd';
-import {UploadImage} from 'businessComponents';
+import {UploadImage} from '../../global/components/businessComponents';
 class AudioStyleControls extends Component {
   constructor(props) {
     super(props);
