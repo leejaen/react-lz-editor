@@ -10,11 +10,11 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   entry: [
-    path.resolve('', 'src/editor/index.jsx')
+    path.resolve('', 'src/test.jsx')
   ],
   output: {
     path: __dirname + '/release/dist',
-    filename: 'main.js',
+    filename: 'bundle.js',
     chunkFilename: '[id].[chunkhash:4].js'
   },
   module: {
