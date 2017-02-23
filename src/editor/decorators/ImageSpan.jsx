@@ -92,13 +92,12 @@ export default class ImageSpan extends Component {
     console.log("key",key);
     console.log("pictureWidth：",pictureWidth);
 
-const editorState=EditorState.createEmpty();
+    const editorState=EditorState.createEmpty();
     const selection = editorState.getSelection();
     console.log("selection",selection);
     const blockTree = editorState.getBlockTree(this.props.children[0].key);
     console.log("blockTree",blockTree);
-
-    this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
+    // this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
     if (pictureWidth==0) {
       message.error("图片地址错误！")
     }else if(pictureWidth>650) {

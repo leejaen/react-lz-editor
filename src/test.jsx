@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {LzEditor} from './index'
+// import {LzEditor} from './index'
+import LzEditor from './editor/index.jsx'
 class Test extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,6 @@ class Test extends React.Component {
                   <li><span style="color:#434a54">list 1</span></li>
                   <li><span style="color:#434a54">list 2</span></li>
                   <li><span style="color:#434a54">list 3</span></li>
-                  <li><span style="color:#434a54">......</span></li>
                 </ul>
                 <pre><code>Block here.Block here.Block here.Block here.</code></pre>
                 <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>
@@ -50,7 +50,9 @@ class Test extends React.Component {
       HtmlContent={this.state.content}
       cbReceiver={this.receiveHtml}
       uploadConfig={uploadConfig}
-      FullScreen={false}/>
+      Image={false}
+      Video={false}
+      Audio={false}/>
   }
 }
 

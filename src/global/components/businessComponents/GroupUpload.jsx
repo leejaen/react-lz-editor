@@ -31,7 +31,6 @@ class GroupUpload extends Component {
 
     this.getPfop=this.getPfop.bind(this);
     this.getPfopPictures=this.getPfopPictures.bind(this);
-    this.gotPfopPictures=this.gotPfopPictures.bind(this);
   }
   onAutoSizeChange(e){
     this.setState({onAutoSizeChange: e.target.checked});
@@ -108,9 +107,9 @@ class GroupUpload extends Component {
                             +"/image/"
                             +(_.find(PRO_BASE.Config.watermarkImage,item=>item.type==this.state.selectedWaterMarkType).valuebase64)
                             +"/dx/50/dy/50",
-          "newName": (~ originKey.lastIndexOf("qn1d")
+          "newName": (~ originKey.lastIndexOf("QN1D")
             ? (originKey)
-            : (originKey + "qn1d" + new Date().getMilliseconds()+"bHplZGl0b3I="))+(extensionName||""),
+            : (originKey + "QN1D" + new Date().getMilliseconds()+(this.state.selectedWaterMarkPositon)))+(extensionName||""),
           "key": originKey,
           "extensionName":extensionName
         }
@@ -123,7 +122,7 @@ class GroupUpload extends Component {
     // console.log("newPicturesObj b",newPicturesObj);
     let refObj=_.clone(newPicturesObj);
     _.remove(newPicturesObj,item=>{return !item.originPic});
-    let removedPic=_.remove(newPicturesObj,item=>{return !!~item.originPic.lastIndexOf("qn1d")});
+    let removedPic=_.remove(newPicturesObj,item=>{return !!~item.originPic.lastIndexOf("QN1D")});
     // console.log("getPfop removedPic",removedPic);
     if (newPicturesObj.length>0) {
       this.getPfopPictures(newPicturesObj);
