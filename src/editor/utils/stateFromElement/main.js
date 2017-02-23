@@ -8,7 +8,7 @@ import {
   Entity,
   genKey,
 } from 'draft-js';
-import {List, Map, OrderedSet, Repeat, Seq} from 'immutable';
+import {List, OrderedSet, Repeat, Seq} from 'immutable';
 import {BLOCK_TYPE, ENTITY_TYPE, INLINE_STYLE} from '../stateUtils/main';
 import {NODE_TYPE_ELEMENT, NODE_TYPE_TEXT} from 'synthetic-dom';
 import {colorStyleMap} from "../colorConfig"
@@ -30,7 +30,7 @@ type TextFragment = {
   text: string;
   characterMeta: CharacterMetaSeq;
 };
-type BlockData = {[key: string]: mixed};
+
 // A ParsedBlock has two purposes:
 //   1) to keep data about the block (textFragments, type)
 //   2) to act as some context for storing parser state as we parse its contents
@@ -43,15 +43,12 @@ type ParsedBlock = {
   styleStack: Array<StyleSet>;
   entityStack: Array<?Entity>;
   depth: number;
-  data: ?BlockData;
 };
 
 type ElementStyles = {[tagName: string]: Style};
 
 type Options = {
   elementStyles?: ElementStyles;
-  blockTypes?: {[key: string]: string};
-  customBlockFn?: (element: DOMElement) => ?{type?: string, data?: BlockData};
 };
 
 const NO_STYLE = OrderedSet();
@@ -225,10 +222,6 @@ class BlockGenerator {
   }
 
   getBlockTypeFromTagName(tagName: string): string {
-    let {blockTypes} = this.options;
-    if (blockTypes && blockTypes[tagName]) {
-      return blockTypes[tagName];
-    }
     switch (tagName) {
       case 'li': {
         let parent = this.blockStack.slice(-1)[0];
@@ -270,10 +263,6 @@ class BlockGenerator {
   }
 
   processBlockElement(element: DOMElement) {
-    if (!element) {
-      return;
-    }
-    let {customBlockFn} = this.options;
     let tagName = element.nodeName.toLowerCase();
     let type = this.getBlockTypeFromTagName(tagName);
     let hasDepth = canHaveDepth(type);
@@ -327,7 +316,7 @@ class BlockGenerator {
       Array.from(element.childNodes).forEach(this.processNode, this);
     }
     if (SELF_CLOSING_ELEMENTS.hasOwnProperty(tagName)) {
-      this.processText('\u00A0');
+      this.processText('~');
     }
     block.entityStack.pop();
     block.styleStack.pop();
@@ -499,6 +488,6 @@ function addStyleFromTagName(styleSet: StyleSet, tagName: string, elementStyles?
 
 export default function stateFromElement(element: DOMElement, options?: Options): ContentState {
   let blocks = new BlockGenerator(options).process(element);
-  // console.log("blocks",JSON.stringify(blocks));
+  console.log("blocks",JSON.stringify(blocks));
   return ContentState.createFromBlockArray(blocks);
 }
