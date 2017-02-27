@@ -8,7 +8,7 @@ import {
   Table,
   Icon
 } from 'antd';
-import {PRO_COMMON} from 'publicDatas';
+import {PRO_COMMON} from '../../global/supports/publicDatas';
 class AutoSaveControls extends Component {
   constructor(props) {
     super(props);

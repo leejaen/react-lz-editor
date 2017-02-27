@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {Button, Modal,Select, Checkbox,message} from 'antd';
 // import {connect} from 'react-redux';
 import UploadImage from './UploadImage';
-import { PRO_REQUEST } from 'publicDatas';
+import { PRO_REQUEST,PRO_BASE } from '../../supports/publicDatas';
+// import {PRO_COMMON} from '../../supports/publicDatas';
 // import {getPfopPictures} from "rootActions";
 // import {Base64} from "js-base64";
-import {PRO_BASE} from 'publicDatas'
 import _ from 'lodash'
 class GroupUpload extends Component {
   constructor(props) {

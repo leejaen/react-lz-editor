@@ -39,7 +39,7 @@ import {stateToHTML,stateFromHTML} from './utils';
 
 import getSelectedBlocks from './utils/stateUtils/getSelectedBlocks';
 // import {stateFromHTML} from 'draft-js-import-html';
-import {PRO_COMMON} from 'publicDatas';
+import {PRO_COMMON} from '../global/supports/publicDatas';
 import LinkDecorator from "./decorators/LinkDecorator";
 import ImageDecorator from "./decorators/ImageDecorator";
 import VideoDecorator from "./decorators/VideoDecorator";
