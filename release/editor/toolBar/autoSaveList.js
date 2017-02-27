@@ -8,7 +8,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _antd = require('antd');
 
-var _publicDatas = require('publicDatas');
+var _publicDatas = require('../../global/supports/publicDatas');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

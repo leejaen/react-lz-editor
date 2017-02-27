@@ -26,7 +26,7 @@ var _getSelectedBlocks = require('./utils/stateUtils/getSelectedBlocks');
 
 var _getSelectedBlocks2 = _interopRequireDefault(_getSelectedBlocks);
 
-var _publicDatas = require('publicDatas');
+var _publicDatas = require('../global/supports/publicDatas');
 
 var _LinkDecorator = require('./decorators/LinkDecorator');
 

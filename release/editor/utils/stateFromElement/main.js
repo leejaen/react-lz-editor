@@ -215,11 +215,6 @@ var BlockGenerator = function () {
   }, {
     key: 'getBlockTypeFromTagName',
     value: function getBlockTypeFromTagName(tagName) {
-      var blockTypes = this.options.blockTypes;
-
-      if (blockTypes && blockTypes[tagName]) {
-        return blockTypes[tagName];
-      }
       switch (tagName) {
         case 'li':
           {
@@ -271,16 +266,11 @@ var BlockGenerator = function () {
   }, {
     key: 'processBlockElement',
     value: function processBlockElement(element) {
-      if (!element) {
-        return;
-      }
-      var customBlockFn = this.options.customBlockFn;
-
       var tagName = element.nodeName.toLowerCase();
       var type = this.getBlockTypeFromTagName(tagName);
       var hasDepth = canHaveDepth(type);
       var allowRender = !SPECIAL_ELEMENTS.hasOwnProperty(tagName);
-      var blockData = new _immutable.Map();
+      var blockData = new Map();
       if (element.style.textAlign) {
         blockData.set("textAlignment", element.style.textAlign);
       }
@@ -330,7 +320,7 @@ var BlockGenerator = function () {
         Array.from(element.childNodes).forEach(this.processNode, this);
       }
       if (SELF_CLOSING_ELEMENTS.hasOwnProperty(tagName)) {
-        this.processText('\xA0');
+        this.processText('~');
       }
       block.entityStack.pop();
       block.styleStack.pop();
@@ -368,12 +358,12 @@ var BlockGenerator = function () {
     key: 'processNode',
     value: function processNode(node) {
       if (node.nodeType === _syntheticDom.NODE_TYPE_ELEMENT) {
-        var _element = node;
-        var _tagName = _element.nodeName.toLowerCase();
+        var element = node;
+        var _tagName = element.nodeName.toLowerCase();
         if (INLINE_ELEMENTS.hasOwnProperty(_tagName)) {
-          this.processInlineElement(_element);
+          this.processInlineElement(element);
         } else {
-          this.processBlockElement(_element);
+          this.processBlockElement(element);
         }
       } else if (node.nodeType === _syntheticDom.NODE_TYPE_TEXT) {
         this.processTextNode(node);
@@ -531,6 +521,6 @@ function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
 
 function stateFromElement(element, options) {
   var blocks = new BlockGenerator(options).process(element);
-  // console.log("blocks",JSON.stringify(blocks));
+  console.log("blocks", JSON.stringify(blocks));
   return _draftJs.ContentState.createFromBlockArray(blocks);
 }

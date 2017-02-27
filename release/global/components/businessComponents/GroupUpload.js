@@ -14,7 +14,7 @@ var _UploadImage = require('./UploadImage');
 
 var _UploadImage2 = _interopRequireDefault(_UploadImage);
 
-var _publicDatas = require('publicDatas');
+var _publicDatas = require('../../supports/publicDatas');
 
 var _lodash = require('lodash');
 
@@ -29,6 +29,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import {connect} from 'react-redux';
 
+// import {PRO_COMMON} from '../../supports/publicDatas';
 // import {getPfopPictures} from "rootActions";
 // import {Base64} from "js-base64";
 
@@ -62,7 +63,6 @@ var GroupUpload = function (_Component) {
 
     _this.getPfop = _this.getPfop.bind(_this);
     _this.getPfopPictures = _this.getPfopPictures.bind(_this);
-    _this.gotPfopPictures = _this.gotPfopPictures.bind(_this);
     return _this;
   }
 
@@ -160,7 +160,7 @@ var GroupUpload = function (_Component) {
             "originPic": item + "?" + thumbnail + "watermark/1/gravity/" + _this3.state.selectedWaterMarkPositon + "/image/" + _lodash2.default.find(_publicDatas.PRO_BASE.Config.watermarkImage, function (item) {
               return item.type == _this3.state.selectedWaterMarkType;
             }).valuebase64 + "/dx/50/dy/50",
-            "newName": (~originKey.lastIndexOf("qn1d") ? originKey : originKey + "qn1d" + new Date().getMilliseconds() + "bHplZGl0b3I=") + (extensionName || ""),
+            "newName": (~originKey.lastIndexOf("QN1D") ? originKey : originKey + "QN1D" + new Date().getMilliseconds() + _this3.state.selectedWaterMarkPositon) + (extensionName || ""),
             "key": originKey,
             "extensionName": extensionName
           };
@@ -176,7 +176,7 @@ var GroupUpload = function (_Component) {
         return !item.originPic;
       });
       var removedPic = _lodash2.default.remove(newPicturesObj, function (item) {
-        return !!~item.originPic.lastIndexOf("qn1d");
+        return !!~item.originPic.lastIndexOf("QN1D");
       });
       // console.log("getPfop removedPic",removedPic);
       if (newPicturesObj.length > 0) {

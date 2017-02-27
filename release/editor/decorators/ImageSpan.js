@@ -161,8 +161,7 @@ var ImageSpan = function (_Component) {
       console.log("selection", selection);
       var blockTree = editorState.getBlockTree(this.props.children[0].key);
       console.log("blockTree", blockTree);
-
-      this.setState({ imageSrc: "https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg" });
+      // this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
       if (pictureWidth == 0) {
         _antd.message.error("图片地址错误！");
       } else if (pictureWidth > 650) {

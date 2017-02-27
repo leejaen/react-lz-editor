@@ -11,9 +11,9 @@
 //import PRO_QINIU from 'methods/public';
 //module.exports = {PRO_RELEASE, PRO_MENU, PRO_URL, PRO_USER, PRO_DOM_HELPER, PRO_REQUEST, PRO_COMMON, PRO_QINIU};
 module.exports = {
-    PRO_BASE: require('datas/base'),
-    PRO_URL: require('datas/url'),
-    PRO_REQUEST: require('methods/Request'),
-    PRO_COMMON: require('methods/common'),
-    PRO_QINIU: require('methods/public')
+    PRO_BASE: require('./datas/base'),
+    PRO_URL: require('./datas/url'),
+    PRO_REQUEST: require('./methods/Request'),
+    PRO_COMMON: require('./methods/common'),
+    PRO_QINIU: require('./methods/public')
 };
