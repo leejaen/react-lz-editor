@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Upload, Button, Icon, message} from 'antd';
-import {PRO_URL, PRO_REQUEST, PRO_QINIU, PRO_COMMON} from 'publicDatas';
+import {PRO_URL, PRO_REQUEST, PRO_QINIU, PRO_COMMON} from '../../supports/publicDatas';
 import _ from "lodash";
 
 /*
