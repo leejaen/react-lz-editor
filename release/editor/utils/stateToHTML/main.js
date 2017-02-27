@@ -516,32 +516,13 @@ var MarkupGenerator = function () {
                   content = '<' + element + attrString + '>' + content + '</' + element + '>';
 
                   Object.keys(_colorConfig.colorStyleMap).map(function (keyItem) {
-                    if (!!keyItem && style.has(keyItem)) {
+                    if (!!keyItem && style && style.has(keyItem)) {
                       content = '<span style="color:' + _colorConfig.colorStyleMap[keyItem].color + '">' + content + '</span>';
                     }
                   });
                 })();
               }
             }
-
-            // if (style.has(BOLD)) {
-            //   content = `<strong>${content}</strong>`;
-            // }
-            // if (style.has(UNDERLINE)) {
-            //   content = `<ins>${content}</ins>`;
-            // }
-            // if (style.has(ITALIC)) {
-            //   content = `<em>${content}</em>`;
-            // }
-            // if (style.has(STRIKETHROUGH)) {
-            //   content = `<del>${content}</del>`;
-            // }
-            // if (style.has(CODE)) {
-            //   // If our block type is CODE then we are already wrapping the whole
-            //   // block in a `<code>` so don't wrap inline code elements.
-            //   content = (blockType === BLOCK_TYPE.CODE) ? content : `<code>${content}</code>`;
-            // }
-
           } catch (err) {
             _didIteratorError7 = true;
             _iteratorError7 = err;

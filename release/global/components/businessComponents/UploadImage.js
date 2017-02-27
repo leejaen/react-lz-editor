@@ -8,7 +8,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _antd = require('antd');
 
-var _publicDatas = require('publicDatas');
+var _publicDatas = require('../../supports/publicDatas');
 
 var _lodash = require('lodash');
 
