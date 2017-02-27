@@ -181,3 +181,4 @@
 .RichEditor-color-active {}
 
 .RichEditor-color:nth-child(2n+1) {}
+#text-editor-affix>.ant-affix{background-color:#fff!important;}
