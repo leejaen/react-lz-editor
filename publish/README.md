@@ -2,7 +2,9 @@
     An open source rich react editor based on draft-Js and ant design.
     一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器。
 ## Live demo
-    [https://leejaen.github.io/](https://leejaen.github.io/)
+
+[Live demo](https://leejaen.github.io/)
+
     因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了。
 
 # Install
