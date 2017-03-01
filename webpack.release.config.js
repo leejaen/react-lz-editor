@@ -13,7 +13,7 @@ module.exports = {
     path.resolve('', 'src/test.jsx')
   ],
   output: {
-    path: __dirname + '/release/dist',
+    path: __dirname + '/release',
     filename: 'bundle.js',
     chunkFilename: '[id].[chunkhash:4].js'
   },
