@@ -2,7 +2,7 @@
  * Created by lizhen on 4/26/2016.
  */
 import './components.css'
-import '../global/supports/resources/system.less';
+import '../global/supports/resources/system.css';
 import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';

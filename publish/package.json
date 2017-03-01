@@ -1,6 +1,6 @@
 {
   "name": "react-lz-editor",
-  "version": "0.9.16",
+  "version": "0.9.18",
   "description": "An open source rich react editor based on draft-Js and ant design.",
   "main": "index.js",
   "scripts": {

@@ -6,7 +6,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //import {PRO_URL} from 'datas/url.jsx';
 
 
-var _common = require('./common.jsx');
+var _common = require('./common');
 
 var _common2 = _interopRequireDefault(_common);
 
