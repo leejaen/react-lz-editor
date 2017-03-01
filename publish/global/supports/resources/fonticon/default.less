@@ -1,0 +1,137 @@
+
+.iconfont-mixin() {
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+  text-align: center;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+  //font-size:16px;
+  &:before {
+    display: block;
+    font-family: "anticon" !important;
+  }
+}
+// font-face
+// @icon-url-customize： 字体源文件的地址
+@icon-url-customize               : "./default/iconfont";
+// ICONFONT
+@iconfont-css-prefix    : anticon;
+@font-face {
+  font-family: 'anticon';
+  src: url('@{icon-url-customize}.eot'); /* IE9*/
+  src: url('@{icon-url-customize}.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('@{icon-url-customize}.woff') format('woff'), /* chrome、firefox */
+  url('@{icon-url-customize}.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('@{icon-url-customize}.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.@{iconfont-css-prefix} {
+  .iconfont-mixin();
+}
+
+.ant-calendar .ant-calendar-clear-btn:after{content:"\ea0d";}//覆盖时间选择器的清空按钮
+.@{iconfont-css-prefix}-circles:before                     {content:"\e991";}
+.@{iconfont-css-prefix}-circle:before                     {content:"\e992";}
+.@{iconfont-css-prefix}-post:before                    {content:"\e995";}
+.@{iconfont-css-prefix}-result:before                    {content:"\e994";}
+.@{iconfont-css-prefix}-comment:before                    {content:"\e996";}
+.@{iconfont-css-prefix}-offline:before                    {content:"\e997";}
+.@{iconfont-css-prefix}-goods:before                    {content:"\e998";}
+.@{iconfont-css-prefix}-action:before                    {content:"\e999";}
+.@{iconfont-css-prefix}-shop:before                    {content:"\ea01";}
+.@{iconfont-css-prefix}-brand:before                    {content:"\ea02";}
+.@{iconfont-css-prefix}-serial:before                    {content:"\ea03";}
+.@{iconfont-css-prefix}-discover-post:before                    {content:"\ea04";}
+.@{iconfont-css-prefix}-refine-post:before                    {content:"\ea05";}
+.@{iconfont-css-prefix}-gallery:before                    {content:"\ea06";}
+.@{iconfont-css-prefix}-userinfo:before                    {content:"\ea07";}
+.@{iconfont-css-prefix}-log:before                    {content:"\ea08";}
+.@{iconfont-css-prefix}-password:before                    {content:"\ea09";}
+.@{iconfont-css-prefix}-order:before                    {content:"\ea10";}
+.@{iconfont-css-prefix}-remove:before                    {content:"\ea0a";}
+.@{iconfont-css-prefix}-dropdown:before                    {content:"\ea0b";}
+.@{iconfont-css-prefix}-sort:before                    {content:"\ea0c";}
+.@{iconfont-css-prefix}-panorama_time:before                    {content:"\ea16";}
+.@{iconfont-css-prefix}-panorama_joinuser:before                    {content:"\ea18";}
+.@{iconfont-css-prefix}-panorama_joindevice:before                    {content:"\ea19";}
+.@{iconfont-css-prefix}-panorama_app:before                    {content:"\ea1a";}
+.@{iconfont-css-prefix}-panorama_today:before                    {content:"\ea12";}
+.@{iconfont-css-prefix}-panorama_version:before                    {content:"\ea14";}
+.@{iconfont-css-prefix}-panorama_newboot:before                    {content:"\ea13";}
+.@{iconfont-css-prefix}-panorama:before                    {content:"\ea15";}
+.@{iconfont-css-prefix}-panorama_device:before                    {content:"\ea17";}
+.@{iconfont-css-prefix}-panorama_action:before                    {content:"\ea11";}
+.@{iconfont-css-prefix}-jiangpai:before                    {content:"\ea1b";}
+.@{iconfont-css-prefix}-system:before                    {content:"\ea1c";}
+.@{iconfont-css-prefix}-permission:before                    {content:"\ea1d";}
+.@{iconfont-css-prefix}-permission_actions:before                    {content:"\ea20";}
+.@{iconfont-css-prefix}-permission_set:before                    {content:"\ea1e";}
+.@{iconfont-css-prefix}-permission_add:before                    {content:"\ea22";}
+.@{iconfont-css-prefix}-permission_mine:before                    {content:"\ea1f";}
+.@{iconfont-css-prefix}-dev:before                    {content:"\ea21";}
+.@{iconfont-css-prefix}-dev_app:before                    {content:"\ea23";}
+.@{iconfont-css-prefix}-news:before                    {content:"\ea2a";}
+.@{iconfont-css-prefix}-news_channel:before                    {content:"\ea27";}
+.@{iconfont-css-prefix}-news_comment:before                    {content:"\ea29";}
+.@{iconfont-css-prefix}-news_verify:before                    {content:"\ea26";}
+.@{iconfont-css-prefix}-news_city:before                    {content:"\ea25";}
+.@{iconfont-css-prefix}-news_recycle:before                    {content:"\ea24";}
+.@{iconfont-css-prefix}-news_draft:before                    {content:"\ea2b";}
+.@{iconfont-css-prefix}-news_grab:before                    {content:"\ea2c";}
+.@{iconfont-css-prefix}-biguser:before                    {content:"\ea2d";}
+.@{iconfont-css-prefix}-biguser_type:before                    {content:"\ea2e";}
+.@{iconfont-css-prefix}-biguser_item:before                    {content:"\ea2f";}
+.@{iconfont-css-prefix}-biguser_article:before                    {content:"\ea30";}
+.@{iconfont-css-prefix}-biguser_verify:before                    {content:"\ea31";}
+.@{iconfont-css-prefix}-news_gallery:before                    {content:"\ea39";}
+.@{iconfont-css-prefix}-permission_add:before                    {content:"\ea35";}
+.@{iconfont-css-prefix}-permission_mine:before                    {content:"\ea32";}
+.@{iconfont-css-prefix}-permission_department:before                    {content:"\ea37";}
+.@{iconfont-css-prefix}-permission_user:before                    {content:"\ea36";}
+.@{iconfont-css-prefix}-channel_management:before                    {content:"\ea33";}
+.@{iconfont-css-prefix}-user_update:before                    {content:"\ea38";}
+.@{iconfont-css-prefix}-app_client:before                    {content:"\ea40";}
+.@{iconfont-css-prefix}-start_page:before                    {content:"\ea41";}
+.@{iconfont-css-prefix}-hot_word:before                    {content:"\ea42";}
+.@{iconfont-css-prefix}-sensitive_word:before                    {content:"\ea43";}
+.@{iconfont-css-prefix}-appuser_score:before                    {content:"\ea44";}
+.@{iconfont-css-prefix}-panorama_tap:before                    {content:"\ea45";}
+.@{iconfont-css-prefix}-appuser:before                    {content:"\ea46";}
+.@{iconfont-css-prefix}-panorama_news:before                    {content:"\ea47";}
+.@{iconfont-css-prefix}-update_password:before                    {content:"\ea48";}
+.@{iconfont-css-prefix}-editor_undo:before                    {content:"\eb01";}
+.@{iconfont-css-prefix}-editor_redo:before                    {content:"\eb02";}
+.@{iconfont-css-prefix}-editor_empty_style:before                    {content:"\eb03";}
+.@{iconfont-css-prefix}-editor_paset_text:before                    {content:"\eb04";}
+.@{iconfont-css-prefix}-editor_H1:before                    {content:"\eb05";}
+.@{iconfont-css-prefix}-editor_H2:before                    {content:"\eb06";}
+.@{iconfont-css-prefix}-editor_H3:before                    {content:"\eb07";}
+.@{iconfont-css-prefix}-editor_H4:before                    {content:"\eb08";}
+.@{iconfont-css-prefix}-editor_refs:before                    {content:"\eb09";}
+.@{iconfont-css-prefix}-editor_ul:before                    {content:"\eb10";}
+.@{iconfont-css-prefix}-editor_ol:before                    {content:"\eb11";}
+.@{iconfont-css-prefix}-editor_pre:before                    {content:"\eb12";}
+.@{iconfont-css-prefix}-editor_b:before                    {content:"\eb13";}
+.@{iconfont-css-prefix}-editor_i:before                    {content:"\eb14";}
+.@{iconfont-css-prefix}-editor_u:before                    {content:"\eb15";}
+.@{iconfont-css-prefix}-editor_e:before                    {content:"\eb16";}
+.@{iconfont-css-prefix}-editor_image_masker:before                    {content:"\eb17";}
+.@{iconfont-css-prefix}-editor_image:before                    {content:"\eb18";}
+.@{iconfont-css-prefix}-editor_video:before                    {content:"\eb19";}
+.@{iconfont-css-prefix}-editor_audio:before                    {content:"\eb20";}
+.@{iconfont-css-prefix}-editor_link:before                    {content:"\eb21";}
+.@{iconfont-css-prefix}-editor_unlink:before                    {content:"\eb22";}
+.@{iconfont-css-prefix}-editor_safty:before                    {content:"\eb23";}
+.@{iconfont-css-prefix}-editor_full_screen:before                    {content:"\eb24";}
+.@{iconfont-css-prefix}-news_radar:before                    { content: "\ea49"; }
+.@{iconfont-css-prefix}-news_radar_list:before                    { content: "\ea50"; }
+.@{iconfont-css-prefix}-news_radar_comment:before                    { content: "\ea51"; }
+.@{iconfont-css-prefix}-news_fast_push:before                    { content: "\ea52"; }
+.@{iconfont-css-prefix}-editor_alignment_justify:before                    { content: "\ea53"; }
+.@{iconfont-css-prefix}-editor_alignment_left:before                    { content: "\ea54"; }
+.@{iconfont-css-prefix}-editor_alignment_right:before                    { content: "\ea55"; }
+.@{iconfont-css-prefix}-editor_alignment_center:before                    { content: "\ea56"; }
+.@{iconfont-css-prefix}-editor_alignment_center:before                    { content: "\ea56"; }
+.@{iconfont-css-prefix}-editor_select_block:before                    { content: "\eaa2"; }
