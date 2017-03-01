@@ -118,8 +118,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Created by lizhen on 4/26/2016.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
-// import '../global/supports/resources/system.less';
-
 // import {stateFromHTML} from 'draft-js-import-html';
 
 

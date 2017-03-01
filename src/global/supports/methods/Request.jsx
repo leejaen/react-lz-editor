@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/4/27.
  */
 //import {PRO_URL} from 'datas/url.jsx';
-import PRO_COMMON from './common.jsx';
+import PRO_COMMON from './common';
 import {message} from 'antd';
 import 'whatwg-fetch' // 可以引入fetch来进行Ajax
 module.exports = {
