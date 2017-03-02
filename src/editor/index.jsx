@@ -3,7 +3,7 @@
  */
 import './components.css'
 import '../global/supports/resources/system.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import {
@@ -99,7 +99,7 @@ class EditorConcist extends React.Component {
       })()
     };
 
-    this.focus = () => this.refs.editor.focus();
+    // this.focus = () => this.refs.editor.focus();//使用babel转码之后不是react组件不能用refs方式
     this.onChange = (editorState) => {
       this.setState({editorState});
       let that = this;
@@ -212,9 +212,9 @@ class EditorConcist extends React.Component {
         urlValue: '',
         visible: true
       }, () => {
-        setTimeout(() => {
-          ReactDom.findDOMNode(that.refs.urltext).focus();
-        }, 0);
+        // setTimeout(() => {
+        //     ReactDom.findDOMNode(that.refs.urltext).focus();//使用babel转码之后不是react组件不能用refs方式
+        // }, 0);
       });
     } else {
       message.error("创建链接前请先选中链接文字！", 5);
@@ -230,7 +230,9 @@ class EditorConcist extends React.Component {
       showURLInput: false,
       urlValue: ''
     }, () => {
-      setTimeout(() => this.refs.editor.focus(), 0);
+      setTimeout(() => {
+        // this.refs.editor.focus()//使用babel转码之后不是react组件不能用refs方式
+      }, 0);
     });
   }
 
@@ -525,6 +527,7 @@ _openFull(e){
 
   render() {
     let urlInput;
+    // ref="urltext"
     if (this.state.showURLInput) {
       urlInput = <Modal
         title="请输出你要跳转的链接"
@@ -536,7 +539,6 @@ _openFull(e){
           type="text"
           onChange={this.onURLChange}
           value={this.state.urlValue}
-          ref="urltext"
           placeholder="http:// or https://"
           onKeyDown={this.onLinkInputKeyDown}/>
         <span style={{color:"red"}}>请输入符合规范的网址链接（以“http://” 或 “https://”为前导）</span>
@@ -584,12 +586,12 @@ _openFull(e){
             keyBindingFn={this.customKeyBinding}
             onChange={this.onChange}
             handlePastedText={this.handlePastedText}
-            ref="editor"
             spellCheck={true}/>
         </div>
         {urlInput}
       </div>
     );
+    // ref="editor"
   }
 }
 

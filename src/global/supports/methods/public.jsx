@@ -3,7 +3,7 @@
  * From Public function doing
  */
 import {ajax as AJAX} from './Request';
-import {QINIU_IMG_TOKEN_URL, QINIU_MANAGE_TOKEN_URL, QINIU_VIDEO_TOKEN_URL, QINIU_FILE_TOKEN_URL} from 'datas/url.jsx';
+import {QINIU_IMG_TOKEN_URL, QINIU_MANAGE_TOKEN_URL, QINIU_VIDEO_TOKEN_URL, QINIU_FILE_TOKEN_URL} from '../datas/url';
 module.exports = {
     supportMime: {
         image: [
