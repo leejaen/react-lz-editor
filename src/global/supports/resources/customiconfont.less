@@ -31,6 +31,9 @@
   .iconfont-mixin();
 }
 
+.RichEditor-activeButton {
+  background-color: @primary-color;//使用antd主色覆盖编辑器主色 https://github.com/leejaen/react-lz-editor/issues/10
+}
 .ant-calendar .ant-calendar-clear-btn:after{content:"\ea0d";}//覆盖时间选择器的清空按钮
 .@{iconfont-css-prefix}-circles:before                     {content:"\e991";}
 .@{iconfont-css-prefix}-circle:before                     {content:"\e992";}

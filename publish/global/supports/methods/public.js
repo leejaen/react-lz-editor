@@ -2,7 +2,7 @@
 
 var _Request = require('./Request');
 
-var _url = require('datas/url.jsx');
+var _url = require('../datas/url');
 
 /**
  * Created by Administrator on 2016/5/5.

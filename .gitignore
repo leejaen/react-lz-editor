@@ -1,7 +1,7 @@
 .idea/
 build/*
 dist/*
-production/*
+release/*
 node_modules/*
 npm-debug.log
 webpack.config.js

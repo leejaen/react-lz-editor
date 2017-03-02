@@ -1,6 +1,6 @@
 {
   "name": "react-lz-editor",
-  "version": "0.9.18",
+  "version": "0.9.22",
   "description": "An open source rich react editor based on draft-Js and ant design.",
   "main": "index.js",
   "scripts": {
@@ -37,13 +37,10 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "antd": "^2.5.3",
     "draft-js": "^0.10.0",
     "immutable": "^3.8.1",
 	  "js-base64": "^2.1.9",
     "lodash": "^4.17.3",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
     "synthetic-dom": "^0.2.1"
   },
   "author": "leejaen@gmail.com",
