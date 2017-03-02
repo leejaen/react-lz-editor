@@ -38,7 +38,7 @@ var StyleButton = function (_React$Component) {
 
       var className = 'RichEditor-styleButton';
       if (this.props.active) {
-        className += ' RichEditor-activeButton';
+        className += ' RichEditor-activeButton ant-btn ant-btn-primary ant-btn-icon-only ';
       }
 
       return _react2.default.createElement(

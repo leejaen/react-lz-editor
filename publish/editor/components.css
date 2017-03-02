@@ -147,6 +147,9 @@
   line-height: 20px;
   font-size: 16px;
 }
+.RichEditor-styleButton.ant-btn.ant-btn-primary.ant-btn-icon-only{
+  color: #fff;
+}
 
 .RichEditor-styleButton i.anticon {
   margin-left: 0px !important;
