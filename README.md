@@ -4,11 +4,11 @@
 ## Live demo
 
 [Live demo](https://leejaen.github.io/)
-	
+
     因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了。
 
 # Install
-    npm install react-lz-editor --save
+    npm install antd react-lz-editor --save
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
