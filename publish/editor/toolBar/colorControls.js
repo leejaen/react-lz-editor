@@ -6,9 +6,9 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ColorButton = require("./ColorButton");
+var _colorButton = require("./colorButton");
 
-var _ColorButton2 = _interopRequireDefault(_ColorButton);
+var _colorButton2 = _interopRequireDefault(_colorButton);
 
 var _colorConfig = require("../utils/colorConfig");
 
@@ -44,7 +44,7 @@ var ColorControls = function (_Component) {
             paddingRight: "20px"
           } },
         COLORS.map(function (type, i) {
-          return _react2.default.createElement(_ColorButton2.default, {
+          return _react2.default.createElement(_colorButton2.default, {
             active: currentStyle.has(type.style),
             label: type.label,
             onToggle: _this2.props.onToggle,

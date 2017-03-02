@@ -6,8 +6,6 @@ require('./components.css');
 
 require('../global/supports/resources/system.css');
 
-require('antd/dist/antd.css');
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -118,6 +116,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Created by lizhen on 4/26/2016.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+// import 'antd/dist/antd.css';
+
 // import {stateFromHTML} from 'draft-js-import-html';
 
 
@@ -158,9 +158,7 @@ var EditorConcist = function (_React$Component) {
       }()
     };
 
-    _this.focus = function () {
-      return _this.refs.editor.focus();
-    };
+    // this.focus = () => this.refs.editor.focus();//使用babel转码之后不是react组件不能用refs方式
     _this.onChange = function (editorState) {
       _this.setState({ editorState: editorState });
       var that = _this;
@@ -283,27 +281,23 @@ var EditorConcist = function (_React$Component) {
   }, {
     key: '_promptForLink',
     value: function _promptForLink(e) {
-      var _this3 = this;
-
       e.preventDefault();
       var editorState = this.state.editorState;
 
       var selection = editorState.getSelection();
       // console.log("111111selection", selection)
       if (!selection.isCollapsed()) {
-        (function () {
 
-          var that = _this3;
-          _this3.setState({
-            showURLInput: true,
-            urlValue: '',
-            visible: true
-          }, function () {
-            setTimeout(function () {
-              _reactDom2.default.findDOMNode(that.refs.urltext).focus();
-            }, 0);
-          });
-        })();
+        var that = this;
+        this.setState({
+          showURLInput: true,
+          urlValue: '',
+          visible: true
+        }, function () {
+          // setTimeout(() => {
+          //     ReactDom.findDOMNode(that.refs.urltext).focus();//使用babel转码之后不是react组件不能用refs方式
+          // }, 0);
+        });
       } else {
         _antd.message.error("创建链接前请先选中链接文字！", 5);
       }
@@ -311,8 +305,6 @@ var EditorConcist = function (_React$Component) {
   }, {
     key: '_confirmLink',
     value: function _confirmLink(e) {
-      var _this4 = this;
-
       // console.log("_confirmLink urlValue", urlValue)
       var _state = this.state;
       var editorState = _state.editorState;
@@ -325,7 +317,7 @@ var EditorConcist = function (_React$Component) {
         urlValue: ''
       }, function () {
         setTimeout(function () {
-          return _this4.refs.editor.focus();
+          // this.refs.editor.focus()//使用babel转码之后不是react组件不能用refs方式
         }, 0);
       });
     }
@@ -644,6 +636,7 @@ var EditorConcist = function (_React$Component) {
       var _React$createElement;
 
       var urlInput = void 0;
+      // ref="urltext"
       if (this.state.showURLInput) {
         urlInput = _react2.default.createElement(
           _antd.Modal,
@@ -657,7 +650,6 @@ var EditorConcist = function (_React$Component) {
             type: 'text',
             onChange: this.onURLChange,
             value: this.state.urlValue,
-            ref: 'urltext',
             placeholder: 'http:// or https://',
             onKeyDown: this.onLinkInputKeyDown }),
           _react2.default.createElement(
@@ -709,10 +701,11 @@ var EditorConcist = function (_React$Component) {
             editorState: this.state.editorState,
             blockStyleFn: getBlockStyle,
             customStyleMap: styleMap
-          }, _defineProperty(_React$createElement, 'customStyleMap', _colorConfig.colorStyleMap), _defineProperty(_React$createElement, 'editorState', editorState), _defineProperty(_React$createElement, 'handleKeyCommand', this.handleKeyCommand), _defineProperty(_React$createElement, 'keyBindingFn', this.customKeyBinding), _defineProperty(_React$createElement, 'onChange', this.onChange), _defineProperty(_React$createElement, 'handlePastedText', this.handlePastedText), _defineProperty(_React$createElement, 'ref', 'editor'), _defineProperty(_React$createElement, 'spellCheck', true), _React$createElement))
+          }, _defineProperty(_React$createElement, 'customStyleMap', _colorConfig.colorStyleMap), _defineProperty(_React$createElement, 'editorState', editorState), _defineProperty(_React$createElement, 'handleKeyCommand', this.handleKeyCommand), _defineProperty(_React$createElement, 'keyBindingFn', this.customKeyBinding), _defineProperty(_React$createElement, 'onChange', this.onChange), _defineProperty(_React$createElement, 'handlePastedText', this.handlePastedText), _defineProperty(_React$createElement, 'spellCheck', true), _React$createElement))
         ),
         urlInput
       );
+      // ref="editor"
     }
   }]);
 

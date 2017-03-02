@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "typecheck": "flow",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build && lessc src/global/supports/resources/system.less src/global/supports/resources/system.css",
     "release": "webpack -p --progress --colors --config webpack.release.config.js",
     "publish": "babel -d publish/ src/ && lessc src/global/supports/resources/system.less publish/global/supports/resources/system.css"
   },
@@ -58,8 +58,8 @@
     "immutable": "^3.8.1",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.3",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "synthetic-dom": "^0.2.1"
   }
 }

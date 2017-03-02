@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ColorButton from "./ColorButton"
+import ColorButton from "./colorButton"
 import {colorStyleMap} from "../utils/colorConfig"
 class ColorControls extends Component {
   constructor(props) {
