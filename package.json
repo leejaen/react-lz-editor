@@ -58,8 +58,8 @@
     "immutable": "^3.8.1",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.3",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^0.14.8",
+    "react-dom": "^15.4.2",
     "synthetic-dom": "^0.2.1"
   }
 }

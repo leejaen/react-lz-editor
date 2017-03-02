@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _CSSProperty = require('react/lib/CSSProperty');
+var _CSSProperty = require('react-dom/lib/CSSProperty');
 
 var VENDOR_PREFIX = /^(moz|ms|o|webkit)-/;
 
