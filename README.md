@@ -9,6 +9,8 @@
 
 # Install
     npm install antd react-lz-editor --save
+    
+    Version note: React-lz-editor 0.9.25+ is matched react 15.4.2+ and react-dom 15.4.2+.
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
