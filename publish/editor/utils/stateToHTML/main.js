@@ -8,29 +8,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _DEFAULT_STYLE_MAP, _ENTITY_ATTR_MAP, _DATA_TO_ATTR;
+var _ENTITY_ATTR_MAP, _DATA_TO_ATTR;
 
 exports.default = stateToHTML;
-
-var _combineOrderedStyles3 = require('../stateUtils/combineOrderedStyles');
-
-var _combineOrderedStyles4 = _interopRequireDefault(_combineOrderedStyles3);
-
-var _normalizeAttributes = require('../stateUtils/normalizeAttributes');
-
-var _normalizeAttributes2 = _interopRequireDefault(_normalizeAttributes);
-
-var _styleToCSS = require('../stateUtils/styleToCSS');
-
-var _styleToCSS2 = _interopRequireDefault(_styleToCSS);
 
 var _draftJs = require('draft-js');
 
 var _main = require('../stateUtils/main');
 
 var _colorConfig = require('../colorConfig');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -45,13 +31,6 @@ var UNDERLINE = _main.INLINE_STYLE.UNDERLINE;
 
 var INDENT = '  ';
 var BREAK = '<br>';
-var DATA_ATTRIBUTE = /^data-([a-z0-9-]+)$/;
-
-var DEFAULT_STYLE_MAP = (_DEFAULT_STYLE_MAP = {}, _defineProperty(_DEFAULT_STYLE_MAP, BOLD, { element: 'strong' }), _defineProperty(_DEFAULT_STYLE_MAP, CODE, { element: 'code' }), _defineProperty(_DEFAULT_STYLE_MAP, ITALIC, { element: 'em' }), _defineProperty(_DEFAULT_STYLE_MAP, STRIKETHROUGH, { element: 'del' }), _defineProperty(_DEFAULT_STYLE_MAP, UNDERLINE, { element: 'ins' }), _DEFAULT_STYLE_MAP);
-
-// Order: inner-most style to outer-most.
-// Examle: <em><strong>foo</strong></em>
-var DEFAULT_STYLE_ORDER = [BOLD, ITALIC, UNDERLINE, STRIKETHROUGH, CODE];
 
 // Map entity data to element attributes.
 var ENTITY_ATTR_MAP = (_ENTITY_ATTR_MAP = {}, _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.LINK, { url: 'href', rel: 'rel', target: 'target', title: 'title', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.IMAGE, { src: 'src', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.VIDEO, { src: 'src', controls: 'controls', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.AUDIO, { src: 'src', controls: 'controls', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _ENTITY_ATTR_MAP);
@@ -239,27 +218,12 @@ function getWrapperTag(blockType) {
 }
 
 var MarkupGenerator = function () {
-  // These are related to state.
-  function MarkupGenerator(contentState, options) {
+  function MarkupGenerator(contentState) {
     _classCallCheck(this, MarkupGenerator);
 
-    if (options == null) {
-      options = {};
-    }
     this.contentState = contentState;
-    this.options = options;
-
-    var _combineOrderedStyles = (0, _combineOrderedStyles4.default)(options.inlineStyles, [DEFAULT_STYLE_MAP, DEFAULT_STYLE_ORDER]);
-
-    var _combineOrderedStyles2 = _slicedToArray(_combineOrderedStyles, 2);
-
-    var inlineStyles = _combineOrderedStyles2[0];
-    var styleOrder = _combineOrderedStyles2[1];
-
-    this.inlineStyles = inlineStyles;
-    this.styleOrder = styleOrder;
   }
-  // These are related to user-defined options.
+  // These are related to state.
 
 
   _createClass(MarkupGenerator, [{
@@ -280,8 +244,6 @@ var MarkupGenerator = function () {
   }, {
     key: 'processBlock',
     value: function processBlock() {
-      var blockRenderers = this.options.blockRenderers;
-
       var block = this.blocks[this.currentBlock];
       var blockType = block.getType();
       var blockData = block.getData();
@@ -295,20 +257,7 @@ var MarkupGenerator = function () {
         }
       }
       this.indent();
-
-      // Allow blocks to be rendered using a custom renderer.
-      var customRenderer = blockRenderers != null && blockRenderers.hasOwnProperty(blockType) ? blockRenderers[blockType] : null;
-      var customRendererOutput = customRenderer ? customRenderer(block) : null;
-      // Renderer can return null, which will cause processing to continue as normal.
-      if (customRendererOutput != null) {
-        this.output.push(customRendererOutput);
-        this.output.push('\n');
-        this.currentBlock += 1;
-        return;
-      }
-
-      this.writeStartTag(block, blockData);
-
+      this.writeStartTag(blockType, blockData);
       this.output.push(this.renderBlockContent(block));
       // Look ahead and see if we will nest list.
       var nextBlock = this.getNextBlock();
@@ -327,7 +276,7 @@ var MarkupGenerator = function () {
       } else {
         this.currentBlock += 1;
       }
-      this.writeEndTag(block);
+      this.writeEndTag(blockType);
     }
   }, {
     key: 'processBlocksAtDepth',
@@ -346,25 +295,8 @@ var MarkupGenerator = function () {
     }
   }, {
     key: 'writeStartTag',
-    value: function writeStartTag(block, blockData) {
-      var tags = getTags(block.getType());
-
-      var attrString = "";
-      if (this.options.blockStyleFn) {
-        var _ref = this.options.blockStyleFn(block) || {};
-
-        var _attributes = _ref.attributes;
-        var _style = _ref.style;
-        // Normalize `className` -> `class`, etc.
-
-        _attributes = (0, _normalizeAttributes2.default)(_attributes);
-        if (_style != null) {
-          var styleAttr = (0, _styleToCSS2.default)(_style);
-          _attributes = _attributes == null ? { style: styleAttr } : Object.assign({}, _attributes, { style: styleAttr });
-        }
-        attrString = stringifyAttrs(_attributes);
-      }
-
+    value: function writeStartTag(blockType, blockData) {
+      var tags = getTags(blockType);
       var blockStyle = "",
           blockAlign = blockData.get("textAlignment");
       if (blockAlign) {
@@ -378,7 +310,7 @@ var MarkupGenerator = function () {
         for (var _iterator5 = tags[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
           var tag = _step5.value;
 
-          this.output.push('<' + tag + ' ' + attrString + '> ' + (blockStyle ? " style='" + blockStyle + "'" : ""));
+          this.output.push('<' + tag + ' ' + (blockStyle ? " style='" + blockStyle + "'" : "") + '>');
         }
       } catch (err) {
         _didIteratorError5 = true;
@@ -397,8 +329,8 @@ var MarkupGenerator = function () {
     }
   }, {
     key: 'writeEndTag',
-    value: function writeEndTag(block) {
-      var tags = getTags(block.getType());
+    value: function writeEndTag(blockType) {
+      var tags = getTags(blockType);
       if (tags.length === 1) {
         this.output.push('</' + tags[0] + '>\n');
       } else {
@@ -459,8 +391,6 @@ var MarkupGenerator = function () {
   }, {
     key: 'renderBlockContent',
     value: function renderBlockContent(block) {
-      var _this = this;
-
       var blockType = block.getType();
       var text = block.getText();
       if (text === '') {
@@ -470,74 +400,42 @@ var MarkupGenerator = function () {
       text = this.preserveWhitespace(text);
       var charMetaList = block.getCharacterList();
       var entityPieces = (0, _main.getEntityRanges)(text, charMetaList);
-      return entityPieces.map(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2);
+      return entityPieces.map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2);
 
-        var entityKey = _ref3[0];
-        var stylePieces = _ref3[1];
+        var entityKey = _ref2[0];
+        var stylePieces = _ref2[1];
 
-        var content = stylePieces.map(function (_ref4) {
-          var _ref5 = _slicedToArray(_ref4, 2);
+        var content = stylePieces.map(function (_ref3) {
+          var _ref4 = _slicedToArray(_ref3, 2);
 
-          var text = _ref5[0];
-          var styleSet = _ref5[1];
+          var text = _ref4[0];
+          var style = _ref4[1];
 
           var content = encodeContent(text);
-          var _iteratorNormalCompletion7 = true;
-          var _didIteratorError7 = false;
-          var _iteratorError7 = undefined;
-
-          try {
-            for (var _iterator7 = _this.styleOrder[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-              var _styleName = _step7.value;
-
-              // If our block type is CODE then don't wrap inline code elements.
-              // If our block type is CODE then don't wrap inline code elements.
-              if (_styleName === CODE && blockType === _main.BLOCK_TYPE.CODE) {
-                continue;
-              }
-              if (styleSet.has(_styleName)) {
-                (function () {
-                  var _inlineStyles$_styleN = _this.inlineStyles[_styleName];
-                  var element = _inlineStyles$_styleN.element;
-                  var attributes = _inlineStyles$_styleN.attributes;
-                  var style = _inlineStyles$_styleN.style;
-
-                  if (element == null) {
-                    element = 'span';
-                  }
-                  // Normalize `className` -> `class`, etc.
-                  attributes = (0, _normalizeAttributes2.default)(attributes);
-                  if (style != null) {
-                    var styleAttr = (0, _styleToCSS2.default)(style);
-                    attributes = attributes == null ? { style: styleAttr } : Object.assign({}, attributes, { style: styleAttr }); //{...attributes, style: styleAttr}
-                  }
-                  var attrString = stringifyAttrs(attributes);
-                  content = '<' + element + attrString + '>' + content + '</' + element + '>';
-
-                  Object.keys(_colorConfig.colorStyleMap).map(function (keyItem) {
-                    if (!!keyItem && style && style.has(keyItem)) {
-                      content = '<span style="color:' + _colorConfig.colorStyleMap[keyItem].color + '">' + content + '</span>';
-                    }
-                  });
-                })();
-              }
-            }
-          } catch (err) {
-            _didIteratorError7 = true;
-            _iteratorError7 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                _iterator7.return();
-              }
-            } finally {
-              if (_didIteratorError7) {
-                throw _iteratorError7;
-              }
-            }
+          // These are reverse alphabetical by tag name.
+          if (style.has(BOLD)) {
+            content = '<strong>' + content + '</strong>';
           }
-
+          if (style.has(UNDERLINE)) {
+            content = '<ins>' + content + '</ins>';
+          }
+          if (style.has(ITALIC)) {
+            content = '<em>' + content + '</em>';
+          }
+          if (style.has(STRIKETHROUGH)) {
+            content = '<del>' + content + '</del>';
+          }
+          Object.keys(_colorConfig.colorStyleMap).map(function (keyItem) {
+            if (!!keyItem && style.has(keyItem)) {
+              content = '<span style="color:' + _colorConfig.colorStyleMap[keyItem].color + '">' + content + '</span>';
+            }
+          });
+          if (style.has(CODE)) {
+            // If our block type is CODE then we are already wrapping the whole
+            // block in a `<code>` so don't wrap inline code elements.
+            content = blockType === _main.BLOCK_TYPE.CODE ? content : '<code>' + content + '</code>';
+          }
           return content;
         }).join('');
         var entity = entityKey ? _draftJs.Entity.get(entityKey) : null;
@@ -589,30 +487,30 @@ function stringifyAttrs(attrs) {
     return '';
   }
   var parts = [];
-  var _iteratorNormalCompletion8 = true;
-  var _didIteratorError8 = false;
-  var _iteratorError8 = undefined;
+  var _iteratorNormalCompletion7 = true;
+  var _didIteratorError7 = false;
+  var _iteratorError7 = undefined;
 
   try {
-    for (var _iterator8 = Object.keys(attrs)[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-      var name = _step8.value;
+    for (var _iterator7 = Object.keys(attrs)[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+      var attrKey = _step7.value;
 
-      var value = attrs[name];
-      if (value != null) {
-        parts.push(' ' + name + '="' + encodeAttr(value + '') + '"');
+      var attrValue = attrs[attrKey];
+      if (attrValue != null) {
+        parts.push(' ' + attrKey + '="' + encodeAttr(attrValue + '') + '"');
       }
     }
   } catch (err) {
-    _didIteratorError8 = true;
-    _iteratorError8 = err;
+    _didIteratorError7 = true;
+    _iteratorError7 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion8 && _iterator8.return) {
-        _iterator8.return();
+      if (!_iteratorNormalCompletion7 && _iterator7.return) {
+        _iterator7.return();
       }
     } finally {
-      if (_didIteratorError8) {
-        throw _iteratorError8;
+      if (_didIteratorError7) {
+        throw _iteratorError7;
       }
     }
   }
@@ -638,6 +536,6 @@ function encodeAttr(text) {
   return text.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
 }
 
-function stateToHTML(content, options) {
-  return new MarkupGenerator(content, options).generate();
+function stateToHTML(content) {
+  return new MarkupGenerator(content).generate();
 }
