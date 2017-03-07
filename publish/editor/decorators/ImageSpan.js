@@ -78,6 +78,7 @@ var ImageSpan = function (_Component) {
 
       var src = _entity$getData2.src;
 
+      src = src.replace(/[-?*!].*$/g, "");
       this.setState({ imageSrc: src });
       image.src = this.state.imageSrc;
       image.onload = function () {
