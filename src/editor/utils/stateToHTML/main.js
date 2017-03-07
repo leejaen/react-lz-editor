@@ -1,7 +1,5 @@
 /* @flow */
-import combineOrderedStyles from '../stateUtils/combineOrderedStyles';
-import normalizeAttributes from '../stateUtils/normalizeAttributes';
-import styleToCSS from '../stateUtils/styleToCSS';
+
 import {Entity} from 'draft-js';
 import {
   getEntityRanges,
@@ -14,27 +12,8 @@ import type {ContentState, ContentBlock, EntityInstance} from 'draft-js';
 import type {CharacterMetaList} from '../stateUtils/main';
 import {colorStyleMap} from "../colorConfig"
 
-type AttrMap = {[key: string]: string};
-type Attributes = {[key: string]: string};
-type StyleDescr = {[key: string]: number | string};
-
-type RenderConfig = {
-  element?: string;
-  attributes?: Attributes;
-  style?: StyleDescr;
-};
-type BlockRenderer = (block: ContentBlock) => ?string;
-type BlockRendererMap = {[blockType: string]: BlockRenderer};
-
-
-type StyleMap = {[styleName: string]: RenderConfig};
-type BlockStyleFn = (block: ContentBlock) => ?RenderConfig;
-
-type Options = {
-  inlineStyles?: StyleMap;
-  blockRenderers?: BlockRendererMap;
-  blockStyleFn?: BlockStyleFn;
-};
+type StringMap = {[key: string]: ?string};
+type AttrMap = {[key: string]: StringMap};
 
 const {
   BOLD,
@@ -46,22 +25,9 @@ const {
 
 const INDENT = '  ';
 const BREAK = '<br>';
-const DATA_ATTRIBUTE = /^data-([a-z0-9-]+)$/;
-
-const DEFAULT_STYLE_MAP = {
-  [BOLD]: {element: 'strong'},
-  [CODE]: {element: 'code'},
-  [ITALIC]: {element: 'em'},
-  [STRIKETHROUGH]: {element: 'del'},
-  [UNDERLINE]: {element: 'ins'},
-};
-
-// Order: inner-most style to outer-most.
-// Examle: <em><strong>foo</strong></em>
-const DEFAULT_STYLE_ORDER = [BOLD, ITALIC, UNDERLINE, STRIKETHROUGH, CODE];
 
 // Map entity data to element attributes.
-const ENTITY_ATTR_MAP: {[entityType: string]: AttrMap} = {
+const ENTITY_ATTR_MAP: AttrMap = {
   [ENTITY_TYPE.LINK]: {url: 'href', rel: 'rel', target: 'target', title: 'title', className: 'class'},
   [ENTITY_TYPE.IMAGE]: {src: 'src', height: 'height', width: 'width', alt: 'alt', className: 'class'},
   [ENTITY_TYPE.VIDEO]: {src: 'src', controls: 'controls',height: 'height', width: 'width', alt: 'alt', className: 'class' },
@@ -70,7 +36,7 @@ const ENTITY_ATTR_MAP: {[entityType: string]: AttrMap} = {
 
 // Map entity data to element attributes.
 const DATA_TO_ATTR = {
-  [ENTITY_TYPE.LINK](entityType: string, entity: EntityInstance): Attributes {
+  [ENTITY_TYPE.LINK](entityType: string, entity: EntityInstance): StringMap {
     let attrMap = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? ENTITY_ATTR_MAP[entityType] : {};
     let data = entity.getData();
     let attrs = {};
@@ -86,7 +52,7 @@ const DATA_TO_ATTR = {
     }
     return attrs;
   },
-  [ENTITY_TYPE.IMAGE](entityType: string, entity: EntityInstance): Attributes  {
+  [ENTITY_TYPE.IMAGE](entityType: string, entity: EntityInstance): StringMap {
     let attrMap = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? ENTITY_ATTR_MAP[entityType] : {};
     let data = entity.getData();
     let attrs = {};
@@ -99,7 +65,7 @@ const DATA_TO_ATTR = {
     }
     return attrs;
   },
-  [ENTITY_TYPE.VIDEO](entityType: string, entity: EntityInstance): Attributes  {
+  [ENTITY_TYPE.VIDEO](entityType: string, entity: EntityInstance): StringMap {
     let attrMap = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? ENTITY_ATTR_MAP[entityType] : {};
     let data = entity.getData();
     let attrs = {};
@@ -112,7 +78,7 @@ const DATA_TO_ATTR = {
     }
     return attrs;
   },
-  [ENTITY_TYPE.AUDIO](entityType: string, entity: EntityInstance): Attributes  {
+  [ENTITY_TYPE.AUDIO](entityType: string, entity: EntityInstance): StringMap {
     let attrMap = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? ENTITY_ATTR_MAP[entityType] : {};
     let data = entity.getData();
     let attrs = {};
@@ -177,23 +143,9 @@ class MarkupGenerator {
   output: Array<string>;
   totalBlocks: number;
   wrapperTag: ?string;
-  // These are related to user-defined options.
-  options: Options;
-  inlineStyles: StyleMap;
-  styleOrder: Array<string>;
 
-  constructor(contentState: ContentState, options: ?Options) {
-    if (options == null) {
-      options = {};
-    }
+  constructor(contentState: ContentState) {
     this.contentState = contentState;
-    this.options = options;
-    let [inlineStyles, styleOrder] = combineOrderedStyles(
-      options.inlineStyles,
-      [DEFAULT_STYLE_MAP, DEFAULT_STYLE_ORDER]
-    );
-    this.inlineStyles = inlineStyles;
-    this.styleOrder = styleOrder;
   }
 
   generate(): string {
@@ -211,7 +163,6 @@ class MarkupGenerator {
   }
 
   processBlock() {
-    let {blockRenderers} = this.options;
     let block = this.blocks[this.currentBlock];
     let blockType = block.getType();
     let blockData = block.getData();
@@ -225,22 +176,7 @@ class MarkupGenerator {
       }
     }
     this.indent();
-
-    // Allow blocks to be rendered using a custom renderer.
-    let customRenderer = (blockRenderers != null && blockRenderers.hasOwnProperty(blockType)) ?
-      blockRenderers[blockType] :
-      null;
-    let customRendererOutput = customRenderer ? customRenderer(block) : null;
-    // Renderer can return null, which will cause processing to continue as normal.
-    if (customRendererOutput != null) {
-      this.output.push(customRendererOutput);
-      this.output.push('\n');
-      this.currentBlock += 1;
-      return;
-    }
-
-    this.writeStartTag(block,blockData);
-
+    this.writeStartTag(blockType,blockData);
     this.output.push(this.renderBlockContent(block));
     // Look ahead and see if we will nest list.
     let nextBlock = this.getNextBlock();
@@ -263,7 +199,7 @@ class MarkupGenerator {
     } else {
       this.currentBlock += 1;
     }
-    this.writeEndTag(block);
+    this.writeEndTag(blockType);
   }
 
   processBlocksAtDepth(depth: number) {
@@ -279,32 +215,19 @@ class MarkupGenerator {
     return this.blocks[this.currentBlock + 1];
   }
 
-  writeStartTag(block,blockData) {
-    let tags = getTags(block.getType());
-
-    let attrString = "";
-    if (this.options.blockStyleFn) {
-      let {attributes, style} = this.options.blockStyleFn(block) || {};
-      // Normalize `className` -> `class`, etc.
-      attributes = normalizeAttributes(attributes);
-      if (style != null) {
-        let styleAttr = styleToCSS(style);
-        attributes = (attributes == null) ? {style: styleAttr} : Object.assign({},attributes,{style: styleAttr});
-      }
-      attrString = stringifyAttrs(attributes);
-    }
-
+  writeStartTag(blockType,blockData) {
+    let tags = getTags(blockType);
     let blockStyle="",blockAlign=blockData.get("textAlignment");
     if (blockAlign) {
       blockStyle="text-align:"+blockAlign+';'
     }
     for (let tag of tags) {
-      this.output.push(`<${tag} ${attrString}> ${blockStyle?(" style='"+blockStyle+"'"):""}`);
+      this.output.push(`<${tag} ${blockStyle?(" style='"+blockStyle+"'"):""}>`);
     }
   }
 
-  writeEndTag(block) {
-    let tags = getTags(block.getType());
+  writeEndTag(blockType) {
+    let tags = getTags(blockType);
     if (tags.length === 1) {
       this.output.push(`</${tags[0]}>\n`);
     } else {
@@ -348,34 +271,30 @@ class MarkupGenerator {
     let charMetaList: CharacterMetaList = block.getCharacterList();
     let entityPieces = getEntityRanges(text, charMetaList);
     return entityPieces.map(([entityKey, stylePieces]) => {
-      let content = stylePieces.map(([text, styleSet]) => {
+      let content = stylePieces.map(([text, style]) => {
         let content = encodeContent(text);
-        for (let styleName of this.styleOrder) {
-          // If our block type is CODE then don't wrap inline code elements.
-          // If our block type is CODE then don't wrap inline code elements.
-          if (styleName === CODE && blockType === BLOCK_TYPE.CODE) {
-            continue;
-          }
-          if (styleSet.has(styleName)) {
-            let {element, attributes, style} = this.inlineStyles[styleName];
-            if (element == null) {
-              element = 'span';
-            }
-            // Normalize `className` -> `class`, etc.
-            attributes = normalizeAttributes(attributes);
-            if (style != null) {
-              let styleAttr = styleToCSS(style);
-              attributes = (attributes == null) ? {style: styleAttr} : Object.assign({},attributes,{style: styleAttr});//{...attributes, style: styleAttr}
-            }
-            let attrString = stringifyAttrs(attributes);
-            content = `<${element}${attrString}>${content}</${element}>`;
-
-            Object.keys(colorStyleMap).map(function(keyItem){
-              if (!!keyItem&&style&&style.has(keyItem)) {
+        // These are reverse alphabetical by tag name.
+        if (style.has(BOLD)) {
+          content = `<strong>${content}</strong>`;
+        }
+        if (style.has(UNDERLINE)) {
+          content = `<ins>${content}</ins>`;
+        }
+        if (style.has(ITALIC)) {
+          content = `<em>${content}</em>`;
+        }
+        if (style.has(STRIKETHROUGH)) {
+          content = `<del>${content}</del>`;
+        }
+        Object.keys(colorStyleMap).map(function(keyItem){
+            if (!!keyItem&&style.has(keyItem)) {
                 content = '<span style="color:' + colorStyleMap[keyItem].color + '">' + content + '</span>';
-              }
-            });
-          }
+            }
+        });
+        if (style.has(CODE)) {
+          // If our block type is CODE then we are already wrapping the whole
+          // block in a `<code>` so don't wrap inline code elements.
+          content = (blockType === BLOCK_TYPE.CODE) ? content : `<code>${content}</code>`;
         }
         return content;
       }).join('');
@@ -423,15 +342,15 @@ class MarkupGenerator {
 
 }
 
-function stringifyAttrs(attrs: ?Attributes) {
+function stringifyAttrs(attrs) {
   if (attrs == null) {
     return '';
   }
   let parts = [];
-  for (let name of Object.keys(attrs)) {
-    let value = attrs[name];
-    if (value != null) {
-      parts.push(` ${name}="${encodeAttr(value + '')}"`);
+  for (let attrKey of Object.keys(attrs)) {
+    let attrValue = attrs[attrKey];
+    if (attrValue != null) {
+      parts.push(` ${attrKey}="${encodeAttr(attrValue + '')}"`);
     }
   }
   return parts.join('');
@@ -464,6 +383,6 @@ function encodeAttr(text: string): string {
     .split('"').join('&quot;');
 }
 
-export default function stateToHTML(content: ContentState, options: ?Options): string {
-  return new MarkupGenerator(content, options).generate();
+export default function stateToHTML(content: ContentState): string {
+  return new MarkupGenerator(content).generate();
 }
