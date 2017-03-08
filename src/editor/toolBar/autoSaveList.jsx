@@ -118,20 +118,21 @@ class AutoSaveControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span>
-          <Tooltip placement="bottomLeft" title="保险库——编辑器中按Ctrl+S或Cmd+S存入保险库，点击打开保险库">
+          <Tooltip placement="bottomLeft" title="保险库——编辑器中按Ctrl+S或Cmd+S存入保险库，点击打开保险库以继续">
             <span className={className} onClick={that.onAutoSaveToggle}><Icon type="editor_safty"/>
             </span>
           </Tooltip>
         </span>
         <Modal
-          title="我的保险库项目列表："
+          title="编辑器保险库条目列表："
           visible={that.state.visible}
           closable={false}
+          width={600}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
           } > 取 消 < /Button>,
             <Popconfirm placement="right" title="确定后编辑器内容将会被最后一次保存的内容替换，若有更改，替换后将不可恢复，是否继续？" onConfirm={that.sendSavedItemToEditor}>
-              <Button key="submit" type="primary" size="large" disabled={!that.state.selectedRowKeys.length}> 确 定 </Button >
+              &nbsp;&nbsp;&nbsp;&nbsp;<Button key="submit" type="primary" size="large" disabled={!that.state.selectedRowKeys.length}> 确 定 </Button >
             </Popconfirm>]}>
           <Table
             rowSelection={rowSelection}

@@ -169,9 +169,9 @@ class EditorConcist extends React.Component {
     if (newProps.HtmlContent == this.props.HtmlContent) {
       return false;
     }
-    let newContent = (newProps.HtmlContent);
-    if (newContent == "undefined" ||!newContent) {
-      newContent = "<h1>空内容</h1>";
+    let newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
+    if (!newContent||newContent == "undefined") {
+      newContent = "<p>&nbsp;</p>";
     }
     const decorator = new CompositeDecorator([
       LinkDecorator,
