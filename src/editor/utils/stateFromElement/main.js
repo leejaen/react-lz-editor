@@ -253,9 +253,9 @@ class BlockGenerator {
       case 'pre': {
         return BLOCK_TYPE.CODE;
       }
-      case 'figure': {
-        return BLOCK_TYPE.ATOMIC;
-      }
+      // case 'figure': {
+      //   return BLOCK_TYPE.ATOMIC;
+      // }
       default: {
         return BLOCK_TYPE.UNSTYLED;
       }
@@ -488,6 +488,5 @@ function addStyleFromTagName(styleSet: StyleSet, tagName: string, elementStyles?
 
 export default function stateFromElement(element: DOMElement, options?: Options): ContentState {
   let blocks = new BlockGenerator(options).process(element);
-  console.log("blocks",JSON.stringify(blocks));
   return ContentState.createFromBlockArray(blocks);
 }
