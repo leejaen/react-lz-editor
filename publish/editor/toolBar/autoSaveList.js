@@ -165,7 +165,7 @@ var AutoSaveControls = function (_Component) {
           null,
           _react2.default.createElement(
             _antd.Tooltip,
-            { placement: 'bottomLeft', title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93' },
+            { placement: 'bottomLeft', title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93\u4EE5\u7EE7\u7EED' },
             _react2.default.createElement(
               'span',
               { className: className, onClick: that.onAutoSaveToggle },
@@ -176,9 +176,10 @@ var AutoSaveControls = function (_Component) {
         _react2.default.createElement(
           _antd.Modal,
           {
-            title: '\u6211\u7684\u4FDD\u9669\u5E93\u9879\u76EE\u5217\u8868\uFF1A',
+            title: '\u7F16\u8F91\u5668\u4FDD\u9669\u5E93\u6761\u76EE\u5217\u8868\uFF1A',
             visible: that.state.visible,
             closable: false,
+            width: 600,
             footer: [_react2.default.createElement(
               _antd.Button,
               { key: 'back', size: 'large', onClick: that.handleCancel },
@@ -186,6 +187,7 @@ var AutoSaveControls = function (_Component) {
             ), _react2.default.createElement(
               _antd.Popconfirm,
               { placement: 'right', title: '\u786E\u5B9A\u540E\u7F16\u8F91\u5668\u5185\u5BB9\u5C06\u4F1A\u88AB\u6700\u540E\u4E00\u6B21\u4FDD\u5B58\u7684\u5185\u5BB9\u66FF\u6362\uFF0C\u82E5\u6709\u66F4\u6539\uFF0C\u66FF\u6362\u540E\u5C06\u4E0D\u53EF\u6062\u590D\uFF0C\u662F\u5426\u7EE7\u7EED\uFF1F', onConfirm: that.sendSavedItemToEditor },
+              '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
                 _antd.Button,
                 { key: 'submit', type: 'primary', size: 'large', disabled: !that.state.selectedRowKeys.length },

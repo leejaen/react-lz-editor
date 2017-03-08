@@ -249,9 +249,9 @@ var EditorConcist = function (_React$Component) {
       if (newProps.HtmlContent == this.props.HtmlContent) {
         return false;
       }
-      var newContent = newProps.HtmlContent;
-      if (newContent == "undefined" || !newContent) {
-        newContent = "<h1>空内容</h1>";
+      var newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
+      if (!newContent || newContent == "undefined") {
+        newContent = "<p>&nbsp;</p>";
       }
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
       var contentState = (0, _utils.stateFromHTML)(newContent);

@@ -253,10 +253,9 @@ var BlockGenerator = function () {
           {
             return _main.BLOCK_TYPE.CODE;
           }
-        case 'figure':
-          {
-            return _main.BLOCK_TYPE.ATOMIC;
-          }
+        // case 'figure': {
+        //   return BLOCK_TYPE.ATOMIC;
+        // }
         default:
           {
             return _main.BLOCK_TYPE.UNSTYLED;
@@ -521,6 +520,5 @@ function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
 
 function stateFromElement(element, options) {
   var blocks = new BlockGenerator(options).process(element);
-  console.log("blocks", JSON.stringify(blocks));
   return _draftJs.ContentState.createFromBlockArray(blocks);
 }
