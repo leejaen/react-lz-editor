@@ -70,7 +70,8 @@
         HtmlContent={this.state.content}
         cbReceiver={this.receiveHtml}
         uploadConfig={uploadConfig}
-        FullScreen={false}/>
+        FullScreen={false}
+        convertFormat="html"/>
     }
   }
 
