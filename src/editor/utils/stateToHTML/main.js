@@ -116,8 +116,8 @@ function getTags(blockType: string): Array<string> {
       return ['blockquote'];
     case BLOCK_TYPE.CODE:
       return ['pre', 'code'];
-    case BLOCK_TYPE.ATOMIC:
-      return ['figure'];//Support atomic block type
+    // case BLOCK_TYPE.ATOMIC:
+    //   return ['figure'];//Support atomic block type
     default:
       return ['p'];
   }
@@ -349,6 +349,9 @@ function stringifyAttrs(attrs) {
   let parts = [];
   for (let attrKey of Object.keys(attrs)) {
     let attrValue = attrs[attrKey];
+    if (attrKey=="src") {// Get reality url resources.
+      attrValue=attrValue.replace(/[-?#&].*$/g,"");
+    }
     if (attrValue != null) {
       parts.push(` ${attrKey}="${encodeAttr(attrValue + '')}"`);
     }
