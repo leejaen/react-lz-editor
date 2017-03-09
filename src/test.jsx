@@ -25,11 +25,16 @@ class Test extends React.Component {
                 <p>用场景化的方式表达就是，用户可以在观看电视购物频道的时候，直接从电视上进行支付购买商品，不用再通过银行汇款或者货到付款；可以选择对电视上的点播内容进行付费，还可能在电视上对水电煤等公用事业费用进行缴费。</p>
                 <p>一度金融的消息称，乐视金融同数码视讯的接触尚处在高层范围内进行，因此对于收购价格，暂时还不能确定。</p>
                 <p>如果乐视金融拿下数码视讯的两张金融牌照，并且在到期后能够获得央行审核顺利延期，意味着乐视可以通过移动设备和电视两个终端来链接用户的银行卡。</p>
-                <p>乐视金融在去年11月份首度公开亮相的时候，缺少银行和支付两张关键牌照就一直是外界关注的问题。</p>`
+                <p>乐视金融在去年11月份首度公开亮相的时候，缺少银行和支付两张关键牌照就一直是外界关注的问题。</p>`,
+      rawContent: '{"entityMap":{"0":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/43053508139910678747.jpg"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/43053508139910678747.jpg"}}},"blocks":[{"key":"fr2lj","text":"正文示例","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"90kdv","text":"一度金融的消息称，乐视金融同数码视讯的接触尚处在高层范围内进行，因此对于收购价格，暂时还不能确定。","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"b60ni","text":"如果乐视金融拿下数码视讯的两张金融牌照，并且在到期后能够获得央行审核顺利延期，意味着乐视可以通过移动设备和电视两个终端来链接用户的银行卡。","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"eui4h","text":"乐视金融在去年11月份首度公开亮相的时候，缺少银行和支付两张关键牌照就一直是外界关注的问题。","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"29t6l","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":0}],"data":{}},{"key":"7ujeo","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"3n9d4","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":1}],"data":{}},{"key":"9r0k2","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}',
     }
     this.receiveHtml = this.receiveHtml.bind(this);
+    this.receiveRaw = this.receiveRaw.bind(this);
   }
   receiveHtml(content) {
+    // console.log("recieved content", content);
+  }
+  receiveRaw(content){
     // console.log("recieved content", content);
   }
   render() {
@@ -45,14 +50,30 @@ class Test extends React.Component {
       QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
       QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
     }
-    return <LzEditor
-      active={true}
-      HtmlContent={this.state.content}
-      cbReceiver={this.receiveHtml}
-      uploadConfig={uploadConfig}
-      Image={false}
-      Video={false}
-      Audio={false}/>
+    return (
+      <div>
+        <LzEditor
+          active={true}
+          HtmlContent={this.state.content}
+          cbReceiver={this.receiveHtml}
+          uploadConfig={uploadConfig}
+          Image={false}
+          Video={false}
+          Audio={false}
+          convertFormat="html"/>
+        <br />
+        <div>use convertFromRaw Editor demo: </div>
+        <LzEditor
+          active={true}
+          HtmlContent={this.state.rawContent}
+          cbReceiver={this.receiveRaw}
+          uploadConfig={uploadConfig}
+          Image={false}
+          Video={false}
+          Audio={false}
+          convertFormat="raw"/>
+      </div>
+    );
   }
 }
 
