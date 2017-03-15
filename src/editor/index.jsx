@@ -753,7 +753,7 @@ EditorConcist.defaultProps = {
   Url: true,
   AutoSave: true,
   FullScreen:true,
-  convertFormat: 'raw',
+  convertFormat: 'html',
 };
 // export default EditorConcist;
 module.exports = EditorConcist;

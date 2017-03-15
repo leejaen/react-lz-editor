@@ -52,6 +52,7 @@ class Test extends React.Component {
     }
     return (
       <div>
+        <div>Editor demo 1: </div>
         <LzEditor
           active={true}
           HtmlContent={this.state.content}
@@ -59,10 +60,9 @@ class Test extends React.Component {
           uploadConfig={uploadConfig}
           Image={false}
           Video={false}
-          Audio={false}
-          convertFormat="html"/>
+          Audio={false}/>
         <br />
-        <div>use convertFromRaw Editor demo: </div>
+        <div>Editor demo 2 (use Raw format ): </div>
         <LzEditor
           active={true}
           HtmlContent={this.state.rawContent}
