@@ -27,7 +27,15 @@
   right: 0;
   color: #aaa;
 }
-
+.uploadingImagies {
+    text-align: center;
+}
+.uploadingImagies a {
+    font-size: 20px;
+    position: relative;
+    display: inherit;
+    margin: 0 auto;
+}
 .breakImages>div {
   width: 100px;
   height: 100px;

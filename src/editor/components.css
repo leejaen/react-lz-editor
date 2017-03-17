@@ -167,6 +167,7 @@
 .RichEditor-activeButton {
   color: #fff;
   border-radius: 5px;
+  background-color: blue;/*Will be recoverd by antd theme.*/
 }
 
 .RichEditor-color {

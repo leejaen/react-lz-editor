@@ -46,7 +46,6 @@
     "flow-bin": "^0.37.4",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
-    "react": "^0.14.8",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
@@ -60,6 +59,7 @@
     "lodash": "^4.17.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "synthetic-dom": "^0.2.1"
+    "synthetic-dom": "^0.2.1",
+    "whatwg-fetch": "^2.0.3"
   }
 }
