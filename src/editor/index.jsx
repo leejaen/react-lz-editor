@@ -3,7 +3,7 @@
  */
 import './components.css'
 import '../global/supports/resources/system.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import {
@@ -93,13 +93,13 @@ class EditorConcist extends React.Component {
         } else {
           // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.HtmlContent;//转换成dom
           // element
-          const convertFormat = this.props.convertFormat;
+          const ConvertFormat = this.props.ConvertFormat;
           let contentState;
-          if(convertFormat === 'html') {
+          if(ConvertFormat === 'html') {
             contentState = stateFromHTML(originalHtml);
             // console.log("state originalHtml",originalHtml);
             // console.log("state contentState",contentState);
-          }else if(convertFormat === 'raw'){
+          }else if(ConvertFormat === 'raw'){
             let rawContent = JSON.parse(originalHtml);
             contentState = convertFromRaw(rawContent);
           }
@@ -121,10 +121,10 @@ class EditorConcist extends React.Component {
         //const rawContent = convertToRaw(rawContentState);
         //console.log('JSON.stringify(rawContent)', JSON.stringify(rawContent));
         let content;
-        const convertFormat = that.props.convertFormat;
-        if(convertFormat === 'html') {
+        const ConvertFormat = that.props.ConvertFormat;
+        if(ConvertFormat === 'html') {
           content = stateToHTML(rawContentState);
-        }else if(convertFormat === 'raw') {
+        }else if(ConvertFormat === 'raw') {
           const rawContent = convertToRaw(rawContentState);
           content = JSON.stringify(rawContent);
         }
@@ -190,11 +190,11 @@ class EditorConcist extends React.Component {
     if (newProps.HtmlContent == this.props.HtmlContent) {
       return false;
     }
-    let convertFormat = this.props.convertFormat;
+    let ConvertFormat = this.props.ConvertFormat;
     let newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
     if (!newContent||newContent == "undefined") {
       newContent = "<p>&nbsp;</p>";
-      convertFormat = 'html';
+      ConvertFormat = 'html';
     }
     /*const decorator = new CompositeDecorator([
       LinkDecorator,
@@ -203,9 +203,9 @@ class EditorConcist extends React.Component {
       AudioDecorator
     ]);*/
     let contentState;
-    if(convertFormat === 'html') {
+    if(ConvertFormat === 'html') {
       contentState = stateFromHTML(newContent);
-    }else if(convertFormat === 'raw'){
+    }else if(ConvertFormat === 'raw'){
       let rawContent = JSON.parse(newContent);
       contentState = convertFromRaw(rawContent);
     }
@@ -737,7 +737,7 @@ EditorConcist.propTypes = {
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
    }),
-  convertFormat: React.PropTypes.oneOf(['html', 'raw']),
+  ConvertFormat: React.PropTypes.oneOf(['html', 'raw']),
 }
 EditorConcist.defaultProps = {
   UndoRedo: true,
@@ -753,7 +753,7 @@ EditorConcist.defaultProps = {
   Url: true,
   AutoSave: true,
   FullScreen:true,
-  convertFormat: 'html',
+  ConvertFormat: 'html',
 };
 // export default EditorConcist;
 module.exports = EditorConcist;

@@ -71,7 +71,7 @@ class Test extends React.Component {
           Image={false}
           Video={false}
           Audio={false}
-          convertFormat="raw"/>
+          ConvertFormat="raw"/>
       </div>
     );
   }
