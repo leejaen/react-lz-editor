@@ -9,7 +9,7 @@
 
 # Install
     npm install antd react-lz-editor --save
-    
+
     Version note: React-lz-editor 0.9.25+ is matched react 15.4.2+ and react-dom 15.4.2+.
 
 # Git
@@ -71,7 +71,7 @@
         cbReceiver={this.receiveHtml}
         uploadConfig={uploadConfig}
         FullScreen={false}
-        convertFormat="html"/>
+        ConvertFormat="html"/>
     }
   }
 
@@ -101,6 +101,6 @@
 | Url | bool | true | 是否启用添加删除链接功能，默认启用 |
 | AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | FullScreen | bool | true | 是否启用全屏功能，默认启用 |
-| convertFormat | string | html | 设置内容导入导出格式，支持html、raw两种格式，默认html |
+| ConvertFormat | string | "html" | 设置内容导入导出格式，支持html、raw两种格式，默认html |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
 # QA
