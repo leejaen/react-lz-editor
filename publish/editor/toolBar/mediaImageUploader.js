@@ -10,6 +10,10 @@ var _antd = require('antd');
 
 var _businessComponents = require('../../global/components/businessComponents');
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28,9 +32,11 @@ var ImgStyleControls = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ImgStyleControls).call(this, props));
 
     _this.state = {
-      visible: false,
+      provisible: false,
+      previsible: false,
       images: [],
-      loadingRemoteImageFun: null
+      loadingRemoteImageFun: null,
+      pfopImages: []
     };
     _this.successedCount = 0;
 
@@ -43,6 +49,10 @@ var ImgStyleControls = function (_Component) {
     _this.failureLoading = _this.failureLoading.bind(_this);
     _this.reloadPfopingPictrue = _this.reloadPfopingPictrue.bind(_this);
     _this.successLoading = _this.successLoading.bind(_this);
+
+    _this.handleCancelUploading = _this.handleCancelUploading.bind(_this);
+    _this.realLoading = _this.realLoading.bind(_this);
+    _this.reloadUploadingPictrue = _this.reloadUploadingPictrue.bind(_this);
     return _this;
   }
 
@@ -59,7 +69,7 @@ var ImgStyleControls = function (_Component) {
     key: 'prepareToSendImageToEditor',
     value: function prepareToSendImageToEditor() {
       if (!!this.state.images.length) {
-        this.state.loadingRemoteImageFun = _antd.message.loading('图片正在处理请稍等片刻...', 0);
+        this.state.loadingRemoteImageFun = _antd.message.loading('图片正在处理并生成预览，请稍等片刻...', 0);
       }
     }
   }, {
@@ -74,11 +84,20 @@ var ImgStyleControls = function (_Component) {
         this.successedCount = 0;
         setTimeout(this.state.loadingRemoteImageFun, 500);
       }
-      var images = this.state.images.map(function (item) {
-        item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length);
+      var pfopImages = this.state.images.map(function (item) {
+        item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
         return item;
       });
-      this.setState({ visible: false, images: [] });
+      console.log("successLoading provisible false");
+      this.setState({ provisible: false, pfopImages: pfopImages, previsible: true });
+    }
+  }, {
+    key: 'realLoading',
+    value: function realLoading(type) {
+      var images = _lodash2.default.cloneDeep(this.state.pfopImages);
+      console.log("images", images);
+      console.log("realLoading provisible false");
+      this.setState({ provisible: false, images: [], pfopImages: [], previsible: false });
       this.props.receiveImage(images);
     }
   }, {
@@ -105,6 +124,18 @@ var ImgStyleControls = function (_Component) {
       this.forceUpdate();
     }
   }, {
+    key: 'reloadUploadingPictrue',
+    value: function reloadUploadingPictrue(picture, index) {
+      console.log("reloadUploadingPictrue picture, index", picture, index);
+      var thePicture = picture.substr(0, ~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length);
+      var n = picture.substr((~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length) + 3);
+      picture = thePicture + "?t=" + (parseInt(!!n ? n : "0") + 1);
+      if (!!this.state.pfopImages[index]) {
+        this.state.pfopImages[index].url = picture;
+      }
+      this.forceUpdate();
+    }
+  }, {
     key: 'groupAppend',
     value: function groupAppend(pictureList) {
       console.log("pictureList", pictureList);
@@ -115,18 +146,24 @@ var ImgStyleControls = function (_Component) {
       var images = pictureList.map(function (item) {
         return { "url": item };
       });
-      this.setState({ "images": images });
+      this.setState({ previsible: true, "images": images });
       this.prepareToSendImageToEditor();
     }
   }, {
     key: 'onImgToggle',
     value: function onImgToggle() {
-      this.setState({ visible: true, disabled: true, images: [] });
+      this.setState({ provisible: true, previsible: false, disabled: true, images: [] });
     }
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      this.setState({ visible: false, images: [] });
+      console.log("handleCancel provisible false");
+      this.setState({ provisible: false, previsible: false, images: [] });
+    }
+  }, {
+    key: 'handleCancelUploading',
+    value: function handleCancelUploading(e) {
+      this.setState({ provisible: false, previsible: false, pfopImages: [] });
     }
   }, {
     key: 'render',
@@ -192,7 +229,7 @@ var ImgStyleControls = function (_Component) {
           _antd.Modal,
           {
             title: '\u63D2\u5165\u56FE\u7247',
-            visible: that.state.visible,
+            visible: that.state.provisible,
             closable: false,
             footer: [_react2.default.createElement(
               _antd.Button,
@@ -208,11 +245,50 @@ var ImgStyleControls = function (_Component) {
           _react2.default.createElement(_businessComponents.UploadImage, {
             isMultiple: true,
             fileList: that.state.images,
-            isOpenModel: that.state.visible,
+            isOpenModel: that.state.provisible,
             cbReceiver: that.getImgObject,
             uploadConfig: this.props.uploadConfig,
             limit: 10,
             fileType: 'image' })
+        ),
+        _react2.default.createElement(
+          _antd.Modal,
+          {
+            title: '\u56FE\u7247\u9884\u89C8',
+            visible: that.state.previsible,
+            width: 800,
+            closable: false,
+            footer: [_react2.default.createElement(
+              _antd.Button,
+              { key: 'back', size: 'large', onClick: that.handleCancelUploading },
+              ' \u53D6\u6D88 '
+            ), _react2.default.createElement(
+              _antd.Button,
+              { key: 'submit', type: 'primary', size: 'large', disabled: that.state.pfopImages.length == 0, onClick: function onClick() {
+                  return that.realLoading("fromOld");
+                } },
+              ' \u786E\u8BA4\u65E0\u8BEF '
+            )] },
+          _react2.default.createElement(
+            'div',
+            { className: 'uploadingImagies' },
+            that.state.pfopImages.map(function (item, index) {
+              console.log("item,index", item, index);
+              var url = item.url;
+              return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { onClick: function onClick() {
+                      return that.reloadUploadingPictrue(url, index);
+                    }, title: '\u624B\u52A8\u5237\u65B0' },
+                  _react2.default.createElement(_antd.Icon, { type: 'reload' })
+                ),
+                _react2.default.createElement('img', { src: url })
+              );
+            })
+          )
         )
       );
     }

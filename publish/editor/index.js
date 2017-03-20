@@ -121,6 +121,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import {stateFromHTML} from 'draft-js-import-html';
 
 
+var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
+
 var EditorConcist = function (_React$Component) {
   _inherits(EditorConcist, _React$Component);
 
@@ -128,8 +130,6 @@ var EditorConcist = function (_React$Component) {
     _classCallCheck(this, EditorConcist);
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EditorConcist).call(this, props));
-
-    var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
 
     _this.state = {
       openFullTest: "全屏",
@@ -149,10 +149,16 @@ var EditorConcist = function (_React$Component) {
         } else {
           // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.HtmlContent;//转换成dom
           // element
-
-          var contentState = (0, _utils.stateFromHTML)(originalHtml);
-          // console.log("state originalHtml",originalHtml);
-          // console.log("state contentState",contentState);
+          var ConvertFormat = _this.props.ConvertFormat;
+          var contentState = void 0;
+          if (ConvertFormat === 'html') {
+            contentState = (0, _utils.stateFromHTML)(originalHtml);
+            // console.log("state originalHtml",originalHtml);
+            // console.log("state contentState",contentState);
+          } else if (ConvertFormat === 'raw') {
+            var rawContent = JSON.parse(originalHtml);
+            contentState = (0, _draftJs.convertFromRaw)(rawContent);
+          }
           return _draftJs.EditorState.createWithContent(contentState, decorator);
         }
       }()
@@ -162,11 +168,23 @@ var EditorConcist = function (_React$Component) {
     _this.onChange = function (editorState) {
       _this.setState({ editorState: editorState });
       var that = _this;
-      setTimeout(function () {
+      if (that.timer) {
+        clearTimeout(that.timer);
+      }
+      that.timer = setTimeout(function () {
         //stateToHTML 状态转对象
         var rawContentState = that.state.editorState.getCurrentContent();
-        var HTMLcontent = (0, _utils.stateToHTML)(rawContentState);
-        that.props.cbReceiver(HTMLcontent); //富文本编辑器在设置active是true时，不可使用forceUpdate，否则会造成无法选中文本的问题！
+        //const rawContent = convertToRaw(rawContentState);
+        //console.log('JSON.stringify(rawContent)', JSON.stringify(rawContent));
+        var content = void 0;
+        var ConvertFormat = that.props.ConvertFormat;
+        if (ConvertFormat === 'html') {
+          content = (0, _utils.stateToHTML)(rawContentState);
+        } else if (ConvertFormat === 'raw') {
+          var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
+          content = JSON.stringify(rawContent);
+        }
+        that.props.cbReceiver(content); //富文本编辑器在设置active是true时，不可使用forceUpdate，否则会造成无法选中文本的问题！
       }, 300);
     };
 
@@ -249,12 +267,25 @@ var EditorConcist = function (_React$Component) {
       if (newProps.HtmlContent == this.props.HtmlContent) {
         return false;
       }
+      var ConvertFormat = this.props.ConvertFormat;
       var newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
       if (!newContent || newContent == "undefined") {
         newContent = "<p>&nbsp;</p>";
+        ConvertFormat = 'html';
       }
-      var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
-      var contentState = (0, _utils.stateFromHTML)(newContent);
+      /*const decorator = new CompositeDecorator([
+        LinkDecorator,
+        ImageDecorator,
+        VideoDecorator,
+        AudioDecorator
+      ]);*/
+      var contentState = void 0;
+      if (ConvertFormat === 'html') {
+        contentState = (0, _utils.stateFromHTML)(newContent);
+      } else if (ConvertFormat === 'raw') {
+        var rawContent = JSON.parse(newContent);
+        contentState = (0, _draftJs.convertFromRaw)(rawContent);
+      }
       // console.log("componentWillReceiveProps newContent",newContent);
       // console.log("componentWillReceiveProps contentState",JSON.stringify(contentState));
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
@@ -830,7 +861,8 @@ EditorConcist.propTypes = {
     QINIU_IMG_DOMAIN_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
-  })
+  }),
+  ConvertFormat: _react2.default.PropTypes.oneOf(['html', 'raw'])
 };
 EditorConcist.defaultProps = {
   UndoRedo: true,
@@ -845,7 +877,8 @@ EditorConcist.defaultProps = {
   Audio: true,
   Url: true,
   AutoSave: true,
-  FullScreen: true
+  FullScreen: true,
+  ConvertFormat: 'html'
 };
 // export default EditorConcist;
 module.exports = EditorConcist;

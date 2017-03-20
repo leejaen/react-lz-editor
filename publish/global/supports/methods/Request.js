@@ -65,8 +65,7 @@ module.exports = {
       var isAsync = arguments.length <= 5 || arguments[5] === undefined ? true : arguments[5];
 
       data = Object.assign({}, urlObj.defaultData ? urlObj.defaultData : "", {
-        "yourKey": "yourTokenID",
-        "tokenID": "4A79B7D419E2431DC7749AF107F0BA0F"
+        "tokenID": "yourTokenID"
       }, data); //合并
       data = _common2.default.obj.removeFalseEntity(data); //手动转换数值成字符串型数据
       data = _common2.default.obj.stringifyPropsDeeply(data); //手动转换数值成字符串型数据
@@ -146,7 +145,7 @@ module.exports = {
       } : arguments[3];
 
       var tokenID = "yourTokenID";
-      tokenID = "4A79B7D419E2431DC7749AF107F0BA0F"; //for test
+      // tokenID="F54EEA360DF8C5A030F4D406837396B0";//for test
       data = Object.assign({}, urlObj.hasOwnProperty("defaultData") ? urlObj.defaultData : {}, {
         "tokenID": tokenID
       }, data); //合并

@@ -199,8 +199,8 @@ function getTags(blockType) {
       return ['blockquote'];
     case _main.BLOCK_TYPE.CODE:
       return ['pre', 'code'];
-    case _main.BLOCK_TYPE.ATOMIC:
-      return ['figure']; //Support atomic block type
+    // case BLOCK_TYPE.ATOMIC:
+    //   return ['figure'];//Support atomic block type
     default:
       return ['p'];
   }
@@ -496,6 +496,10 @@ function stringifyAttrs(attrs) {
       var attrKey = _step7.value;
 
       var attrValue = attrs[attrKey];
+      if (attrKey == "src") {
+        // Get reality url resources.
+        attrValue = attrValue.replace(/[-?#&].*$/g, "");
+      }
       if (attrValue != null) {
         parts.push(' ' + attrKey + '="' + encodeAttr(attrValue + '') + '"');
       }

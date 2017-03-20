@@ -3,7 +3,8 @@
     一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器。
 ## Live demo
 
-    [https://leejaen.github.io/](https://leejaen.github.io/)
+[https://leejaen.github.io/](https://leejaen.github.io/)
+
 
     因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了。
 
@@ -100,6 +101,6 @@
 | Url | bool | true | 是否启用添加删除链接功能，默认启用 |
 | AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | FullScreen | bool | true | 是否启用全屏功能，默认启用 |
-| convertFormat | string | html | 设置内容导入导出格式，支持html、raw两种格式，默认html |
+| ConvertFormat | string | "html" | 设置内容导入导出格式，支持html、raw两种格式，默认html |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
 # QA:
