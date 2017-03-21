@@ -268,7 +268,7 @@ class BlockGenerator {
     let hasDepth = canHaveDepth(type);
     let allowRender = !SPECIAL_ELEMENTS.hasOwnProperty(tagName);
     let blockData=new Map();
-    if (element.style.textAlign) {
+    if (element.style&&element.style.textAlign) {
       blockData.set("textAlignment",element.style.textAlign);
     }
     let block: ParsedBlock = {
