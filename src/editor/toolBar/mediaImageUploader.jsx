@@ -3,7 +3,6 @@ import {
   Modal,
   Button,
   message,
-  Tooltip,
   Icon
 } from 'antd';
 import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
@@ -152,15 +151,11 @@ class ImgStyleControls extends Component {
           receiveSelectedPictures={this.groupAppend}
           uploadConfig={this.props.uploadConfig}>
           <span className={className}>
-            <Tooltip placement="top" title="水印图片">
-              <Icon type="editor_image_masker"/>
-            </Tooltip>
+              <Icon type="editor_image_masker" title="水印图片"/>
           </span>
         </GroupUpload>
         <span className={className} onClick={that.onImgToggle}>
-          <Tooltip placement="top" title="原始图片">
-            <Icon type="editor_image"/>
-          </Tooltip>
+            <Icon type="editor_image" title="原始图片"/>
         </span>
 
         <div

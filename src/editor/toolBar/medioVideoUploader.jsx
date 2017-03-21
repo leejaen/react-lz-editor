@@ -7,7 +7,6 @@ import {
   Form,
   Input,
   message,
-  Tooltip,
   Icon
 } from 'antd';
 import {UploadImage} from '../../global/components/businessComponents';
@@ -60,9 +59,7 @@ class VideoStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span className={className} onClick={that.onVideoToggle}>
-          <Tooltip placement="top" title="上传视频">
-            <Icon type="editor_video"/>
-          </Tooltip>
+            <Icon type="editor_video" title="上传视频"/>
         </span>
         <Modal
           title="插入视频"

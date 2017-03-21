@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon,Tooltip} from "antd"
+import {Icon} from "antd"
 class StyleButton extends React.Component {
   constructor() {
     super();
@@ -17,11 +17,9 @@ class StyleButton extends React.Component {
 
     return (
       <span>
-        <Tooltip placement="top" title={this.props.text}>
-          <span className={className} onClick={this.onToggle}>
-            <Icon type={`${this.props.label}`}/>
-          </span>
-        </Tooltip>
+        <span className={className} onClick={this.onToggle} title={this.props.text}>
+          <Icon type={`${this.props.label}`}/>
+        </span>
         {(() => {
           if (!!this.props.split) {
             return <span className="RichEditor-controls-split">{this.props.split}</span>;

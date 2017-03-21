@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tooltip, Icon} from "antd"
+import {Icon} from "antd"
 
 class UndoRedo extends Component {
   constructor(props) {

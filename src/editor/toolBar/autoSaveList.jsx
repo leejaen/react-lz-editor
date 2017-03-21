@@ -4,7 +4,6 @@ import {
   Button,
   Popconfirm,
   message,
-  Tooltip,
   Table,
   Icon
 } from 'antd';
@@ -118,10 +117,8 @@ class AutoSaveControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span>
-          <Tooltip placement="bottomLeft" title="保险库——编辑器中按Ctrl+S或Cmd+S存入保险库，点击打开保险库以继续">
-            <span className={className} onClick={that.onAutoSaveToggle}><Icon type="editor_safty"/>
+            <span className={className} onClick={that.onAutoSaveToggle} title="保险库——编辑器中按Ctrl+S或Cmd+S存入保险库，点击打开保险库以继续"><Icon type="editor_safty"/>
             </span>
-          </Tooltip>
         </span>
         <Modal
           title="编辑器保险库条目列表："

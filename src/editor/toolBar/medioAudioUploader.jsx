@@ -7,7 +7,6 @@ import {
   Form,
   Input,
   message,
-  Tooltip,
   Icon
 } from 'antd';
 import {UploadImage} from '../../global/components/businessComponents';
@@ -59,9 +58,7 @@ class AudioStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span className={className} onClick={that.onAudioToggle}>
-          <Tooltip placement="top" title="上传音频">
-            <Icon type="editor_audio"/>
-          </Tooltip>
+            <Icon type="editor_audio" title="上传音频"/>
         </span>
         <Modal
           title="插入音频"

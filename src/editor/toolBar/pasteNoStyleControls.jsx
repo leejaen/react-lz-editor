@@ -4,8 +4,7 @@ import {
   Modal,
   Button,
   Input,
-  Icon,
-  Tooltip
+  Icon
 } from 'antd';
 class PasteNoStyleControls extends Component {
   constructor(props) {
@@ -57,11 +56,9 @@ class PasteNoStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
 
-        <Tooltip placement="top" title="纯文本粘贴">
-          <span className={className} onClick={that.onTextToggle}>
-            <Icon key="paset_text" type="editor_paset_text" />
-          </span>
-        </Tooltip>
+        <span className={className} onClick={that.onTextToggle} title="纯文本粘贴">
+          <Icon key="paset_text" type="editor_paset_text" />
+        </span>
 
         <Modal
           title="插入无样式文本内容"
