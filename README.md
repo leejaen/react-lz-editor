@@ -1,6 +1,6 @@
 # react-lz-editor
-    An open source rich react editor based on draft-Js and ant design.
-    一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器。
+    An open source rich react editor based on draft-Js and ant design, good support HTML, markdown and Draft Raw format.
+    一款支持 HTML\ markdown\ draft Raw 格式的 react 富文本编辑器，基于 draft-Js 和 ant-design 实现。
 ## Live demo
 
 [Live demo](https://leejaen.github.io/)
@@ -93,9 +93,9 @@
 | RemoveStyle | bool | true | 是否启用移除格式功能，默认启用 |
 | PasteNoStyle | bool | true | 是否启用文本粘贴功能，默认启用 |
 | BlockStyle | bool | true | 是否启用段落样式设置功能（H1、列表、区段等），默认启用 |
-| Alignment | bool | true | 是否启用文本对齐设置功能，默认启用 |
+| Alignment | bool | true | 是否启用文本对齐设置功能，默认启用，markdown不支持 |
 | InlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
-| Color | bool | true | 是否启用文字颜色设置功能，默认启用 |
+| Color | bool | true | 是否启用文字颜色设置功能，默认启用，markdown不支持 |
 | Image | bool | true | 是否启用图片上传后插入功能，默认启用 |
 | Video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
 | Url | bool | true | 是否启用添加删除链接功能，默认启用 |

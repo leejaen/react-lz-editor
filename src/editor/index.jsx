@@ -59,7 +59,8 @@ import RemoveStyleControls from "./toolBar/removeStyleControls"
 import UndoRedo from "./toolBar/undoredoControls"
 import {colorStyleMap} from "./utils/colorConfig"
 import ExtendedRichUtils from "./utils/ExtendedRichUtils"
-import _ from "lodash";
+import isEmpty from 'lodash/isEmpty';
+import trim from 'lodash/trim';
 
 const decorator = new CompositeDecorator([
   LinkDecorator,
@@ -101,7 +102,7 @@ class EditorConcist extends React.Component {
           } else if(ConvertFormat === 'raw'){
             originalString=originalString.replace(/\s/g,"")?originalString:"{}";
             let rawContent = JSON.parse(originalString);
-            if (_.isEmpty(rawContent)) {
+            if (isEmpty(rawContent)) {
             return EditorState.createWithContent("", decorator);
             }
             contentState = convertFromRaw(rawContent);
@@ -416,7 +417,7 @@ _openFull(e){
       content = JSON.stringify(rawContent);
     }
 
-    if (this.state.hasPasted===true||_.trim(newText).length>0) {
+    if (this.state.hasPasted===true||trim(newText).length>0) {
       const blockMap = ContentState.createFromText(text.trim()).blockMap;
       const newState = Modifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), blockMap);
       this.onChange(EditorState.push(editorState, newState, 'insert-fragment'));

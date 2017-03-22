@@ -3,7 +3,7 @@
  */
 import { message } from 'antd';
 // import { hashHistory } from 'react-router'
-var _ = require('lodash');
+import forIn = 'lodash/forIn';
 const commonFun = {
   test: function(a) {
     alert(a);
@@ -12,20 +12,20 @@ const commonFun = {
     let paths=power.split(".");
     // console.log("powers",paths);
     let true_data=[];
-    _.forIn(SourceData,function(item,key){
+    forIn(SourceData,function(item,key){
 
       if(key==paths[0]){
 
 
-        _.forIn(item,function(items,keys){
+        forIn(item,function(items,keys){
             // console.log("xxxxx333",items,keys);
           if(keys==paths[1]){
               // console.log("111222",items,keys);
-            _.forIn(items,function(itm,ky){
+            forIn(items,function(itm,ky){
 
               if(ky==paths[2]){
                   // console.log("xxxxx11",itm,ky);
-                _.forIn(itm.objList,function(trueInfo){
+                forIn(itm.objList,function(trueInfo){
 
                   if(parseInt(trueInfo.type)==type){
                     true_data=trueInfo;

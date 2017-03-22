@@ -8,6 +8,7 @@ import {
   Icon
 } from 'antd';
 import {PRO_COMMON} from '../../global/supports/publicDatas';
+import find from "lodash/find";
 class AutoSaveControls extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ class AutoSaveControls extends Component {
   }
   doDelete(text) {
     window.localStorage.removeItem("$d" + text);
-    let currItem=_.find(this.state.list,item=>item.keyName==text)
+    let currItem=find(this.state.list,item=>item.keyName==text)
     if (currItem.key===this.state.selectedRowKeys[0]) {
       this.state.selectedRowKeys=[];
       this.forceUpdate();

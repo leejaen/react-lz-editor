@@ -6,7 +6,7 @@ import {
   Icon
 } from 'antd';
 import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
-import _ from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 /*视频音频图片*/
 class ImgStyleControls extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class ImgStyleControls extends Component {
     this.setState({provisible: false,pfopImages: pfopImages, previsible: true});
   }
   realLoading(type) {
-    let images = _.cloneDeep(this.state.pfopImages);
+    let images = cloneDeep(this.state.pfopImages);
     console.log("images", images);
     console.log("realLoading provisible false");
     this.setState({provisible: false, images: [], pfopImages: [], previsible: false});

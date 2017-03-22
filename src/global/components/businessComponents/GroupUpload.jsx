@@ -6,7 +6,12 @@ import { PRO_REQUEST,PRO_BASE } from '../../supports/publicDatas';
 // import {PRO_COMMON} from '../../supports/publicDatas';
 // import {getPfopPictures} from "rootActions";
 // import {Base64} from "js-base64";
-import _ from 'lodash'
+import remove from 'lodash/remove'
+import uniq from 'lodash/uniq'
+import find from 'lodash/find'
+import cloneDeep from 'lodash/cloneDeep'
+import clone from 'lodash/clone'
+import compact from 'lodash/compact'
 class GroupUpload extends Component {
   constructor(props) {
     super(props);
@@ -47,11 +52,11 @@ class GroupUpload extends Component {
     if (e.target.checked) {
       this.state.selectedPictureList.push(item);
     } else {
-      _.remove(this.state.selectedPictureList, function(n) {
+      remove(this.state.selectedPictureList, function(n) {
         return n == item;
       });
     }
-    this.state.selectedPictureList=_.uniq(this.state.selectedPictureList);
+    this.state.selectedPictureList=uniq(this.state.selectedPictureList);
     this.forceUpdate();
   }
   handlePictureSeletorOK() {
@@ -105,7 +110,7 @@ class GroupUpload extends Component {
           "originPic": item+"?"+thumbnail+"watermark/1/gravity/"
                             +this.state.selectedWaterMarkPositon
                             +"/image/"
-                            +(_.find(PRO_BASE.Config.watermarkImage,item=>item.type==this.state.selectedWaterMarkType).valuebase64)
+                            +(find(PRO_BASE.Config.watermarkImage,item=>item.type==this.state.selectedWaterMarkType).valuebase64)
                             +"/dx/50/dy/50",
           "newName": (~ originKey.lastIndexOf("QN1D")
             ? (originKey)
@@ -118,11 +123,11 @@ class GroupUpload extends Component {
       }
     });
     // console.log("newPicturesObj a",newPicturesObj);
-    newPicturesObj=_.compact(newPicturesObj);
+    newPicturesObj=compact(newPicturesObj);
     // console.log("newPicturesObj b",newPicturesObj);
-    let refObj=_.clone(newPicturesObj);
-    _.remove(newPicturesObj,item=>{return !item.originPic});
-    let removedPic=_.remove(newPicturesObj,item=>{return !!~item.originPic.lastIndexOf("QN1D")});
+    let refObj=clone(newPicturesObj);
+    remove(newPicturesObj,item=>{return !item.originPic});
+    let removedPic=remove(newPicturesObj,item=>{return !!~item.originPic.lastIndexOf("QN1D")});
     // console.log("getPfop removedPic",removedPic);
     if (newPicturesObj.length>0) {
       this.getPfopPictures(newPicturesObj);
@@ -177,9 +182,9 @@ class GroupUpload extends Component {
         return item.url
       }
     });
-    this.state.pictureList = _.compact(this.state.pictureList.concat(newPictures));
-    this.state.pictureList=_.uniq(this.state.pictureList);
-    this.state.selectedPictureList = _.cloneDeep(this.state.pictureList);
+    this.state.pictureList = compact(this.state.pictureList.concat(newPictures));
+    this.state.pictureList=uniq(this.state.pictureList);
+    this.state.selectedPictureList = cloneDeep(this.state.pictureList);
     console.log("pictureList", this.state.pictureList);
     this.forceUpdate(); //强制更新
   }
@@ -192,7 +197,7 @@ class GroupUpload extends Component {
   componentWillReceiveProps(prevProps,nextProps){
     // console.log("nextProps",nextProps)
     if (!!nextProps&&nextProps.hasOwnProperty("imageList")) {
-      this.setState({pictureList:nextProps.imageList,selectedPictureList: _.cloneDeep(nextProps.imageList)});
+      this.setState({pictureList:nextProps.imageList,selectedPictureList: cloneDeep(nextProps.imageList)});
     }else {
       this.setState({pictureList:[],selectedPictureList:[]});
     }

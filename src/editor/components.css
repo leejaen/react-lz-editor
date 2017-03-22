@@ -134,7 +134,13 @@
   display: inline;
   border-left: 1px solid #EEE;
 }
-
+.RichEditor-controls .ant-btn{
+  transition:none!important;
+  -o-transition:none!important;
+  -ms-transition:none!important;
+  -moz-transition:none!important;
+  -webkit-transition:none!important;
+}
 .RichEditor-controls-split {
   padding-right: 20px
 }

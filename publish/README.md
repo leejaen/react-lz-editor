@@ -1,6 +1,6 @@
 # react-lz-editor
-    An open source rich react editor based on draft-Js and ant design.
-    一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器。
+    An open source rich react editor based on draft-Js and ant design, good support HTML, markdown and Draft Raw format.
+    一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器，支持HTML、markdown、draft Raw格式。
 ## Live demo
 
 [https://leejaen.github.io/](https://leejaen.github.io/)

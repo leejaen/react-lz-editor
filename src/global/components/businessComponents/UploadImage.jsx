@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {Upload, Button, Icon, message} from 'antd';
 import {PRO_URL, PRO_REQUEST, PRO_QINIU, PRO_COMMON} from '../../supports/publicDatas';
-import _ from "lodash";
+import findIndex from "lodash/findIndex";
+import isEqual from "lodash/isEqual";
+import cloneDeep from "lodash/cloneDeep";
 
 /*
  * 调用示例：
@@ -75,10 +77,10 @@ class UploadImage extends Component {
     });
     let _this = this;
     //按照服务器返回信息筛选成功上传的文件
-    // let cloneList=_.cloneDeep(_this.state.files);
+    // let cloneList=cloneDeep(_this.state.files);
     fileList = fileList.filter((file) => {
       //根据多选选项更新添加内容
-      let hasNoExistCurrFileInUploadedList=!~_.findIndex(_this.state.files,item=>item.name===file.name)
+      let hasNoExistCurrFileInUploadedList=!~findIndex(_this.state.files,item=>item.name===file.name)
       if (hasNoExistCurrFileInUploadedList) {
         if (!!_this.props.isMultiple == true) {
           _this.state.files.push(file);
@@ -128,8 +130,8 @@ class UploadImage extends Component {
 
   componentWillReceiveProps(nextProps) {
     // console.log("componentWillReceiveProps",nextProps.fileList,this.state.files);
-      // console.log("isEqual",_.isEqual(nextProps.fileList, this.state.files));
-    if (_.isEqual(nextProps.fileList, this.state.files)) {
+      // console.log("isEqual",isEqual(nextProps.fileList, this.state.files));
+    if (isEqual(nextProps.fileList, this.state.files)) {
       return false;
     }
     if(nextProps.isOpenModel){
@@ -146,7 +148,7 @@ class UploadImage extends Component {
     if (this.state.files.length) {
       list = this.state.files.copyWithin(0);
     }else {
-      list = _.cloneDeep(nextProps.fileList);
+      list = cloneDeep(nextProps.fileList);
     }
     if (!!list) {
       PRO_COMMON.obj.refsKeyTo(list, "uid");
