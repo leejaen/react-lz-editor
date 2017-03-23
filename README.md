@@ -1,16 +1,16 @@
 # react-lz-editor
-    An open source rich react editor based on draft-Js and ant design, good support HTML, markdown and Draft Raw format.
+    An open source rich react editor based on draft-Js and ant design, good support for HTML, markdown and Draft Raw format.
     一款支持 HTML\ markdown\ draft Raw 格式的 react 富文本编辑器，基于 draft-Js 和 ant-design 实现。
 ## Live demo
 
-[Live demo](https://leejaen.github.io/)
+[Live demo](https://leejaen.github.io/react-lz-editor/index.html)
 
     因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了。
 
 # Install
     npm install antd react-lz-editor --save
 
-    Version note: React-lz-editor 0.9.25+ is matched react 15.4.2+ and react-dom 15.4.2+.
+    Version note: React 15.4.2+ and react-dom 15.4.2+ is required.
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
