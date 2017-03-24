@@ -80,11 +80,7 @@ var AudioStyleControls = function (_Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onAudioToggle },
-          _react2.default.createElement(
-            _antd.Tooltip,
-            { placement: 'top', title: '\u4E0A\u4F20\u97F3\u9891' },
-            _react2.default.createElement(_antd.Icon, { type: 'editor_audio' })
-          )
+          _react2.default.createElement(_antd.Icon, { type: 'editor_audio', title: '\u4E0A\u4F20\u97F3\u9891' })
         ),
         _react2.default.createElement(
           _antd.Modal,

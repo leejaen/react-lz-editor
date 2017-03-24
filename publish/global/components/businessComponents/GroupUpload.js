@@ -16,9 +16,29 @@ var _UploadImage2 = _interopRequireDefault(_UploadImage);
 
 var _publicDatas = require('../../supports/publicDatas');
 
-var _lodash = require('lodash');
+var _remove = require('lodash/remove');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _remove2 = _interopRequireDefault(_remove);
+
+var _uniq = require('lodash/uniq');
+
+var _uniq2 = _interopRequireDefault(_uniq);
+
+var _find = require('lodash/find');
+
+var _find2 = _interopRequireDefault(_find);
+
+var _cloneDeep = require('lodash/cloneDeep');
+
+var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
+
+var _clone = require('lodash/clone');
+
+var _clone2 = _interopRequireDefault(_clone);
+
+var _compact = require('lodash/compact');
+
+var _compact2 = _interopRequireDefault(_compact);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93,11 +113,11 @@ var GroupUpload = function (_Component) {
       if (e.target.checked) {
         this.state.selectedPictureList.push(item);
       } else {
-        _lodash2.default.remove(this.state.selectedPictureList, function (n) {
+        (0, _remove2.default)(this.state.selectedPictureList, function (n) {
           return n == item;
         });
       }
-      this.state.selectedPictureList = _lodash2.default.uniq(this.state.selectedPictureList);
+      this.state.selectedPictureList = (0, _uniq2.default)(this.state.selectedPictureList);
       this.forceUpdate();
     }
   }, {
@@ -157,7 +177,7 @@ var GroupUpload = function (_Component) {
           }
           return {
             //"http://image.qlwbyidian.com/03142179463624167665.jpg?imageMogr2/thumbnail/!36p/crop/!608x380a32a4|watermark/1/gravity/SouthEast/image/aHR0cDovLzd4amwxai5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS93aGl0ZV9iaWcucG5n/dx/10/dy/10"
-            "originPic": item + "?" + thumbnail + "watermark/1/gravity/" + _this3.state.selectedWaterMarkPositon + "/image/" + _lodash2.default.find(_publicDatas.PRO_BASE.Config.watermarkImage, function (item) {
+            "originPic": item + "?" + thumbnail + "watermark/1/gravity/" + _this3.state.selectedWaterMarkPositon + "/image/" + (0, _find2.default)(_publicDatas.PRO_BASE.Config.watermarkImage, function (item) {
               return item.type == _this3.state.selectedWaterMarkType;
             }).valuebase64 + "/dx/50/dy/50",
             "newName": (~originKey.lastIndexOf("QN1D") ? originKey : originKey + "QN1D" + new Date().getMilliseconds() + _this3.state.selectedWaterMarkPositon) + (extensionName || ""),
@@ -169,13 +189,13 @@ var GroupUpload = function (_Component) {
         }
       });
       // console.log("newPicturesObj a",newPicturesObj);
-      newPicturesObj = _lodash2.default.compact(newPicturesObj);
+      newPicturesObj = (0, _compact2.default)(newPicturesObj);
       // console.log("newPicturesObj b",newPicturesObj);
-      var refObj = _lodash2.default.clone(newPicturesObj);
-      _lodash2.default.remove(newPicturesObj, function (item) {
+      var refObj = (0, _clone2.default)(newPicturesObj);
+      (0, _remove2.default)(newPicturesObj, function (item) {
         return !item.originPic;
       });
-      var removedPic = _lodash2.default.remove(newPicturesObj, function (item) {
+      var removedPic = (0, _remove2.default)(newPicturesObj, function (item) {
         return !!~item.originPic.lastIndexOf("QN1D");
       });
       // console.log("getPfop removedPic",removedPic);
@@ -242,9 +262,9 @@ var GroupUpload = function (_Component) {
           return item.url;
         }
       });
-      this.state.pictureList = _lodash2.default.compact(this.state.pictureList.concat(newPictures));
-      this.state.pictureList = _lodash2.default.uniq(this.state.pictureList);
-      this.state.selectedPictureList = _lodash2.default.cloneDeep(this.state.pictureList);
+      this.state.pictureList = (0, _compact2.default)(this.state.pictureList.concat(newPictures));
+      this.state.pictureList = (0, _uniq2.default)(this.state.pictureList);
+      this.state.selectedPictureList = (0, _cloneDeep2.default)(this.state.pictureList);
       console.log("pictureList", this.state.pictureList);
       this.forceUpdate(); //强制更新
     }
@@ -263,7 +283,7 @@ var GroupUpload = function (_Component) {
     value: function componentWillReceiveProps(prevProps, nextProps) {
       // console.log("nextProps",nextProps)
       if (!!nextProps && nextProps.hasOwnProperty("imageList")) {
-        this.setState({ pictureList: nextProps.imageList, selectedPictureList: _lodash2.default.cloneDeep(nextProps.imageList) });
+        this.setState({ pictureList: nextProps.imageList, selectedPictureList: (0, _cloneDeep2.default)(nextProps.imageList) });
       } else {
         this.setState({ pictureList: [], selectedPictureList: [] });
       }

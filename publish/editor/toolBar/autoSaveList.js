@@ -10,6 +10,10 @@ var _antd = require('antd');
 
 var _publicDatas = require('../../global/supports/publicDatas');
 
+var _find = require('lodash/find');
+
+var _find2 = _interopRequireDefault(_find);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49,7 +53,7 @@ var AutoSaveControls = function (_Component) {
     key: 'doDelete',
     value: function doDelete(text) {
       window.localStorage.removeItem("$d" + text);
-      var currItem = _.find(this.state.list, function (item) {
+      var currItem = (0, _find2.default)(this.state.list, function (item) {
         return item.keyName == text;
       });
       if (currItem.key === this.state.selectedRowKeys[0]) {
@@ -164,13 +168,9 @@ var AutoSaveControls = function (_Component) {
           'span',
           null,
           _react2.default.createElement(
-            _antd.Tooltip,
-            { placement: 'bottomLeft', title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93\u4EE5\u7EE7\u7EED' },
-            _react2.default.createElement(
-              'span',
-              { className: className, onClick: that.onAutoSaveToggle },
-              _react2.default.createElement(_antd.Icon, { type: 'editor_safty' })
-            )
+            'span',
+            { className: className, onClick: that.onAutoSaveToggle, title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93\u4EE5\u7EE7\u7EED' },
+            _react2.default.createElement(_antd.Icon, { type: 'editor_safty' })
           )
         ),
         _react2.default.createElement(

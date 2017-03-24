@@ -100,9 +100,13 @@ var _ExtendedRichUtils = require('./utils/ExtendedRichUtils');
 
 var _ExtendedRichUtils2 = _interopRequireDefault(_ExtendedRichUtils);
 
-var _lodash = require('lodash');
+var _isEmpty = require('lodash/isEmpty');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+var _trim = require('lodash/trim');
+
+var _trim2 = _interopRequireDefault(_trim);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -117,8 +121,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
 // import 'antd/dist/antd.css';
-
-// import {stateFromHTML} from 'draft-js-import-html';
 
 
 var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
@@ -140,9 +142,9 @@ var EditorConcist = function (_React$Component) {
       visible: false,
 
       editorState: function () {
-        var originalHtml = _this.props.HtmlContent;
-        originalHtml = !originalHtml ? " " : originalHtml;
-        if (!originalHtml) {
+        var originalString = _this.props.HtmlContent;
+        originalString = !originalString ? " " : originalString;
+        if (!originalString) {
           //暂时不走createEmpty，有错。空的话给个空格规避
           //this.state.alwaysEnterEmpty = true;
           return _draftJs.EditorState.createEmpty(decorator);
@@ -152,11 +154,16 @@ var EditorConcist = function (_React$Component) {
           var ConvertFormat = _this.props.ConvertFormat;
           var contentState = void 0;
           if (ConvertFormat === 'html') {
-            contentState = (0, _utils.stateFromHTML)(originalHtml);
-            // console.log("state originalHtml",originalHtml);
-            // console.log("state contentState",contentState);
+            contentState = (0, _utils.stateFromHTML)(originalString);
+          } else if (ConvertFormat === 'markdown') {
+            console.log("markdown originalString", originalString);
+            contentState = (0, _utils.stateFromMD)(originalString);
           } else if (ConvertFormat === 'raw') {
-            var rawContent = JSON.parse(originalHtml);
+            originalString = originalString.replace(/\s/g, "") ? originalString : "{}";
+            var rawContent = JSON.parse(originalString);
+            if ((0, _isEmpty2.default)(rawContent)) {
+              return _draftJs.EditorState.createWithContent("", decorator);
+            }
             contentState = (0, _draftJs.convertFromRaw)(rawContent);
           }
           return _draftJs.EditorState.createWithContent(contentState, decorator);
@@ -172,14 +179,16 @@ var EditorConcist = function (_React$Component) {
         clearTimeout(that.timer);
       }
       that.timer = setTimeout(function () {
-        //stateToHTML 状态转对象
+        //状态转对象
         var rawContentState = that.state.editorState.getCurrentContent();
         //const rawContent = convertToRaw(rawContentState);
-        //console.log('JSON.stringify(rawContent)', JSON.stringify(rawContent));
+        console.log('rawContentState', rawContentState);
         var content = void 0;
         var ConvertFormat = that.props.ConvertFormat;
         if (ConvertFormat === 'html') {
           content = (0, _utils.stateToHTML)(rawContentState);
+        } else if (ConvertFormat === 'markdown') {
+          content = (0, _utils.stateToMD)(rawContentState);
         } else if (ConvertFormat === 'raw') {
           var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
           content = JSON.stringify(rawContent);
@@ -247,7 +256,7 @@ var EditorConcist = function (_React$Component) {
       //   LinkDecorator,
       //   ImageDecorator
       // ]);
-      var contentState = (0, _utils.stateFromHTML)(content);
+      //  const contentState = stateFromHTML(content);
       //  console.log("componentDidMount content",content);
       //  console.log("componentDidMount contentState",JSON.stringify(contentState));
       // let values = EditorState.createWithContent(contentState, decorator);
@@ -268,10 +277,15 @@ var EditorConcist = function (_React$Component) {
         return false;
       }
       var ConvertFormat = this.props.ConvertFormat;
-      var newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
       if (!newContent || newContent == "undefined") {
-        newContent = "<p>&nbsp;</p>";
-        ConvertFormat = 'html';
+        if (ConvertFormat === "html") {
+          var _newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
+          _newContent = "<p>&nbsp;</p>";
+        } else if (ConvertFormat === "markdown") {
+          newContent = "";
+        } else if (ConvertFormat === "raw") {
+          newContent = "{}";
+        }
       }
       /*const decorator = new CompositeDecorator([
         LinkDecorator,
@@ -282,6 +296,8 @@ var EditorConcist = function (_React$Component) {
       var contentState = void 0;
       if (ConvertFormat === 'html') {
         contentState = (0, _utils.stateFromHTML)(newContent);
+      } else if (ConvertFormat === 'markdown') {
+        contentState = (0, _utils.stateFromMD)(newContent);
       } else if (ConvertFormat === 'raw') {
         var rawContent = JSON.parse(newContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
@@ -417,13 +433,25 @@ var EditorConcist = function (_React$Component) {
         // let Data=PRO_COMMON.localDB.getter("grab_news_data") || [];
 
         var rawContentState = editorState.getCurrentContent();
-        var HTMLcontent = (0, _utils.stateToHTML)(rawContentState);
-        var newText = HTMLcontent.replace(/<[^>]*>|&[^;]*;/g, "");
+        var content = "",
+            newText = "";
+
+        var ConvertFormat = this.props.ConvertFormat;
+        if (ConvertFormat === 'html') {
+          content = (0, _utils.stateToHTML)(rawContentState);
+          newText = content.replace(/<[^>]*>|&[^;]*;/g, "");
+        } else if (ConvertFormat === 'markdown') {
+          content = (0, _utils.stateToMD)(rawContentState);
+        } else if (ConvertFormat === 'raw') {
+          var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
+          content = JSON.stringify(rawContent);
+        }
+
         if (newText.length < 30) {
           return false;
         }
         var start30Text = newText.substr(0, 30);
-        _publicDatas.PRO_COMMON.localDB.setter("$d" + start30Text, HTMLcontent);
+        _publicDatas.PRO_COMMON.localDB.setter("$d" + start30Text, content);
         _antd.message.success("编辑器内容已更新到保险库中", 5);
         return true;
       } else if (command === "editor-paste") {
@@ -470,24 +498,36 @@ var EditorConcist = function (_React$Component) {
     }
   }, {
     key: '_handlePastedText',
-    value: function _handlePastedText(text, html) {
-      html = this.solidHtml(html);
+    value: function _handlePastedText(text, sourceString) {
+      sourceString = this.solidHtml(sourceString);
       // console.log("_handlePastedText text",text);
-      // console.log("_handlePastedText html",typeof(html),html);
-      if (text == "undefined" && html == "undefined") {
+      // console.log("_handlePastedText sourceString",typeof(sourceString),sourceString);
+      if (text == "undefined" && sourceString == "undefined") {
         // console.log("_handlePastedText return false");
         return false;
       }
-      if (html == "undefined" || !html) {
+      if (sourceString == "undefined" || !sourceString) {
         this.pasteNoStyle(text);
         return false;
       }
       var editorState = this.state.editorState;
 
       var rawContentState = editorState.getCurrentContent();
-      var HTMLcontent = (0, _utils.stateToHTML)(rawContentState);
-      var newText = HTMLcontent.replace(/<[^>]*>|&[^;]*;/g, "");
-      if (this.state.hasPasted === true || _lodash2.default.trim(newText).length > 0) {
+      var content = "",
+          newText = "";
+
+      var ConvertFormat = this.props.ConvertFormat;
+      if (ConvertFormat === 'html') {
+        content = (0, _utils.stateToHTML)(rawContentState);
+        newText = content.replace(/<[^>]*>|&[^;]*;/g, "");
+      } else if (ConvertFormat === 'markdown') {
+        content = (0, _utils.stateToMD)(rawContentState);
+      } else if (ConvertFormat === 'raw') {
+        var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
+        content = JSON.stringify(rawContent);
+      }
+
+      if (this.state.hasPasted === true || (0, _trim2.default)(newText).length > 0) {
         var blockMap = _draftJs.ContentState.createFromText(text.trim()).blockMap;
         var newState = _draftJs.Modifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), blockMap);
         this.onChange(_draftJs.EditorState.push(editorState, newState, 'insert-fragment'));
@@ -495,9 +535,16 @@ var EditorConcist = function (_React$Component) {
       }
       this.state.hasPasted = true;
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
-      var contentState = (0, _utils.stateFromHTML)(html);
-      // console.log("_handlePastedText html",html);
-      // console.log("_handlePastedText contentState",JSON.stringify(contentState));
+      var contentState = "";
+
+      if (ConvertFormat === 'html') {
+        contentState = (0, _utils.stateFromHTML)(sourceString);
+      } else if (ConvertFormat === 'markdown') {
+        contentState = (0, _utils.stateFromMD)(sourceString);
+      } else if (ConvertFormat === 'raw') {
+        contentState = (0, _draftJs.convertFromRaw)(sourceString);
+      }
+
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
       _antd.message.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。", 5);
@@ -581,11 +628,20 @@ var EditorConcist = function (_React$Component) {
     }
   }, {
     key: '_pasteNoStyle',
-    value: function _pasteNoStyle(text) {
-      text = '<p>' + text.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') + '</p>';
+    value: function _pasteNoStyle(sourceString) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
-      var contentState = (0, _utils.stateFromHTML)(text);
-      // console.log("_pasteNoStyle text",text);
+      var contentState = "";
+
+      var ConvertFormat = this.props.ConvertFormat;
+      if (ConvertFormat === 'html') {
+        sourceString = '<p>' + sourceString.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') + '</p>';
+        contentState = (0, _utils.stateFromHTML)(sourceString);
+      } else if (ConvertFormat === 'markdown') {
+        contentState = (0, _utils.stateFromMD)(sourceString);
+      } else if (ConvertFormat === 'raw') {
+        contentState = (0, _draftJs.convertFromRaw)(sourceString);
+      }
+      // console.log("_pasteNoStyle sourceString",sourceString);
       // console.log("_pasteNoStyle contentState",JSON.stringify(contentState));
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
@@ -627,7 +683,17 @@ var EditorConcist = function (_React$Component) {
     key: '_choiceAutoSave',
     value: function _choiceAutoSave(savedHtmlContent) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
-      var contentState = (0, _utils.stateFromHTML)(savedHtmlContent);
+      var ConvertFormat = this.props.ConvertFormat;
+      var contentState = "";
+      if (ConvertFormat === 'html') {
+        contentState = (0, _utils.stateFromHTML)(savedHtmlContent);
+      } else if (ConvertFormat === 'markdown') {
+        contentState = (0, _utils.stateFromMD)(savedHtmlContent);
+      } else if (ConvertFormat === 'raw') {
+        var rawContent = JSON.parse(savedHtmlContent);
+        contentState = (0, _draftJs.convertFromRaw)(rawContent);
+      }
+
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
       this.forceUpdate();
@@ -713,9 +779,9 @@ var EditorConcist = function (_React$Component) {
           this.props.RemoveStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle }),
           this.props.PasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle }),
           this.props.BlockStyle && _react2.default.createElement(_blockStyleControls2.default, { editorState: editorState, onToggle: this.toggleBlockType }),
-          this.props.Alignment && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment }),
+          this.props.Alignment && this.props.ConvertFormat !== "markdown" && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment }),
           this.props.InlineStyle && _react2.default.createElement(_inlineStyleControls2.default, { editorState: editorState, onToggle: this.toggleInlineStyle }),
-          this.props.Color && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor }),
+          this.props.Color && this.props.ConvertFormat !== "markdown" && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor }),
           this.props.Image && _react2.default.createElement(_mediaImageUploader2.default, { uploadConfig: this.props.uploadConfig, receiveImage: this.addImage }),
           this.props.Video && _react2.default.createElement(_medioVideoUploader2.default, { uploadConfig: this.props.uploadConfig, receiveVideo: this.addVideo }),
           this.props.Audio && _react2.default.createElement(_medioAudioUploader2.default, { uploadConfig: this.props.uploadConfig, receiveAudio: this.addAudio }),
@@ -862,7 +928,7 @@ EditorConcist.propTypes = {
     QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
   }),
-  ConvertFormat: _react2.default.PropTypes.oneOf(['html', 'raw'])
+  ConvertFormat: _react2.default.PropTypes.oneOf(['html', 'markdown', 'raw'])
 };
 EditorConcist.defaultProps = {
   UndoRedo: true,

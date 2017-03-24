@@ -270,7 +270,7 @@ var BlockGenerator = function () {
       var hasDepth = canHaveDepth(type);
       var allowRender = !SPECIAL_ELEMENTS.hasOwnProperty(tagName);
       var blockData = new Map();
-      if (element.style.textAlign) {
+      if (element.style && element.style.textAlign) {
         blockData.set("textAlignment", element.style.textAlign);
       }
       var block = {

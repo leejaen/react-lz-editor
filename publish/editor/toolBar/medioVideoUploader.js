@@ -82,11 +82,7 @@ var VideoStyleControls = function (_Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onVideoToggle },
-          _react2.default.createElement(
-            _antd.Tooltip,
-            { placement: 'top', title: '\u4E0A\u4F20\u89C6\u9891' },
-            _react2.default.createElement(_antd.Icon, { type: 'editor_video' })
-          )
+          _react2.default.createElement(_antd.Icon, { type: 'editor_video', title: '\u4E0A\u4F20\u89C6\u9891' })
         ),
         _react2.default.createElement(
           _antd.Modal,

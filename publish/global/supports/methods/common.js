@@ -4,13 +4,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _antd = require('antd');
 
+var _forIn = require('lodash/forIn');
+
+var _forIn2 = _interopRequireDefault(_forIn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
                                                                                                                                                                                                      * Created by lizhen on 4/7/2016.
                                                                                                                                                                                                      */
 
-
 // import { hashHistory } from 'react-router'
-var _ = require('lodash');
+
+
 var commonFun = {
   test: function test(a) {
     alert(a);
@@ -19,19 +25,19 @@ var commonFun = {
     var paths = power.split(".");
     // console.log("powers",paths);
     var true_data = [];
-    _.forIn(SourceData, function (item, key) {
+    (0, _forIn2.default)(SourceData, function (item, key) {
 
       if (key == paths[0]) {
 
-        _.forIn(item, function (items, keys) {
+        (0, _forIn2.default)(item, function (items, keys) {
           // console.log("xxxxx333",items,keys);
           if (keys == paths[1]) {
             // console.log("111222",items,keys);
-            _.forIn(items, function (itm, ky) {
+            (0, _forIn2.default)(items, function (itm, ky) {
 
               if (ky == paths[2]) {
                 // console.log("xxxxx11",itm,ky);
-                _.forIn(itm.objList, function (trueInfo) {
+                (0, _forIn2.default)(itm.objList, function (trueInfo) {
 
                   if (parseInt(trueInfo.type) == type) {
                     true_data = trueInfo;

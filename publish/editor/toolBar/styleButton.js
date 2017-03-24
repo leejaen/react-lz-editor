@@ -45,13 +45,9 @@ var StyleButton = function (_React$Component) {
         'span',
         null,
         _react2.default.createElement(
-          _antd.Tooltip,
-          { placement: 'top', title: this.props.text },
-          _react2.default.createElement(
-            'span',
-            { className: className, onClick: this.onToggle },
-            _react2.default.createElement(_antd.Icon, { type: '' + this.props.label })
-          )
+          'span',
+          { className: className, onClick: this.onToggle, title: this.props.text },
+          _react2.default.createElement(_antd.Icon, { type: '' + this.props.label })
         ),
         function () {
           if (!!_this2.props.split) {

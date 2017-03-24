@@ -3,7 +3,7 @@
  */
 import { message } from 'antd';
 // import { hashHistory } from 'react-router'
-import forIn = 'lodash/forIn';
+import forIn from 'lodash/forIn';
 const commonFun = {
   test: function(a) {
     alert(a);

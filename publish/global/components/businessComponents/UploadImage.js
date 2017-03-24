@@ -10,9 +10,17 @@ var _antd = require('antd');
 
 var _publicDatas = require('../../supports/publicDatas');
 
-var _lodash = require('lodash');
+var _findIndex = require('lodash/findIndex');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _findIndex2 = _interopRequireDefault(_findIndex);
+
+var _isEqual = require('lodash/isEqual');
+
+var _isEqual2 = _interopRequireDefault(_isEqual);
+
+var _cloneDeep = require('lodash/cloneDeep');
+
+var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -108,10 +116,10 @@ var UploadImage = function (_Component) {
       });
       var _this = this;
       //按照服务器返回信息筛选成功上传的文件
-      // let cloneList=_.cloneDeep(_this.state.files);
+      // let cloneList=cloneDeep(_this.state.files);
       fileList = fileList.filter(function (file) {
         //根据多选选项更新添加内容
-        var hasNoExistCurrFileInUploadedList = !~_lodash2.default.findIndex(_this.state.files, function (item) {
+        var hasNoExistCurrFileInUploadedList = !~(0, _findIndex2.default)(_this.state.files, function (item) {
           return item.name === file.name;
         });
         if (hasNoExistCurrFileInUploadedList) {
@@ -163,8 +171,8 @@ var UploadImage = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       // console.log("componentWillReceiveProps",nextProps.fileList,this.state.files);
-      // console.log("isEqual",_.isEqual(nextProps.fileList, this.state.files));
-      if (_lodash2.default.isEqual(nextProps.fileList, this.state.files)) {
+      // console.log("isEqual",isEqual(nextProps.fileList, this.state.files));
+      if ((0, _isEqual2.default)(nextProps.fileList, this.state.files)) {
         return false;
       }
       if (nextProps.isOpenModel) {
@@ -180,7 +188,7 @@ var UploadImage = function (_Component) {
       if (this.state.files.length) {
         list = this.state.files.copyWithin(0);
       } else {
-        list = _lodash2.default.cloneDeep(nextProps.fileList);
+        list = (0, _cloneDeep2.default)(nextProps.fileList);
       }
       if (!!list) {
         _publicDatas.PRO_COMMON.obj.refsKeyTo(list, "uid");

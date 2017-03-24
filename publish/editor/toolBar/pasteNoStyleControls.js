@@ -89,13 +89,9 @@ var PasteNoStyleControls = function (_Component) {
         'div',
         { className: 'RichEditor-controls' },
         _react2.default.createElement(
-          _antd.Tooltip,
-          { placement: 'top', title: '\u7EAF\u6587\u672C\u7C98\u8D34' },
-          _react2.default.createElement(
-            'span',
-            { className: className, onClick: that.onTextToggle },
-            _react2.default.createElement(_antd.Icon, { key: 'paset_text', type: 'editor_paset_text' })
-          )
+          'span',
+          { className: className, onClick: that.onTextToggle, title: '\u7EAF\u6587\u672C\u7C98\u8D34' },
+          _react2.default.createElement(_antd.Icon, { key: 'paset_text', type: 'editor_paset_text' })
         ),
         _react2.default.createElement(
           _antd.Modal,

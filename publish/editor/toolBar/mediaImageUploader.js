@@ -10,9 +10,9 @@ var _antd = require('antd');
 
 var _businessComponents = require('../../global/components/businessComponents');
 
-var _lodash = require('lodash');
+var _cloneDeep = require('lodash/cloneDeep');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -94,7 +94,7 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'realLoading',
     value: function realLoading(type) {
-      var images = _lodash2.default.cloneDeep(this.state.pfopImages);
+      var images = (0, _cloneDeep2.default)(this.state.pfopImages);
       console.log("images", images);
       console.log("realLoading provisible false");
       this.setState({ provisible: false, images: [], pfopImages: [], previsible: false });
@@ -189,21 +189,13 @@ var ImgStyleControls = function (_Component) {
           _react2.default.createElement(
             'span',
             { className: className },
-            _react2.default.createElement(
-              _antd.Tooltip,
-              { placement: 'top', title: '\u6C34\u5370\u56FE\u7247' },
-              _react2.default.createElement(_antd.Icon, { type: 'editor_image_masker' })
-            )
+            _react2.default.createElement(_antd.Icon, { type: 'editor_image_masker', title: '\u6C34\u5370\u56FE\u7247' })
           )
         ),
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onImgToggle },
-          _react2.default.createElement(
-            _antd.Tooltip,
-            { placement: 'top', title: '\u539F\u59CB\u56FE\u7247' },
-            _react2.default.createElement(_antd.Icon, { type: 'editor_image' })
-          )
+          _react2.default.createElement(_antd.Icon, { type: 'editor_image', title: '\u539F\u59CB\u56FE\u7247' })
         ),
         _react2.default.createElement(
           'div',
