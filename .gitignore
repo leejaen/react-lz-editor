@@ -5,4 +5,3 @@ release/*
 node_modules/*
 npm-debug.log
 npm-debug.log.*
-webpack.config.js

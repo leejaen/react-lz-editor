@@ -174,12 +174,12 @@ class EditorConcist extends React.Component {
 
   }
   componentDidMount() {
-     let content = (this.state.HtmlContent);
+     let content = (this.props.HtmlContent);
     // const decorator = new CompositeDecorator([
     //   LinkDecorator,
     //   ImageDecorator
     // ]);
-    //  const contentState = stateFromHTML(content);
+     const contentState = stateFromHTML(content);
     //  console.log("componentDidMount content",content);
     //  console.log("componentDidMount contentState",JSON.stringify(contentState));
     // let values = EditorState.createWithContent(contentState, decorator);
@@ -197,15 +197,14 @@ class EditorConcist extends React.Component {
       return false;
     }
     const ConvertFormat = this.props.ConvertFormat;
-    if (!newContent||newContent == "undefined") {
-      if (ConvertFormat==="html") {
-        let newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
-        newContent = "<p>&nbsp;</p>";
-      } else if (ConvertFormat==="markdown") {
-        newContent = "";
-      } else if (ConvertFormat==="raw") {
-        newContent = "{}";
-      }
+    let newContent ="";
+    if (ConvertFormat==="html") {
+      newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
+      newContent = "<p>&nbsp;</p>";
+    } else if (ConvertFormat==="markdown") {
+      newContent = "";
+    } else if (ConvertFormat==="raw") {
+      newContent = "{}";
     }
     /*const decorator = new CompositeDecorator([
       LinkDecorator,

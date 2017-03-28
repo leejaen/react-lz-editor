@@ -6,6 +6,8 @@ require('./components.css');
 
 require('../global/supports/resources/system.css');
 
+require('antd/dist/antd.css');
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -119,8 +121,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Created by lizhen on 4/26/2016.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
-
-// import 'antd/dist/antd.css';
 
 
 var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
@@ -277,15 +277,14 @@ var EditorConcist = function (_React$Component) {
         return false;
       }
       var ConvertFormat = this.props.ConvertFormat;
-      if (!newContent || newContent == "undefined") {
-        if (ConvertFormat === "html") {
-          var _newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
-          _newContent = "<p>&nbsp;</p>";
-        } else if (ConvertFormat === "markdown") {
-          newContent = "";
-        } else if (ConvertFormat === "raw") {
-          newContent = "{}";
-        }
+      var newContent = "";
+      if (ConvertFormat === "html") {
+        newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
+        newContent = "<p>&nbsp;</p>";
+      } else if (ConvertFormat === "markdown") {
+        newContent = "";
+      } else if (ConvertFormat === "raw") {
+        newContent = "{}";
       }
       /*const decorator = new CompositeDecorator([
         LinkDecorator,
