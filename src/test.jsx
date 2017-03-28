@@ -48,6 +48,11 @@ class Test extends React.Component {
   receiveHtml(content) {
     console.log("recieved HTML content", content);
   }
+  componentDidMount(){
+    setTimeout(()=>{
+      this.setState({htmlContent:"<p>This is changes for test.</p>"})
+    },1000)
+  }
   receiveMarkdown(content) {
     console.log("recieved markdown content", content);
   }
@@ -73,7 +78,7 @@ class Test extends React.Component {
         </div>
         <LzEditor
           active={true}
-          HtmlContent={this.state.htmlContent}
+          ImportContent={this.state.htmlContent}
           cbReceiver={this.receiveHtml}
           uploadConfig={uploadConfig}
           Image={false}
@@ -85,7 +90,7 @@ class Test extends React.Component {
         </div>
         <LzEditor
           active={true}
-          HtmlContent={this.state.markdownContent}
+          ImportContent={this.state.markdownContent}
           cbReceiver={this.receiveMarkdown}
           uploadConfig={uploadConfig}
           Image={false}
@@ -98,7 +103,7 @@ class Test extends React.Component {
         </div>
         <LzEditor
           active={true}
-          HtmlContent={this.state.rawContent}
+          ImportContent={this.state.rawContent}
           cbReceiver={this.receiveRaw}
           uploadConfig={uploadConfig}
           Image={false}

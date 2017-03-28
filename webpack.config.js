@@ -12,10 +12,10 @@ module.exports = {
   entry: [
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8080',
-    path.resolve('', 'src/main.js')
+    // path.resolve('', 'src/main.js')//for publish
+    path.resolve('', 'src/test.jsx')//for text
   ],
   output: {
-    //publicPath: "http://127.0.0.1:8080/static/dist/",
     path: path.resolve('', 'build'),
     filename: 'bundle.js'
   },

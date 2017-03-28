@@ -82,7 +82,7 @@ class EditorConcist extends React.Component {
       visible: false,
 
       editorState: (() => {
-        let originalString = this.props.HtmlContent;
+        let originalString = this.props.ImportContent;
         originalString = !originalString
           ? " "
           : originalString;
@@ -90,7 +90,7 @@ class EditorConcist extends React.Component {
           //this.state.alwaysEnterEmpty = true;
           return EditorState.createEmpty(decorator);
         } else {
-          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.HtmlContent;//转换成dom
+          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.ImportContent;//转换成dom
           // element
           const ConvertFormat = this.props.ConvertFormat;
           let contentState;
@@ -174,7 +174,7 @@ class EditorConcist extends React.Component {
 
   }
   componentDidMount() {
-     let content = (this.props.HtmlContent);
+     let content = (this.props.ImportContent);
     // const decorator = new CompositeDecorator([
     //   LinkDecorator,
     //   ImageDecorator
@@ -193,18 +193,21 @@ class EditorConcist extends React.Component {
     if (!newProps.active) {
       return false;
     }
-    if (newProps.HtmlContent == this.props.HtmlContent) {
+    if (newProps.ImportContent == this.props.ImportContent) {
       return false;
     }
     const ConvertFormat = this.props.ConvertFormat;
     let newContent ="";
+    console.log("ConvertFormat",ConvertFormat)
     if (ConvertFormat==="html") {
-      newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
-      newContent = "<p>&nbsp;</p>";
+      newContent = newProps.ImportContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
+      if (newContent == "undefined" ||!newContent) {
+        newContent = "<p>&nbsp;</p>";
+      }
     } else if (ConvertFormat==="markdown") {
-      newContent = "";
+      newContent = newProps.ImportContent||"";
     } else if (ConvertFormat==="raw") {
-      newContent = "{}";
+      newContent = newProps.ImportContent||"{}";
     }
     /*const decorator = new CompositeDecorator([
       LinkDecorator,
@@ -212,6 +215,7 @@ class EditorConcist extends React.Component {
       VideoDecorator,
       AudioDecorator
     ]);*/
+    console.log("newContent",newContent)
     let contentState;
     if(ConvertFormat === 'html') {
       contentState = stateFromHTML(newContent);
@@ -221,6 +225,7 @@ class EditorConcist extends React.Component {
       let rawContent = JSON.parse(newContent);
       contentState = convertFromRaw(rawContent);
     }
+    console.log("contentState",contentState)
     // console.log("componentWillReceiveProps newContent",newContent);
     // console.log("componentWillReceiveProps contentState",JSON.stringify(contentState));
     let values = EditorState.createWithContent(contentState, decorator);
@@ -564,7 +569,7 @@ _openFull(e){
       editorState: EditorState.push(editorState, removeBlock)
     })
   }
-  _choiceAutoSave(savedHtmlContent){
+  _choiceAutoSave(savedImportContent){
     const decorator = new CompositeDecorator([
       LinkDecorator,
       ImageDecorator,
@@ -574,11 +579,11 @@ _openFull(e){
     const ConvertFormat = this.props.ConvertFormat;
     let contentState = "";
     if(ConvertFormat === 'html') {
-      contentState = stateFromHTML(savedHtmlContent);
+      contentState = stateFromHTML(savedImportContent);
     } else if (ConvertFormat === 'markdown') {
-      contentState = stateFromMD(savedHtmlContent);
+      contentState = stateFromMD(savedImportContent);
     } else if(ConvertFormat === 'raw'){
-      let rawContent = JSON.parse(savedHtmlContent);
+      let rawContent = JSON.parse(savedImportContent);
       contentState = convertFromRaw(rawContent);
     }
 
@@ -770,7 +775,7 @@ const Media = (props) => {
 
 EditorConcist.propTypes = {
   active: React.PropTypes.bool,
-  HtmlContent: React.PropTypes.string,
+  ImportContent: React.PropTypes.string,
   cbReceiver: React.PropTypes.func.isRequired,
   UndoRedo: React.PropTypes.bool,
   RemoveStyle: React.PropTypes.bool,
