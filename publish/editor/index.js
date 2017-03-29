@@ -142,14 +142,14 @@ var EditorConcist = function (_React$Component) {
       visible: false,
 
       editorState: function () {
-        var originalString = _this.props.HtmlContent;
+        var originalString = _this.props.ImportContent;
         originalString = !originalString ? " " : originalString;
         if (!originalString) {
           //暂时不走createEmpty，有错。空的话给个空格规避
           //this.state.alwaysEnterEmpty = true;
           return _draftJs.EditorState.createEmpty(decorator);
         } else {
-          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.HtmlContent;//转换成dom
+          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.ImportContent;//转换成dom
           // element
           var ConvertFormat = _this.props.ConvertFormat;
           var contentState = void 0;
@@ -251,12 +251,12 @@ var EditorConcist = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var content = this.state.HtmlContent;
+      var content = this.props.ImportContent;
       // const decorator = new CompositeDecorator([
       //   LinkDecorator,
       //   ImageDecorator
       // ]);
-      //  const contentState = stateFromHTML(content);
+      var contentState = (0, _utils.stateFromHTML)(content);
       //  console.log("componentDidMount content",content);
       //  console.log("componentDidMount contentState",JSON.stringify(contentState));
       // let values = EditorState.createWithContent(contentState, decorator);
@@ -273,18 +273,21 @@ var EditorConcist = function (_React$Component) {
       if (!newProps.active) {
         return false;
       }
-      if (newProps.HtmlContent == this.props.HtmlContent) {
+      if (newProps.ImportContent == this.props.ImportContent) {
         return false;
       }
       var ConvertFormat = this.props.ConvertFormat;
       var newContent = "";
+      console.log("ConvertFormat", ConvertFormat);
       if (ConvertFormat === "html") {
-        newContent = newProps.HtmlContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
-        newContent = "<p>&nbsp;</p>";
+        newContent = newProps.ImportContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
+        if (newContent == "undefined" || !newContent) {
+          newContent = "<p>&nbsp;</p>";
+        }
       } else if (ConvertFormat === "markdown") {
-        newContent = "";
+        newContent = newProps.ImportContent || "";
       } else if (ConvertFormat === "raw") {
-        newContent = "{}";
+        newContent = newProps.ImportContent || "{}";
       }
       /*const decorator = new CompositeDecorator([
         LinkDecorator,
@@ -292,6 +295,7 @@ var EditorConcist = function (_React$Component) {
         VideoDecorator,
         AudioDecorator
       ]);*/
+      console.log("newContent", newContent);
       var contentState = void 0;
       if (ConvertFormat === 'html') {
         contentState = (0, _utils.stateFromHTML)(newContent);
@@ -301,6 +305,7 @@ var EditorConcist = function (_React$Component) {
         var rawContent = JSON.parse(newContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
       }
+      console.log("contentState", contentState);
       // console.log("componentWillReceiveProps newContent",newContent);
       // console.log("componentWillReceiveProps contentState",JSON.stringify(contentState));
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
@@ -680,16 +685,16 @@ var EditorConcist = function (_React$Component) {
     }
   }, {
     key: '_choiceAutoSave',
-    value: function _choiceAutoSave(savedHtmlContent) {
+    value: function _choiceAutoSave(savedImportContent) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
       var ConvertFormat = this.props.ConvertFormat;
       var contentState = "";
       if (ConvertFormat === 'html') {
-        contentState = (0, _utils.stateFromHTML)(savedHtmlContent);
+        contentState = (0, _utils.stateFromHTML)(savedImportContent);
       } else if (ConvertFormat === 'markdown') {
-        contentState = (0, _utils.stateFromMD)(savedHtmlContent);
+        contentState = (0, _utils.stateFromMD)(savedImportContent);
       } else if (ConvertFormat === 'raw') {
-        var rawContent = JSON.parse(savedHtmlContent);
+        var rawContent = JSON.parse(savedImportContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
       }
 
@@ -900,7 +905,7 @@ var Media = function Media(props) {
 
 EditorConcist.propTypes = {
   active: _react2.default.PropTypes.bool,
-  HtmlContent: _react2.default.PropTypes.string,
+  ImportContent: _react2.default.PropTypes.string,
   cbReceiver: _react2.default.PropTypes.func.isRequired,
   UndoRedo: _react2.default.PropTypes.bool,
   RemoveStyle: _react2.default.PropTypes.bool,

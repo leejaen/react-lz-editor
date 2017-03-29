@@ -67,7 +67,7 @@
       }
       return <LzEditor
         active={true}
-        HtmlContent={this.state.content}
+        ImportContent={this.state.content}
         cbReceiver={this.receiveHtml}
         uploadConfig={uploadConfig}
         FullScreen={false}/>
@@ -87,7 +87,7 @@
 | 配置项 | 类型 | 默认值 | 说明 |
 | -- | -- | -- | -- |
 | active | bool | false | 有更新时是否刷新 |
-| HtmlContent | string | "" | 编辑器显示内容 |
+| ImportContent | string | "" | 编辑器显示内容 |
 | cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
 | UndoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
 | RemoveStyle | bool | true | 是否启用移除格式功能，默认启用 |

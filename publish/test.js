@@ -49,6 +49,15 @@ var Test = function (_React$Component) {
       console.log("recieved HTML content", content);
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.setState({ htmlContent: "<p>This is changes for test.</p>" });
+      }, 1000);
+    }
+  }, {
     key: 'receiveMarkdown',
     value: function receiveMarkdown(content) {
       console.log("recieved markdown content", content);
@@ -82,7 +91,7 @@ var Test = function (_React$Component) {
         ),
         _react2.default.createElement(_index2.default, {
           active: true,
-          HtmlContent: this.state.htmlContent,
+          ImportContent: this.state.htmlContent,
           cbReceiver: this.receiveHtml,
           uploadConfig: uploadConfig,
           Image: false,
@@ -97,7 +106,7 @@ var Test = function (_React$Component) {
         ),
         _react2.default.createElement(_index2.default, {
           active: true,
-          HtmlContent: this.state.markdownContent,
+          ImportContent: this.state.markdownContent,
           cbReceiver: this.receiveMarkdown,
           uploadConfig: uploadConfig,
           Image: false,
@@ -113,7 +122,7 @@ var Test = function (_React$Component) {
         ),
         _react2.default.createElement(_index2.default, {
           active: true,
-          HtmlContent: this.state.rawContent,
+          ImportContent: this.state.rawContent,
           cbReceiver: this.receiveRaw,
           uploadConfig: uploadConfig,
           Image: false,
