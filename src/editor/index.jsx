@@ -3,7 +3,7 @@
  */
 import './components.css'
 import '../global/supports/resources/system.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import {
@@ -54,7 +54,7 @@ import AlignmentControls from "./toolBar/alignmentControls"
 import InlineStyleControls from "./toolBar/inlineStyleControls"
 import PasteNoStyleControls from "./toolBar/pasteNoStyleControls"
 import {AddUrl,CloseUrl} from "./toolBar/urlControls"
-import {OpenFull,AutoSave} from "./toolBar/cookieControls"
+import {OpenFull,AutoSave,SourceEditor} from "./toolBar/cookieControls"
 import RemoveStyleControls from "./toolBar/removeStyleControls"
 import UndoRedo from "./toolBar/undoredoControls"
 import {colorStyleMap} from "./utils/colorConfig"
@@ -75,11 +75,14 @@ class EditorConcist extends React.Component {
 
     this.state = {
       openFullTest:"全屏",
+      showSourceEditor:"源码",
       showURLInput: false,
       urlValue: '',
       hasPasted:false,
       autoSaveFun:null,
       visible: false,
+      showMarkdownSource:false,
+      tempSouceContent:"",
 
       editorState: (() => {
         let originalString = this.props.ImportContent;
@@ -168,10 +171,11 @@ class EditorConcist extends React.Component {
     this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this);
     this.removeLink = this._removeLink.bind(this);
     this.openFull=this._openFull.bind(this);
+    this.toggleSource=this._toggleSource.bind(this);
     this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.solidHtml=this._solidHtml.bind(this);
-
+    this.changeMrakdownContent=this._changeMrakdownContent.bind(this);
   }
   componentDidMount() {
      let content = (this.props.ImportContent);
@@ -206,6 +210,7 @@ class EditorConcist extends React.Component {
       }
     } else if (ConvertFormat==="markdown") {
       newContent = newProps.ImportContent||"";
+      this.state.tempSouceContent=newContent;
     } else if (ConvertFormat==="raw") {
       newContent = newProps.ImportContent||"{}";
     }
@@ -301,31 +306,56 @@ class EditorConcist extends React.Component {
       message.error("移除链接前请先选中链接！", 5);
     }
   }
-_openFull(e){
-  e.preventDefault();
-  let ele=document.querySelector(".RichEditor-root"),affix=document.querySelector("#text-editor-affix"),affixToolBar=document.querySelector("#text-editor-affix>div");
-  // let className = 'RichEditor-editor';
-  if(ele.classList.contains("openFullAll")){
-      ele.className = 'RichEditor-root';
-      affix.style="";
-      affixToolBar.className="";
-      affixToolBar.style=""
-      this.setState({
-        openFullTest:"全屏"
-      })
-  }else{
-      ele.className += ' openFullAll';
-      setTimeout(()=>{
-        affix.style="width: "+affix.offsetWidth+"px; height: 0; margin-bottom: 70px;";
-        affixToolBar.className="ant-affix";
-        affixToolBar.style="position: fixed; top: 0; left: 0; width: "+affix.offsetWidth+"px;margin: 0 15px 15px;"
-      },500)
-      this.setState({
-        openFullTest:"退出全屏"
-      })
-  }
+  _openFull(e){
+    e.preventDefault();
+    let ele=document.querySelector(".RichEditor-root"),affix=document.querySelector("#text-editor-affix"),affixToolBar=document.querySelector("#text-editor-affix>div");
+    if(ele.classList.contains("openFullAll")){
+        ele.className = ele.className.replace("openFullAll","");
+        affix.style="";
+        affixToolBar.className="";
+        affixToolBar.style=""
+        this.setState({
+          openFullTest:"全屏"
+        })
+    }else{
+        ele.className += ' openFullAll';
+        setTimeout(()=>{
+          affix.style="width: "+affix.offsetWidth+"px; height: 0; margin-bottom: 70px;";
+          affixToolBar.className="ant-affix";
+          affixToolBar.style="position: fixed; top: 0; left: 0; width: "+affix.offsetWidth+"px;margin: 0 15px 15px;"
+        },500)
+        this.setState({
+          openFullTest:"退出全屏"
+        })
+    }
 
-}
+  }
+  _toggleSource(e){
+    e.preventDefault();
+    let ele=document.querySelector(".RichEditor-root")
+    if(ele.classList.contains("showSource")){
+        ele.className = ele.className.replace("showSource","");
+        this.setState({
+          showSourceEditor:"源码",
+          showMarkdownSource:false
+        })
+    }else{
+        ele.className += ' showSource';
+        this.setState({
+          showSourceEditor:"预览",
+          showMarkdownSource:true
+        })
+    }
+  }
+  _changeMrakdownContent(e){
+    let markdownContent = e.target.value;
+    console.log("markdownContent",markdownContent);
+    let contentState = stateFromMD(markdownContent);
+    let values = EditorState.createWithContent(contentState, decorator);
+    this.state.tempSouceContent=markdownContent;
+    this.state.editorState = values;
+    this.forceUpdate();
+  }
   //弹窗url，end
   _handleKeyCommand(command) {
     console.log("command",command);
@@ -653,22 +683,23 @@ _openFull(e){
     return (
       <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
         <Affix offsetTop={0} id="text-editor-affix">
-          {this.props.UndoRedo&&<UndoRedo onToggle={this.undoRedo}/>}
-          {this.props.RemoveStyle&&<RemoveStyleControls onToggle={this.removeStyle}/>}
-          {this.props.PasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle}/>}
-          {this.props.BlockStyle&&<BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType}/>}
+          {this.state.showMarkdownSource==false&&this.props.UndoRedo&&<UndoRedo onToggle={this.undoRedo}/>}
+          {this.state.showMarkdownSource==false&&this.props.RemoveStyle&&<RemoveStyleControls onToggle={this.removeStyle}/>}
+          {this.state.showMarkdownSource==false&&this.props.PasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle}/>}
+          {this.state.showMarkdownSource==false&&this.props.BlockStyle&&<BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType}/>}
           {this.props.Alignment&&this.props.ConvertFormat!=="markdown"&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment}/>}
-          {this.props.InlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle}/>}
+          {this.state.showMarkdownSource==false&&this.props.InlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle}/>}
           {this.props.Color&&this.props.ConvertFormat!=="markdown"&&<ColorControls editorState={editorState} onToggle={this.toggleColor}/>}
-          {this.props.Image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}/>}
-          {this.props.Video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}/>}
-          {this.props.Audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}/>}
-          {this.props.Url&&<AddUrl editorState={editorState} onToggle={this.promptForLink}/>}
-          {this.props.Url&&<CloseUrl editorState={editorState} onToggle={this.removeLink}/>}
-          {this.props.AutoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}
+          {this.state.showMarkdownSource==false&&this.props.Image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}/>}
+          {this.state.showMarkdownSource==false&&this.props.Video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}/>}
+          {this.state.showMarkdownSource==false&&this.props.Audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}/>}
+          {this.state.showMarkdownSource==false&&this.props.Url&&<AddUrl editorState={editorState} onToggle={this.promptForLink}/>}
+          {this.state.showMarkdownSource==false&&this.props.Url&&<CloseUrl editorState={editorState} onToggle={this.removeLink}/>}
+          {this.state.showMarkdownSource==false&&this.props.AutoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}
           {this.props.FullScreen&&<OpenFull editorState={editorState} onToggle={this.openFull} coverTitle={this.state.openFullTest}/>}
+          {this.props.ConvertFormat=="markdown"&&<SourceEditor editorState={editorState} onToggle={this.toggleSource} coverTitle={this.state.showSourceEditor}/>}
         </Affix>
-        <div className={className} onClick={this.focus}>
+        <div className={className} onClick={this.focus} style={{display:this.state.showMarkdownSource==true?"none":"block"}}>
           <Editor
             blockRendererFn={mediaBlockRenderer}
             editorState={this.state.editorState}
@@ -681,6 +712,13 @@ _openFull(e){
             onChange={this.onChange}
             handlePastedText={this.handlePastedText}
             spellCheck={true}/>
+        </div>
+        <div style={{display:this.state.showMarkdownSource==true?"block":"none",height:"500px",width:"100%"}}>
+          <textarea
+            style={{height:"100%",width:"100%",overflowY:"visible" }}
+            onChange={this.changeMrakdownContent}
+            value={this.state.tempSouceContent||this.props.ImportContent}
+            placeholder="请在这里编辑您的markdown内容"/>
         </div>
         {urlInput}
       </div>

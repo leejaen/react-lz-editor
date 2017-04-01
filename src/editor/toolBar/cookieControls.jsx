@@ -29,7 +29,22 @@ class AutoSave extends Component {
     )
   }
 };
+class SourceEditor extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="RichEditor-controls">
+        <span className="RichEditor-styleButton" onClick={this.props.onToggle}>
+          {this.props.coverTitle}
+        </span>
+      </div>
+    )
+  }
+};
 module.exports = {
   OpenFull,
-  AutoSave
+  AutoSave,
+  SourceEditor
 };
