@@ -93,7 +93,7 @@ class GroupUpload extends Component {
           originKey=originKeyItem[0];
         }
         let thumbnail="";
-        console.log("this.props.atuoSize",this.props.atuoSize);
+        // console.log("this.props.atuoSize",this.props.atuoSize);
         if (this.state.isAutoSize) {
           if (this.props.atuoSize[0] == 0 && this.props.atuoSize[1] == 0) {
             thumbnail = `imageMogr2/thumbnail/600x600>|`;
@@ -139,7 +139,7 @@ class GroupUpload extends Component {
     //   duration: 0,
     // };
     // notification.open(args);
-    console.log("getPfop refObj",refObj)
+    // console.log("getPfop refObj",refObj)
     let pictureList=refObj.map(item=>{
       let domain="",picture="";
       if (!!item.originPic) {
@@ -151,7 +151,7 @@ class GroupUpload extends Component {
       }
       return picture
     });
-    console.log("getPfop pictureList",pictureList);
+    // console.log("getPfop pictureList",pictureList);
     // setTimeout(()=>{//防止在持久保存成功前过快加载导致图片显示不出
     message.info("图片正在处理请稍等片刻",10);
     setTimeout(() => {
@@ -185,7 +185,7 @@ class GroupUpload extends Component {
     this.state.pictureList = compact(this.state.pictureList.concat(newPictures));
     this.state.pictureList=uniq(this.state.pictureList);
     this.state.selectedPictureList = cloneDeep(this.state.pictureList);
-    console.log("pictureList", this.state.pictureList);
+    // console.log("pictureList", this.state.pictureList);
     this.forceUpdate(); //强制更新
   }
   openModal() {

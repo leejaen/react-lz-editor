@@ -80,8 +80,6 @@ class AutoSaveControls extends Component {
     this.state.selectedRowKeys = [this.state.list[index].key];
     this.state.selectedKeyName = this.state.list[index].keyName;
     this.forceUpdate();
-    setTimeout(()=>{console.log("this.state",this.state);
-    this.forceUpdate();},1000);
   }
   render() {
     let className = 'RichEditor-styleButton';

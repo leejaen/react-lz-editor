@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Icon} from "antd"
 
-class UndoRedo extends Component {
+class undoRedo extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,4 +19,4 @@ class UndoRedo extends Component {
     )
   }
 };
-module.exports = UndoRedo;
+module.exports = undoRedo;

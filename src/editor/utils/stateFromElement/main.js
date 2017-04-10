@@ -440,7 +440,7 @@ function rgbToHex(r, g, b) {
   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 function addStyleFromTagName(styleSet: StyleSet, tagName: string, elementStyles?: ElementStyles, element?:any): StyleSet {
-  console.log("tagName",tagName,element)
+  // console.log("tagName",tagName,element)
   switch (tagName) {
     case 'b':
     case 'strong': {

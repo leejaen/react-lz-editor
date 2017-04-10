@@ -48,7 +48,7 @@ class ImgStyleControls extends Component {
   }
   successLoading(type) {
     if (type == "fromImg") {
-      console.log("successLoading", this.successedCount);
+      // console.log("successLoading", this.successedCount);
       if (this.successedCount + 1 < this.state.images.length) {
         this.successedCount += 1;
         return false;
@@ -62,18 +62,18 @@ class ImgStyleControls extends Component {
         : item.url.length)+"?t=foreditor"
       return item;
     });
-    console.log("successLoading provisible false");
+    // console.log("successLoading provisible false");
     this.setState({provisible: false,pfopImages: pfopImages, previsible: true});
   }
   realLoading(type) {
     let images = cloneDeep(this.state.pfopImages);
-    console.log("images", images);
-    console.log("realLoading provisible false");
+    // console.log("images", images);
+    // console.log("realLoading provisible false");
     this.setState({provisible: false, images: [], pfopImages: [], previsible: false});
     this.props.receiveImage(images);
   }
   failureLoading(event, index) {
-    console.log("failureLoading", event, index);
+    // console.log("failureLoading", event, index);
     let picture = this.state.images[index].url;
     if (!!picture && picture != "reset") {
       setTimeout(() => {
@@ -96,7 +96,7 @@ class ImgStyleControls extends Component {
     this.forceUpdate();
   }
   reloadUploadingPictrue(picture, index) {
-    console.log("reloadUploadingPictrue picture, index", picture, index);
+    // console.log("reloadUploadingPictrue picture, index", picture, index);
     let thePicture = picture.substr(0, ~ picture.lastIndexOf("?t=")
       ? picture.lastIndexOf("?t=")
       : picture.length);
@@ -112,9 +112,9 @@ class ImgStyleControls extends Component {
     this.forceUpdate();
   }
   groupAppend(pictureList) {
-    console.log("pictureList", pictureList);
+    // console.log("pictureList", pictureList);
     if (!pictureList.length) {
-      console.log("return false", pictureList.lenght);
+      // console.log("return false", pictureList.lenght);
       return false;
     }
     let images = pictureList.map(item => {
@@ -129,7 +129,7 @@ class ImgStyleControls extends Component {
   }
 
   handleCancel(e) {
-  console.log("handleCancel provisible false");
+  // console.log("handleCancel provisible false");
     this.setState({provisible: false, previsible: false, images: []});
   }
   handleCancelUploading(e) {
@@ -199,7 +199,7 @@ class ImgStyleControls extends Component {
             that.handleCancelUploading
           } > 取消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.pfopImages.length==0} onClick={()=>that.realLoading("fromOld")}> 确认无误 </Button >]}>
           <div className="uploadingImagies">{that.state.pfopImages.map((item, index) => {
-              console.log("item,index", item, index);
+              // console.log("item,index", item, index);
               let url = item.url;
               return <div>
                 <a onClick={() => that.reloadUploadingPictrue(url, index)} title="手动刷新"><Icon type="reload"/></a><img src={url}/></div>

@@ -78,38 +78,38 @@ class Test extends React.Component {
         </div>
         <LzEditor
           active={true}
-          ImportContent={this.state.htmlContent}
+          importContent={this.state.htmlContent}
           cbReceiver={this.receiveHtml}
           uploadConfig={uploadConfig}
-          Image={false}
-          Video={false}
-          Audio={false}/>
+          image={false}
+          video={false}
+          audio={false}/>
         <br/>
         <br/>
         <div>Editor demo 2 (use markdown format ):
         </div>
         <LzEditor
           active={true}
-          ImportContent={this.state.markdownContent}
+          importContent={this.state.markdownContent}
           cbReceiver={this.receiveMarkdown}
           uploadConfig={uploadConfig}
-          Image={false}
-          Video={false}
-          Audio={false}
-          ConvertFormat="markdown"/>
+          image={false}
+          video={false}
+          audio={false}
+          convertFormat="markdown"/>
         <br/>
         <br/>
         <div>Editor demo 3 (use Raw format ):
         </div>
         <LzEditor
           active={true}
-          ImportContent={this.state.rawContent}
+          importContent={this.state.rawContent}
           cbReceiver={this.receiveRaw}
           uploadConfig={uploadConfig}
-          Image={false}
-          Video={false}
-          Audio={false}
-          ConvertFormat="raw"/>
+          image={false}
+          video={false}
+          audio={false}
+          convertFormat="raw"/>
       </div>
     );
   }
