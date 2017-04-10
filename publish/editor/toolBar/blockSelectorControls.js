@@ -1,12 +1,16 @@
 'use strict';
 
+var _css = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,7 +26,7 @@ var RemoveStyleControls = function (_Component) {
   function RemoveStyleControls(props) {
     _classCallCheck(this, RemoveStyleControls);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(RemoveStyleControls).call(this, props));
+    return _possibleConstructorReturn(this, (RemoveStyleControls.__proto__ || Object.getPrototypeOf(RemoveStyleControls)).call(this, props));
   }
 
   _createClass(RemoveStyleControls, [{
@@ -35,7 +39,7 @@ var RemoveStyleControls = function (_Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: this.props.onToggle },
-          _react2.default.createElement(_antd.Icon, { key: 'empty_style', type: 'editor_select_block' })
+          _react2.default.createElement(_icon2.default, { key: 'empty_style', type: 'editor_select_block' })
         )
       );
     }

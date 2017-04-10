@@ -1,8 +1,12 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _css = require('antd/lib/message/style/css');
 
-var _antd = require('antd');
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _forIn = require('lodash/forIn');
 
@@ -10,13 +14,13 @@ var _forIn2 = _interopRequireDefault(_forIn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
-                                                                                                                                                                                                     * Created by lizhen on 4/7/2016.
-                                                                                                                                                                                                     */
-
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 // import { hashHistory } from 'react-router'
 
 
+/**
+ * Created by lizhen on 4/7/2016.
+ */
 var commonFun = {
   test: function test(a) {
     alert(a);
@@ -136,17 +140,15 @@ var commonFun = {
       data && data.length && data.map(function (item) {
         var temp = { channel_id: item.key };
         if (item.cityList) {
-          (function () {
-            var city_id = [];
-            item.cityList.map(function (items) {
-              // console.log("1:",items.key);
-              var testKey = items.key;
-              city_id.push(testKey);
-              // return testKey;
-            });
-            // console.log("2:",city_id);
-            temp.city_id = city_id;
-          })();
+          var city_id = [];
+          item.cityList.map(function (items) {
+            // console.log("1:",items.key);
+            var testKey = items.key;
+            city_id.push(testKey);
+            // return testKey;
+          });
+          // console.log("2:",city_id);
+          temp.city_id = city_id;
         }
         to_channel.push(temp);
       });
@@ -391,9 +393,9 @@ var commonFun = {
     },
     retResult: function retResult(data, path) {
       if (data.rc == 0) {
-        _antd.message.success("操作成功", 4);
+        _message2.default.success("操作成功", 4);
       } else {
-        _antd.message.error("操作失败:" + data.des, 4);
+        _message2.default.error("操作失败:" + data.des, 4);
       }
       // hashHistory.push(path);
     }
@@ -1000,7 +1002,7 @@ var commonFun = {
       } else {
         var newEl = document.createElement('div');
         newEl.setAttribute('id', 'messageDiv');
-        newEl.innerHTML = message;
+        newEl.innerHTML = _message2.default;
         document.querySelector("body").appendChild(newEl);
         messageDiv = newEl;
       }

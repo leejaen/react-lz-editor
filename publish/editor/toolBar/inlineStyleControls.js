@@ -24,7 +24,7 @@ var InlineStyleControls = function (_Component) {
   function InlineStyleControls(props) {
     _classCallCheck(this, InlineStyleControls);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(InlineStyleControls).call(this, props));
+    return _possibleConstructorReturn(this, (InlineStyleControls.__proto__ || Object.getPrototypeOf(InlineStyleControls)).call(this, props));
   }
 
   _createClass(InlineStyleControls, [{

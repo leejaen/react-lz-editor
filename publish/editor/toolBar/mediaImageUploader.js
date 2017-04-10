@@ -1,12 +1,34 @@
 'use strict';
 
+var _css = require('antd/lib/modal/style/css');
+
+var _modal = require('antd/lib/modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _css2 = require('antd/lib/button/style/css');
+
+var _button = require('antd/lib/button');
+
+var _button2 = _interopRequireDefault(_button);
+
+var _css3 = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _css4 = require('antd/lib/message/style/css');
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 var _businessComponents = require('../../global/components/businessComponents');
 
@@ -29,7 +51,7 @@ var ImgStyleControls = function (_Component) {
   function ImgStyleControls(props) {
     _classCallCheck(this, ImgStyleControls);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ImgStyleControls).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ImgStyleControls.__proto__ || Object.getPrototypeOf(ImgStyleControls)).call(this, props));
 
     _this.state = {
       provisible: false,
@@ -69,14 +91,14 @@ var ImgStyleControls = function (_Component) {
     key: 'prepareToSendImageToEditor',
     value: function prepareToSendImageToEditor() {
       if (!!this.state.images.length) {
-        this.state.loadingRemoteImageFun = _antd.message.loading('图片正在处理并生成预览，请稍等片刻...', 0);
+        this.state.loadingRemoteImageFun = _message2.default.loading('图片正在处理并生成预览，请稍等片刻...', 0);
       }
     }
   }, {
     key: 'successLoading',
     value: function successLoading(type) {
       if (type == "fromImg") {
-        console.log("successLoading", this.successedCount);
+        // console.log("successLoading", this.successedCount);
         if (this.successedCount + 1 < this.state.images.length) {
           this.successedCount += 1;
           return false;
@@ -88,15 +110,15 @@ var ImgStyleControls = function (_Component) {
         item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
         return item;
       });
-      console.log("successLoading provisible false");
+      // console.log("successLoading provisible false");
       this.setState({ provisible: false, pfopImages: pfopImages, previsible: true });
     }
   }, {
     key: 'realLoading',
     value: function realLoading(type) {
       var images = (0, _cloneDeep2.default)(this.state.pfopImages);
-      console.log("images", images);
-      console.log("realLoading provisible false");
+      // console.log("images", images);
+      // console.log("realLoading provisible false");
       this.setState({ provisible: false, images: [], pfopImages: [], previsible: false });
       this.props.receiveImage(images);
     }
@@ -105,7 +127,7 @@ var ImgStyleControls = function (_Component) {
     value: function failureLoading(event, index) {
       var _this2 = this;
 
-      console.log("failureLoading", event, index);
+      // console.log("failureLoading", event, index);
       var picture = this.state.images[index].url;
       if (!!picture && picture != "reset") {
         setTimeout(function () {
@@ -126,7 +148,7 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'reloadUploadingPictrue',
     value: function reloadUploadingPictrue(picture, index) {
-      console.log("reloadUploadingPictrue picture, index", picture, index);
+      // console.log("reloadUploadingPictrue picture, index", picture, index);
       var thePicture = picture.substr(0, ~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length);
       var n = picture.substr((~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length) + 3);
       picture = thePicture + "?t=" + (parseInt(!!n ? n : "0") + 1);
@@ -138,9 +160,9 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'groupAppend',
     value: function groupAppend(pictureList) {
-      console.log("pictureList", pictureList);
+      // console.log("pictureList", pictureList);
       if (!pictureList.length) {
-        console.log("return false", pictureList.lenght);
+        // console.log("return false", pictureList.lenght);
         return false;
       }
       var images = pictureList.map(function (item) {
@@ -157,7 +179,7 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      console.log("handleCancel provisible false");
+      // console.log("handleCancel provisible false");
       this.setState({ provisible: false, previsible: false, images: [] });
     }
   }, {
@@ -189,13 +211,13 @@ var ImgStyleControls = function (_Component) {
           _react2.default.createElement(
             'span',
             { className: className },
-            _react2.default.createElement(_antd.Icon, { type: 'editor_image_masker', title: '\u6C34\u5370\u56FE\u7247' })
+            _react2.default.createElement(_icon2.default, { type: 'editor_image_masker', title: '\u6C34\u5370\u56FE\u7247' })
           )
         ),
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onImgToggle },
-          _react2.default.createElement(_antd.Icon, { type: 'editor_image', title: '\u539F\u59CB\u56FE\u7247' })
+          _react2.default.createElement(_icon2.default, { type: 'editor_image', title: '\u539F\u59CB\u56FE\u7247' })
         ),
         _react2.default.createElement(
           'div',
@@ -218,17 +240,17 @@ var ImgStyleControls = function (_Component) {
           })
         ),
         _react2.default.createElement(
-          _antd.Modal,
+          _modal2.default,
           {
             title: '\u63D2\u5165\u56FE\u7247',
             visible: that.state.provisible,
             closable: false,
             footer: [_react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
               ' \u53D6 \u6D88 '
             ), _react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.disabled, onClick: function onClick() {
                   return that.successLoading("fromOld");
                 } },
@@ -244,18 +266,18 @@ var ImgStyleControls = function (_Component) {
             fileType: 'image' })
         ),
         _react2.default.createElement(
-          _antd.Modal,
+          _modal2.default,
           {
             title: '\u56FE\u7247\u9884\u89C8',
             visible: that.state.previsible,
             width: 800,
             closable: false,
             footer: [_react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancelUploading },
               ' \u53D6\u6D88 '
             ), _react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.pfopImages.length == 0, onClick: function onClick() {
                   return that.realLoading("fromOld");
                 } },
@@ -265,7 +287,7 @@ var ImgStyleControls = function (_Component) {
             'div',
             { className: 'uploadingImagies' },
             that.state.pfopImages.map(function (item, index) {
-              console.log("item,index", item, index);
+              // console.log("item,index", item, index);
               var url = item.url;
               return _react2.default.createElement(
                 'div',
@@ -275,7 +297,7 @@ var ImgStyleControls = function (_Component) {
                   { onClick: function onClick() {
                       return that.reloadUploadingPictrue(url, index);
                     }, title: '\u624B\u52A8\u5237\u65B0' },
-                  _react2.default.createElement(_antd.Icon, { type: 'reload' })
+                  _react2.default.createElement(_icon2.default, { type: 'reload' })
                 ),
                 _react2.default.createElement('img', { src: url })
               );

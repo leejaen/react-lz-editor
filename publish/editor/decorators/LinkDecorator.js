@@ -16,9 +16,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // TODO: Use a more specific type here.
 function Link(props_) {
-  var _Entity$get$getData = _draftJs.Entity.get(props_.entityKey).getData();
-
-  var url = _Entity$get$getData.url;
+  var _Entity$get$getData = _draftJs.Entity.get(props_.entityKey).getData(),
+      url = _Entity$get$getData.url;
 
   return _react2.default.createElement(
     'a',

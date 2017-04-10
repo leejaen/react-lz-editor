@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 exports.default = stateFromElement;
@@ -64,9 +62,9 @@ var getEntityData = function getEntityData(tagName, element) {
   if (ELEM_ATTR_MAP.hasOwnProperty(tagName)) {
     var attrMap = ELEM_ATTR_MAP[tagName];
     for (var i = 0; i < element.attributes.length; i++) {
-      var _element$attributes$i = element.attributes[i];
-      var name = _element$attributes$i.name;
-      var value = _element$attributes$i.value;
+      var _element$attributes$i = element.attributes[i],
+          name = _element$attributes$i.name,
+          value = _element$attributes$i.value;
 
       if (value != null) {
         if (attrMap.hasOwnProperty(name)) {
@@ -148,7 +146,7 @@ var SELF_CLOSING_ELEMENTS = { img: 1, video: 2, audio: 3 };
 
 var BlockGenerator = function () {
   function BlockGenerator() {
-    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, BlockGenerator);
 
@@ -168,10 +166,9 @@ var BlockGenerator = function () {
       this.processBlockElement(element);
       var contentBlocks = [];
       this.blockList.forEach(function (block) {
-        var _concatFragments = concatFragments(block.textFragments);
-
-        var text = _concatFragments.text;
-        var characterMeta = _concatFragments.characterMeta;
+        var _concatFragments = concatFragments(block.textFragments),
+            text = _concatFragments.text,
+            characterMeta = _concatFragments.characterMeta;
 
         var includeEmptyBlock = false;
         // If the block contains only a soft break then don't discard the block,
@@ -460,7 +457,7 @@ function rgbToHex(r, g, b) {
   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
-  console.log("tagName", tagName, element);
+  // console.log("tagName",tagName,element)
   switch (tagName) {
     case 'b':
     case 'strong':
@@ -486,25 +483,19 @@ function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
       }
     case 'span':
       {
-        var _ret = function () {
-          var savedColor = element.style.color;
-          if (savedColor.lastIndexOf("rgb") > -1) {
-            savedColor = savedColor.substring(savedColor.lastIndexOf("(") + 1, savedColor.length - 1);
-            savedColor = savedColor.split(",");
+        var savedColor = element.style.color;
+        if (savedColor.lastIndexOf("rgb") > -1) {
+          savedColor = savedColor.substring(savedColor.lastIndexOf("(") + 1, savedColor.length - 1);
+          savedColor = savedColor.split(",");
+        }
+        var savedHex = rgbToHex(parseInt(savedColor[0]), parseInt(savedColor[1]), parseInt(savedColor[2]));
+        var savedKey = "";
+        Object.keys(_colorConfig.colorStyleMap).map(function (key) {
+          if (_colorConfig.colorStyleMap[key].color.toLowerCase() == savedHex.toLowerCase()) {
+            savedKey = key;
           }
-          var savedHex = rgbToHex(parseInt(savedColor[0]), parseInt(savedColor[1]), parseInt(savedColor[2]));
-          var savedKey = "";
-          Object.keys(_colorConfig.colorStyleMap).map(function (key) {
-            if (_colorConfig.colorStyleMap[key].color.toLowerCase() == savedHex.toLowerCase()) {
-              savedKey = key;
-            }
-          });
-          return {
-            v: styleSet.add(savedKey)
-          };
-        }();
-
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+        });
+        return styleSet.add(savedKey);
       }
     default:
       {

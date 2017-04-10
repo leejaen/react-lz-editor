@@ -1,12 +1,22 @@
 "use strict";
 
+var _css = require("antd/lib/tooltip/style/css");
+
+var _tooltip = require("antd/lib/tooltip");
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _css2 = require("antd/lib/icon/style/css");
+
+var _icon = require("antd/lib/icon");
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require("antd");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,7 +32,7 @@ var AddUrl = function (_Component) {
   function AddUrl(props) {
     _classCallCheck(this, AddUrl);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AddUrl).call(this, props));
+    return _possibleConstructorReturn(this, (AddUrl.__proto__ || Object.getPrototypeOf(AddUrl)).call(this, props));
   }
 
   _createClass(AddUrl, [{
@@ -35,9 +45,9 @@ var AddUrl = function (_Component) {
           "span",
           { className: "RichEditor-styleButton", onClick: this.props.onToggle },
           _react2.default.createElement(
-            _antd.Tooltip,
+            _tooltip2.default,
             { placement: "top", title: "\u589E\u52A0\u94FE\u63A5" },
-            _react2.default.createElement(_antd.Icon, { type: "editor_link" })
+            _react2.default.createElement(_icon2.default, { type: "editor_link" })
           )
         )
       );
@@ -53,7 +63,7 @@ var CloseUrl = function (_Component2) {
   function CloseUrl(props) {
     _classCallCheck(this, CloseUrl);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(CloseUrl).call(this, props));
+    return _possibleConstructorReturn(this, (CloseUrl.__proto__ || Object.getPrototypeOf(CloseUrl)).call(this, props));
   }
 
   _createClass(CloseUrl, [{
@@ -66,9 +76,9 @@ var CloseUrl = function (_Component2) {
           "span",
           { className: "RichEditor-styleButton", onClick: this.props.onToggle },
           _react2.default.createElement(
-            _antd.Tooltip,
+            _tooltip2.default,
             { placement: "top", title: "\u79FB\u9664\u94FE\u63A5" },
-            _react2.default.createElement(_antd.Icon, { type: "editor_unlink" })
+            _react2.default.createElement(_icon2.default, { type: "editor_unlink" })
           )
         )
       );

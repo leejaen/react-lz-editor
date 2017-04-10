@@ -37,14 +37,13 @@ var AudioSpan = function (_Component) {
     _classCallCheck(this, AudioSpan);
 
     // autobind(this);
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AudioSpan).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AudioSpan.__proto__ || Object.getPrototypeOf(AudioSpan)).call(this, props));
 
     var entity = _draftJs.Entity.get(_this.props.entityKey);
 
-    var _entity$getData = entity.getData();
-
-    var width = _entity$getData.width;
-    var height = _entity$getData.height;
+    var _entity$getData = entity.getData(),
+        width = _entity$getData.width,
+        height = _entity$getData.height;
 
     _this.state = {
       width: width,
@@ -58,16 +57,15 @@ var AudioSpan = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var _state = this.state;
-      var width = _state.width;
-      var height = _state.height;
+      var _state = this.state,
+          width = _state.width,
+          height = _state.height;
 
       var entity = _draftJs.Entity.get(this.props.entityKey);
       var audio = document.createElement('audio');
 
-      var _entity$getData2 = entity.getData();
-
-      var src = _entity$getData2.src;
+      var _entity$getData2 = entity.getData(),
+          src = _entity$getData2.src;
 
       audio.src = src;
       audio.onload = function () {
@@ -86,17 +84,17 @@ var AudioSpan = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _state2 = this.state;
-      var width = _state2.width;
-      var height = _state2.height;
+      var _state2 = this.state,
+          width = _state2.width,
+          height = _state2.height;
       //let {className} = this.props;
 
       var entity = _draftJs.Entity.get(this.props.entityKey);
 
-      var _entity$getData3 = entity.getData();
-
-      var src = _entity$getData3.src;
+      var _entity$getData3 = entity.getData(),
+          src = _entity$getData3.src;
       //console.log("styles.root: ", styles.root); className = cx(className, styles.root);
+
 
       var audioStyle = {
         verticalAlign: 'bottom',
@@ -125,9 +123,9 @@ var AudioSpan = function (_Component) {
   }, {
     key: '_handleResize',
     value: function _handleResize(event, data) {
-      var _data$size = data.size;
-      var width = _data$size.width;
-      var height = _data$size.height;
+      var _data$size = data.size,
+          width = _data$size.width,
+          height = _data$size.height;
 
       this.setState({ width: width, height: height });
       _draftJs.Entity.mergeData(this.props.entityKey, { width: width, height: height });

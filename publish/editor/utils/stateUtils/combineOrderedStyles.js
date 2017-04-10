@@ -13,10 +13,9 @@ function combineOrderedStyles(customMap, defaults) {
     return defaults;
   }
 
-  var _defaults = _slicedToArray(defaults, 2);
-
-  var defaultStyleMap = _defaults[0];
-  var defaultStyleOrder = _defaults[1];
+  var _defaults = _slicedToArray(defaults, 2),
+      defaultStyleMap = _defaults[0],
+      defaultStyleOrder = _defaults[1];
 
   var styleMap = Object.assign({}, defaultStyleMap); //{...defaultStyleMap}
   var styleOrder = [].concat(_toConsumableArray(defaultStyleOrder));

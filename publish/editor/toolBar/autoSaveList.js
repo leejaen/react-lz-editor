@@ -1,12 +1,40 @@
 'use strict';
 
+var _css = require('antd/lib/modal/style/css');
+
+var _modal = require('antd/lib/modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _css2 = require('antd/lib/table/style/css');
+
+var _table = require('antd/lib/table');
+
+var _table2 = _interopRequireDefault(_table);
+
+var _css3 = require('antd/lib/popconfirm/style/css');
+
+var _popconfirm = require('antd/lib/popconfirm');
+
+var _popconfirm2 = _interopRequireDefault(_popconfirm);
+
+var _css4 = require('antd/lib/button/style/css');
+
+var _button = require('antd/lib/button');
+
+var _button2 = _interopRequireDefault(_button);
+
+var _css5 = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 var _publicDatas = require('../../global/supports/publicDatas');
 
@@ -28,7 +56,7 @@ var AutoSaveControls = function (_Component) {
   function AutoSaveControls(props) {
     _classCallCheck(this, AutoSaveControls);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AutoSaveControls).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AutoSaveControls.__proto__ || Object.getPrototypeOf(AutoSaveControls)).call(this, props));
 
     _this.state = {
       visible: false,
@@ -108,21 +136,15 @@ var AutoSaveControls = function (_Component) {
   }, {
     key: 'selectRow',
     value: function selectRow(record, index) {
-      var _this2 = this;
-
       //console.log("selectRow!",record, index)
       this.state.selectedRowKeys = [this.state.list[index].key];
       this.state.selectedKeyName = this.state.list[index].keyName;
       this.forceUpdate();
-      setTimeout(function () {
-        console.log("this.state", _this2.state);
-        _this2.forceUpdate();
-      }, 1000);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var className = 'RichEditor-styleButton';
       var that = this;
@@ -141,7 +163,7 @@ var AutoSaveControls = function (_Component) {
           return _react2.default.createElement(
             'a',
             { onClick: function onClick() {
-                return _this3.doDelete(record.keyName);
+                return _this2.doDelete(record.keyName);
               } },
             '\u5220\u9664'
           );
@@ -170,31 +192,31 @@ var AutoSaveControls = function (_Component) {
           _react2.default.createElement(
             'span',
             { className: className, onClick: that.onAutoSaveToggle, title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93\u4EE5\u7EE7\u7EED' },
-            _react2.default.createElement(_antd.Icon, { type: 'editor_safty' })
+            _react2.default.createElement(_icon2.default, { type: 'editor_safty' })
           )
         ),
         _react2.default.createElement(
-          _antd.Modal,
+          _modal2.default,
           {
             title: '\u7F16\u8F91\u5668\u4FDD\u9669\u5E93\u6761\u76EE\u5217\u8868\uFF1A',
             visible: that.state.visible,
             closable: false,
             width: 600,
             footer: [_react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
               ' \u53D6 \u6D88 '
             ), _react2.default.createElement(
-              _antd.Popconfirm,
+              _popconfirm2.default,
               { placement: 'right', title: '\u786E\u5B9A\u540E\u7F16\u8F91\u5668\u5185\u5BB9\u5C06\u4F1A\u88AB\u6700\u540E\u4E00\u6B21\u4FDD\u5B58\u7684\u5185\u5BB9\u66FF\u6362\uFF0C\u82E5\u6709\u66F4\u6539\uFF0C\u66FF\u6362\u540E\u5C06\u4E0D\u53EF\u6062\u590D\uFF0C\u662F\u5426\u7EE7\u7EED\uFF1F', onConfirm: that.sendSavedItemToEditor },
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
-                _antd.Button,
+                _button2.default,
                 { key: 'submit', type: 'primary', size: 'large', disabled: !that.state.selectedRowKeys.length },
                 ' \u786E \u5B9A '
               )
             )] },
-          _react2.default.createElement(_antd.Table, {
+          _react2.default.createElement(_table2.default, {
             rowSelection: rowSelection,
             onRowClick: that.selectRow,
             columns: columns,

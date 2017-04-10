@@ -50,15 +50,15 @@ module.exports = {
             return qiniu_token;
         },
         returnToken: function returnToken(uploadConfig) {
-            var key = arguments.length <= 1 || arguments[1] === undefined ? 'image' : arguments[1];
-            var params = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+            var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'image';
+            var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
             var token = this.checkQiniuImgToken(key);
             token = !!token == true ? token : this.getQiniuToken(uploadConfig, key, params);
             return token;
         },
         getQiniuToken: function getQiniuToken(uploadConfig) {
-            var type = arguments.length <= 1 || arguments[1] === undefined ? 'image' : arguments[1];
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'image';
             var params = arguments[2];
 
             //console.log("getQiniuToken");

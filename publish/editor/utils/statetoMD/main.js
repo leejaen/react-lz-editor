@@ -16,11 +16,11 @@ var _draftJs = require('draft-js');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var BOLD = _main.INLINE_STYLE.BOLD;
-var CODE = _main.INLINE_STYLE.CODE;
-var ITALIC = _main.INLINE_STYLE.ITALIC;
-var STRIKETHROUGH = _main.INLINE_STYLE.STRIKETHROUGH;
-var UNDERLINE = _main.INLINE_STYLE.UNDERLINE;
+var BOLD = _main.INLINE_STYLE.BOLD,
+    CODE = _main.INLINE_STYLE.CODE,
+    ITALIC = _main.INLINE_STYLE.ITALIC,
+    STRIKETHROUGH = _main.INLINE_STYLE.STRIKETHROUGH,
+    UNDERLINE = _main.INLINE_STYLE.UNDERLINE;
 
 
 var CODE_INDENT = '    ';
@@ -192,16 +192,14 @@ var MarkupGenerator = function () {
       var charMetaList = block.getCharacterList();
       var entityPieces = (0, _main.getEntityRanges)(text, charMetaList);
       return entityPieces.map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2);
-
-        var entityKey = _ref2[0];
-        var stylePieces = _ref2[1];
+        var _ref2 = _slicedToArray(_ref, 2),
+            entityKey = _ref2[0],
+            stylePieces = _ref2[1];
 
         var content = stylePieces.map(function (_ref3) {
-          var _ref4 = _slicedToArray(_ref3, 2);
-
-          var text = _ref4[0];
-          var style = _ref4[1];
+          var _ref4 = _slicedToArray(_ref3, 2),
+              text = _ref4[0],
+              style = _ref4[1];
 
           // Don't allow empty inline elements.
           if (!text) {

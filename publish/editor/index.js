@@ -1,10 +1,36 @@
 'use strict';
 
+var _css = require('antd/lib/affix/style/css');
+
+var _affix = require('antd/lib/affix');
+
+var _affix2 = _interopRequireDefault(_affix);
+
+var _css2 = require('antd/lib/modal/style/css');
+
+var _modal = require('antd/lib/modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _css3 = require('antd/lib/input/style/css');
+
+var _input = require('antd/lib/input');
+
+var _input2 = _interopRequireDefault(_input);
+
+var _css4 = require('antd/lib/message/style/css');
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 require('./components.css');
 
 require('../global/supports/resources/system.css');
+
+require('antd/dist/antd.css');
 
 var _react = require('react');
 
@@ -15,8 +41,6 @@ var _reactDom = require('react-dom');
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _draftJs = require('draft-js');
-
-var _antd = require('antd');
 
 var _utils = require('./utils');
 
@@ -120,8 +144,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Created by lizhen on 4/26/2016.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
-// import 'antd/dist/antd.css';
-
 
 var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
 
@@ -131,34 +153,37 @@ var EditorConcist = function (_React$Component) {
   function EditorConcist(props) {
     _classCallCheck(this, EditorConcist);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EditorConcist).call(this, props));
+    var _this = _possibleConstructorReturn(this, (EditorConcist.__proto__ || Object.getPrototypeOf(EditorConcist)).call(this, props));
 
     _this.state = {
       openFullTest: "全屏",
+      showSourceEditor: "源码",
       showURLInput: false,
       urlValue: '',
       hasPasted: false,
       autoSaveFun: null,
       visible: false,
+      showMarkdownSource: false,
+      tempSouceContent: "",
 
       editorState: function () {
-        var originalString = _this.props.ImportContent;
+        var originalString = _this.props.importContent;
         originalString = !originalString ? " " : originalString;
         if (!originalString) {
           //暂时不走createEmpty，有错。空的话给个空格规避
           //this.state.alwaysEnterEmpty = true;
           return _draftJs.EditorState.createEmpty(decorator);
         } else {
-          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.ImportContent;//转换成dom
+          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.importContent;//转换成dom
           // element
-          var ConvertFormat = _this.props.ConvertFormat;
+          var ConvertFormatProps = _this.props.convertFormat;
           var contentState = void 0;
-          if (ConvertFormat === 'html') {
+          if (ConvertFormatProps === 'html') {
             contentState = (0, _utils.stateFromHTML)(originalString);
-          } else if (ConvertFormat === 'markdown') {
-            console.log("markdown originalString", originalString);
+          } else if (ConvertFormatProps === 'markdown') {
+            // console.log("markdown originalString",originalString)
             contentState = (0, _utils.stateFromMD)(originalString);
-          } else if (ConvertFormat === 'raw') {
+          } else if (ConvertFormatProps === 'raw') {
             originalString = originalString.replace(/\s/g, "") ? originalString : "{}";
             var rawContent = JSON.parse(originalString);
             if ((0, _isEmpty2.default)(rawContent)) {
@@ -182,14 +207,14 @@ var EditorConcist = function (_React$Component) {
         //状态转对象
         var rawContentState = that.state.editorState.getCurrentContent();
         //const rawContent = convertToRaw(rawContentState);
-        console.log('rawContentState', rawContentState);
+        // console.log('rawContentState', rawContentState);
         var content = void 0;
-        var ConvertFormat = that.props.ConvertFormat;
-        if (ConvertFormat === 'html') {
+        var ConvertFormatProps = that.props.convertFormat;
+        if (ConvertFormatProps === 'html') {
           content = (0, _utils.stateToHTML)(rawContentState);
-        } else if (ConvertFormat === 'markdown') {
+        } else if (ConvertFormatProps === 'markdown') {
           content = (0, _utils.stateToMD)(rawContentState);
-        } else if (ConvertFormat === 'raw') {
+        } else if (ConvertFormatProps === 'raw') {
           var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
           content = JSON.stringify(rawContent);
         }
@@ -239,10 +264,11 @@ var EditorConcist = function (_React$Component) {
     _this.onLinkInputKeyDown = _this._onLinkInputKeyDown.bind(_this);
     _this.removeLink = _this._removeLink.bind(_this);
     _this.openFull = _this._openFull.bind(_this);
+    _this.toggleSource = _this._toggleSource.bind(_this);
     _this.handleOk = _this.handleOk.bind(_this);
     _this.handleCancel = _this.handleCancel.bind(_this);
     _this.solidHtml = _this._solidHtml.bind(_this);
-
+    _this.changeMrakdownContent = _this._changeMrakdownContent.bind(_this);
     return _this;
   }
 
@@ -251,7 +277,7 @@ var EditorConcist = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var content = this.props.ImportContent;
+      var content = this.props.importContent;
       // const decorator = new CompositeDecorator([
       //   LinkDecorator,
       //   ImageDecorator
@@ -273,21 +299,22 @@ var EditorConcist = function (_React$Component) {
       if (!newProps.active) {
         return false;
       }
-      if (newProps.ImportContent == this.props.ImportContent) {
+      if (newProps.importContent == this.props.importContent) {
         return false;
       }
-      var ConvertFormat = this.props.ConvertFormat;
+      var ConvertFormatProps = this.props.convertFormat;
       var newContent = "";
-      console.log("ConvertFormat", ConvertFormat);
-      if (ConvertFormat === "html") {
-        newContent = newProps.ImportContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
+      // console.log("ConvertFormatProps",ConvertFormatProps)
+      if (ConvertFormatProps === "html") {
+        newContent = newProps.importContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
         if (newContent == "undefined" || !newContent) {
           newContent = "<p>&nbsp;</p>";
         }
-      } else if (ConvertFormat === "markdown") {
-        newContent = newProps.ImportContent || "";
-      } else if (ConvertFormat === "raw") {
-        newContent = newProps.ImportContent || "{}";
+      } else if (ConvertFormatProps === "markdown") {
+        newContent = newProps.importContent || "";
+        this.state.tempSouceContent = newContent;
+      } else if (ConvertFormatProps === "raw") {
+        newContent = newProps.importContent || "{}";
       }
       /*const decorator = new CompositeDecorator([
         LinkDecorator,
@@ -295,17 +322,17 @@ var EditorConcist = function (_React$Component) {
         VideoDecorator,
         AudioDecorator
       ]);*/
-      console.log("newContent", newContent);
+      // console.log("newContent",newContent)
       var contentState = void 0;
-      if (ConvertFormat === 'html') {
+      if (ConvertFormatProps === 'html') {
         contentState = (0, _utils.stateFromHTML)(newContent);
-      } else if (ConvertFormat === 'markdown') {
+      } else if (ConvertFormatProps === 'markdown') {
         contentState = (0, _utils.stateFromMD)(newContent);
-      } else if (ConvertFormat === 'raw') {
+      } else if (ConvertFormatProps === 'raw') {
         var rawContent = JSON.parse(newContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
       }
-      console.log("contentState", contentState);
+      // console.log("contentState",contentState)
       // console.log("componentWillReceiveProps newContent",newContent);
       // console.log("componentWillReceiveProps contentState",JSON.stringify(contentState));
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
@@ -350,16 +377,16 @@ var EditorConcist = function (_React$Component) {
           // }, 0);
         });
       } else {
-        _antd.message.error("创建链接前请先选中链接文字！", 5);
+        _message2.default.error("创建链接前请先选中链接文字！", 5);
       }
     }
   }, {
     key: '_confirmLink',
     value: function _confirmLink(e) {
       // console.log("_confirmLink urlValue", urlValue)
-      var _state = this.state;
-      var editorState = _state.editorState;
-      var urlValue = _state.urlValue;
+      var _state = this.state,
+          editorState = _state.editorState,
+          urlValue = _state.urlValue;
 
       var entityKey = _draftJs.Entity.create('LINK', 'MUTABLE', { url: urlValue });
       this.setState({
@@ -392,7 +419,7 @@ var EditorConcist = function (_React$Component) {
           editorState: _draftJs.RichUtils.toggleLink(editorState, selection, null)
         });
       } else {
-        _antd.message.error("移除链接前请先选中链接！", 5);
+        _message2.default.error("移除链接前请先选中链接！", 5);
       }
     }
   }, {
@@ -402,9 +429,8 @@ var EditorConcist = function (_React$Component) {
       var ele = document.querySelector(".RichEditor-root"),
           affix = document.querySelector("#text-editor-affix"),
           affixToolBar = document.querySelector("#text-editor-affix>div");
-      // let className = 'RichEditor-editor';
       if (ele.classList.contains("openFullAll")) {
-        ele.className = 'RichEditor-root';
+        ele.className = ele.className.replace("openFullAll", "");
         affix.style = "";
         affixToolBar.className = "";
         affixToolBar.style = "";
@@ -423,16 +449,46 @@ var EditorConcist = function (_React$Component) {
         });
       }
     }
+  }, {
+    key: '_toggleSource',
+    value: function _toggleSource(e) {
+      e.preventDefault();
+      var ele = document.querySelector(".RichEditor-root");
+      if (ele.classList.contains("showSource")) {
+        ele.className = ele.className.replace("showSource", "");
+        this.setState({
+          showSourceEditor: "源码",
+          showMarkdownSource: false
+        });
+      } else {
+        ele.className += ' showSource';
+        this.setState({
+          showSourceEditor: "预览",
+          showMarkdownSource: true
+        });
+      }
+    }
+  }, {
+    key: '_changeMrakdownContent',
+    value: function _changeMrakdownContent(e) {
+      var markdownContent = e.target.value;
+      // console.log("markdownContent",markdownContent);
+      var contentState = (0, _utils.stateFromMD)(markdownContent);
+      var values = _draftJs.EditorState.createWithContent(contentState, decorator);
+      this.state.tempSouceContent = markdownContent;
+      this.state.editorState = values;
+      this.forceUpdate();
+    }
     //弹窗url，end
 
   }, {
     key: '_handleKeyCommand',
     value: function _handleKeyCommand(command) {
-      console.log("command", command);
+      // console.log("command",command);
       var editorState = this.state.editorState;
 
       var newState = _draftJs.RichUtils.handleKeyCommand(editorState, command);
-      if (command === 'editor-save' && this.props.AutoSave == true) {
+      if (command === 'editor-save' && this.props.autoSave == true) {
         // window.localDB//start20Text
         // let Data=PRO_COMMON.localDB.getter("grab_news_data") || [];
 
@@ -440,13 +496,13 @@ var EditorConcist = function (_React$Component) {
         var content = "",
             newText = "";
 
-        var ConvertFormat = this.props.ConvertFormat;
-        if (ConvertFormat === 'html') {
+        var ConvertFormatProps = this.props.convertFormat;
+        if (ConvertFormatProps === 'html') {
           content = (0, _utils.stateToHTML)(rawContentState);
           newText = content.replace(/<[^>]*>|&[^;]*;/g, "");
-        } else if (ConvertFormat === 'markdown') {
+        } else if (ConvertFormatProps === 'markdown') {
           content = (0, _utils.stateToMD)(rawContentState);
-        } else if (ConvertFormat === 'raw') {
+        } else if (ConvertFormatProps === 'raw') {
           var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
           content = JSON.stringify(rawContent);
         }
@@ -456,7 +512,7 @@ var EditorConcist = function (_React$Component) {
         }
         var start30Text = newText.substr(0, 30);
         _publicDatas.PRO_COMMON.localDB.setter("$d" + start30Text, content);
-        _antd.message.success("编辑器内容已更新到保险库中", 5);
+        _message2.default.success("编辑器内容已更新到保险库中", 5);
         return true;
       } else if (command === "editor-paste") {
         return true;
@@ -520,13 +576,13 @@ var EditorConcist = function (_React$Component) {
       var content = "",
           newText = "";
 
-      var ConvertFormat = this.props.ConvertFormat;
-      if (ConvertFormat === 'html') {
+      var ConvertFormatProps = this.props.convertFormat;
+      if (ConvertFormatProps === 'html') {
         content = (0, _utils.stateToHTML)(rawContentState);
         newText = content.replace(/<[^>]*>|&[^;]*;/g, "");
-      } else if (ConvertFormat === 'markdown') {
+      } else if (ConvertFormatProps === 'markdown') {
         content = (0, _utils.stateToMD)(rawContentState);
-      } else if (ConvertFormat === 'raw') {
+      } else if (ConvertFormatProps === 'raw') {
         var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
         content = JSON.stringify(rawContent);
       }
@@ -541,17 +597,17 @@ var EditorConcist = function (_React$Component) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
       var contentState = "";
 
-      if (ConvertFormat === 'html') {
+      if (ConvertFormatProps === 'html') {
         contentState = (0, _utils.stateFromHTML)(sourceString);
-      } else if (ConvertFormat === 'markdown') {
+      } else if (ConvertFormatProps === 'markdown') {
         contentState = (0, _utils.stateFromMD)(sourceString);
-      } else if (ConvertFormat === 'raw') {
+      } else if (ConvertFormatProps === 'raw') {
         contentState = (0, _draftJs.convertFromRaw)(sourceString);
       }
 
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
-      _antd.message.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。", 5);
+      _message2.default.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。", 5);
       this.forceUpdate();
       return true; //覆盖编辑器的默认粘贴行为
     }
@@ -636,13 +692,13 @@ var EditorConcist = function (_React$Component) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
       var contentState = "";
 
-      var ConvertFormat = this.props.ConvertFormat;
-      if (ConvertFormat === 'html') {
+      var ConvertFormatProps = this.props.convertFormat;
+      if (ConvertFormatProps === 'html') {
         sourceString = '<p>' + sourceString.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') + '</p>';
         contentState = (0, _utils.stateFromHTML)(sourceString);
-      } else if (ConvertFormat === 'markdown') {
+      } else if (ConvertFormatProps === 'markdown') {
         contentState = (0, _utils.stateFromMD)(sourceString);
-      } else if (ConvertFormat === 'raw') {
+      } else if (ConvertFormatProps === 'raw') {
         contentState = (0, _draftJs.convertFromRaw)(sourceString);
       }
       // console.log("_pasteNoStyle sourceString",sourceString);
@@ -687,13 +743,13 @@ var EditorConcist = function (_React$Component) {
     key: '_choiceAutoSave',
     value: function _choiceAutoSave(savedImportContent) {
       var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
-      var ConvertFormat = this.props.ConvertFormat;
+      var ConvertFormatProps = this.props.convertFormat;
       var contentState = "";
-      if (ConvertFormat === 'html') {
+      if (ConvertFormatProps === 'html') {
         contentState = (0, _utils.stateFromHTML)(savedImportContent);
-      } else if (ConvertFormat === 'markdown') {
+      } else if (ConvertFormatProps === 'markdown') {
         contentState = (0, _utils.stateFromMD)(savedImportContent);
-      } else if (ConvertFormat === 'raw') {
+      } else if (ConvertFormatProps === 'raw') {
         var rawContent = JSON.parse(savedImportContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
       }
@@ -740,14 +796,14 @@ var EditorConcist = function (_React$Component) {
       // ref="urltext"
       if (this.state.showURLInput) {
         urlInput = _react2.default.createElement(
-          _antd.Modal,
+          _modal2.default,
           {
             title: '\u8BF7\u8F93\u51FA\u4F60\u8981\u8DF3\u8F6C\u7684\u94FE\u63A5',
             visible: this.state.visible,
             onOk: this.confirmLink,
             onCancel: this.handleCancel,
             closable: false },
-          _react2.default.createElement(_antd.Input, {
+          _react2.default.createElement(_input2.default, {
             type: 'text',
             onChange: this.onURLChange,
             value: this.state.urlValue,
@@ -772,37 +828,47 @@ var EditorConcist = function (_React$Component) {
           className += ' RichEditor-hidePlaceholder';
         }
       }
-      // console.log("this.props.UndoRedo",this.props.UndoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
+      // console.log("this.props.undoRedo",this.props.undoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
       return _react2.default.createElement(
         'div',
         { className: 'RichEditor-root editorHidden', content: this.state.HTML, id: 'text-editor-container' },
         _react2.default.createElement(
-          _antd.Affix,
+          _affix2.default,
           { offsetTop: 0, id: 'text-editor-affix' },
-          this.props.UndoRedo && _react2.default.createElement(_undoredoControls2.default, { onToggle: this.undoRedo }),
-          this.props.RemoveStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle }),
-          this.props.PasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle }),
-          this.props.BlockStyle && _react2.default.createElement(_blockStyleControls2.default, { editorState: editorState, onToggle: this.toggleBlockType }),
-          this.props.Alignment && this.props.ConvertFormat !== "markdown" && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment }),
-          this.props.InlineStyle && _react2.default.createElement(_inlineStyleControls2.default, { editorState: editorState, onToggle: this.toggleInlineStyle }),
-          this.props.Color && this.props.ConvertFormat !== "markdown" && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor }),
-          this.props.Image && _react2.default.createElement(_mediaImageUploader2.default, { uploadConfig: this.props.uploadConfig, receiveImage: this.addImage }),
-          this.props.Video && _react2.default.createElement(_medioVideoUploader2.default, { uploadConfig: this.props.uploadConfig, receiveVideo: this.addVideo }),
-          this.props.Audio && _react2.default.createElement(_medioAudioUploader2.default, { uploadConfig: this.props.uploadConfig, receiveAudio: this.addAudio }),
-          this.props.Url && _react2.default.createElement(_urlControls.AddUrl, { editorState: editorState, onToggle: this.promptForLink }),
-          this.props.Url && _react2.default.createElement(_urlControls.CloseUrl, { editorState: editorState, onToggle: this.removeLink }),
-          this.props.AutoSave && _react2.default.createElement(_autoSaveList2.default, { receiveSavedItem: this.choiceAutoSave }),
-          this.props.FullScreen && _react2.default.createElement(_cookieControls.OpenFull, { editorState: editorState, onToggle: this.openFull, coverTitle: this.state.openFullTest })
+          this.state.showMarkdownSource == false && this.props.undoRedo && _react2.default.createElement(_undoredoControls2.default, { onToggle: this.undoRedo }),
+          this.state.showMarkdownSource == false && this.props.removeStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle }),
+          this.state.showMarkdownSource == false && this.props.pasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle }),
+          this.state.showMarkdownSource == false && this.props.blockStyle && _react2.default.createElement(_blockStyleControls2.default, { editorState: editorState, onToggle: this.toggleBlockType }),
+          this.props.alignment && this.props.convertFormat !== "markdown" && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment }),
+          this.state.showMarkdownSource == false && this.props.inlineStyle && _react2.default.createElement(_inlineStyleControls2.default, { editorState: editorState, onToggle: this.toggleInlineStyle }),
+          this.props.color && this.props.convertFormat !== "markdown" && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor }),
+          this.state.showMarkdownSource == false && this.props.image && _react2.default.createElement(_mediaImageUploader2.default, { uploadConfig: this.props.uploadConfig, receiveImage: this.addImage }),
+          this.state.showMarkdownSource == false && this.props.video && _react2.default.createElement(_medioVideoUploader2.default, { uploadConfig: this.props.uploadConfig, receiveVideo: this.addVideo }),
+          this.state.showMarkdownSource == false && this.props.audio && _react2.default.createElement(_medioAudioUploader2.default, { uploadConfig: this.props.uploadConfig, receiveAudio: this.addAudio }),
+          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.AddUrl, { editorState: editorState, onToggle: this.promptForLink }),
+          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.CloseUrl, { editorState: editorState, onToggle: this.removeLink }),
+          this.state.showMarkdownSource == false && this.props.autoSave && _react2.default.createElement(_autoSaveList2.default, { receiveSavedItem: this.choiceAutoSave }),
+          this.props.fullScreen && _react2.default.createElement(_cookieControls.OpenFull, { editorState: editorState, onToggle: this.openFull, coverTitle: this.state.openFullTest }),
+          this.props.convertFormat == "markdown" && _react2.default.createElement(_cookieControls.SourceEditor, { editorState: editorState, onToggle: this.toggleSource, coverTitle: this.state.showSourceEditor })
         ),
         _react2.default.createElement(
           'div',
-          { className: className, onClick: this.focus },
+          { className: className, onClick: this.focus, style: { display: this.state.showMarkdownSource == true ? "none" : "block" } },
           _react2.default.createElement(_draftJs.Editor, (_React$createElement = {
             blockRendererFn: mediaBlockRenderer,
             editorState: this.state.editorState,
             blockStyleFn: getBlockStyle,
             customStyleMap: styleMap
           }, _defineProperty(_React$createElement, 'customStyleMap', _colorConfig.colorStyleMap), _defineProperty(_React$createElement, 'editorState', editorState), _defineProperty(_React$createElement, 'handleKeyCommand', this.handleKeyCommand), _defineProperty(_React$createElement, 'keyBindingFn', this.customKeyBinding), _defineProperty(_React$createElement, 'onChange', this.onChange), _defineProperty(_React$createElement, 'handlePastedText', this.handlePastedText), _defineProperty(_React$createElement, 'spellCheck', true), _React$createElement))
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { display: this.state.showMarkdownSource == true ? "block" : "none", height: "500px", width: "100%" } },
+          _react2.default.createElement('textarea', {
+            style: { height: "100%", width: "100%", overflowY: "visible" },
+            onChange: this.changeMrakdownContent,
+            value: this.state.tempSouceContent || this.props.importContent,
+            placeholder: '\u8BF7\u5728\u8FD9\u91CC\u7F16\u8F91\u60A8\u7684markdown\u5185\u5BB9' })
         ),
         urlInput
       );
@@ -885,9 +951,8 @@ var Video = function Video(props) {
 var Media = function Media(props) {
   var entity = _draftJs.Entity.get(props.block.getEntityAt(0));
 
-  var _entity$getData = entity.getData();
-
-  var src = _entity$getData.src;
+  var _entity$getData = entity.getData(),
+      src = _entity$getData.src;
 
   var type = entity.getType();
   // console.log("Media type",src);
@@ -905,21 +970,21 @@ var Media = function Media(props) {
 
 EditorConcist.propTypes = {
   active: _react2.default.PropTypes.bool,
-  ImportContent: _react2.default.PropTypes.string,
+  importContent: _react2.default.PropTypes.string,
   cbReceiver: _react2.default.PropTypes.func.isRequired,
-  UndoRedo: _react2.default.PropTypes.bool,
-  RemoveStyle: _react2.default.PropTypes.bool,
-  PasteNoStyle: _react2.default.PropTypes.bool,
-  BlockStyle: _react2.default.PropTypes.bool,
-  Alignment: _react2.default.PropTypes.bool,
-  InlineStyle: _react2.default.PropTypes.bool,
-  Color: _react2.default.PropTypes.bool,
-  Image: _react2.default.PropTypes.bool,
-  Video: _react2.default.PropTypes.bool,
-  Audio: _react2.default.PropTypes.bool,
-  Url: _react2.default.PropTypes.bool,
-  AutoSave: _react2.default.PropTypes.bool,
-  FullScreen: _react2.default.PropTypes.bool,
+  undoRedo: _react2.default.PropTypes.bool,
+  removeStyle: _react2.default.PropTypes.bool,
+  pasteNoStyle: _react2.default.PropTypes.bool,
+  blockStyle: _react2.default.PropTypes.bool,
+  alignment: _react2.default.PropTypes.bool,
+  inlineStyle: _react2.default.PropTypes.bool,
+  color: _react2.default.PropTypes.bool,
+  image: _react2.default.PropTypes.bool,
+  video: _react2.default.PropTypes.bool,
+  audio: _react2.default.PropTypes.bool,
+  urls: _react2.default.PropTypes.bool,
+  autoSave: _react2.default.PropTypes.bool,
+  fullScreen: _react2.default.PropTypes.bool,
   uploadConfig: _react2.default.PropTypes.shape({
     QINIU_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_IMG_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
@@ -932,23 +997,23 @@ EditorConcist.propTypes = {
     QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
   }),
-  ConvertFormat: _react2.default.PropTypes.oneOf(['html', 'markdown', 'raw'])
+  convertFormat: _react2.default.PropTypes.oneOf(['html', 'markdown', 'raw'])
 };
 EditorConcist.defaultProps = {
-  UndoRedo: true,
-  RemoveStyle: true,
-  PasteNoStyle: true,
-  BlockStyle: true,
-  Alignment: true,
-  InlineStyle: true,
-  Color: true,
-  Image: true,
-  Video: true,
-  Audio: true,
-  Url: true,
-  AutoSave: true,
-  FullScreen: true,
-  ConvertFormat: 'html'
+  undoRedo: true,
+  removeStyle: true,
+  pasteNoStyle: true,
+  blockStyle: true,
+  alignment: true,
+  inlineStyle: true,
+  color: true,
+  image: true,
+  video: true,
+  audio: true,
+  urls: true,
+  autoSave: true,
+  fullScreen: true,
+  convertFormat: 'html'
 };
 // export default EditorConcist;
 module.exports = EditorConcist;

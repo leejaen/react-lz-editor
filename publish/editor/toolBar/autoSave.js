@@ -20,7 +20,7 @@ var AutoSave = function (_Component) {
   function AutoSave(props) {
     _classCallCheck(this, AutoSave);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AutoSave).call(this, props));
+    return _possibleConstructorReturn(this, (AutoSave.__proto__ || Object.getPrototypeOf(AutoSave)).call(this, props));
   }
 
   _createClass(AutoSave, [{

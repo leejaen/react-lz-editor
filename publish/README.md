@@ -8,15 +8,17 @@ An open source rich react editor based on draft-Js and ant design, good support 
 
 [react-lz-editor](https://leejaen.github.io/react-lz-editor/index.html)
 
-* Disabled media insert feature on demo page, because of there was no online API support for the time being, here is [The server side API demo in java](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java) you may want. *
+Disabled media insert feature on demo page, because of there was no online API support for the time being, here is [The server side API demo in java](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java) you may want.
 
-* 因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了，java版本接口实现示例请参考[示例代码](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java)。 *
+因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了，java版本接口实现示例请参考[示例代码](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java)。
 
 # Install
 
 npm install react-lz-editor --save
 
-* Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended. *
+Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
+
+版本号说明：react、react-dom 版本必须在15.4.2以上，Antd版本最好在2.8.3以上。
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
@@ -72,10 +74,10 @@ npm install react-lz-editor --save
       }
       return <LzEditor
         active={true}
-        ImportContent={this.state.content}
+        importContent={this.state.content}
         cbReceiver={this.receiveHtml}
         uploadConfig={uploadConfig}
-        FullScreen={false}/>
+        fullScreen={false}/>
     }
   }
 
@@ -92,20 +94,20 @@ npm install react-lz-editor --save
 | 配置项 | 类型 | 默认值 | 说明 |
 | -- | -- | -- | -- |
 | active | bool | false | 有更新时是否刷新 |
-| ImportContent | string | "" | 编辑器显示内容 |
+| importContent | string | "" | 编辑器显示内容 |
 | cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
-| UndoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
-| RemoveStyle | bool | true | 是否启用移除格式功能，默认启用 |
-| PasteNoStyle | bool | true | 是否启用文本粘贴功能，默认启用 |
-| BlockStyle | bool | true | 是否启用段落样式设置功能（H1、列表、区段等），默认启用 |
-| Alignment | bool | true | 是否启用文本对齐设置功能，默认启用 |
-| InlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
-| Color | bool | true | 是否启用文字颜色设置功能，默认启用 |
-| Image | bool | true | 是否启用图片上传后插入功能，默认启用 |
-| Video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
-| Url | bool | true | 是否启用添加删除链接功能，默认启用 |
-| AutoSave | bool | true | 是否启用自动保存功能，默认启用 |
-| FullScreen | bool | true | 是否启用全屏功能，默认启用 |
-| ConvertFormat | string | "html" | 设置内容导入导出格式，支持html、markdown、raw三种格式，默认html |
+| undoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
+| removeStyle | bool | true | 是否启用移除格式功能，默认启用 |
+| pasteNoStyle | bool | true | 是否启用文本粘贴功能，默认启用 |
+| blockStyle | bool | true | 是否启用段落样式设置功能（H1、列表、区段等），默认启用 |
+| alignment | bool | true | 是否启用文本对齐设置功能，默认启用 |
+| inlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
+| color | bool | true | 是否启用文字颜色设置功能，默认启用 |
+| image | bool | true | 是否启用图片上传后插入功能，默认启用 |
+| video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
+| urls | bool | true | 是否启用添加删除链接功能，默认启用 |
+| autoSave | bool | true | 是否启用自动保存功能，默认启用 |
+| fullScreen | bool | true | 是否启用全屏功能，默认启用 |
+| convertFormat | string | "html" | 设置内容导入导出格式，支持html、markdown、raw三种格式，默认html |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
 # QA:

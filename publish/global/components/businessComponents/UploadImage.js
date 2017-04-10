@@ -1,12 +1,34 @@
 'use strict';
 
+var _css = require('antd/lib/upload/style/css');
+
+var _upload = require('antd/lib/upload');
+
+var _upload2 = _interopRequireDefault(_upload);
+
+var _css2 = require('antd/lib/button/style/css');
+
+var _button = require('antd/lib/button');
+
+var _button2 = _interopRequireDefault(_button);
+
+var _css3 = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _css4 = require('antd/lib/message/style/css');
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 var _publicDatas = require('../../supports/publicDatas');
 
@@ -43,7 +65,7 @@ var UploadImage = function (_Component) {
   function UploadImage(props) {
     _classCallCheck(this, UploadImage);
 
-    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(UploadImage).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (UploadImage.__proto__ || Object.getPrototypeOf(UploadImage)).call(this, props));
 
     _this2.state = {
       isLoad: false,
@@ -76,7 +98,7 @@ var UploadImage = function (_Component) {
       // key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY if (!!this.props.limit && file.length > this.props.limit) {    // message.error("由于限制，您最多只能选择" + this.props.limit + "张图片，请重新选择。", 5);    return false; }    // console.log("key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY");
       var isFormat = _publicDatas.PRO_COMMON.Array.inArray(_publicDatas.PRO_QINIU.supportMime[this.props.fileType], file.type);
       if (!isFormat) {
-        _antd.message.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
+        _message2.default.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
         return false;
       }
       if (!this.state.qiniu.token) {
@@ -132,7 +154,7 @@ var UploadImage = function (_Component) {
         if (!!file.response) {
           //上传列表数量的限制，只显示最近上传的限制个数，旧的会被新的顶掉
           if (!!_this.props.limit && _this.state.files.length > _this.props.limit) {
-            _antd.message.info('\u53EA\u80FD\u4FDD\u7559\u6700\u540E\u4E0A\u4F20\u7684 ' + _this.props.limit + ' \u4E2A\u6587\u4EF6\uFF0C\u5176\u4ED6\u8D85\u51FA\u7684\u5DF2\u7ECF\u88AB\u9876\u6389\u3002', 5);
+            _message2.default.info('\u53EA\u80FD\u4FDD\u7559\u6700\u540E\u4E0A\u4F20\u7684 ' + _this.props.limit + ' \u4E2A\u6587\u4EF6\uFF0C\u5176\u4ED6\u8D85\u51FA\u7684\u5DF2\u7ECF\u88AB\u9876\u6389\u3002', 5);
             _publicDatas.PRO_COMMON.Array.removeByIndex(_this.state.files, 0);
           }
         }
@@ -227,12 +249,12 @@ var UploadImage = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
-          _antd.Upload,
+          _upload2.default,
           uploadProps,
           _react2.default.createElement(
-            _antd.Button,
+            _button2.default,
             null,
-            _react2.default.createElement(_antd.Icon, { type: 'upload' }),
+            _react2.default.createElement(_icon2.default, { type: 'upload' }),
             '\u70B9\u51FB\u4E0A\u4F20'
           )
         ),

@@ -1,12 +1,16 @@
 'use strict';
 
+var _css = require('antd/lib/icon/style/css');
+
+var _icon = require('antd/lib/icon');
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,7 +26,7 @@ var StyleButton = function (_React$Component) {
   function StyleButton() {
     _classCallCheck(this, StyleButton);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StyleButton).call(this));
+    var _this = _possibleConstructorReturn(this, (StyleButton.__proto__ || Object.getPrototypeOf(StyleButton)).call(this));
 
     _this.onToggle = function (e) {
       e.preventDefault();
@@ -47,7 +51,7 @@ var StyleButton = function (_React$Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: this.onToggle, title: this.props.text },
-          _react2.default.createElement(_antd.Icon, { type: '' + this.props.label })
+          _react2.default.createElement(_icon2.default, { type: '' + this.props.label })
         ),
         function () {
           if (!!_this2.props.split) {

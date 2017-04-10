@@ -6,8 +6,6 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _antd = require("antd");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22,7 +20,7 @@ var OpenFull = function (_Component) {
   function OpenFull(props) {
     _classCallCheck(this, OpenFull);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenFull).call(this, props));
+    return _possibleConstructorReturn(this, (OpenFull.__proto__ || Object.getPrototypeOf(OpenFull)).call(this, props));
   }
 
   _createClass(OpenFull, [{
@@ -49,7 +47,7 @@ var AutoSave = function (_Component2) {
   function AutoSave(props) {
     _classCallCheck(this, AutoSave);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AutoSave).call(this, props));
+    return _possibleConstructorReturn(this, (AutoSave.__proto__ || Object.getPrototypeOf(AutoSave)).call(this, props));
   }
 
   _createClass(AutoSave, [{
@@ -71,7 +69,37 @@ var AutoSave = function (_Component2) {
 }(_react.Component);
 
 ;
+
+var SourceEditor = function (_Component3) {
+  _inherits(SourceEditor, _Component3);
+
+  function SourceEditor(props) {
+    _classCallCheck(this, SourceEditor);
+
+    return _possibleConstructorReturn(this, (SourceEditor.__proto__ || Object.getPrototypeOf(SourceEditor)).call(this, props));
+  }
+
+  _createClass(SourceEditor, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "RichEditor-controls" },
+        _react2.default.createElement(
+          "span",
+          { className: "RichEditor-styleButton", onClick: this.props.onToggle },
+          this.props.coverTitle
+        )
+      );
+    }
+  }]);
+
+  return SourceEditor;
+}(_react.Component);
+
+;
 module.exports = {
   OpenFull: OpenFull,
-  AutoSave: AutoSave
+  AutoSave: AutoSave,
+  SourceEditor: SourceEditor
 };

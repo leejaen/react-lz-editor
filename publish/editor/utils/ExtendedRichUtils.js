@@ -25,13 +25,13 @@ var ALIGNMENT_DATA_KEY = exports.ALIGNMENT_DATA_KEY = 'textAlignment';
 var ExtendedRichUtils = Object.assign({}, _draftJs.RichUtils, {
 	// Largely copied from RichUtils' `toggleBlockType`
 	toggleAlignment: function toggleAlignment(editorState, alignment) {
-		var _getCurrentlySelected = (0, _getCurrentlySelectedBlock2.default)(editorState);
-
-		var content = _getCurrentlySelected.content;
-		var currentBlock = _getCurrentlySelected.currentBlock;
-		var hasAtomicBlock = _getCurrentlySelected.hasAtomicBlock;
-		var target = _getCurrentlySelected.target;
+		var _getCurrentlySelected = (0, _getCurrentlySelectedBlock2.default)(editorState),
+		    content = _getCurrentlySelected.content,
+		    currentBlock = _getCurrentlySelected.currentBlock,
+		    hasAtomicBlock = _getCurrentlySelected.hasAtomicBlock,
+		    target = _getCurrentlySelected.target;
 		// console.log("ExtendedRichUtils content, currentBlock, hasAtomicBlock, target",content, currentBlock, hasAtomicBlock, target)
+
 
 		if (hasAtomicBlock) {
 			return editorState;
@@ -71,9 +71,8 @@ var ExtendedRichUtils = Object.assign({}, _draftJs.RichUtils, {
 		// Assign alignment if previous block has alignment. Note that `currentBlock` is the block that was selected
 		// before the split.
 
-		var _getCurrentlySelected2 = (0, _getCurrentlySelectedBlock2.default)(editorState);
-
-		var currentBlock = _getCurrentlySelected2.currentBlock;
+		var _getCurrentlySelected2 = (0, _getCurrentlySelectedBlock2.default)(editorState),
+		    currentBlock = _getCurrentlySelected2.currentBlock;
 
 		var alignment = currentBlock.getData().get(ALIGNMENT_DATA_KEY);
 		if (alignment) {

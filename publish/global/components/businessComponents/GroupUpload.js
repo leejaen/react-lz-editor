@@ -1,5 +1,35 @@
 'use strict';
 
+var _css = require('antd/lib/modal/style/css');
+
+var _modal = require('antd/lib/modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _css2 = require('antd/lib/select/style/css');
+
+var _select = require('antd/lib/select');
+
+var _select2 = _interopRequireDefault(_select);
+
+var _css3 = require('antd/lib/checkbox/style/css');
+
+var _checkbox = require('antd/lib/checkbox');
+
+var _checkbox2 = _interopRequireDefault(_checkbox);
+
+var _css4 = require('antd/lib/button/style/css');
+
+var _button = require('antd/lib/button');
+
+var _button2 = _interopRequireDefault(_button);
+
+var _css5 = require('antd/lib/message/style/css');
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -7,8 +37,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _antd = require('antd');
 
 var _UploadImage = require('./UploadImage');
 
@@ -60,7 +88,7 @@ var GroupUpload = function (_Component) {
   function GroupUpload(props) {
     _classCallCheck(this, GroupUpload);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GroupUpload).call(this, props));
+    var _this = _possibleConstructorReturn(this, (GroupUpload.__proto__ || Object.getPrototypeOf(GroupUpload)).call(this, props));
 
     _this.state = {
       showPictureSeletor: false,
@@ -163,7 +191,7 @@ var GroupUpload = function (_Component) {
             originKey = originKeyItem[0];
           }
           var thumbnail = "";
-          console.log("this.props.atuoSize", _this3.props.atuoSize);
+          // console.log("this.props.atuoSize",this.props.atuoSize);
           if (_this3.state.isAutoSize) {
             if (_this3.props.atuoSize[0] == 0 && _this3.props.atuoSize[1] == 0) {
               thumbnail = 'imageMogr2/thumbnail/600x600>|';
@@ -209,7 +237,7 @@ var GroupUpload = function (_Component) {
       //   duration: 0,
       // };
       // notification.open(args);
-      console.log("getPfop refObj", refObj);
+      // console.log("getPfop refObj",refObj)
       var pictureList = refObj.map(function (item) {
         var domain = "",
             picture = "";
@@ -222,9 +250,9 @@ var GroupUpload = function (_Component) {
         }
         return picture;
       });
-      console.log("getPfop pictureList", pictureList);
+      // console.log("getPfop pictureList",pictureList);
       // setTimeout(()=>{//防止在持久保存成功前过快加载导致图片显示不出
-      _antd.message.info("图片正在处理请稍等片刻", 10);
+      _message2.default.info("图片正在处理请稍等片刻", 10);
       setTimeout(function () {
         _this3.props.receiveSelectedPictures(pictureList);
       }, 100);
@@ -250,7 +278,7 @@ var GroupUpload = function (_Component) {
           // dispatch(gotPfopPicturesSuccessfully(theData.data));
         };
       } else {
-        _antd.message.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
+        _message2.default.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
       }
     }
   }, {
@@ -265,7 +293,7 @@ var GroupUpload = function (_Component) {
       this.state.pictureList = (0, _compact2.default)(this.state.pictureList.concat(newPictures));
       this.state.pictureList = (0, _uniq2.default)(this.state.pictureList);
       this.state.selectedPictureList = (0, _cloneDeep2.default)(this.state.pictureList);
-      console.log("pictureList", this.state.pictureList);
+      // console.log("pictureList", this.state.pictureList);
       this.forceUpdate(); //强制更新
     }
   }, {
@@ -307,7 +335,7 @@ var GroupUpload = function (_Component) {
         function () {
           if (!_this5.props.children) {
             return _react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { onClick: _this5.openModal },
               '\u6279\u91CF\u6DFB\u52A0'
             );
@@ -319,7 +347,7 @@ var GroupUpload = function (_Component) {
           }
         }(),
         _react2.default.createElement(
-          _antd.Modal,
+          _modal2.default,
           {
             title: _react2.default.createElement(
               'span',
@@ -332,110 +360,110 @@ var GroupUpload = function (_Component) {
               ),
               ' \xA0 \xA0 \xA0 \xA0',
               _react2.default.createElement(
-                _antd.Checkbox,
+                _checkbox2.default,
                 { onChange: this.autoWaterMark },
                 ' \u81EA\u52A8\u52A0\u6C34\u5370 '
               ),
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
-                _antd.Select,
+                _select2.default,
                 { size: 'small',
                   disabled: !this.state.isAutoWaterMark,
                   defaultValue: this.state.selectedWaterMarkType,
                   style: { width: 100 },
                   onChange: this.chooseWaterMake },
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'white_small' },
                   '\u767D\u8272\u5C0F\u56FE'
                 ),
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'white_big' },
                   '\u767D\u8272\u5927\u56FE'
                 ),
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'gray_small' },
                   ' \u7070\u8272\u5C0F\u56FE '
                 ),
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'gray_big' },
                   '\u7070\u8272\u5927\u56FE'
                 ),
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'black_small' },
                   '\u9ED1\u8272\u5C0F\u56FE'
                 ),
                 _react2.default.createElement(
-                  _antd.Select.Option,
+                  _select2.default.Option,
                   { value: 'black_big' },
                   ' \u9ED1\u8272\u5927\u56FE '
                 )
               ),
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
-                _antd.Select,
+                _select2.default,
                 { size: 'small',
                   disabled: !this.state.isAutoWaterMark,
                   defaultValue: this.state.selectedWaterMarkPositon,
                   style: { width: 100 },
                   onChange: this.chooseWaterMakePosition },
                 _react2.default.createElement(
-                  _antd.Select.OptGroup,
+                  _select2.default.OptGroup,
                   { label: '\u4E0A' },
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'NorthWest' },
                     '\u5DE6\u4E0A'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'North' },
                     '\u4E2D\u4E0A'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'NorthEast' },
                     ' \u53F3\u4E0A '
                   )
                 ),
                 _react2.default.createElement(
-                  _antd.Select.OptGroup,
+                  _select2.default.OptGroup,
                   { label: '\u4E2D' },
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'West' },
                     '\u5DE6\u4E2D'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'Center' },
                     '\u4E2D\u5FC3'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'East' },
                     ' \u53F3\u4E2D '
                   )
                 ),
                 _react2.default.createElement(
-                  _antd.Select.OptGroup,
+                  _select2.default.OptGroup,
                   { label: '\u4E0B' },
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'SouthWest' },
                     '\u5DE6\u4E0B'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'South' },
                     '\u4E2D\u4E0B'
                   ),
                   _react2.default.createElement(
-                    _antd.Select.Option,
+                    _select2.default.Option,
                     { value: 'SouthEast' },
                     ' \u53F3\u4E0B '
                   )
@@ -443,7 +471,7 @@ var GroupUpload = function (_Component) {
               ),
               '\xA0\xA0\xA0\xA0',
               this.props.atuoSize ? _react2.default.createElement(
-                _antd.Checkbox,
+                _checkbox2.default,
                 { onChange: this.onAutoSizeChange, defaultChecked: this.state.isAutoSize },
                 '\u6309\u7167\u56FE\u7247',
                 this.props.atuoSize[0] == 0 ? "高度" : "宽度",
@@ -459,13 +487,13 @@ var GroupUpload = function (_Component) {
             maskClosable: false,
             width: 900,
             footer: [_react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'back',
                 size: 'large',
                 onClick: this.closeModal },
               ' \u53D6\u6D88 '
             ), _react2.default.createElement(
-              _antd.Button,
+              _button2.default,
               { key: 'submit',
                 type: 'primary',
                 size: 'large',
@@ -487,7 +515,7 @@ var GroupUpload = function (_Component) {
               null,
               this.state.pictureList.map(function (item) {
                 return _react2.default.createElement(
-                  _antd.Checkbox,
+                  _checkbox2.default,
                   {
                     key: item,
                     value: item,

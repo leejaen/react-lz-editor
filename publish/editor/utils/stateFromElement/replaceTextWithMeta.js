@@ -5,8 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = replaceTextWithMeta;
 function replaceTextWithMeta(subject, searchText, replaceText) {
-  var text = subject.text;
-  var characterMeta = subject.characterMeta;
+  var text = subject.text,
+      characterMeta = subject.characterMeta;
 
   var searchTextLength = searchText.length;
   var replaceTextLength = replaceText.length;
