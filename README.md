@@ -5,12 +5,14 @@
 
 [Live demo](https://leejaen.github.io/react-lz-editor/index.html)
 
-    因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了。
+    *Disabled media insert feature on demo page, because of there was no online API support for the time being, here is [The server side API demo in java](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java) you may want.*
+
+    *因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了，java版本接口实现示例请参考[示例代码](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java)。*
 
 # Install
     npm install antd react-lz-editor --save
 
-    Version note: React 15.4.2+ and react-dom 15.4.2+ is required.
+    Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
@@ -55,12 +57,12 @@
     render() {
       const uploadConfig = {
         QINIU_URL: "http://up.qiniu.com", //上传地址，现在暂只支持七牛上传
-        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.com/getQiniuUptoken.do", //请求图片的token
+        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do", //请求图片的token
         QINIU_PFOP: {
-          url: "http://www.yourServerAddress.com/QiniuPicPersist.do" //七牛持久保存请求地址
+          url: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do" //七牛持久保存请求地址
         },
-        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.com/getQiniuUptoken.do", //请求媒体资源的token
-        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.com/getQiniuUptoken.do?name=patch", //其他资源的token的获取
+        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do", //请求媒体资源的token
+        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取
         QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi", //图片文件地址的前缀
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀

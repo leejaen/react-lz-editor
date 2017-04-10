@@ -37,6 +37,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "antd": "^2.8.3",
     "draft-js": "^0.10.0",
     "immutable": "^3.8.1",
 	  "js-base64": "^2.1.9",
