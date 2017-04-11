@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Upload, Button, Icon, message} from 'antd';
-import {PRO_URL, PRO_REQUEST, PRO_QINIU, PRO_COMMON} from '../../supports/publicDatas';
+import {PRO_URL, PRO_QINIU, PRO_COMMON} from '../../supports/publicDatas';
 import findIndex from "lodash/findIndex";
 import isEqual from "lodash/isEqual";
 import cloneDeep from "lodash/cloneDeep";
@@ -9,7 +9,7 @@ import cloneDeep from "lodash/cloneDeep";
  * 调用示例：
  * <UploadImage cbReceiver={this.getFile} isMultiple={true}/>
  * cbReceiver 必要属性，此属性指定一个处理接收数据的自定义方法，上传成功的地址通过此方法传给调用组件
- * fileType　必须属性，此属性指定上传文件的类型，img（图片）,video(mp4,mp3类型)
+ * type　必须属性，此属性指定上传文件的类型，img（图片）,video(mp4,mp3类型)
  * isMultiple 非必要属性，默认false，是否支持多文件同时上传，默认只允许单文件上传
  * */
 class UploadImage extends Component {
@@ -18,7 +18,7 @@ class UploadImage extends Component {
     this.state = {
       isLoad: false,
       qiniu: {
-        token: PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig)
+        token: PRO_QINIU.checkQiniu.returnToken()
       },
       files: [],
       upReceiverFun: null
@@ -46,23 +46,51 @@ class UploadImage extends Component {
       return false;
     }
     if (!this.state.qiniu.token) {
-      let token = PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig);
+      let token = PRO_QINIU.checkQiniu.returnToken();
       this.state.qiniu.token = token;
     }
+    // this.state.qiniu.key = file.uid+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
+    // this.forceUpdate();
     return isFormat;
+
+    // console.log("file.type",file);
+    // let isFormat = PRO_COMMON.Array.inArray(PRO_QINIU.supportMime[this.props.fileType], file.type),that=this;
+    // if (!isFormat) {
+    //   message.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
+    //   return false;
+    // }
+    // return new Promise(function(resolve,reject){
+    //   let token =that.state.qiniu.token,key="";
+    //   if (!token) {
+    //     token = PRO_QINIU.checkQiniu.returnToken();
+    //   }
+    //   key =PRO_COMMON.String.RndNum(20)+file.uid+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
+    //   console.log("{token,key}",{token,key});
+    //   if (!!token&&!!key) {
+    //     resolve({token,key});
+    //   }
+    //   else {
+    //     reject(err)
+    //   }
+    // }).then(function(obj){
+    //   that.state.qiniu=obj;
+    //   that.forceUpdate();
+    // }).catch(function(err){
+    //   console.log("准备上传文件时发生错误：",err);
+    // });
   }
 
   onChange(info) {
     // console.log("upload onChange this.state.files",this.state.files,info)
     clearTimeout(this.state.upReceiverFun);
-    let fileList = info.fileList;
+    let fileList = cloneDeep( info.fileList);
 
     fileList = fileList.filter((f) => (!f.length));
     let url = "";
     if (this.props.fileType == "image") {
-      url = PRO_URL.QINIU_IMG_DOMAIN_URL||this.props.uploadConfig.QINIU_IMG_DOMAIN_URL;
+      url = PRO_URL.QINIU_IMG_DOMAIN_URL;
     } else if (this.props.fileType == "video" || this.props.fileType == "audio") {
-      url = PRO_URL.QINIU_DOMAIN_VIDEO_URL||this.props.uploadConfig.QINIU_DOMAIN_VIDEO_URL;
+      url = PRO_URL.QINIU_DOMAIN_VIDEO_URL;
     }
     //读取远程路径并显示链接
     fileList = fileList.map((file) => {
@@ -78,7 +106,9 @@ class UploadImage extends Component {
     let _this = this;
     //按照服务器返回信息筛选成功上传的文件
     // let cloneList=cloneDeep(_this.state.files);
+    // console.log("upload fileList",fileList)
     fileList = fileList.filter((file) => {
+      // console.log("upload fileList.filter file",file)
       //根据多选选项更新添加内容
       let hasNoExistCurrFileInUploadedList=!~findIndex(_this.state.files,item=>item.name===file.name)
       if (hasNoExistCurrFileInUploadedList) {
@@ -95,11 +125,16 @@ class UploadImage extends Component {
           PRO_COMMON.Array.removeByIndex(_this.state.files, 0)
         }
       }
-      return !!file.response;
+      return !!file.response||(!!file.url&&file.status=="done")||file.status=="uploading";
     });
-    _this.forceUpdate();
+    fileList=_.uniqBy(fileList,"name");
     // console.log("upload _this.state.files",_this.state.files);
-    // this.setState({files: _this.state.files});
+    // console.log("upload fileList before if",fileList);
+    if (!!fileList && fileList.length != 0) {
+    // console.log("upload set files as fileList",fileList);
+      this.setState({files: fileList});
+    }
+    _this.forceUpdate();
     this.state.upReceiverFun = setTimeout(() => {
       //限制频繁调用组件制定的cbReceiver
       // console.log("upload this.state.files",this.state.files)
@@ -107,6 +142,7 @@ class UploadImage extends Component {
         return false;
       }
       this.props.cbReceiver(this.state.files);
+
     }, 1000);
   }
 
@@ -128,12 +164,13 @@ class UploadImage extends Component {
     return null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log("componentWillReceiveProps",nextProps.fileList,this.state.files);
+  componentWillReceiveProps(nextProps,prevProps) {
+    // console.log("componentWillReceiveProps",nextProps,prevProps,this.state.files);
       // console.log("isEqual",isEqual(nextProps.fileList, this.state.files));
     if (isEqual(nextProps.fileList, this.state.files)) {
       return false;
     }
+    // console.log("我是变化",nextProps.isOpenModel);
     if(nextProps.isOpenModel){
       // console.log("我是变化",nextProps.isOpenImg);
       // this.setState({
@@ -158,14 +195,14 @@ class UploadImage extends Component {
 
   render() {
     let properties = this.props,that=this,uploadProps = {
-      action: PRO_URL.QINIU_URL||this.props.uploadConfig.QINIU_URL,
+      action: PRO_URL.QINIU_URL,
       onChange: this.onChange.bind(this),
       listType: 'picture',
       fileList: this.state.files,
       data: (file)=>{//支持自定义保存文件名、扩展名支持
           let token =that.state.qiniu.token,key="";
           if (!token) {
-            token = PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig);
+            token = PRO_QINIU.checkQiniu.returnToken();
           }
           key = PRO_COMMON.String.RndNum(20)+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
           return {token,key}
@@ -201,19 +238,7 @@ UploadImage.propTypes = {
   isShowUploadList: React.PropTypes.bool,
   fileType: UploadImage.prototype.supportFileType,
   description: React.PropTypes.string,
-  fileList: React.PropTypes.arrayOf(React.PropTypes.shape({url: React.PropTypes.string.isRequired, thumbUrl: React.PropTypes.string, name: React.PropTypes.string})),
-  uploadConfig:React.PropTypes.shape({
-    QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_PFOP:React.PropTypes.shape({
-      url: React.PropTypes.string.isRequired
-    }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_DOMAIN_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
-   })
+  fileList: React.PropTypes.arrayOf(React.PropTypes.shape({url: React.PropTypes.string.isRequired, thumbUrl: React.PropTypes.string, name: React.PropTypes.string}))
 };
 
 UploadImage.defaultProps = {
