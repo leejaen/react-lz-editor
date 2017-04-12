@@ -1,5 +1,5 @@
-@RequestMapping(value = "/getPicPersistOfQiniu.do")
-    public void getPicPersistOfQiniu(HttpServletRequest request,
+@RequestMapping(value = "/doQiniuPicPersist.do")
+    public void doQiniuPicPersist(HttpServletRequest request,
             HttpServletResponse response, final ModelMap context,String persistentOps) {
         response.setHeader("Access-Control-Allow-Origin", rm.getValue("allow_url"));
         Jedis jedis = null;

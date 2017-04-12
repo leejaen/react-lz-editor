@@ -1,8 +1,8 @@
 # react-lz-editor
 
-An open source rich react editor based on draft-Js and ant design, good support for HTML, markdown and Draft Raw format.
+An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode.
 
-一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器，支持HTML、markdown、draft Raw格式。
+一款基于 draft-Js 和 ant-design 实现的 react 富文本编辑器，支持文本、图片、视频、音频、链接等元素插入，同时支持HTML、markdown、draft-raw格式。
 
 ## Live demo
 
@@ -63,12 +63,12 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
     render() {
       const uploadConfig = {
         QINIU_URL: "http://up.qiniu.com", //上传地址，现在暂只支持七牛上传
-        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do", //请求图片的token
+        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求图片的token
         QINIU_PFOP: {
-          url: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do" //七牛持久保存请求地址
+          url: "http://www.yourServerAddress.mobi/doQiniuPicPersist.do" //七牛持久保存请求地址
         },
-        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do", //请求媒体资源的token
-        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.com/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取
+        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求媒体资源的token
+        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取
         QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi", //图片文件地址的前缀
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
