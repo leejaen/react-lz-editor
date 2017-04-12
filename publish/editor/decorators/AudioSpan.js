@@ -24,19 +24,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import autobind from 'class-autobind';
-
-
-// $FlowIssue - Flow doesn't understand CSS Modules
-
-
 var AudioSpan = function (_Component) {
   _inherits(AudioSpan, _Component);
 
   function AudioSpan(props) {
     _classCallCheck(this, AudioSpan);
 
-    // autobind(this);
     var _this = _possibleConstructorReturn(this, (AudioSpan.__proto__ || Object.getPrototypeOf(AudioSpan)).call(this, props));
 
     var entity = _draftJs.Entity.get(_this.props.entityKey);
@@ -70,7 +63,6 @@ var AudioSpan = function (_Component) {
       audio.src = src;
       audio.onload = function () {
         if (width == null || height == null) {
-          // TODO: isMounted?
           _this2.setState({ width: audio.width, height: audio.height });
           _draftJs.Entity.mergeData(_this2.props.entityKey, {
             width: audio.width,
@@ -87,14 +79,11 @@ var AudioSpan = function (_Component) {
       var _state2 = this.state,
           width = _state2.width,
           height = _state2.height;
-      //let {className} = this.props;
 
       var entity = _draftJs.Entity.get(this.props.entityKey);
 
       var _entity$getData3 = entity.getData(),
           src = _entity$getData3.src;
-      //console.log("styles.root: ", styles.root); className = cx(className, styles.root);
-
 
       var audioStyle = {
         verticalAlign: 'bottom',
@@ -107,8 +96,6 @@ var AudioSpan = function (_Component) {
         letterSpacing: width
       };
 
-      //   return (       <span           className="editor-inline-audio"           style={audioStyle}
-      // onClick={this._onClick}           >   {this.props.children} </span>   );
       return _react2.default.createElement(
         'figure',
         { className: 'editor-inline-audio', onClick: this._onClick },
@@ -117,9 +104,7 @@ var AudioSpan = function (_Component) {
     }
   }, {
     key: '_onClick',
-    value: function _onClick() {
-      //console.log('audio click');
-    }
+    value: function _onClick() {}
   }, {
     key: '_handleResize',
     value: function _handleResize(event, data) {
@@ -134,9 +119,10 @@ var AudioSpan = function (_Component) {
 
   return AudioSpan;
 }(_react.Component);
-//AudioSpan.propTypes={  children: React.PropTypes,  entityKey: string,  className?: string }
 
 exports.default = AudioSpan;
+
+
 AudioSpan.defaultProps = {
   children: null,
   entityKey: "",

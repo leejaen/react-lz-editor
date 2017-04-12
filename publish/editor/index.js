@@ -140,10 +140,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by lizhen on 4/26/2016.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var decorator = new _draftJs.CompositeDecorator([_LinkDecorator2.default, _ImageDecorator2.default, _VideoDecorator2.default, _AudioDecorator2.default]);
 
@@ -170,18 +167,13 @@ var EditorConcist = function (_React$Component) {
         var originalString = _this.props.importContent;
         originalString = !originalString ? " " : originalString;
         if (!originalString) {
-          //暂时不走createEmpty，有错。空的话给个空格规避
-          //this.state.alwaysEnterEmpty = true;
           return _draftJs.EditorState.createEmpty(decorator);
         } else {
-          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.importContent;//转换成dom
-          // element
           var ConvertFormatProps = _this.props.convertFormat;
           var contentState = void 0;
           if (ConvertFormatProps === 'html') {
             contentState = (0, _utils.stateFromHTML)(originalString);
           } else if (ConvertFormatProps === 'markdown') {
-            // console.log("markdown originalString",originalString)
             contentState = (0, _utils.stateFromMD)(originalString);
           } else if (ConvertFormatProps === 'raw') {
             originalString = originalString.replace(/\s/g, "") ? originalString : "{}";
@@ -196,7 +188,6 @@ var EditorConcist = function (_React$Component) {
       }()
     };
 
-    // this.focus = () => this.refs.editor.focus();//使用babel转码之后不是react组件不能用refs方式
     _this.onChange = function (editorState) {
       _this.setState({ editorState: editorState });
       var that = _this;
@@ -204,10 +195,8 @@ var EditorConcist = function (_React$Component) {
         clearTimeout(that.timer);
       }
       that.timer = setTimeout(function () {
-        //状态转对象
         var rawContentState = that.state.editorState.getCurrentContent();
-        //const rawContent = convertToRaw(rawContentState);
-        // console.log('rawContentState', rawContentState);
+
         var content = void 0;
         var ConvertFormatProps = that.props.convertFormat;
         if (ConvertFormatProps === 'html') {
@@ -218,7 +207,7 @@ var EditorConcist = function (_React$Component) {
           var rawContent = (0, _draftJs.convertToRaw)(rawContentState);
           content = JSON.stringify(rawContent);
         }
-        that.props.cbReceiver(content); //富文本编辑器在设置active是true时，不可使用forceUpdate，否则会造成无法选中文本的问题！
+        that.props.cbReceiver(content);
       }, 300);
     };
 
@@ -237,10 +226,8 @@ var EditorConcist = function (_React$Component) {
     _this.customKeyBinding = _this._customKeyBinding.bind(_this);
     _this.handlePastedText = _this._handlePastedText.bind(_this);
 
-    /*视频音频图片*/
     _this.logState = function () {
       var content = _this.state.editorState.getCurrentContent();
-      //  console.log(convertToRaw(content));
     };
 
     _this.addMedia = _this._addMedia.bind(_this);
@@ -278,21 +265,13 @@ var EditorConcist = function (_React$Component) {
       var _this2 = this;
 
       var content = this.props.importContent;
-      // const decorator = new CompositeDecorator([
-      //   LinkDecorator,
-      //   ImageDecorator
-      // ]);
+
       var contentState = (0, _utils.stateFromHTML)(content);
-      //  console.log("componentDidMount content",content);
-      //  console.log("componentDidMount contentState",JSON.stringify(contentState));
-      // let values = EditorState.createWithContent(contentState, decorator);
-      // this.state.editorState = values;
+
       this.state.autoSaveFun = setInterval(function () {
-        //每分钟自动保存草稿一次
         _this2.handleKeyCommand("editor-save");
       }, 60000);
-    } // 此钩子用作编辑时候的回调
-
+    }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(newProps) {
@@ -304,7 +283,7 @@ var EditorConcist = function (_React$Component) {
       }
       var ConvertFormatProps = this.props.convertFormat;
       var newContent = "";
-      // console.log("ConvertFormatProps",ConvertFormatProps)
+
       if (ConvertFormatProps === "html") {
         newContent = newProps.importContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g, ">");
         if (newContent == "undefined" || !newContent) {
@@ -316,13 +295,7 @@ var EditorConcist = function (_React$Component) {
       } else if (ConvertFormatProps === "raw") {
         newContent = newProps.importContent || "{}";
       }
-      /*const decorator = new CompositeDecorator([
-        LinkDecorator,
-        ImageDecorator,
-        VideoDecorator,
-        AudioDecorator
-      ]);*/
-      // console.log("newContent",newContent)
+
       var contentState = void 0;
       if (ConvertFormatProps === 'html') {
         contentState = (0, _utils.stateFromHTML)(newContent);
@@ -332,28 +305,23 @@ var EditorConcist = function (_React$Component) {
         var rawContent = JSON.parse(newContent);
         contentState = (0, _draftJs.convertFromRaw)(rawContent);
       }
-      // console.log("contentState",contentState)
-      // console.log("componentWillReceiveProps newContent",newContent);
-      // console.log("componentWillReceiveProps contentState",JSON.stringify(contentState));
+
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      // console.log("componentWillUnmount! this.state.autoSaveFun",this.state.autoSaveFun);
       clearInterval(this.state.autoSaveFun);
     }
   }, {
     key: 'handleOk',
     value: function handleOk() {
-      // console.log('点击了确定');
       this.setState({ visible: false });
     }
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      //  console.log(e);
       this.setState({ visible: false });
     }
   }, {
@@ -363,7 +331,7 @@ var EditorConcist = function (_React$Component) {
       var editorState = this.state.editorState;
 
       var selection = editorState.getSelection();
-      // console.log("111111selection", selection)
+
       if (!selection.isCollapsed()) {
 
         var that = this;
@@ -371,11 +339,7 @@ var EditorConcist = function (_React$Component) {
           showURLInput: true,
           urlValue: '',
           visible: true
-        }, function () {
-          // setTimeout(() => {
-          //     ReactDom.findDOMNode(that.refs.urltext).focus();//使用babel转码之后不是react组件不能用refs方式
-          // }, 0);
-        });
+        }, function () {});
       } else {
         _message2.default.error("创建链接前请先选中链接文字！", 5);
       }
@@ -383,7 +347,6 @@ var EditorConcist = function (_React$Component) {
   }, {
     key: '_confirmLink',
     value: function _confirmLink(e) {
-      // console.log("_confirmLink urlValue", urlValue)
       var _state = this.state,
           editorState = _state.editorState,
           urlValue = _state.urlValue;
@@ -394,9 +357,7 @@ var EditorConcist = function (_React$Component) {
         showURLInput: false,
         urlValue: ''
       }, function () {
-        setTimeout(function () {
-          // this.refs.editor.focus()//使用babel转码之后不是react组件不能用refs方式
-        }, 0);
+        setTimeout(function () {}, 0);
       });
     }
   }, {
@@ -472,25 +433,20 @@ var EditorConcist = function (_React$Component) {
     key: '_changeMrakdownContent',
     value: function _changeMrakdownContent(e) {
       var markdownContent = e.target.value;
-      // console.log("markdownContent",markdownContent);
+
       var contentState = (0, _utils.stateFromMD)(markdownContent);
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.tempSouceContent = markdownContent;
       this.state.editorState = values;
       this.forceUpdate();
     }
-    //弹窗url，end
-
   }, {
     key: '_handleKeyCommand',
     value: function _handleKeyCommand(command) {
-      // console.log("command",command);
       var editorState = this.state.editorState;
 
       var newState = _draftJs.RichUtils.handleKeyCommand(editorState, command);
       if (command === 'editor-save' && this.props.autoSave == true) {
-        // window.localDB//start20Text
-        // let Data=PRO_COMMON.localDB.getter("grab_news_data") || [];
 
         var rawContentState = editorState.getCurrentContent();
         var content = "",
@@ -528,15 +484,14 @@ var EditorConcist = function (_React$Component) {
     value: function _customKeyBinding(e) {
       var hasCommandModifier = _draftJs.KeyBindingUtil.hasCommandModifier;
 
-      if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
+      if (e.keyCode === 83 && hasCommandModifier(e)) {
         return 'editor-save';
-      } else if (e.keyCode === 86 /* `V` key */ && hasCommandModifier(e)) {}
+      } else if (e.keyCode === 86 && hasCommandModifier(e)) {}
       return (0, _draftJs.getDefaultKeyBinding)(e);
     }
   }, {
     key: '_solidHtml',
     value: function _solidHtml(html) {
-      // html=html.replace(/"((?:\\.|[^"\\])*)"/g,"");//去掉所有英文单引号里面的内容，比如style="" class=""
       var walk_the_DOM = function walk(node, func) {
         func(node);
         node = node.firstChild;
@@ -560,10 +515,8 @@ var EditorConcist = function (_React$Component) {
     key: '_handlePastedText',
     value: function _handlePastedText(text, sourceString) {
       sourceString = this.solidHtml(sourceString);
-      // console.log("_handlePastedText text",text);
-      // console.log("_handlePastedText sourceString",typeof(sourceString),sourceString);
+
       if (text == "undefined" && sourceString == "undefined") {
-        // console.log("_handlePastedText return false");
         return false;
       }
       if (sourceString == "undefined" || !sourceString) {
@@ -609,7 +562,7 @@ var EditorConcist = function (_React$Component) {
       this.state.editorState = values;
       _message2.default.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。", 5);
       this.forceUpdate();
-      return true; //覆盖编辑器的默认粘贴行为
+      return true;
     }
   }, {
     key: '_toggleBlockType',
@@ -619,18 +572,6 @@ var EditorConcist = function (_React$Component) {
   }, {
     key: '_toggleAlignment',
     value: function _toggleAlignment(alignment) {
-      //这种方式仅支持的数据类型
-      // https://github.com/facebook/draft-js/blob/master/src/model/constants/DraftBlockType.js
-
-      // const {editorState} = this.state;
-      // const selection = editorState.getSelection();
-      // const contentState = editorState.getCurrentContent();
-      // const alignBlock = Modifier.setBlockType(contentState, selection, alignment)
-      // this.setState({
-      //   editorState: EditorState.push(editorState, alignBlock)
-      // })
-
-      // right way:
       this.onChange(_ExtendedRichUtils2.default.toggleAlignment(this.state.editorState, alignment));
     }
   }, {
@@ -638,9 +579,6 @@ var EditorConcist = function (_React$Component) {
     value: function _toggleInlineStyle(inlineStyle) {
       this.onChange(_draftJs.RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
     }
-
-    /*视频音频图片*/
-
   }, {
     key: '_addMedia',
     value: function _addMedia(type, Object) {
@@ -667,11 +605,11 @@ var EditorConcist = function (_React$Component) {
     key: '_addImage',
     value: function _addImage(Objects) {
       var that = this;
-      // console.log("Objects Objects", Objects);
+
       Objects.map(function (item, i) {
         setTimeout(function () {
           var imageObj = that.addMedia('image', item);
-          // console.log("imageObj",imageObj,JSON.stringify(imageObj));
+
           return that.onChange(imageObj);
         }, i * 100);
       });
@@ -701,8 +639,7 @@ var EditorConcist = function (_React$Component) {
       } else if (ConvertFormatProps === 'raw') {
         contentState = (0, _draftJs.convertFromRaw)(sourceString);
       }
-      // console.log("_pasteNoStyle sourceString",sourceString);
-      // console.log("_pasteNoStyle contentState",JSON.stringify(contentState));
+
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
       this.forceUpdate();
@@ -765,7 +702,6 @@ var EditorConcist = function (_React$Component) {
 
       var selection = editorState.getSelection();
 
-      // Let's just allow one color at a time. Turn off all active colors.
       var nextContentState = Object.keys(_colorConfig.colorStyleMap).reduce(function (contentState, color) {
         return _draftJs.Modifier.removeInlineStyle(contentState, selection, color);
       }, editorState.getCurrentContent());
@@ -773,14 +709,12 @@ var EditorConcist = function (_React$Component) {
       var nextEditorState = _draftJs.EditorState.push(editorState, nextContentState, 'change-inline-style');
       var currentStyle = editorState.getCurrentInlineStyle();
 
-      // Unset style override for current color.
       if (selection.isCollapsed()) {
         nextEditorState = currentStyle.reduce(function (state, color) {
           return _draftJs.RichUtils.toggleInlineStyle(state, color);
         }, nextEditorState);
       }
 
-      // If the color is being toggled on, apply it.
       if (!currentStyle.has(toggledColor)) {
         nextEditorState = _draftJs.RichUtils.toggleInlineStyle(nextEditorState, toggledColor);
       }
@@ -793,7 +727,7 @@ var EditorConcist = function (_React$Component) {
       var _React$createElement;
 
       var urlInput = void 0;
-      // ref="urltext"
+
       if (this.state.showURLInput) {
         urlInput = _react2.default.createElement(
           _modal2.default,
@@ -818,8 +752,6 @@ var EditorConcist = function (_React$Component) {
       }
 
       var editorState = this.state.editorState;
-      // If the user changes block type before entering any text, we can either style the placeholder or hide it. Let's just
-      // hide it now.
 
       var className = 'RichEditor-editor';
       var contentState = editorState.getCurrentContent();
@@ -828,7 +760,7 @@ var EditorConcist = function (_React$Component) {
           className += ' RichEditor-hidePlaceholder';
         }
       }
-      // console.log("this.props.undoRedo",this.props.undoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
+
       return _react2.default.createElement(
         'div',
         { className: 'RichEditor-root editorHidden', content: this.state.HTML, id: 'text-editor-container' },
@@ -872,15 +804,11 @@ var EditorConcist = function (_React$Component) {
         ),
         urlInput
       );
-      // ref="editor"
     }
   }]);
 
   return EditorConcist;
 }(_react2.default.Component);
-
-// Custom overrides for "code" style.
-
 
 var styleMap = {
   CODE: {
@@ -892,18 +820,17 @@ var styleMap = {
 };
 
 function getBlockStyle(block) {
-  // console.log("getBlockStyle block",block,JSON.stringify(block))
   var type = block.getType();
   var data = block.getData();
   var text = block.getText();
-  // console.log("getBlockStyle get data",JSON.stringify(data))
+
   var mergedStyle = "";
   switch (type) {
     case 'blockquote':
       mergedStyle = 'RichEditor-blockquote';
       break;
   }
-  // console.log("getBlockStyle mergingStyle",mergedStyle)
+
   if (!data.has("textAlignment")) {
     return mergedStyle;
   }
@@ -921,14 +848,12 @@ function getBlockStyle(block) {
       mergedStyle += ' RichEditor-alignment-justify';
       break;
   }
-  // console.log("getBlockStyle mergedStyle",mergedStyle)
+
   return mergedStyle;
 }
 
 function mediaBlockRenderer(block) {
-  // console.log("block",block); console.log("1111111block.getType() ",block.getType());
   if (block.getType() === 'atomic') {
-    // console.log("11112222block.getType() ",block.getType());
     return { component: Media, editable: false };
   }
 
@@ -940,7 +865,6 @@ var Audio = function Audio(props) {
 };
 
 var Image = function Image(props) {
-  //   console.log("props",props.src);
   return _react2.default.createElement('img', { src: props.src, className: 'media' });
 };
 
@@ -955,8 +879,7 @@ var Media = function Media(props) {
       src = _entity$getData.src;
 
   var type = entity.getType();
-  // console.log("Media type",src);
-  // console.log("Media entity",type);
+
   var media = void 0;
   if (type === 'audio') {
     media = _react2.default.createElement(Audio, { src: src });
@@ -1015,5 +938,5 @@ EditorConcist.defaultProps = {
   fullScreen: true,
   convertFormat: 'html'
 };
-// export default EditorConcist;
+
 module.exports = EditorConcist;

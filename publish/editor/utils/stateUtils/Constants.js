@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var BLOCK_TYPE = exports.BLOCK_TYPE = {
-  // This is used to represent a normal text block (paragraph).
   UNSTYLED: 'unstyled',
   HEADER_ONE: 'header-one',
   HEADER_TWO: 'header-two',

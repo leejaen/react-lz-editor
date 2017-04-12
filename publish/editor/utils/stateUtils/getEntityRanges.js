@@ -9,6 +9,7 @@ exports.default = getEntityRanges;
 var _immutable = require('immutable');
 
 var EMPTY_SET = exports.EMPTY_SET = new _immutable.OrderedSet();
+
 function getEntityRanges(text, charMetaList) {
   var charEntity = null;
   var prevCharEntity = null;

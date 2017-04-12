@@ -11,15 +11,13 @@ function replaceTextWithMeta(subject, searchText, replaceText) {
   var searchTextLength = searchText.length;
   var replaceTextLength = replaceText.length;
   var resultTextParts = [];
-  // Get empty set of same kind as characterMeta.
+
   var resultCharMeta = characterMeta.slice(0, 0);
   var lastEndIndex = 0;
   var index = text.indexOf(searchText);
   while (index !== -1) {
     resultTextParts.push(text.slice(lastEndIndex, index) + replaceText);
-    resultCharMeta = resultCharMeta.concat(characterMeta.slice(lastEndIndex, index),
-    // Use the metadata of the first char we are replacing.
-    repeatSeq(characterMeta.slice(index, index + 1), replaceTextLength));
+    resultCharMeta = resultCharMeta.concat(characterMeta.slice(lastEndIndex, index), repeatSeq(characterMeta.slice(index, index + 1), replaceTextLength));
     lastEndIndex = index + searchTextLength;
     index = text.indexOf(searchText, lastEndIndex);
   }

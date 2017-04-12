@@ -85,16 +85,10 @@ var PasteNoStyleControls = function (_Component) {
     key: 'onTextToggle',
     value: function onTextToggle() {
       this.setState({ visible: true, disabled: true, plantext: "" });
-      // let that=this;
-      //   setTimeout(()=>{
-      //     console.log("this.refs.nostyletext",that.refs.noStyleText)
-      //     ReactDom.findDOMNode(that.refs.noStyleText).focus();
-      //   },1000);
     }
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      // console.log(e);
       this.setState({ visible: false });
       this.state.plantext = "";
       this.forceUpdate();

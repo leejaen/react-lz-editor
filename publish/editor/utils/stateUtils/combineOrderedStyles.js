@@ -17,7 +17,7 @@ function combineOrderedStyles(customMap, defaults) {
       defaultStyleMap = _defaults[0],
       defaultStyleOrder = _defaults[1];
 
-  var styleMap = Object.assign({}, defaultStyleMap); //{...defaultStyleMap}
+  var styleMap = Object.assign({}, defaultStyleMap);
   var styleOrder = [].concat(_toConsumableArray(defaultStyleOrder));
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
@@ -29,7 +29,7 @@ function combineOrderedStyles(customMap, defaults) {
 
       if (defaultStyleMap.hasOwnProperty(_styleName)) {
         var defaultStyles = defaultStyleMap[_styleName];
-        styleMap[_styleName] = Object.assign({}, defaultStyles, customMap[_styleName]); // {...defaultStyles, ...customMap[styleName]};
+        styleMap[_styleName] = Object.assign({}, defaultStyles, customMap[_styleName]);
       } else {
         styleMap[_styleName] = customMap[_styleName];
         styleOrder.push(_styleName);

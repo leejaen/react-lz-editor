@@ -44,7 +44,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/*视频音频图片*/
 var ImgStyleControls = function (_Component) {
   _inherits(ImgStyleControls, _Component);
 
@@ -98,7 +97,6 @@ var ImgStyleControls = function (_Component) {
     key: 'successLoading',
     value: function successLoading(type) {
       if (type == "fromImg") {
-        // console.log("successLoading", this.successedCount);
         if (this.successedCount + 1 < this.state.images.length) {
           this.successedCount += 1;
           return false;
@@ -110,15 +108,14 @@ var ImgStyleControls = function (_Component) {
         item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
         return item;
       });
-      // console.log("successLoading provisible false");
+
       this.setState({ provisible: false, pfopImages: pfopImages, previsible: true });
     }
   }, {
     key: 'realLoading',
     value: function realLoading(type) {
       var images = (0, _cloneDeep2.default)(this.state.pfopImages);
-      // console.log("images", images);
-      // console.log("realLoading provisible false");
+
       this.setState({ provisible: false, images: [], pfopImages: [], previsible: false });
       this.props.receiveImage(images);
     }
@@ -127,11 +124,9 @@ var ImgStyleControls = function (_Component) {
     value: function failureLoading(event, index) {
       var _this2 = this;
 
-      // console.log("failureLoading", event, index);
       var picture = this.state.images[index].url;
       if (!!picture && picture != "reset") {
         setTimeout(function () {
-          //无效时每100毫秒刷新一次
           _this2.reloadPfopingPictrue(picture, index);
         }, 300);
       }
@@ -148,7 +143,6 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'reloadUploadingPictrue',
     value: function reloadUploadingPictrue(picture, index) {
-      // console.log("reloadUploadingPictrue picture, index", picture, index);
       var thePicture = picture.substr(0, ~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length);
       var n = picture.substr((~picture.lastIndexOf("?t=") ? picture.lastIndexOf("?t=") : picture.length) + 3);
       picture = thePicture + "?t=" + (parseInt(!!n ? n : "0") + 1);
@@ -160,9 +154,7 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'groupAppend',
     value: function groupAppend(pictureList) {
-      // console.log("pictureList", pictureList);
       if (!pictureList.length) {
-        // console.log("return false", pictureList.lenght);
         return false;
       }
       var images = pictureList.map(function (item) {
@@ -179,7 +171,6 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      // console.log("handleCancel provisible false");
       this.setState({ provisible: false, previsible: false, images: [] });
     }
   }, {
@@ -287,7 +278,6 @@ var ImgStyleControls = function (_Component) {
             'div',
             { className: 'uploadingImagies' },
             that.state.pfopImages.map(function (item, index) {
-              // console.log("item,index", item, index);
               var url = item.url;
               return _react2.default.createElement(
                 'div',

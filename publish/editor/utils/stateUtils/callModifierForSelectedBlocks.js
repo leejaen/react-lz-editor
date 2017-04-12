@@ -12,23 +12,6 @@ var _getSelectedBlocks2 = _interopRequireDefault(_getSelectedBlocks);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Calls a provided `modifier` function with a selection for each
- * selected block in the current editor selection. Passes through additional
- * arguments to the modifier.
- *
- * Note: At the moment it will retain the original selection and override
- * possible selection changes from modifiers
- *
- * @param  {object} editorState The current draft.js editor state object
- *
- * @param  {function} modifier  A modifier function to be executed.
- *                              Must have the signature (editorState, selection, ...)
- *
- * @param  {mixed} ...args      Additional arguments to be passed through to the modifier
- *
- * @return {object} The new editor state
- */
 exports.default = function (editorState, modifier) {
   for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     args[_key - 2] = arguments[_key];

@@ -14,7 +14,6 @@ var _main = require('../utils/stateUtils/main');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// TODO: Use a more specific type here.
 function Link(props_) {
   var _Entity$get$getData = _draftJs.Entity.get(props_.entityKey).getData(),
       url = _Entity$get$getData.url;
@@ -24,20 +23,7 @@ function Link(props_) {
     { href: url },
     props_.children
   );
-
-  // const {url} = Entity.get(props.entityKey).getData();
-  // let currentStyle = props.editorState
-  //   ? props.editorState.getCurrentInlineStyle()
-  //   : {};
-  // return (
-  //   <a href={url} style={!!currentStyle.link
-  //     ? currentStyle.link
-  //     : {}}>
-  //     {props.children}
-  //   </a>
-  // );
 }
-
 
 function findLinkEntities(contentBlock, callback) {
   contentBlock.findEntityRanges(function (character) {

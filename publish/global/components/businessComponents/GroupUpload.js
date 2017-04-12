@@ -75,12 +75,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import {connect} from 'react-redux';
-
-// import {PRO_COMMON} from '../../supports/publicDatas';
-// import {getPfopPictures} from "rootActions";
-// import {Base64} from "js-base64";
-
 
 var GroupUpload = function (_Component) {
   _inherits(GroupUpload, _Component);
@@ -137,7 +131,6 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'onSelectAPicture',
     value: function onSelectAPicture(e, item) {
-      //选哪些图
       if (e.target.checked) {
         this.state.selectedPictureList.push(item);
       } else {
@@ -157,7 +150,6 @@ var GroupUpload = function (_Component) {
         _this2.setState({ showPictureSeletor: false });
       }, 600);
       if (this.state.isAutoWaterMark == true) {
-        //需要加水印
         setTimeout(function () {
           _this2.getPfop();
         }, 300);
@@ -172,15 +164,13 @@ var GroupUpload = function (_Component) {
     value: function getPfop() {
       var _this3 = this;
 
-      //持久保存
       var newPicturesObj = this.state.selectedPictureList.map(function (item) {
-        // console.log("getPfop.value", item.value);
         if (!!item && !~item.lastIndexOf("reset")) {
           var originKey = (item + "").split("").reverse().join("");
           originKey = originKey.substr(originKey.lastIndexOf("?") + 1);
           originKey = originKey.substr(0, originKey.indexOf("/"));
           originKey = originKey.split("").reverse().join("");
-          // console.log("getPfop originKey",originKey);
+
           var extensionNameItem = originKey.match(/\.[^\.]*/g),
               extensionName = "";
           if (!!extensionNameItem && extensionNameItem.length > 0) {
@@ -191,7 +181,7 @@ var GroupUpload = function (_Component) {
             originKey = originKeyItem[0];
           }
           var thumbnail = "";
-          // console.log("this.props.atuoSize",this.props.atuoSize);
+
           if (_this3.state.isAutoSize) {
             if (_this3.props.atuoSize[0] == 0 && _this3.props.atuoSize[1] == 0) {
               thumbnail = 'imageMogr2/thumbnail/600x600>|';
@@ -204,7 +194,6 @@ var GroupUpload = function (_Component) {
             }
           }
           return {
-            //"http://image.qlwbyidian.com/03142179463624167665.jpg?imageMogr2/thumbnail/!36p/crop/!608x380a32a4|watermark/1/gravity/SouthEast/image/aHR0cDovLzd4amwxai5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS93aGl0ZV9iaWcucG5n/dx/10/dy/10"
             "originPic": item + "?" + thumbnail + "watermark/1/gravity/" + _this3.state.selectedWaterMarkPositon + "/image/" + (0, _find2.default)(_publicDatas.PRO_BASE.Config.watermarkImage, function (item) {
               return item.type == _this3.state.selectedWaterMarkType;
             }).valuebase64 + "/dx/50/dy/50",
@@ -216,9 +205,9 @@ var GroupUpload = function (_Component) {
           return { originPic: "" };
         }
       });
-      // console.log("newPicturesObj a",newPicturesObj);
+
       newPicturesObj = (0, _compact2.default)(newPicturesObj);
-      // console.log("newPicturesObj b",newPicturesObj);
+
       var refObj = (0, _clone2.default)(newPicturesObj);
       (0, _remove2.default)(newPicturesObj, function (item) {
         return !item.originPic;
@@ -226,37 +215,27 @@ var GroupUpload = function (_Component) {
       var removedPic = (0, _remove2.default)(newPicturesObj, function (item) {
         return !!~item.originPic.lastIndexOf("QN1D");
       });
-      // console.log("getPfop removedPic",removedPic);
+
       if (newPicturesObj.length > 0) {
         this.getPfopPictures(newPicturesObj);
       }
 
-      // const args = {
-      //   message: '图片正在进行持久保存：',
-      //   description: <div>{(()=>{return this.renderPfopPictrues(newPicturesObj);})()}</div>,
-      //   duration: 0,
-      // };
-      // notification.open(args);
-      // console.log("getPfop refObj",refObj)
       var pictureList = refObj.map(function (item) {
         var domain = "",
             picture = "";
         if (!!item.originPic) {
           domain = item.originPic.substr(0, item.originPic.lastIndexOf(item.key));
           picture = domain + item.newName;
-          // picture=item.originPic//开发时持久保存无效时暂用原图片
         } else {
           picture = "";
         }
         return picture;
       });
-      // console.log("getPfop pictureList",pictureList);
-      // setTimeout(()=>{//防止在持久保存成功前过快加载导致图片显示不出
+
       _message2.default.info("图片正在处理请稍等片刻", 10);
       setTimeout(function () {
         _this3.props.receiveSelectedPictures(pictureList);
       }, 100);
-      // },300);
     }
   }, {
     key: 'getPfopPictures',
@@ -272,11 +251,8 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'gotPfopPictures',
     value: function gotPfopPictures(theData) {
-      // console.log("gotPfopPictures theData",theData);
       if (theData.rc == "0") {
-        return function (dispatch) {
-          // dispatch(gotPfopPicturesSuccessfully(theData.data));
-        };
+        return function (dispatch) {};
       } else {
         _message2.default.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
       }
@@ -284,7 +260,6 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'getPictures',
     value: function getPictures(listPicture) {
-      //上传完毕
       var newPictures = listPicture.map(function (item) {
         if (_typeof(item.url) != undefined) {
           return item.url;
@@ -293,8 +268,8 @@ var GroupUpload = function (_Component) {
       this.state.pictureList = (0, _compact2.default)(this.state.pictureList.concat(newPictures));
       this.state.pictureList = (0, _uniq2.default)(this.state.pictureList);
       this.state.selectedPictureList = (0, _cloneDeep2.default)(this.state.pictureList);
-      // console.log("pictureList", this.state.pictureList);
-      this.forceUpdate(); //强制更新
+
+      this.forceUpdate();
     }
   }, {
     key: 'openModal',
@@ -309,7 +284,6 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(prevProps, nextProps) {
-      // console.log("nextProps",nextProps)
       if (!!nextProps && nextProps.hasOwnProperty("imageList")) {
         this.setState({ pictureList: nextProps.imageList, selectedPictureList: (0, _cloneDeep2.default)(nextProps.imageList) });
       } else {
@@ -320,7 +294,6 @@ var GroupUpload = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (this.props.atuoSize[0] <= 300 && this.props.atuoSize[0] != 0 || this.props.atuoSize[1] <= 64 && this.props.atuoSize[1] != 0) {
-        //如果图片的尺寸比默认水印图的尺寸小，改用小图
         this.setState({ selectedWaterMarkType: "white_small" });
       }
     }
@@ -554,5 +527,4 @@ var propertys = function propertys(state) {
   return {};
 };
 
-// module.exports = connect(propertys, {getPfopPictures})(GroupUpload);
 module.exports = GroupUpload;

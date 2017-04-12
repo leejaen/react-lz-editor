@@ -20,6 +20,7 @@ function findVideoEntities(contentBlock, callback) {
     return entityKey != null && _draftJs.Entity.get(entityKey).getType() === _main.ENTITY_TYPE.VIDEO;
   }, callback);
 }
+
 exports.default = {
   strategy: findVideoEntities,
   component: _VideoSpan2.default

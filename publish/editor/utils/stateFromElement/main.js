@@ -26,9 +26,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// A ParsedBlock has two purposes:
-//   1) to keep data about the block (textFragments, type)
-//   2) to act as some context for storing parser state as we parse its contents
 var NO_STYLE = (0, _immutable.OrderedSet)();
 var NO_ENTITY = null;
 
@@ -41,14 +38,11 @@ var EMPTY_BLOCK = new _draftJs.ContentBlock({
 });
 
 var LINE_BREAKS = /(\r\n|\r|\n)/g;
-// We use `\r` because that character is always stripped from source (normalized
-// to `\n`), so it's safe to assume it will only appear in the text content when
-// we put it there as a placeholder.
+
 var SOFT_BREAK_PLACEHOLDER = '\r';
 var ZERO_WIDTH_SPACE = '\u200B';
 var DATA_ATTRIBUTE = /^data-([a-z0-9-]+)$/;
 
-// Map element attributes to entity data.
 var ELEM_ATTR_MAP = {
   a: { href: 'url', rel: 'rel', target: 'target', title: 'title' },
   span: { style: 'style', alt: 'alt' },
@@ -79,46 +73,44 @@ var getEntityData = function getEntityData(tagName, element) {
   return data;
 };
 
-// Functions to convert elements to entities.
 var ELEM_TO_ENTITY = {
   a: function a(tagName, element) {
     var data = getEntityData(tagName, element);
-    // Don't add `<a>` elements with no href.
+
     if (data.url != null) {
       return _draftJs.Entity.create(_main.ENTITY_TYPE.LINK, 'MUTABLE', data);
     }
   },
   img: function img(tagName, element) {
     var data = getEntityData(tagName, element);
-    // Don't add `<img>` elements with no src.
+
     if (data.src != null) {
       return _draftJs.Entity.create(_main.ENTITY_TYPE.IMAGE, 'MUTABLE', data);
     }
   },
   video: function video(tagName, element) {
     var data = getEntityData(tagName, element);
-    // Don't add `<video>` elements with no src.
+
     if (data.src != null) {
       return _draftJs.Entity.create(_main.ENTITY_TYPE.VIDEO, 'MUTABLE', data);
     }
   },
   audio: function audio(tagName, element) {
     var data = getEntityData(tagName, element);
-    // Don't add `<audio>` elements with no src.
+
     if (data.src != null) {
       return _draftJs.Entity.create(_main.ENTITY_TYPE.AUDIO, 'MUTABLE', data);
     }
   },
   span: function span(tagName, element) {
     var data = getEntityData(tagName, element);
-    // Don't add `<img>` elements with no src.
+
     if (data.style != null) {
       return _draftJs.Entity.create(_main.ENTITY_TYPE.SPAN, 'MUTABLE', data);
     }
   }
 };
 
-// TODO: Move this out to a module.
 var INLINE_ELEMENTS = {
   a: 1, abbr: 1, area: 1, audio: 1, b: 1, bdi: 1, bdo: 1, br: 1, button: 1,
   canvas: 1, cite: 1, code: 1, command: 1, datalist: 1, del: 1, dfn: 1, em: 1,
@@ -130,8 +122,6 @@ var INLINE_ELEMENTS = {
   isindex: 1, strike: 1, style: 1, tt: 1
 };
 
-// These elements are special because they cannot contain text as a direct
-// child (some cannot contain childNodes at all).
 var SPECIAL_ELEMENTS = {
   area: 1, base: 1, br: 1, col: 1, colgroup: 1, command: 1, dl: 1, embed: 1,
   head: 1, hgroup: 1, hr: 1, iframe: 1, img: 1, input: 1, keygen: 1, link: 1,
@@ -141,7 +131,6 @@ var SPECIAL_ELEMENTS = {
   isindex: 1
 };
 
-// These elements are special because they cannot contain childNodes.
 var SELF_CLOSING_ELEMENTS = { img: 1, video: 2, audio: 3 };
 
 var BlockGenerator = function () {
@@ -151,11 +140,9 @@ var BlockGenerator = function () {
     _classCallCheck(this, BlockGenerator);
 
     this.options = options;
-    // This represents the hierarchy as we traverse nested elements; for
-    // example [body, ul, li] where we must know li's parent type (ul or ol).
+
     this.blockStack = [];
-    // This is a linear list of blocks that will form the output; for example
-    // [p, li, li, blockquote].
+
     this.blockList = [];
     this.depth = 0;
   }
@@ -171,8 +158,7 @@ var BlockGenerator = function () {
             characterMeta = _concatFragments.characterMeta;
 
         var includeEmptyBlock = false;
-        // If the block contains only a soft break then don't discard the block,
-        // but discard the soft break.
+
         if (text === SOFT_BREAK_PLACEHOLDER) {
           includeEmptyBlock = true;
           text = '';
@@ -188,10 +174,9 @@ var BlockGenerator = function () {
           text = _collapseWhiteSpace.text;
           characterMeta = _collapseWhiteSpace.characterMeta;
         }
-        // Previously we were using a placeholder for soft breaks. Now that we
-        // have collapsed whitespace we can change it back to normal line breaks.
+
         text = text.split(SOFT_BREAK_PLACEHOLDER).join('\n').replace("　", "");
-        // Discard empty blocks (unless otherwise specified).
+
         if ((text.length || includeEmptyBlock) && text != "\n") {
           contentBlocks.push(new _draftJs.ContentBlock({
             key: (0, _draftJs.genKey)(),
@@ -250,9 +235,7 @@ var BlockGenerator = function () {
           {
             return _main.BLOCK_TYPE.CODE;
           }
-        // case 'figure': {
-        //   return BLOCK_TYPE.ATOMIC;
-        // }
+
         default:
           {
             return _main.BLOCK_TYPE.UNSTYLED;
@@ -307,7 +290,6 @@ var BlockGenerator = function () {
       var entityKey = block.entityStack.slice(-1)[0];
       style = addStyleFromTagName(style, tagName, this.options.elementStyles, element);
       if (ELEM_TO_ENTITY.hasOwnProperty(tagName)) {
-        // If the to-entity function returns nothing, use the existing entity.
         entityKey = ELEM_TO_ENTITY[tagName](tagName, element) || entityKey;
       }
       block.styleStack.push(style);
@@ -325,12 +307,9 @@ var BlockGenerator = function () {
     key: 'processTextNode',
     value: function processTextNode(node) {
       var text = node.nodeValue;
-      // This is important because we will use \r as a placeholder for a soft break.
+
       text = text.replace(LINE_BREAKS, '\n');
-      // Replace zero-width space (we use it as a placeholder in markdown) with a
-      // soft break.
-      // TODO: The import-markdown package should correctly turn breaks into <br>
-      // elements so we don't need to include this hack.
+
       text = text.split(ZERO_WIDTH_SPACE).join(SOFT_BREAK_PLACEHOLDER);
       this.processText(text);
     }
@@ -414,7 +393,6 @@ function collapseWhiteSpace(text, characterMeta) {
       characterMeta = characterMeta.slice(0, i).concat(characterMeta.slice(i + 1));
     }
   }
-  // There could still be one space on either side of a softbreak.
 
   var _replaceTextWithMeta = (0, _replaceTextWithMeta4.default)({ text: text, characterMeta: characterMeta }, SOFT_BREAK_PLACEHOLDER + ' ', SOFT_BREAK_PLACEHOLDER);
 
@@ -457,7 +435,6 @@ function rgbToHex(r, g, b) {
   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
-  // console.log("tagName",tagName,element)
   switch (tagName) {
     case 'b':
     case 'strong':
@@ -499,7 +476,6 @@ function addStyleFromTagName(styleSet, tagName, elementStyles, element) {
       }
     default:
       {
-        // Allow custom styles to be provided.
         if (elementStyles && elementStyles[tagName]) {
           return styleSet.add(elementStyles[tagName]);
         }

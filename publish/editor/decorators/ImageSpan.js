@@ -34,19 +34,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import autobind from 'class-autobind';
-
-
-// $FlowIssue - Flow doesn't understand CSS Modules
-
-
 var ImageSpan = function (_Component) {
   _inherits(ImageSpan, _Component);
 
   function ImageSpan(props) {
     _classCallCheck(this, ImageSpan);
 
-    // autobind(this);
     var _this = _possibleConstructorReturn(this, (ImageSpan.__proto__ || Object.getPrototypeOf(ImageSpan)).call(this, props));
 
     var entity = _draftJs.Entity.get(_this.props.entityKey);
@@ -85,7 +78,6 @@ var ImageSpan = function (_Component) {
       image.src = this.state.imageSrc;
       image.onload = function () {
         if (width == null || height == null) {
-          // TODO: isMounted?
           _this2.setState({ width: image.width, height: image.height });
           _draftJs.Entity.mergeData(_this2.props.entityKey, {
             width: image.width,
@@ -104,16 +96,12 @@ var ImageSpan = function (_Component) {
       var _state2 = this.state,
           width = _state2.width,
           height = _state2.height;
-      //let {className} = this.props;
 
       var key = this.props.entityKey;
       var entity = _draftJs.Entity.get(key);
 
       var _entity$getData3 = entity.getData(),
           src = _entity$getData3.src;
-      // this.setState({imageSrc:src});
-      //console.log("styles.root: ", styles.root); className = cx(className, styles.root);
-
 
       var imageStyle = {
         verticalAlign: 'bottom',
@@ -126,9 +114,6 @@ var ImageSpan = function (_Component) {
         letterSpacing: width
       };
 
-      //   return (       <span           className="editor-inline-image"           style={imageStyle}
-      // onClick={this._onClick}           >   {this.props.children} </span>   );
-      //<tips> {imageStyle.width&&imageStyle.height?`宽${imageStyle.width}px；高${imageStyle.height}px`:""}</tips>
       return _react2.default.createElement(
         'div',
         { className: 'editor-inline-image', onClick: this._onClick },
@@ -140,31 +125,23 @@ var ImageSpan = function (_Component) {
   }, {
     key: '_onDoubleClick',
     value: function _onDoubleClick() {
-      //弹框编辑
       var currentPicture = _reactDom2.default.findDOMNode(this).querySelector("img");
       var pictureWidth = currentPicture.naturalWidth;
       var pictureSrc = currentPicture.src;
-      // console.log("pictureSrc",pictureSrc);
-      // currentPicture.src="http://www.cbinews.com/article/image/20161027/20161027091805_674.png"
     }
   }, {
     key: '_onImageClick',
     value: function _onImageClick(e, key) {
       var currentPicture = _reactDom2.default.findDOMNode(this).querySelector("img");
-      // console.log("currentPicture:",currentPicture.src);
+
       var pictureWidth = currentPicture.naturalWidth;
-      // console.log("this",this);
-      // console.log("this.props.children[0].key",this.props.children[0].key);
-      // console.log("this.state.editorState",EditorState);
-      // console.log("key",key);
-      // console.log("pictureWidth：",pictureWidth);
+
 
       var editorState = _draftJs.EditorState.createEmpty();
       var selection = editorState.getSelection();
-      // console.log("selection",selection);
+
       var blockTree = editorState.getBlockTree(this.props.children[0].key);
-      // console.log("blockTree",blockTree);
-      // this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
+
       if (pictureWidth == 0) {
         _message2.default.error("图片地址错误！");
       } else if (pictureWidth > 650) {
@@ -185,9 +162,10 @@ var ImageSpan = function (_Component) {
 
   return ImageSpan;
 }(_react.Component);
-//ImageSpan.propTypes={  children: React.PropTypes,  entityKey: string,  className?: string }
 
 exports.default = ImageSpan;
+
+
 ImageSpan.defaultProps = {
   children: null,
   entityKey: "",

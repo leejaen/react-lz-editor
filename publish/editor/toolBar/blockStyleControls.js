@@ -47,15 +47,6 @@ var BlockStyleControls = function BlockStyleControls(props) {
     text: "区段",
     label: "editor_pre",
     style: 'code-block'
-    // },{
-    //   label: '左对齐',
-    //   style: 'alignment-left'
-    // },{
-    //   label: '居中对齐',
-    //   style: 'alignment-center'
-    // },{
-    //   label: '右对齐',
-    //   style: 'alignment-right'
   }];
   return _react2.default.createElement(
     "div",

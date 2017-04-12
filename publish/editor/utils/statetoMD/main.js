@@ -95,7 +95,7 @@ var MarkupGenerator = function () {
             var lastBlockDepth = lastBlock && canHaveDepth(lastBlockType) ? lastBlock.getDepth() : null;
             if (lastBlockType !== blockType && lastBlockDepth !== blockDepth - 1) {
               this.insertLineBreaks(1);
-              // Insert an additional line break if following opposite list type.
+
               if (lastBlockType === _main.BLOCK_TYPE.ORDERED_LIST_ITEM) {
                 this.insertLineBreaks(1);
               }
@@ -112,13 +112,13 @@ var MarkupGenerator = function () {
             var _lastBlockDepth = _lastBlock && canHaveDepth(_lastBlockType) ? _lastBlock.getDepth() : null;
             if (_lastBlockType !== blockType && _lastBlockDepth !== _blockDepth - 1) {
               this.insertLineBreaks(1);
-              // Insert an additional line break if following opposite list type.
+
               if (_lastBlockType === _main.BLOCK_TYPE.UNORDERED_LIST_ITEM) {
                 this.insertLineBreaks(1);
               }
             }
             var _indent = ' '.repeat(_blockDepth * 4);
-            // TODO: figure out what to do with two-digit numbers
+
             var count = this.getListItemCount(block) % 10;
             this.output.push(_indent + (count + '. ') + this.renderBlockContent(block) + '\n');
             break;
@@ -159,8 +159,7 @@ var MarkupGenerator = function () {
     value: function getListItemCount(block) {
       var blockType = block.getType();
       var blockDepth = block.getDepth();
-      // To decide if we need to start over we need to backtrack (skipping list
-      // items that are of greater depth)
+
       var index = this.currentBlock - 1;
       var prevBlock = this.blocks[index];
       while (prevBlock && canHaveDepth(prevBlock.getType()) && prevBlock.getDepth() > blockDepth) {
@@ -185,8 +184,6 @@ var MarkupGenerator = function () {
       var blockType = block.getType();
       var text = block.getText();
       if (text === '') {
-        // Prevent element collapse if completely empty.
-        // TODO: Replace with constant.
         return '\u200B';
       }
       var charMetaList = block.getCharacterList();
@@ -201,7 +198,6 @@ var MarkupGenerator = function () {
               text = _ref4[0],
               style = _ref4[1];
 
-          // Don't allow empty inline elements.
           if (!text) {
             return '';
           }
@@ -210,14 +206,12 @@ var MarkupGenerator = function () {
             content = '**' + content + '**';
           }
           if (style.has(UNDERLINE)) {
-            // TODO: encode `+`?
             content = '++' + content + '++';
           }
           if (style.has(ITALIC)) {
             content = '_' + content + '_';
           }
           if (style.has(STRIKETHROUGH)) {
-            // TODO: encode `~`?
             content = '~~' + content + '~~';
           }
           if (style.has(CODE)) {
@@ -260,13 +254,10 @@ function encodeContent(text) {
   return text.replace(/[*_`]/g, '\\$&');
 }
 
-// Encode chars that would normally be allowed in a URL but would conflict with
-// our markdown syntax: `[foo](http://foo/)`
 function encodeURL(url) {
   return url.replace(/\)/g, '%29');
 }
 
-// Escape quotes using backslash.
 function escapeTitle(text) {
   return text.replace(/"/g, '\\"');
 }

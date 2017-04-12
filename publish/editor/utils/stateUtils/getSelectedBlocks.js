@@ -4,15 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-/**
- * Returns an array of all `ContentBlock` instances within two block keys
- *
- * @param  {object} contentState A draft.js `ContentState` instance
- * @param  {string} anchorKey    The block key to start searching from
- * @param  {string} focusKey     The block key until which to search
- *
- * @return {array} An array containing the found content blocks
- */
 exports.default = function (contentState, anchorKey, focusKey) {
   var isSameBlock = anchorKey === focusKey;
   var startingBlock = contentState.getBlockForKey(anchorKey);

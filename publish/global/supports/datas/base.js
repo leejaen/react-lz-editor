@@ -1,15 +1,10 @@
 "use strict";
 
-/**
- * Created by Administrator on 2016/5/20.
- */
 module.exports = {
   Config: {
     version: "2.1.3 (Beta)",
     server: {
-      // ajax: 'http://192.168.110.239:8082/qlwb/' //测试服务器
-      ajax: 'http://114.55.148.57:8083/' //正式（公网）服务器
-    },
+      ajax: 'http://114.55.148.57:8083/' },
     watermarkImage: [{
       type: "white_small",
       tip: "白色小图",

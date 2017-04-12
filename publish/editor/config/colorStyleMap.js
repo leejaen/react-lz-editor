@@ -1,6 +1,5 @@
 'use strict';
 
-// This object provides the styling information for our custom color styles.
 var colorStyleMap = {
   grapeFruit1: {
     color: '#ED5565'

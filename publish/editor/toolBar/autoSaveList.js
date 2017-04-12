@@ -93,7 +93,6 @@ var AutoSaveControls = function (_Component) {
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      // console.log(e);
       this.setState({ visible: false });
       this.state.list = [];
       this.forceUpdate();
@@ -105,8 +104,7 @@ var AutoSaveControls = function (_Component) {
       var list = this.state.list.map(function (item) {
         return item;
       });
-      var content = _publicDatas.PRO_COMMON.localDB.getter("$d" + this.state.selectedKeyName); //window.localStorage.getItem("$d"+this.state.selectedKeyName);
-      //console.log("content",content)
+      var content = _publicDatas.PRO_COMMON.localDB.getter("$d" + this.state.selectedKeyName);
       this.props.receiveSavedItem(content);
       this.state.list = [];
       this.forceUpdate();
@@ -114,20 +112,18 @@ var AutoSaveControls = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      //console.log("componentDidMount!");
       var itemList = [];
       for (var i = 0; i < localStorage.length; i++) {
         var keyName = localStorage.key(i);
         if (!~keyName.lastIndexOf("$d")) {
           continue;
         }
-        //console.log(keyName);
+
         itemList.push({ keyName: keyName.replace("$d", "") });
       }
 
       _publicDatas.PRO_COMMON.obj.refsKeyTo(itemList);
       if (!!itemList.length) {
-        //console.log("itemList", itemList);
         this.setState({ list: itemList });
       } else {
         this.setState({ list: [] });
@@ -136,7 +132,6 @@ var AutoSaveControls = function (_Component) {
   }, {
     key: 'selectRow',
     value: function selectRow(record, index) {
-      //console.log("selectRow!",record, index)
       this.state.selectedRowKeys = [this.state.list[index].key];
       this.state.selectedKeyName = this.state.list[index].keyName;
       this.forceUpdate();
@@ -173,12 +168,10 @@ var AutoSaveControls = function (_Component) {
       var rowSelection = {
         selectedRowKeys: that.state.selectedRowKeys,
         onChange: function onChange(selectedRowKeys, selectedRows) {
-          //console.log("onChange", selectedRowKeys);
           that.state.selectedRowKeys = selectedRowKeys;
           that.forceUpdate();
         },
         onSelect: function onSelect(record, selected, selectedRows) {
-          //console.log("onSelect", record.keyName);
           that.state.selectedKeyName = record.keyName;
         },
         type: "radio"

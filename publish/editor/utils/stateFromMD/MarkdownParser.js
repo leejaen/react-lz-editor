@@ -6,14 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _syntheticDom = require('synthetic-dom');
 
-var hasOwnProperty = Object.prototype.hasOwnProperty; /**
-                                                       * Ported from:
-                                                       *   https://github.com/chjj/marked/blob/49b7eaca/lib/marked.js
-                                                       * TODO:
-                                                       *   Use ES6 classes
-                                                       *   Add flow annotations
-                                                       */
-/* eslint-disable no-spaced-func */
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 var assign = Object.assign || function (obj) {
   var i = 1;
@@ -42,10 +35,6 @@ var defaults = {
   xhtml: false
 };
 
-/**
- * Block-Level Grammar
- */
-
 var block = {
   newline: /^\n+/,
   code: /^( {4}[^\n]+\n*)+/,
@@ -71,15 +60,7 @@ block.blockquote = replace(block.blockquote)('def', block.def)();
 
 block.paragraph = replace(block.paragraph)('hr', block.hr)('heading', block.heading)('lheading', block.lheading)('blockquote', block.blockquote)('def', block.def)();
 
-/**
- * Normal Block Grammar
- */
-
 block.normal = assign({}, block);
-
-/**
- * GFM Block Grammar
- */
 
 block.gfm = assign({}, block.normal, {
   fences: /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
@@ -88,10 +69,6 @@ block.gfm = assign({}, block.normal, {
 });
 
 block.gfm.paragraph = replace(block.paragraph)('(?!', '(?!' + block.gfm.fences.source.replace('\\1', '\\2') + '|' + block.list.source.replace('\\1', '\\3') + '|')();
-
-/**
- * Block Lexer
- */
 
 function Lexer(options) {
   this.tokens = [];
@@ -104,34 +81,18 @@ function Lexer(options) {
   }
 }
 
-/**
- * Expose Block Rules
- */
-
 Lexer.rules = block;
-
-/**
- * Static Lex Method
- */
 
 Lexer.parse = function (src, options) {
   var lexer = new Lexer(options);
   return lexer.parse(src);
 };
 
-/**
- * Preprocessing
- */
-
 Lexer.prototype.parse = function (src) {
   src = src.replace(/\r\n|\r/g, '\n').replace(/\t/g, '    ').replace(/\u00a0/g, ' ').replace(/\u2424/g, '\n');
 
   return this.token(src, true);
 };
-
-/**
- * Lexing
- */
 
 Lexer.prototype.token = function (src, top, bq) {
   var next;
@@ -147,7 +108,6 @@ Lexer.prototype.token = function (src, top, bq) {
   src = src.replace(/^ +$/gm, '');
 
   while (src) {
-    // newline
     if (cap = this.rules.newline.exec(src)) {
       src = src.substring(cap[0].length);
       if (cap[0].length > 1) {
@@ -157,7 +117,6 @@ Lexer.prototype.token = function (src, top, bq) {
       }
     }
 
-    // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       cap = cap[0].replace(/^ {4}/gm, '');
@@ -168,7 +127,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // fences (gfm)
     if (cap = this.rules.fences.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -179,7 +137,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // heading
     if (cap = this.rules.heading.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -190,7 +147,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // lheading
     if (cap = this.rules.lheading.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -201,7 +157,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // hr
     if (cap = this.rules.hr.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -210,7 +165,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // blockquote
     if (cap = this.rules.blockquote.exec(src)) {
       src = src.substring(cap[0].length);
 
@@ -220,9 +174,6 @@ Lexer.prototype.token = function (src, top, bq) {
 
       cap = cap[0].replace(/^ *> ?/gm, '');
 
-      // Pass `top` to keep the current
-      // "toplevel" state. This is exactly
-      // how markdown.pl works.
       this.token(cap, top, true);
 
       this.tokens.push({
@@ -232,7 +183,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // list
     if (cap = this.rules.list.exec(src)) {
       src = src.substring(cap[0].length);
       bull = cap[2];
@@ -242,7 +192,6 @@ Lexer.prototype.token = function (src, top, bq) {
         ordered: bull.length > 1
       });
 
-      // Get each top-level item.
       cap = cap[0].match(this.rules.item);
 
       next = false;
@@ -252,20 +201,14 @@ Lexer.prototype.token = function (src, top, bq) {
       for (; i < l; i++) {
         item = cap[i];
 
-        // Remove the list item's bullet
-        // so it is seen as the next token.
         space = item.length;
         item = item.replace(/^ *([*+-]|\d+\.) +/, '');
 
-        // Outdent whatever the
-        // list item contains. Hacky.
         if (~item.indexOf('\n ')) {
           space -= item.length;
           item = !this.options.pedantic ? item.replace(new RegExp('^ {1,' + space + '}', 'gm'), '') : item.replace(/^ {1,4}/gm, '');
         }
 
-        // Determine whether the next list item belongs here.
-        // Backpedal if it does not belong in this list.
         if (this.options.smartLists && i !== l - 1) {
           b = block.bullet.exec(cap[i + 1])[0];
           if (bull !== b && !(bull.length > 1 && b.length > 1)) {
@@ -274,9 +217,6 @@ Lexer.prototype.token = function (src, top, bq) {
           }
         }
 
-        // Determine whether item is loose or not.
-        // Use: /(^|\n)(?! )[^\n]+\n\n(?!\s*$)/
-        // for discount behavior.
         loose = next || /\n\n(?!\s*$)/.test(item);
         if (i !== l - 1) {
           next = item.charAt(item.length - 1) === '\n';
@@ -289,7 +229,6 @@ Lexer.prototype.token = function (src, top, bq) {
           type: loose ? 'loose_item_start' : 'list_item_start'
         });
 
-        // Recurse.
         this.token(item, false, bq);
 
         this.tokens.push({
@@ -304,7 +243,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // def
     if (!bq && top && (cap = this.rules.def.exec(src))) {
       src = src.substring(cap[0].length);
       this.tokens.links[cap[1].toLowerCase()] = {
@@ -314,7 +252,6 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // top-level paragraph
     if (top && (cap = this.rules.paragraph.exec(src))) {
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -324,9 +261,7 @@ Lexer.prototype.token = function (src, top, bq) {
       continue;
     }
 
-    // text
     if (cap = this.rules.text.exec(src)) {
-      // Top-level should never reach here.
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'text',
@@ -342,10 +277,6 @@ Lexer.prototype.token = function (src, top, bq) {
 
   return this.tokens;
 };
-
-/**
- * Inline-Level Grammar
- */
 
 var inline = {
   escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
@@ -368,24 +299,12 @@ inline.link = replace(inline.link)('inside', inline._inside)('href', inline._hre
 
 inline.reflink = replace(inline.reflink)('inside', inline._inside)();
 
-/**
- * Normal Inline Grammar
- */
-
 inline.normal = assign({}, inline);
-
-/**
- * Pedantic Inline Grammar
- */
 
 inline.pedantic = assign({}, inline.normal, {
   strong: /^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,
   em: /^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/
 });
-
-/**
- * GFM Inline Grammar
- */
 
 inline.gfm = assign({}, inline.normal, {
   escape: replace(inline.escape)('])', '~|])')(),
@@ -394,18 +313,10 @@ inline.gfm = assign({}, inline.normal, {
   text: replace(inline.text)(']|', '~+]|')()
 });
 
-/**
- * GFM + Line Breaks Inline Grammar
- */
-
 inline.breaks = assign({}, inline.gfm, {
   br: replace(inline.br)('{2,}', '*')(),
   text: replace(inline.gfm.text)('{2,}', '*')()
 });
-
-/**
- * Inline Lexer & Compiler
- */
 
 function InlineLexer(links, options) {
   this.options = assign({}, options || defaults);
@@ -429,24 +340,12 @@ function InlineLexer(links, options) {
   }
 }
 
-/**
- * Expose Inline Rules
- */
-
 InlineLexer.rules = inline;
-
-/**
- * Static Lexing/Compiling Method
- */
 
 InlineLexer.parse = function (src, links, options) {
   var inline = new InlineLexer(links, options);
   return inline.parse(src);
 };
-
-/**
- * Lexing/Compiling
- */
 
 InlineLexer.prototype.parse = function (src) {
   var out = new _syntheticDom.FragmentNode();
@@ -454,14 +353,12 @@ InlineLexer.prototype.parse = function (src) {
   var cap;
 
   while (src) {
-    // escape
     if (cap = this.rules.escape.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(new _syntheticDom.TextNode(cap[1]));
       continue;
     }
 
-    // link
     if (cap = this.rules.link.exec(src)) {
       src = src.substring(cap[0].length);
       this.inLink = true;
@@ -470,7 +367,6 @@ InlineLexer.prototype.parse = function (src) {
       continue;
     }
 
-    // reflink, nolink
     if ((cap = this.rules.reflink.exec(src)) || (cap = this.rules.nolink.exec(src))) {
       src = src.substring(cap[0].length);
       link = (cap[2] || cap[1]).replace(/\s+/g, ' ');
@@ -486,49 +382,42 @@ InlineLexer.prototype.parse = function (src) {
       continue;
     }
 
-    // strong
     if (cap = this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.strong(this.parse(cap[2] || cap[1])));
       continue;
     }
 
-    // em
     if (cap = this.rules.em.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.em(this.parse(cap[2] || cap[1])));
       continue;
     }
 
-    // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.codespan(cap[2]));
       continue;
     }
 
-    // br
     if (cap = this.rules.br.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.br());
       continue;
     }
 
-    // del (gfm)
     if (cap = this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.del(this.parse(cap[1])));
       continue;
     }
 
-    // ins (gfm extended)
     if (cap = this.rules.ins.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.ins(this.parse(cap[1])));
       continue;
     }
 
-    // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.text(new _syntheticDom.TextNode(cap[0])));
@@ -543,20 +432,12 @@ InlineLexer.prototype.parse = function (src) {
   return out;
 };
 
-/**
- * Compile Link
- */
-
 InlineLexer.prototype.outputLink = function (cap, link) {
   var href = link.href;
   var title = link.title;
 
   return cap[0].charAt(0) !== '!' ? this.renderer.link(href, title, this.parse(cap[1])) : this.renderer.image(href, title, cap[1]);
 };
-
-/**
- * Renderer
- */
 
 function Renderer(options) {
   this.options = options || {};
@@ -595,7 +476,6 @@ Renderer.prototype.paragraph = function (childNode) {
   return new _syntheticDom.ElementNode('p', [], [childNode]);
 };
 
-// span level renderer
 Renderer.prototype.strong = function (childNode) {
   return new _syntheticDom.ElementNode('strong', [], [childNode]);
 };
@@ -643,10 +523,6 @@ Renderer.prototype.text = function (childNode) {
   return childNode;
 };
 
-/**
- * Parsing & Compiling
- */
-
 function Parser(options) {
   this.tokens = [];
   this.token = null;
@@ -656,18 +532,10 @@ function Parser(options) {
   this.renderer.options = this.options;
 }
 
-/**
- * Static Parse Method
- */
-
 Parser.parse = function (src, options, renderer) {
   var parser = new Parser(options, renderer);
   return parser.parse(src);
 };
-
-/**
- * Parse Loop
- */
 
 Parser.prototype.parse = function (src) {
   this.inline = new InlineLexer(src.links, this.options, this.renderer);
@@ -681,25 +549,13 @@ Parser.prototype.parse = function (src) {
   return out;
 };
 
-/**
- * Next Token
- */
-
 Parser.prototype.next = function () {
   return this.token = this.tokens.pop();
 };
 
-/**
- * Preview Next Token
- */
-
 Parser.prototype.peek = function () {
   return this.tokens[this.tokens.length - 1] || 0;
 };
-
-/**
- * Parse Text Tokens
- */
 
 Parser.prototype.parseText = function () {
   var body = this.token.text;
@@ -710,10 +566,6 @@ Parser.prototype.parseText = function () {
 
   return this.inline.parse(body);
 };
-
-/**
- * Parse Current Token
- */
 
 Parser.prototype.tok = function () {
   switch (this.token.type) {
@@ -784,10 +636,6 @@ Parser.prototype.tok = function () {
       }
   }
 };
-
-/**
- * Helpers
- */
 
 function replace(regex, options) {
   regex = regex.source;

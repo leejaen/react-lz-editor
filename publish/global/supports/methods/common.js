@@ -15,32 +15,24 @@ var _forIn2 = _interopRequireDefault(_forIn);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-// import { hashHistory } from 'react-router'
 
-
-/**
- * Created by lizhen on 4/7/2016.
- */
 var commonFun = {
   test: function test(a) {
     alert(a);
   },
   getChannelInfo: function getChannelInfo(SourceData, power, type) {
     var paths = power.split(".");
-    // console.log("powers",paths);
+
     var true_data = [];
     (0, _forIn2.default)(SourceData, function (item, key) {
 
       if (key == paths[0]) {
 
         (0, _forIn2.default)(item, function (items, keys) {
-          // console.log("xxxxx333",items,keys);
           if (keys == paths[1]) {
-            // console.log("111222",items,keys);
             (0, _forIn2.default)(items, function (itm, ky) {
 
               if (ky == paths[2]) {
-                // console.log("xxxxx11",itm,ky);
                 (0, _forIn2.default)(itm.objList, function (trueInfo) {
 
                   if (parseInt(trueInfo.type) == type) {
@@ -53,7 +45,7 @@ var commonFun = {
         });
       }
     });
-    // console.log("true_data",true_data);
+
     var city_id = 0;
     var channel_id = true_data.data[0];
     if (channel_id.city) {
@@ -142,12 +134,10 @@ var commonFun = {
         if (item.cityList) {
           var city_id = [];
           item.cityList.map(function (items) {
-            // console.log("1:",items.key);
             var testKey = items.key;
             city_id.push(testKey);
-            // return testKey;
           });
-          // console.log("2:",city_id);
+
           temp.city_id = city_id;
         }
         to_channel.push(temp);
@@ -202,7 +192,6 @@ var commonFun = {
       return s.search(/\#[a-fA-F0-9]{6}/) != -1;
     },
     hasEscape: function hasEscape(str) {
-      //是否具有特殊字符
       var items = new Array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "{", "}", "[", "]", "(", ")");
       items.push(":", ";", "'", "|", "\\", "<", ">", "?", "/", "<<", ">>", "||", "//");
       items.push("admin", "administrators", "administrator", " 管理员 ", " 系统管理员 ");
@@ -253,13 +242,45 @@ var commonFun = {
       var myReg = /^\.(jpeg|jpg|gif|png|webp)$/;
       if (myReg.test(this)) return true;
       return false;
+    },
+    isWebImgURL: function isWebImgURL(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.(jpeg|jpg|gif|png|webp))$/i;
+      if (myReg.test(str)) return true;
+      return false;
+    },
+    isWebVideoURL: function isWebVideoURL(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.mp4)$/i;
+      if (myReg.test(str)) return true;
+      return false;
+    },
+    isWebAudioURL: function isWebAudioURL(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.(mp3))$/i;
+      if (myReg.test(str)) return true;
+      return false;
+    },
+    isWebFileURL: function isWebFileURL(str, fileType) {
+      console.log("thisInIsWebFileURL", this);
+      var that = this;
+      switch (fileType) {
+        case "image":
+          return that.isWebImgURL(str);
+          break;
+        case "video":
+          return that.isWebVideoURL(str);
+          break;
+        case "audio":
+          return that.isWebAudioURL(str);
+          break;
+        default:
+          return false;
+      }
     }
   },
   Datetime: {
     getTimeStamp: function getTimeStamp(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
@@ -270,28 +291,28 @@ var commonFun = {
     yyyymmdd: function yyyymmdd(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
         var theDate = new Date();
       }
       var yyyy = theDate.getFullYear();
-      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1; // getMonth() is zero-based
+      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1;
       var dd = theDate.getDate() < 10 ? "0" + theDate.getDate() : theDate.getDate();
       return "".concat(yyyy).concat("-").concat(mm).concat("-").concat(dd);
     },
     yyyymmddhhmm: function yyyymmddhhmm(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
         var theDate = new Date();
       }
       var yyyy = theDate.getFullYear();
-      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1; // getMonth() is zero-based
+      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1;
       var dd = theDate.getDate() < 10 ? "0" + theDate.getDate() : theDate.getDate();
       var hh = theDate.getHours() < 10 ? "0" + theDate.getHours() : theDate.getHours();
       var min = theDate.getMinutes() < 10 ? "0" + theDate.getMinutes() : theDate.getMinutes();
@@ -300,14 +321,14 @@ var commonFun = {
     yyyymmddhhmmss: function yyyymmddhhmmss(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
         var theDate = new Date();
       }
       var yyyy = theDate.getFullYear();
-      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1; // getMonth() is zero-based
+      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1;
       var dd = theDate.getDate() < 10 ? "0" + theDate.getDate() : theDate.getDate();
       var hh = theDate.getHours() < 10 ? "0" + theDate.getHours() : theDate.getHours();
       var min = theDate.getMinutes() < 10 ? "0" + theDate.getMinutes() : theDate.getMinutes();
@@ -317,14 +338,14 @@ var commonFun = {
     yyyymmddhhmmss1: function yyyymmddhhmmss1(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
         var theDate = new Date();
       }
       var yyyy = theDate.getFullYear();
-      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1; // getMonth() is zero-based
+      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1;
       var dd = theDate.getDate() < 10 ? "0" + theDate.getDate() : theDate.getDate();
       var hh = theDate.getHours() < 10 ? "0" + theDate.getHours() : theDate.getHours();
       var min = theDate.getMinutes() < 10 ? "0" + theDate.getMinutes() : theDate.getMinutes();
@@ -334,13 +355,13 @@ var commonFun = {
     mmddhhmm: function mmddhhmm(D) {
       if (!!D == true) {
         if (typeof D == "string") {
-          D = D.replace("-", "/"); //兼容safari
+          D = D.replace("-", "/");
         }
         var theDate = new Date(D);
       } else {
         var theDate = new Date();
       }
-      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1; // getMonth() is zero-based
+      var mm = theDate.getMonth() < 9 ? "0" + (theDate.getMonth() + 1) : theDate.getMonth() + 1;
       var dd = theDate.getDate() < 10 ? "0" + theDate.getDate() : theDate.getDate();
       var hh = theDate.getHours() < 10 ? "0" + theDate.getHours() : theDate.getHours();
       var min = theDate.getMinutes() < 10 ? "0" + theDate.getMinutes() : theDate.getMinutes();
@@ -349,7 +370,6 @@ var commonFun = {
   },
   Url: {
     getAbsoluteUrl: function getAbsoluteUrl() {
-      //getAbsoluteUrl('/something'); // https://davidwalsh.name/something
       var a;
       return function (url) {
         if (!a) a = document.createElement('a');
@@ -359,13 +379,12 @@ var commonFun = {
       };
     },
     getUrlParam: function getUrlParam(name) {
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
       if (r != null) return unescape(r[2]);
-      return null; //返回参数值
+      return null;
     },
     getParamByReverseUrlIndex: function getParamByReverseUrlIndex(i) {
-      //依据倒序获取分段地址的参数
       i = i || 0;
       var p = null;
       var href = window.location.href;
@@ -375,7 +394,6 @@ var commonFun = {
       for (var j = 0; j < url.length; j++) {
         if (!!url[j] == false && url[j] != 0) {
           url.splice(j, 1);
-          // 删除空字段
         }
       }
       if (url.length < 2) {
@@ -385,8 +403,6 @@ var commonFun = {
       return p;
     },
     escapeAllUnicode: function escapeAllUnicode(text) {
-      /*Using escape() should work with the character code range 0x00 to 0xFF (UTF-8 range).
-       If you go beyond 0xFF (255), such as 0x100 (256) then escape() will not work:*/
       text.replace(/[\u00A0-\u2666]/g, function (c) {
         return '&#' + c.charCodeAt(0) + ';';
       });
@@ -397,7 +413,6 @@ var commonFun = {
       } else {
         _message2.default.error("操作失败:" + data.des, 4);
       }
-      // hashHistory.push(path);
     }
   },
   Array: {
@@ -409,12 +424,10 @@ var commonFun = {
       }return false;
     },
     swapItems: function swapItems(arr, index1, index2) {
-      //交换两个元素在数组中
       arr[index1] = arr.splice(index2, 1, arr[index1])[0];
       return arr;
     },
     moveItemToNew: function moveItemToNew(array, oldIndex, newIndex) {
-      //移动数组元素到新位置
       if (oldIndex < newIndex) {
         for (var i = oldIndex; i < newIndex; i++) {
           array = this.swapItems(array, i, i + 1);
@@ -453,8 +466,6 @@ var commonFun = {
       return newArr;
     },
     merge: function merge(arr1, arr2) {
-      //merge( [1, 2, 3], [101, 2, 1, 10]);
-      //return [1,2,3,101,10]
       return arr1.concat(arr2.filter(function (item) {
         return arr1.indexOf(item) < 0;
       }));
@@ -462,12 +473,9 @@ var commonFun = {
     mergeDedupe: function mergeDedupe(arr) {
       var _ref;
 
-      // Input: [ [1, 2, 3], [101, 2, 1, 10], [2, 1] ]
-      // Output: [1, 2, 3, 101, 10]
       return [].concat(_toConsumableArray(new Set((_ref = []).concat.apply(_ref, _toConsumableArray(arr)))));
     },
     onlyIn1st: function onlyIn1st(a, b) {
-      //查找a数组有，b数组中没有的所有项目
       var onlyInA = a.filter(function (current) {
         return b.filter(function (current_b) {
           return current_b == current;
@@ -476,7 +484,6 @@ var commonFun = {
       return onlyInA;
     },
     onlyIn2nd: function onlyIn2nd(a, b) {
-      //查找b数组有，a数组中没有的所有项目
       var onlyInB = b.filter(function (current) {
         return a.filter(function (current_a) {
           return current_a == current;
@@ -485,13 +492,11 @@ var commonFun = {
       return onlyInB;
     },
     differenceALL: function differenceALL(a, b) {
-      //查找两个数组中彼此没有的所有项目
       var onlyInA = this.onlyIn1st(a, b);
       var onlyInB = this.onlyIn2nd(a, b);
       return onlyInA.concat(onlyInB);
     },
     DeleteNull: function DeleteNull(formData) {
-      //清除数组中元素值为空的项.
       for (var item in formData) {
         if (!formData[item]) {
           delete formData[item];
@@ -771,11 +776,9 @@ var commonFun = {
       );
     },
     isNumeric: function isNumeric(string) {
-      //是否数字
       return !isNaN(parseFloat(string)) && isFinite(string);
     },
     getAbsoluteLength: function getAbsoluteLength(str) {
-      //获取字节长度
       var sTmpStr, sTmpChar;
       var nOriginLen = 0;
       var nStrLength = 0;
@@ -792,8 +795,6 @@ var commonFun = {
       return nStrLength;
     },
     trimText: function trimText(str) {
-      //截取头尾空格
-      // Make sure we trim BOM and NBSP
       return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
     },
     trim: function trim(str) {
@@ -812,19 +813,16 @@ var commonFun = {
       return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, '').replace(/\s+/g, ' ');
     },
     convertToThousands: function convertToThousands(money) {
-      //千分位
-      var s = money; // 获取小数型数据
+      var s = money;
       s += "";
-      if (s.indexOf(".") == -1) s += ".00"; // 如果没有小数点，在后面补个小数点和 00
-      if (/\.\d$/.test(s)) s += "0"; // 正则判断
+      if (s.indexOf(".") == -1) s += ".00";
+      if (/\.\d$/.test(s)) s += "0";
       while (/\d{4}(\.|,)/.test(s)) {
-        // 符合条件则进行替换
         s = s.replace(/(\d)(\d{3}(\.|,))/, "$1,$2");
-      } // 每隔 3 位添加一个
+      }
       return s;
     },
     convertToCurrency: function convertToCurrency() {
-      //货币转换
       if (/[^0-9\.\-]/.test(s)) return "invalid value";
       s = s.replace(/^(\d*)$/, "$1.");
       s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
@@ -836,7 +834,6 @@ var commonFun = {
       return s.replace(/^\./, "0.");
     },
     getNowTimeCode: function getNowTimeCode() {
-      //获取时间戳
       var Result = "";
       var now = new Date();
       var year = now.getYear();
@@ -864,13 +861,7 @@ var commonFun = {
     }
   },
   obj: {
-    //获取数组key
     refsKeyTo: function refsKeyTo(obj, propName) {
-      //给数组中每个对象添加key值，存在propName指定的属性时直接映射，否则按照propName生成
-      //refsKeyTo([{a:1,id:0},{a:2,id:1}],"id") => [{a:1,id:0,key:"0"},{a:2,id:1,key:"1"}]
-      //refsKeyTo([{a:1,id:0},{a:2,id:1}],"") => [{a:1,id:0,key:"456745685689567324"},{a:2,id:1,key:"34123412352566"}]
-      //refsKeyTo([{a:1,id:0},{a:2,id:1}],"uid") => [{a:1,id:0,uid:"456745685689567324"},{a:2,id:1,uid:"34123412352566"}]
-      //console.log(obj);
       if (!obj) {
         return false;
       }
@@ -889,41 +880,34 @@ var commonFun = {
     removeFalseEntity: function removeFalseEntity(obj) {
       var _this = this;
 
-      //判断数组中的对象
       if (!!obj && !(Object.keys(obj).length === 0 && obj.constructor === Object)) {
         Object.keys(obj).map(function (item) {
-          //  console.log("obj[item] ",obj[item] );
           if (_typeof(obj[item]) === "object") {
             return _this.removeFalseEntity(obj[item]);
           } else if (!obj[item]) {
-            //   console.log("obj[item] !");
             delete obj.item;
           }
         });
       }
-      //console.log("removeFalseEnties", obj);
+
       return obj;
     },
     stringifyPropsDeeply: function stringifyPropsDeeply(obj) {
       var _this2 = this;
 
-      //数值加""
       if (!!obj && !(Object.keys(obj).length === 0 && obj.constructor === Object)) {
         Object.keys(obj).map(function (item) {
-          // console.log("item",item);
           if (_typeof(obj[item]) === "object") {
             return _this2.stringifyPropsDeeply(obj[item]);
           } else if (!isNaN(parseFloat(obj[item])) && isFinite(obj[item])) {
             obj[item] = "" + obj[item];
-            //   console.log("obj[item] ",obj[item] );
           }
         });
       }
-      // console.log("stringifyPropsDeeply", obj);
+
       return obj;
     },
     isAllFieldValidated: function isAllFieldValidated(obj) {
-      /*判断对象是否都是空如果有一个为空就返回false*/
       var r = true;
       Object.keys(obj).map(function (item) {
         if (!obj[item] && obj[item] !== 0) {
@@ -933,7 +917,6 @@ var commonFun = {
       return r;
     },
     isAllFieldValidatedTrue: function isAllFieldValidatedTrue(obj) {
-      //判断对象是否都是空，如果有一个不为空就返回false
 
       var r = false;
       Object.keys(obj).map(function (item) {
@@ -945,47 +928,39 @@ var commonFun = {
       });
       return r;
     }
-    //toEntries: function* (obj) {
-    //    let propKeys = Reflect.ownKeys(obj);
-    //
-    //    for (let propKey of propKeys) {
-    //        yield [propKey, obj[propKey]];
-    //    }
-    //}
   },
   browser: {
     detect: function detect() {
-      // Chrome 1+
       var isChrome = !!window.chrome && !!window.chrome.webstore;
       if (!!isChrome) {
         return "chrome";
       }
-      // Firefox 1.0+
+
       var isFirefox = typeof InstallTrigger !== 'undefined';
       if (!!isFirefox) {
         return "firefox";
       }
-      // At least Safari 3+: "[object HTMLElementConstructor]"
+
       var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
       if (!!isSafari) {
         return "safari";
       }
-      // Opera 8.0+
+
       var isOpera = !!window.opr && !!opr.addons || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
       if (!!isOpera) {
         return "opera";
       }
-      // Internet Explorer 6-11
-      var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+      var isIE = false || !!document.documentMode;
       if (!!isIE) {
         return "ie";
       }
-      // Edge 20+
+
       var isEdge = !isIE && !!window.StyleMedia;
       if (!!isEdge) {
         return "edge";
       }
-      // Blink engine detection
+
       var isBlink = (isChrome || isOpera) && !!window.CSS;
       if (!!isBlink) {
         return "blink";
@@ -995,7 +970,6 @@ var commonFun = {
   },
   console: {
     log: function log(message) {
-      //打印log
       var messageDiv = document.getElementById("messageDiv");
       if (!!messageDiv) {
         messageDiv.innerHTML = message + "<br />" + messageDiv.innerHTML;
@@ -1009,9 +983,7 @@ var commonFun = {
     }
   },
   localDB: {
-    //暂时用localstorage实现，独立成函数以后上localDB的话容易实现
     setter: function setter(key, value, expiredTo) {
-      //可以设置某数据的保存时限来保存key和value
       var suffix = "";
       if (!!expiredTo == true) {
         var theDate = new Date(expiredTo);
@@ -1024,10 +996,8 @@ var commonFun = {
           value: value
         }));
       }
-      //console.log(window.localStorage.getItem(key));
     },
     getter: function getter(key) {
-      //根据key获取在有效期内的存储值
       var data = window.localStorage.getItem(key);
       data = JSON.parse(data);
       if (!data) {
@@ -1046,7 +1016,6 @@ var commonFun = {
       }
     },
     remove: function remove(key) {
-      //根据key获取在有效期内的存储值
       var data = window.localStorage.removeItem(key);
       return !window.localStorage.getItem(key);
     }

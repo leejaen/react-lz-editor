@@ -4,10 +4,6 @@ var _Request = require('./Request');
 
 var _url = require('../datas/url');
 
-/**
- * Created by Administrator on 2016/5/5.
- * From Public function doing
- */
 module.exports = {
     supportMime: {
         image: ["image/jpeg", "image/png", "image/jpg", "image/gif", "image/webp"],
@@ -39,7 +35,6 @@ module.exports = {
 
             if (last_qiniu_token_time) {
                 if (timestamp - last_qiniu_token_time < 3500) {
-                    //console.log("time not out ");
                     mark = true;
                 }
             }
@@ -61,7 +56,6 @@ module.exports = {
             var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'image';
             var params = arguments[2];
 
-            //console.log("getQiniuToken");
             var token = "";
             var url = void 0;
             if (type == 'image') {
@@ -75,20 +69,18 @@ module.exports = {
             } else {
                 url = uploadConfig.QINIU_IMG_TOKEN_URL;
             }
-            //console.log("token_url",url);
+
             _Request.ajax.requestData({
                 url: url,
                 method: 'post',
                 isAsync: true,
                 defaultData: {}
             }, params, function (data) {
-                //console.log(data); data = JSON.parse(data);
                 token = data.uptoken;
-                //console.log("token=", token);
+
                 localStorage.setItem("qiniu_" + type + "_token", token);
                 localStorage.setItem("last_qiniu_token_time_" + type, Date.parse(new Date()) / 1000);
             }, function () {
-                //console.log("err:", err);
                 return false;
             });
             return token;

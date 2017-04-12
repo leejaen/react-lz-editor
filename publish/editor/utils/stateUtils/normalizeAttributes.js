@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-
-// Lifted from: https://github.com/facebook/react/blob/master/src/renderers/dom/shared/HTMLDOMPropertyConfig.js
 var ATTR_NAME_MAP = {
   acceptCharset: 'accept-charset',
   className: 'class',

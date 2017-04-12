@@ -23,8 +23,6 @@ exports.default = function (strategy) {
     var selectedBlocks = (0, _getSelectedBlocks2.default)(contentState, startKey, endKey);
     var entityFound = false;
 
-    // We have to shift the offset to not get false positives when selecting
-    // a character just before or after an entity
     var finalStartOffset = startOffset + 1;
     var finalEndOffset = endOffset - 1;
 

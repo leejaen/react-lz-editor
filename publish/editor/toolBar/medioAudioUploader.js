@@ -80,7 +80,6 @@ var AudioStyleControls = function (_Component) {
   }, {
     key: 'handleCancel',
     value: function handleCancel(e) {
-      // console.log(e);
       this.setState({ visible: false });
       this.state.audios = [];
       this.forceUpdate();

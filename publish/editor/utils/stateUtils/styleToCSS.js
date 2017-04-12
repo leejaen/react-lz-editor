@@ -7,16 +7,13 @@ Object.defineProperty(exports, "__esModule", {
 var _CSSProperty = require('react-dom/lib/CSSProperty');
 
 var VENDOR_PREFIX = /^(moz|ms|o|webkit)-/;
-
 var NUMERIC_STRING = /^\d+$/;
 var UPPERCASE_PATTERN = /([A-Z])/g;
 
-// Lifted from: https://github.com/facebook/react/blob/master/src/renderers/dom/shared/CSSPropertyOperations.js
 function processStyleName(name) {
   return name.replace(UPPERCASE_PATTERN, '-$1').toLowerCase().replace(VENDOR_PREFIX, '-$1-');
 }
 
-// Lifted from: https://github.com/facebook/react/blob/master/src/renderers/dom/shared/dangerousStyleValue.js
 function processStyleValue(name, value) {
   var isNumeric = void 0;
   if (typeof value === 'string') {

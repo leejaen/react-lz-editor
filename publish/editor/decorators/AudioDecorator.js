@@ -14,15 +14,14 @@ var _main = require('../utils/stateUtils/main');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import {ContentBlock} from 'draft-js';
 function findAudioEntities(contentBlock, callback) {
-  // function findAudioEntities(contentBlock: ContentBlock, callback) {
 
   contentBlock.findEntityRanges(function (character) {
     var entityKey = character.getEntity();
     return entityKey != null && _draftJs.Entity.get(entityKey).getType() === _main.ENTITY_TYPE.AUDIO;
   }, callback);
 }
+
 exports.default = {
   strategy: findAudioEntities,
   component: _AudioSpan2.default

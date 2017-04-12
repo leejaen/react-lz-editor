@@ -10,10 +10,6 @@ var getCurrentlySelectedBlock = function getCurrentlySelectedBlock(editorState) 
 	var content = editorState.getCurrentContent();
 	var target = selection;
 
-	// Triple-click can lead to a selection that includes offset 0 of the
-	// following block. The `SelectionState` for this case is accurate, but
-	// we should avoid toggling block type for the trailing block because it
-	// is a confusing interaction.
 	if (startKey !== endKey && selection.getEndOffset() === 0) {
 		var blockBefore = content.getBlockBefore(endKey);
 		if (!blockBefore) {

@@ -32,10 +32,8 @@ var BOLD = _main.INLINE_STYLE.BOLD,
 var INDENT = '  ';
 var BREAK = '<br>';
 
-// Map entity data to element attributes.
 var ENTITY_ATTR_MAP = (_ENTITY_ATTR_MAP = {}, _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.LINK, { url: 'href', rel: 'rel', target: 'target', title: 'title', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.IMAGE, { src: 'src', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.VIDEO, { src: 'src', controls: 'controls', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _defineProperty(_ENTITY_ATTR_MAP, _main.ENTITY_TYPE.AUDIO, { src: 'src', controls: 'controls', height: 'height', width: 'width', alt: 'alt', className: 'class' }), _ENTITY_ATTR_MAP);
 
-// Map entity data to element attributes.
 var DATA_TO_ATTR = (_DATA_TO_ATTR = {}, _defineProperty(_DATA_TO_ATTR, _main.ENTITY_TYPE.LINK, function (entityType, entity) {
   var attrMap = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? ENTITY_ATTR_MAP[entityType] : {};
   var data = entity.getData();
@@ -176,8 +174,6 @@ var DATA_TO_ATTR = (_DATA_TO_ATTR = {}, _defineProperty(_DATA_TO_ATTR, _main.ENT
   return attrs;
 }), _DATA_TO_ATTR);
 
-// The reason this returns an array is because a single block might get wrapped
-// in two tags.
 function getTags(blockType) {
   switch (blockType) {
     case _main.BLOCK_TYPE.HEADER_ONE:
@@ -199,8 +195,7 @@ function getTags(blockType) {
       return ['blockquote'];
     case _main.BLOCK_TYPE.CODE:
       return ['pre', 'code'];
-    // case BLOCK_TYPE.ATOMIC:
-    //   return ['figure'];//Support atomic block type
+
     default:
       return ['p'];
   }
@@ -223,8 +218,6 @@ var MarkupGenerator = function () {
 
     this.contentState = contentState;
   }
-  // These are related to state.
-
 
   _createClass(MarkupGenerator, [{
     key: 'generate',
@@ -259,12 +252,11 @@ var MarkupGenerator = function () {
       this.indent();
       this.writeStartTag(blockType, blockData);
       this.output.push(this.renderBlockContent(block));
-      // Look ahead and see if we will nest list.
+
       var nextBlock = this.getNextBlock();
       if (canHaveDepth(blockType) && nextBlock && nextBlock.getDepth() === block.getDepth() + 1) {
         this.output.push('\n');
-        // This is a litle hacky: temporarily stash our current wrapperTag and
-        // render child list(s).
+
         var thisWrapperTag = this.wrapperTag;
         this.wrapperTag = null;
         this.indentLevel += 1;
@@ -394,7 +386,6 @@ var MarkupGenerator = function () {
       var blockType = block.getType();
       var text = block.getText();
       if (text === '') {
-        // Prevent element collapse if completely empty.
         return BREAK;
       }
       text = this.preserveWhitespace(text);
@@ -411,7 +402,7 @@ var MarkupGenerator = function () {
               style = _ref4[1];
 
           var content = encodeContent(text);
-          // These are reverse alphabetical by tag name.
+
           if (style.has(BOLD)) {
             content = '<strong>' + content + '</strong>';
           }
@@ -430,14 +421,12 @@ var MarkupGenerator = function () {
             }
           });
           if (style.has(CODE)) {
-            // If our block type is CODE then we are already wrapping the whole
-            // block in a `<code>` so don't wrap inline code elements.
             content = blockType === _main.BLOCK_TYPE.CODE ? content : '<code>' + content + '</code>';
           }
           return content;
         }).join('');
         var entity = entityKey ? _draftJs.Entity.get(entityKey) : null;
-        // Note: The `toUpperCase` below is for compatability with some libraries that use lower-case for image blocks.
+
         var entityType = entity == null || !entity.getType() ? null : entity.getType().toUpperCase();
         if (entityType != null && entityType === _main.ENTITY_TYPE.LINK) {
           var attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
@@ -464,7 +453,7 @@ var MarkupGenerator = function () {
     key: 'preserveWhitespace',
     value: function preserveWhitespace(text) {
       var length = text.length;
-      // Prevent leading/trailing/consecutive whitespace collapse.
+
       var newText = new Array(length);
       for (var i = 0; i < length; i++) {
         if (text[i] === ' ' && (i === 0 || i === length - 1 || text[i - 1] === ' ')) {
@@ -495,7 +484,6 @@ function stringifyAttrs(attrs) {
 
       var attrValue = attrs[attrKey];
       if (attrKey == "src") {
-        // Get reality url resources.
         attrValue = attrValue.replace(/[-?#&].*$/g, "");
       }
       if (attrValue != null) {

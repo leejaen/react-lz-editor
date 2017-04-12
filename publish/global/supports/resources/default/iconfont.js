@@ -9,9 +9,6 @@
   }();
   var shouldInjectCss = script.getAttribute("data-injectcss");
 
-  /**
-   * document ready
-   */
   var ready = function ready(fn) {
     if (document.addEventListener) {
       if (~["complete", "loaded", "interactive"].indexOf(document.readyState)) {
@@ -30,30 +27,27 @@
     function IEContentLoaded(w, fn) {
       var d = w.document,
           done = false,
-
-      // only fire once
-      init = function init() {
+          init = function init() {
         if (!done) {
           done = true;
           fn();
         }
       };
-      // polling for no errors
+
       var polling = function polling() {
         try {
-          // throws errors until after ondocumentready
           d.documentElement.doScroll('left');
         } catch (e) {
           setTimeout(polling, 50);
           return;
         }
-        // no errors, fire
+
 
         init();
       };
 
       polling();
-      // trying to always fire before onload
+
       d.onreadystatechange = function () {
         if (d.readyState == 'complete') {
           d.onreadystatechange = null;
@@ -63,23 +57,9 @@
     }
   };
 
-  /**
-   * Insert el before target
-   *
-   * @param {Element} el
-   * @param {Element} target
-   */
-
   var before = function before(el, target) {
     target.parentNode.insertBefore(el, target);
   };
-
-  /**
-   * Prepend el to target
-   *
-   * @param {Element} el
-   * @param {Element} target
-   */
 
   var prepend = function prepend(el, target) {
     if (target.firstChild) {

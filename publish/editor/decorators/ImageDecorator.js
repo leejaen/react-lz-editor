@@ -20,6 +20,7 @@ function findImageEntities(contentBlock, callback) {
     return entityKey != null && _draftJs.Entity.get(entityKey).getType() === _main.ENTITY_TYPE.IMAGE;
   }, callback);
 }
+
 exports.default = {
   strategy: findImageEntities,
   component: _ImageSpan2.default

@@ -21,8 +21,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import {LzEditor} from './index'
-
 
 var Test = function (_React$Component) {
   _inherits(Test, _React$Component);
@@ -71,15 +69,14 @@ var Test = function (_React$Component) {
     key: 'render',
     value: function render() {
       var uploadConfig = {
-        QINIU_URL: "http://up.qiniu.com", //上传地址，现在暂只支持七牛上传
-        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do", //请求图片的token
+        QINIU_URL: "http://up.qiniu.com",
+        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do",
         QINIU_PFOP: {
-          url: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do" //七牛持久保存请求地址
-        },
-        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do", //请求媒体资源的token
-        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.com/getPicPersistOfQiniu.do?name=patch", //其他资源的token的获取
-        QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi", //图片文件地址的前缀
-        QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
+          url: "http://www.yourServerAddress.mobi/doQiniuPicPersist.do" },
+        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do",
+        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch",
+        QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi",
+        QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi",
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/" };
       return _react2.default.createElement(
         'div',
@@ -93,10 +90,7 @@ var Test = function (_React$Component) {
           active: true,
           importContent: this.state.htmlContent,
           cbReceiver: this.receiveHtml,
-          uploadConfig: uploadConfig,
-          image: false,
-          video: false,
-          audio: false }),
+          uploadConfig: uploadConfig }),
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
