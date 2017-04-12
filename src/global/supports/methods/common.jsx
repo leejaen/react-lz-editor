@@ -237,7 +237,42 @@ const commonFun = {
       var myReg = /^\.(jpeg|jpg|gif|png|webp)$/;
       if (myReg.test(this)) return true;
       return false;
-    }
+    },
+    isWebImgURL: function(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.(jpeg|jpg|gif|png|webp))$/i;
+      if (myReg.test(str))
+        return true;
+      return false;
+    },
+    isWebVideoURL: function(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.mp4)$/i;
+      if (myReg.test(str))
+        return true;
+      return false;
+    },
+    isWebAudioURL: function(str) {
+      var myReg = /^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+=]*)*(\.(mp3))$/i;
+      if (myReg.test(str))
+        return true;
+      return false;
+    },
+    isWebFileURL: function(str,fileType) {
+      console.log("thisInIsWebFileURL",this);
+      let that=this;
+      switch (fileType) {
+        case "image":
+          return that.isWebImgURL(str);
+          break;
+        case "video":
+          return that.isWebVideoURL(str);
+          break;
+        case "audio":
+          return that.isWebAudioURL(str);
+          break;
+        default:
+          return false;
+      }
+    },
   },
   Datetime: {
     getTimeStamp: function(D) {
