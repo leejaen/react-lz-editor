@@ -30,8 +30,6 @@ require('./components.css');
 
 require('../global/supports/resources/system.css');
 
-require('antd/dist/antd.css');
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);

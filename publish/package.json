@@ -1,8 +1,8 @@
 {
   "name": "react-lz-editor",
-  "version": "0.10.13",
+  "version": "0.10.14",
   "description": "An open source react rich-text editor (mordern react editor includes media support such as texts, images, videos, audios, links etc.), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode.",
-  "main": "index.js",
+  "main": "index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
