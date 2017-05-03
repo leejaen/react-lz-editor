@@ -221,7 +221,7 @@ var ImgStyleControls = function (_Component) {
               position: "absolute"
             } },
           this.state.images.map(function (item, index) {
-            return _react2.default.createElement('img', { style: { width: "100px" }, src: item.url,
+            return _react2.default.createElement('img', { style: { width: "100px" }, src: item.url + "?t=10",
               onError: function onError(event) {
                 return _this3.failureLoading(event, index);
               },
