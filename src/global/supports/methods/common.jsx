@@ -906,7 +906,7 @@ const commonFun = {
             let newkey=commonFun.String.RndNum(20);
             if (!!item[propName] || !propName) {
               return {
-                key: !!propName ? item[propName] : ("'"+newkey+"'")
+                key: !!propName ? item[propName] : (newkey+"")
               }
             } else {
               return eval("({" + propName + ":'" + newkey + "'})")
