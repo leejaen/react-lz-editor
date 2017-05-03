@@ -903,12 +903,13 @@ const commonFun = {
       obj.map((item, i) => {
         Object.assign(item,
           (() => {
+            let newkey=commonFun.String.RndNum(20);
             if (!!item[propName] || !propName) {
               return {
-                key: !!propName ? item[propName] : commonFun.String.RndNum(20)
+                key: !!propName ? item[propName] : ("'"+newkey+"'")
               }
             } else {
-              return eval("({" + propName + ":" + commonFun.String.RndNum(20) + "})")
+              return eval("({" + propName + ":'" + newkey + "'})")
             }
           })()
         );

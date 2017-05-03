@@ -73,7 +73,6 @@ class ImgStyleControls extends Component {
     this.props.receiveImage(images);
   }
   failureLoading(event, index) {
-    // console.log("failureLoading", event, index);
     let picture = this.state.images[index].url;
     if (!!picture && picture != "reset") {
       setTimeout(() => {
@@ -166,7 +165,7 @@ class ImgStyleControls extends Component {
           overflow: "hidden",
           position: "absolute"
         }}>{this.state.images.map((item, index) => <img style = {{width:"100px"}} src = {
-            item.url
+            item.url+"?t=10"
           }
           onError = {
             (event) => this.failureLoading(event, index)
