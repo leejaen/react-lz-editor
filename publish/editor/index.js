@@ -1,24 +1,18 @@
 'use strict';
 
-var _css = require('antd/lib/affix/style/css');
-
-var _affix = require('antd/lib/affix');
-
-var _affix2 = _interopRequireDefault(_affix);
-
-var _css2 = require('antd/lib/modal/style/css');
+var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css3 = require('antd/lib/input/style/css');
+var _css2 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css4 = require('antd/lib/message/style/css');
+var _css3 = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 
@@ -385,24 +379,17 @@ var EditorConcist = function (_React$Component) {
     key: '_openFull',
     value: function _openFull(e) {
       e.preventDefault();
-      var ele = document.querySelector(".RichEditor-root"),
-          affix = document.querySelector("#text-editor-affix"),
-          affixToolBar = document.querySelector("#text-editor-affix>div");
+      var ele = document.querySelector(".RichEditor-root");
+
       if (ele.classList.contains("openFullAll")) {
         ele.className = ele.className.replace("openFullAll", "");
-        affix.style = "";
-        affixToolBar.className = "";
-        affixToolBar.style = "";
+
         this.setState({
           openFullTest: "全屏"
         });
       } else {
         ele.className += ' openFullAll';
-        setTimeout(function () {
-          affix.style = "width: " + affix.offsetWidth + "px; height: 0; margin-bottom: 70px;";
-          affixToolBar.className = "ant-affix";
-          affixToolBar.style = "position: fixed; top: 0; left: 0; width: " + affix.offsetWidth + "px;margin: 0 15px 15px;";
-        }, 500);
+        setTimeout(function () {}, 500);
         this.setState({
           openFullTest: "退出全屏"
         });
@@ -763,8 +750,8 @@ var EditorConcist = function (_React$Component) {
         'div',
         { className: 'RichEditor-root editorHidden', content: this.state.HTML, id: 'text-editor-container' },
         _react2.default.createElement(
-          _affix2.default,
-          { offsetTop: 0, id: 'text-editor-affix' },
+          'div',
+          null,
           this.state.showMarkdownSource == false && this.props.undoRedo && _react2.default.createElement(_undoredoControls2.default, { onToggle: this.undoRedo }),
           this.state.showMarkdownSource == false && this.props.removeStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle }),
           this.state.showMarkdownSource == false && this.props.pasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle }),

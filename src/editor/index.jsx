@@ -32,7 +32,7 @@ import {
   Form,
   Input,
   message,
-  Affix,
+  // Affix,
   Icon
 } from 'antd';
 import {stateToHTML,stateFromHTML,stateToMD,stateFromMD} from './utils';
@@ -308,21 +308,22 @@ class EditorConcist extends React.Component {
   }
   _openFull(e){
     e.preventDefault();
-    let ele=document.querySelector(".RichEditor-root"),affix=document.querySelector("#text-editor-affix"),affixToolBar=document.querySelector("#text-editor-affix>div");
+    let ele=document.querySelector(".RichEditor-root");
+    // let affix=document.querySelector("#text-editor-affix"),affixToolBar=document.querySelector("#text-editor-affix>div");
     if(ele.classList.contains("openFullAll")){
         ele.className = ele.className.replace("openFullAll","");
-        affix.style="";
-        affixToolBar.className="";
-        affixToolBar.style=""
+        // affix.style="";
+        // affixToolBar.className="";
+        // affixToolBar.style=""
         this.setState({
           openFullTest:"全屏"
         })
     }else{
         ele.className += ' openFullAll';
         setTimeout(()=>{
-          affix.style="width: "+affix.offsetWidth+"px; height: 0; margin-bottom: 70px;";
-          affixToolBar.className="ant-affix";
-          affixToolBar.style="position: fixed; top: 0; left: 0; width: "+affix.offsetWidth+"px;margin: 0 15px 15px;"
+          // affix.style="width: "+affix.offsetWidth+"px; height: 0; margin-bottom: 70px;";
+          // affixToolBar.className="ant-affix";
+          // affixToolBar.style="position: fixed; top: 0; left: 0; width: "+affix.offsetWidth+"px;margin: 0 15px 15px;"
         },500)
         this.setState({
           openFullTest:"退出全屏"
@@ -680,9 +681,12 @@ class EditorConcist extends React.Component {
       }
     }
     // console.log("this.props.undoRedo",this.props.undoRedo)//https://gist.github.com/deanmcpherson/69f9962b744b273ffb64fe294ab71bc4
+
+// <Affix offsetTop={0} id="text-editor-affix">
+// </Affix>
     return (
       <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
-        <Affix offsetTop={0} id="text-editor-affix">
+        <div>
           {this.state.showMarkdownSource==false&&this.props.undoRedo&&<UndoRedo onToggle={this.undoRedo}/>}
           {this.state.showMarkdownSource==false&&this.props.removeStyle&&<RemoveStyleControls onToggle={this.removeStyle}/>}
           {this.state.showMarkdownSource==false&&this.props.pasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle}/>}
@@ -698,7 +702,7 @@ class EditorConcist extends React.Component {
           {this.state.showMarkdownSource==false&&this.props.autoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}
           {this.props.fullScreen&&<OpenFull editorState={editorState} onToggle={this.openFull} coverTitle={this.state.openFullTest}/>}
           {this.props.convertFormat=="markdown"&&<SourceEditor editorState={editorState} onToggle={this.toggleSource} coverTitle={this.state.showSourceEditor}/>}
-        </Affix>
+        </div>
         <div className={className} onClick={this.focus} style={{display:this.state.showMarkdownSource==true?"none":"block"}}>
           <Editor
             blockRendererFn={mediaBlockRenderer}

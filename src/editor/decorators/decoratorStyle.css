@@ -63,8 +63,8 @@ figure audio {
 .editor-inline-image span,
 .editor-inline-video span,
 .editor-inline-audio span {
-  font-size: 0px;
-  color: rgba(0, 0, 0, 0);
+  font-size: 100px;
+  /*color: rgba(0, 0, 0, 0);*/
   position: absolute;
-  left: -10000px
+  left: -10px
 }
