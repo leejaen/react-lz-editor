@@ -13,13 +13,11 @@ Disabled media insert feature on demo page, because of there was no online API s
 因为上传图片视频多媒体等文件需要后端服务器接口配合，这部分暂时没有实现在线demo接口，所以暂时通过配置去掉了，java版本接口实现示例请参考[示例代码](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java)。
 
 # Install
-
+```
 npm install react-lz-editor --save
-
 OR
-
 yarn add react-lz-editor
-
+```
 
 
 Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
