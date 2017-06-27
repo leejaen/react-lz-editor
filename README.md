@@ -20,6 +20,8 @@ OR
 
 yarn add react-lz-editor
 
+
+
 Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
 
 版本号说明：react、react-dom 版本必须在15.4.2以上，Antd版本最好在2.8.3以上。
