@@ -69,7 +69,7 @@ var Test = function (_React$Component) {
           url: "http://www.yourServerAddress.mobi/doQiniuPicPersist.do" },
         QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do",
         QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch",
-        QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi",
+        QINIU_DOMAIN_IMG_URL: "https://image.yourServerAddress.mobi",
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi",
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/" };
       return _react2.default.createElement(
