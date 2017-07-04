@@ -901,7 +901,7 @@ EditorConcist.propTypes = {
     }),
     QINIU_VIDEO_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_FILE_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_IMG_DOMAIN_URL: _react2.default.PropTypes.string.isRequired,
+    QINIU_DOMAIN_IMG_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
   }),

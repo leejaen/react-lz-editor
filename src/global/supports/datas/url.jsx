@@ -10,7 +10,7 @@ module.exports = {
   },
   QINIU_VIDEO_TOKEN_URL: "", //请求视频资源的token
   QINIU_FILE_TOKEN_URL: "", //请求热补丁资源的token
-  QINIU_IMG_DOMAIN_URL: "", //图片的地址的前缀image.qlwbyidian.com
+  QINIU_DOMAIN_IMG_URL: "", //图片的地址的前缀image.qlwbyidian.com
   QINIU_DOMAIN_VIDEO_URL: "", //视频地址的前缀image.qlwbyidian.com
   QINIU_DOMAIN_FILE_URL: "", //ALL文件地址的前缀
 

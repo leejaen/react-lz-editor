@@ -156,7 +156,7 @@ var UploadImage = function (_Component) {
       });
       var url = "";
       if (this.props.fileType == "image") {
-        url = _publicDatas.PRO_URL.QINIU_IMG_DOMAIN_URL || this.props.uploadConfig.QINIU_IMG_DOMAIN_URL;
+        url = _publicDatas.PRO_URL.QINIU_DOMAIN_IMG_URL || this.props.uploadConfig.QINIU_DOMAIN_IMG_URL;
       } else if (this.props.fileType == "video" || this.props.fileType == "audio") {
         url = _publicDatas.PRO_URL.QINIU_DOMAIN_VIDEO_URL || this.props.uploadConfig.QINIU_DOMAIN_VIDEO_URL;
       }
@@ -263,6 +263,9 @@ var UploadImage = function (_Component) {
             token = _publicDatas.PRO_QINIU.checkQiniu.returnToken(_this5.props.uploadConfig);
           }
           key = _publicDatas.PRO_COMMON.String.RndNum(20) + "." + _publicDatas.PRO_COMMON.String.GetFileExtensionName(file.name)[0];
+          if (_this5.props.uploadConfig.QINIU_KEY_PREFIX) {
+            key = _this5.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key;
+          }
           return { token: token, key: key };
         },
         multiple: properties.isMultiple || false,
@@ -327,7 +330,7 @@ UploadImage.propTypes = {
     }),
     QINIU_VIDEO_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_FILE_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_IMG_DOMAIN_URL: _react2.default.PropTypes.string.isRequired,
+    QINIU_DOMAIN_IMG_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
   })
