@@ -164,7 +164,7 @@ class ImgStyleControls extends Component {
           display: "inline",
           overflow: "hidden",
           position: "absolute"
-        }}>{this.state.images.map((item, index) => <img style = {{width:"100px"}} src = {
+        }}>{this.state.images.map((item, index) => <img key={index} style = {{width:"100px"}} src = {
             item.url+"?t=10"
           }
           onError = {

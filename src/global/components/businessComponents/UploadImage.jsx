@@ -207,11 +207,18 @@ class UploadImage extends Component {
           if (!token) {
             token = PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig);
           }
-          key = PRO_COMMON.String.RndNum(20)+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
-          if (this.props.uploadConfig.QINIU_KEY_PREFIX) {
-            key = this.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key
+
+          const isGenerateKeyByRandom = typeof this.props.uploadConfig.isGenerateKeyByRandom === 'undefined' ? true : false;
+          if (isGenerateKeyByRandom) {
+            key = PRO_COMMON.String.RndNum(20)+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
+            if (this.props.uploadConfig.QINIU_KEY_PREFIX) {
+              key = this.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key
+            }
+
+            return {token,key};
           }
-          return {token,key}
+
+          return {token};
         },
       multiple: properties.isMultiple || false,
       beforeUpload: this.beforeUpload.bind(this),
@@ -264,7 +271,8 @@ UploadImage.propTypes = {
     QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
+    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired,
+    isGenerateKeyByRandom: React.PropTypes.bool.isRequired
    })
 };
 

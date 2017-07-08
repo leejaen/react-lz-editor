@@ -55,6 +55,7 @@
   "dependencies": {
     "antd": "^2.8.3",
     "draft-js": "^0.10.0",
+    "draft-js-export-html": "^0.5.4",
     "immutable": "^3.8.1",
     "js-base64": "^2.1.9",
     "lodash": "^4.17.3",

@@ -35,7 +35,8 @@ import {
   // Affix,
   Icon
 } from 'antd';
-import {stateToHTML,stateFromHTML,stateToMD,stateFromMD} from './utils';
+import {stateFromHTML,stateToMD,stateFromMD} from './utils';
+import {stateToHTML} from 'draft-js-export-html';
 
 import getSelectedBlocks from './utils/stateUtils/getSelectedBlocks';
 import {PRO_COMMON} from '../global/supports/publicDatas';

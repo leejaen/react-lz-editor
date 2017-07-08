@@ -72,6 +72,16 @@ module.exports = {
                 url = uploadConfig.QINIU_IMG_TOKEN_URL;
             }
             //console.log("token_url",url);
+
+            if (Object.prototype.toString.call(url) === '[object Function]') {
+                token = url();
+
+                localStorage.setItem("qiniu_" + type + "_token", token);
+                localStorage.setItem("last_qiniu_token_time_" + type, Date.parse(new Date()) / 1000);
+
+                return "";
+            }
+
             AJAX.requestData({
                 url: url,
                 method: 'post',
