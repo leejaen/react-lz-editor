@@ -99,6 +99,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | 配置项 | 类型 | 默认值 | 说明 |
 | -- | -- | -- | -- |
 | active | bool | false | 有更新时是否刷新 |
+| needClearContent | bool | flase | 是否需要清除编辑器里的内容 |
 | importContent | string | "" | 编辑器显示内容 |
 | cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
 | undoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
