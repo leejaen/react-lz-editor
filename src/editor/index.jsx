@@ -3,6 +3,7 @@
  */
 import './components.css'
 import '../global/supports/resources/system.css';
+import { tokenPropTypes } from '../global/propTypes';
 // import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
@@ -816,7 +817,6 @@ const Media = (props) => {
   return media;
 };
 
-const tokenPropTypes = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]);
 
 EditorConcist.propTypes = {
   active: React.PropTypes.bool,
