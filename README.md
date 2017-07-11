@@ -75,7 +75,8 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
         QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取,支持提供一个返回token的函数
         QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi", //图片文件地址的前缀
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
-        QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
+        QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀,
+        isGenerateKeyByRandom: false // 上传时是否由编辑器产生随机的key
       }
       return <LzEditor
         active={true}
