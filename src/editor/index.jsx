@@ -816,6 +816,8 @@ const Media = (props) => {
   return media;
 };
 
+const tokenPropTypes = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]);
+
 EditorConcist.propTypes = {
   active: React.PropTypes.bool,
   importContent: React.PropTypes.string,
@@ -835,12 +837,12 @@ EditorConcist.propTypes = {
   fullScreen: React.PropTypes.bool,
   uploadConfig:React.PropTypes.shape({
     QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: tokenPropTypes,
     QINIU_PFOP:React.PropTypes.shape({
       url: React.PropTypes.string.isRequired
     }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_VIDEO_TOKEN_URL: tokenPropTypes,
+    QINIU_FILE_TOKEN_URL: tokenPropTypes,
     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
