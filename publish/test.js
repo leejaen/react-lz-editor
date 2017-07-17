@@ -38,6 +38,8 @@ var Test = function (_React$Component) {
     _this.receiveHtml = _this.receiveHtml.bind(_this);
     _this.receiveMarkdown = _this.receiveMarkdown.bind(_this);
     _this.receiveRaw = _this.receiveRaw.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.beforeUpload = _this.beforeUpload.bind(_this);
     return _this;
   }
 
@@ -60,6 +62,16 @@ var Test = function (_React$Component) {
       console.log("recieved Raw content", content);
     }
   }, {
+    key: 'onChange',
+    value: function onChange(info) {
+      console.log("onChange:", info);
+    }
+  }, {
+    key: 'beforeUpload',
+    value: function beforeUpload(file) {
+      console.log("beforeUpload:", file);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var uploadConfig = {
@@ -72,6 +84,18 @@ var Test = function (_React$Component) {
         QINIU_DOMAIN_IMG_URL: "https://image.yourServerAddress.mobi",
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi",
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/" };
+
+      var uploadProps = {
+        action: "",
+        onChange: this.onChange,
+        listType: 'picture',
+        fileList: [""],
+        data: function data(file) {
+          console.log("uploadProps data", file);
+        },
+        multiple: true,
+        beforeUpload: this.beforeUpload,
+        showUploadList: true };
       return _react2.default.createElement(
         'div',
         null,
@@ -84,7 +108,8 @@ var Test = function (_React$Component) {
           active: true,
           importContent: this.state.htmlContent,
           cbReceiver: this.receiveHtml,
-          uploadConfig: uploadConfig }),
+          uploadConfig: uploadConfig,
+          uploadProps: uploadProps }),
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
@@ -97,6 +122,7 @@ var Test = function (_React$Component) {
           importContent: this.state.markdownContent,
           cbReceiver: this.receiveMarkdown,
           uploadConfig: uploadConfig,
+          uploadProps: uploadProps,
           image: false,
           video: false,
           audio: false,
@@ -113,6 +139,7 @@ var Test = function (_React$Component) {
           importContent: this.state.rawContent,
           cbReceiver: this.receiveRaw,
           uploadConfig: uploadConfig,
+          uploadProps: uploadProps,
           image: false,
           video: false,
           audio: false,

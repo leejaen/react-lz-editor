@@ -137,6 +137,6 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | autoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | fullScreen | bool | true | 是否启用全屏功能，默认启用 |
 | convertFormat | string | "html" | 设置内容导入导出格式，支持html、markdown、raw三种格式，默认html |
-| uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
-| uploadProps | object | null | 自定义上传方法及上传设置，[API请参考Antd.Upload](https://ant.design/components/upload-cn/) |
+| uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象（上传到七牛，无需配置uploadProps） |
+| uploadProps | object | null | 自定义上传方法及上传设置（无需配置uploadConfig，同时配置uploadConfig和uploadProps，则uploadProps优先），[API请参考Antd.Upload](https://ant.design/components/upload-cn/) |
 # QA

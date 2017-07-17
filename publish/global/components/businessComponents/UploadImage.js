@@ -249,9 +249,12 @@ var UploadImage = function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      var properties = this.props,
-          that = this,
-          uploadProps = {
+      var _props = this.props,
+          properties = _props.properties,
+          uploadProps = _props.uploadProps,
+          that = this;
+
+      uploadProps = uploadProps || {
         action: _publicDatas.PRO_URL.QINIU_URL || this.props.uploadConfig.QINIU_URL,
         onChange: this.onChange.bind(this),
         listType: 'picture',

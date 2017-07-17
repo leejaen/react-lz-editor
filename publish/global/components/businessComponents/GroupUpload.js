@@ -513,7 +513,8 @@ var GroupUpload = function (_Component) {
               isMultiple: true,
               isShowUploadList: true,
               uploadConfig: this.props.uploadConfig,
-              limit: this.props.limitCount || 10 })
+              limit: this.props.limitCount || 10,
+              uploadProps: this.props.uploadProps })
           )
         )
       );
