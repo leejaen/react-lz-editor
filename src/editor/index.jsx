@@ -694,9 +694,12 @@ class EditorConcist extends React.Component {
           {this.props.alignment&&this.props.convertFormat!=="markdown"&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment}/>}
           {this.state.showMarkdownSource==false&&this.props.inlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle}/>}
           {this.props.color&&this.props.convertFormat!=="markdown"&&<ColorControls editorState={editorState} onToggle={this.toggleColor}/>}
-          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}/>}
-          {this.state.showMarkdownSource==false&&this.props.video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}/>}
-          {this.state.showMarkdownSource==false&&this.props.audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}/>}
+          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}
+          uploadProps={this.props.uploadProps}/>}
+          {this.state.showMarkdownSource==false&&this.props.video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}
+          uploadProps={this.props.uploadProps}/>}
+          {this.state.showMarkdownSource==false&&this.props.audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}
+          uploadProps={this.props.uploadProps}/>}
           {this.state.showMarkdownSource==false&&this.props.urls&&<AddUrl editorState={editorState} onToggle={this.promptForLink}/>}
           {this.state.showMarkdownSource==false&&this.props.urls&&<CloseUrl editorState={editorState} onToggle={this.removeLink}/>}
           {this.state.showMarkdownSource==false&&this.props.autoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}

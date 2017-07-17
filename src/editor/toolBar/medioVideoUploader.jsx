@@ -74,7 +74,8 @@ class VideoStyleControls extends Component {
             isOpenModel={that.state.visible}
             cbReceiver={that.getVideoObject}
             uploadConfig={this.props.uploadConfig}
-            fileType="video"/>
+            fileType="video"
+            uploadProps={this.props.uploadProps}/>
         </Modal>
       </div>
     )

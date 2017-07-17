@@ -60,9 +60,17 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
                 <p>乐视金融在去年11月份首度公开亮相的时候，缺少银行和支付两张关键牌照就一直是外界关注的问题。</p>`
       }
       this.receiveHtml = this.receiveHtml.bind(this);
+      this.onChange=this.onChange.bind(this);
+      this.beforeUpload=this.beforeUpload.bind(this);
     }
     receiveHtml(content) {
       console.log("Recieved content", content);
+    }
+    onChange(info){
+      console.log("onChange:",info);
+    }
+    beforeUpload(file){
+      console.log("beforeUpload:",file);
     }
     render() {
       const uploadConfig = {
@@ -77,11 +85,26 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
         QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
       }
+
+      //uploadProps 配置方法见 https://ant.design/components/upload-cn/
+      const uploadProps={
+        action: "",
+        onChange: this.onChange,
+        listType: 'picture',
+        fileList: [""],
+        data: (file)=>{//支持自定义保存文件名、扩展名支持
+            console.log("uploadProps data",file)
+          },
+        multiple: true,
+        beforeUpload: this.beforeUpload,
+        showUploadList: true
+      }
       return <LzEditor
         active={true}
         importContent={this.state.content}
         cbReceiver={this.receiveHtml}
         uploadConfig={uploadConfig}
+        uploadProps={uploadProps}
         fullScreen={false}
         convertFormat="html"/>
     }
@@ -115,4 +138,5 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | fullScreen | bool | true | 是否启用全屏功能，默认启用 |
 | convertFormat | string | "html" | 设置内容导入导出格式，支持html、markdown、raw三种格式，默认html |
 | uploadConfig | object | null | 启用媒体上传后插入功能时，上传参数配置对象 |
+| uploadProps | object | null | 自定义上传方法及上传设置，[API请参考Antd.Upload](https://ant.design/components/upload-cn/) |
 # QA

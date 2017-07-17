@@ -24,6 +24,8 @@ class Test extends React.Component {
     this.receiveHtml = this.receiveHtml.bind(this);
     this.receiveMarkdown = this.receiveMarkdown.bind(this);
     this.receiveRaw = this.receiveRaw.bind(this);
+    this.onChange=this.onChange.bind(this);
+    this.beforeUpload=this.beforeUpload.bind(this);
   }
   receiveHtml(content) {
     console.log("recieved HTML content", content);
@@ -35,6 +37,12 @@ class Test extends React.Component {
   }
   receiveRaw(content) {
     console.log("recieved Raw content", content);
+  }
+  onChange(info){
+    console.log("onChange:",info);
+  }
+  beforeUpload(file){
+    console.log("beforeUpload:",file);
   }
   render() {
     const uploadConfig = {
@@ -49,6 +57,19 @@ class Test extends React.Component {
       QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
       QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
     }
+
+    //uploadProps 配置方法见 https://ant.design/components/upload-cn/
+    const uploadProps={
+      action: "",
+      onChange: this.onChange,
+      listType: 'picture',
+      fileList: [""],
+      data: (file)=>{//支持自定义保存文件名、扩展名支持
+          console.log("uploadProps data",file)
+        },
+      multiple: true,
+      beforeUpload: this.beforeUpload,
+      showUploadList: true}
     return (
       <div>
         <div>Editor demo 1 (use default html format ):
@@ -57,7 +78,8 @@ class Test extends React.Component {
           active={true}
           importContent={this.state.htmlContent}
           cbReceiver={this.receiveHtml}
-          uploadConfig={uploadConfig}/>
+          uploadConfig={uploadConfig}
+          uploadProps={uploadProps}/>
         <br/>
         <br/>
         <div>Editor demo 2 (use markdown format ):
@@ -67,6 +89,7 @@ class Test extends React.Component {
           importContent={this.state.markdownContent}
           cbReceiver={this.receiveMarkdown}
           uploadConfig={uploadConfig}
+          uploadProps={uploadProps}
           image={false}
           video={false}
           audio={false}
@@ -80,6 +103,7 @@ class Test extends React.Component {
           importContent={this.state.rawContent}
           cbReceiver={this.receiveRaw}
           uploadConfig={uploadConfig}
+          uploadProps={uploadProps}
           image={false}
           video={false}
           audio={false}

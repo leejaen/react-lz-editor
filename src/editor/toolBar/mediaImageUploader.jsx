@@ -186,6 +186,7 @@ class ImgStyleControls extends Component {
             isOpenModel={that.state.provisible}
             cbReceiver={that.getImgObject}
             uploadConfig={this.props.uploadConfig}
+            uploadProps={this.props.uploadProps}
             limit={10}
             fileType="image"/>
         </Modal>

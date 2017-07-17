@@ -197,7 +197,8 @@ class UploadImage extends Component {
   }
 
   render() {
-    let properties = this.props,that=this,uploadProps = {
+    let {properties,uploadProps} = this.props,that=this;
+    uploadProps = uploadProps||{
       action: PRO_URL.QINIU_URL||this.props.uploadConfig.QINIU_URL,
       onChange: this.onChange.bind(this),
       listType: 'picture',
