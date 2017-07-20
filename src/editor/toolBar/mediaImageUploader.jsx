@@ -6,6 +6,7 @@ import {
   Icon
 } from 'antd';
 import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
+import { tokenPropTypes } from '../../global/propTypes';
 import cloneDeep from "lodash/cloneDeep";
 /*视频音频图片*/
 class ImgStyleControls extends Component {
@@ -164,7 +165,7 @@ class ImgStyleControls extends Component {
           display: "inline",
           overflow: "hidden",
           position: "absolute"
-        }}>{this.state.images.map((item, index) => <img style = {{width:"100px"}} src = {
+        }}>{this.state.images.map((item, index) => <img key={index} style = {{width:"100px"}} src = {
             item.url+"?t=10"
           }
           onError = {
@@ -214,12 +215,12 @@ ImgStyleControls.propTypes = {
   receiveImage: React.PropTypes.func.isRequired,
   uploadConfig:React.PropTypes.shape({
     QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: tokenPropTypes,
     QINIU_PFOP:React.PropTypes.shape({
       url: React.PropTypes.string.isRequired
     }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_VIDEO_TOKEN_URL: tokenPropTypes,
+    QINIU_FILE_TOKEN_URL: tokenPropTypes,
     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired

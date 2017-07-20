@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Upload, Button, Icon, message,Input} from 'antd';
 import {PRO_URL, PRO_QINIU, PRO_COMMON} from '../../supports/publicDatas';
+import { tokenPropTypes } from '../../../global/propTypes';
 import findIndex from "lodash/findIndex";
 import isEqual from "lodash/isEqual";
 import cloneDeep from "lodash/cloneDeep";
@@ -212,11 +213,18 @@ class UploadImage extends Component {
           if (!token) {
             token = PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig);
           }
-          key = PRO_COMMON.String.RndNum(20)+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
-          if (this.props.uploadConfig.QINIU_KEY_PREFIX) {
-            key = this.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key
+
+          const isGenerateKeyByRandom = typeof this.props.uploadConfig.isGenerateKeyByRandom === 'undefined' ? true : false;
+          if (isGenerateKeyByRandom) {
+            key = PRO_COMMON.String.RndNum(20)+"."+PRO_COMMON.String.GetFileExtensionName(file.name)[0];
+            if (this.props.uploadConfig.QINIU_KEY_PREFIX) {
+              key = this.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key
+            }
+
+            return {token,key};
           }
-          return {token,key}
+
+          return {token};
         },
       multiple: properties.isMultiple || false,
       beforeUpload: this.beforeUpload.bind(this),
@@ -261,15 +269,16 @@ UploadImage.propTypes = {
   fileList: React.PropTypes.arrayOf(React.PropTypes.shape({url: React.PropTypes.string.isRequired, thumbUrl: React.PropTypes.string, name: React.PropTypes.string})),
   uploadConfig:React.PropTypes.shape({
     QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: tokenPropTypes,
     QINIU_PFOP:React.PropTypes.shape({
       url: React.PropTypes.string.isRequired
     }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_VIDEO_TOKEN_URL: tokenPropTypes,
+    QINIU_FILE_TOKEN_URL: tokenPropTypes,
     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
+    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired,
+    isGenerateKeyByRandom: React.PropTypes.bool.isRequired
    })
 };
 

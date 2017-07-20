@@ -3,6 +3,7 @@
  */
 import './components.css'
 import '../global/supports/resources/system.css';
+import { tokenPropTypes } from '../global/propTypes';
 // import 'antd/dist/antd.css';
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
@@ -35,7 +36,8 @@ import {
   // Affix,
   Icon
 } from 'antd';
-import {stateToHTML,stateFromHTML,stateToMD,stateFromMD} from './utils';
+import {stateFromHTML,stateToMD,stateFromMD} from './utils';
+import {stateToHTML} from 'draft-js-export-html';
 
 import getSelectedBlocks from './utils/stateUtils/getSelectedBlocks';
 import {PRO_COMMON} from '../global/supports/publicDatas';
@@ -194,26 +196,41 @@ class EditorConcist extends React.Component {
     },60000);
   } // 此钩子用作编辑时候的回调
   componentWillReceiveProps(newProps) {
-    if (!newProps.active) {
-      return false;
-    }
-    if (newProps.importContent == this.props.importContent) {
-      return false;
-    }
+    const { needClearContent } = newProps;
     const ConvertFormatProps = this.props.convertFormat;
     let newContent ="";
-    // console.log("ConvertFormatProps",ConvertFormatProps)
-    if (ConvertFormatProps==="html") {
-      newContent = newProps.importContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
-      if (newContent == "undefined" ||!newContent) {
-        newContent = "<p>&nbsp;</p>";
+
+    if (!needClearContent) {
+      if (!newProps.active) {
+        return false;
       }
-    } else if (ConvertFormatProps==="markdown") {
-      newContent = newProps.importContent||"";
-      this.state.tempSouceContent=newContent;
-    } else if (ConvertFormatProps==="raw") {
-      newContent = newProps.importContent||"{}";
+      if (newProps.importContent == this.props.importContent) {
+        return false;
+      }
+
+      // console.log("ConvertFormatProps",ConvertFormatProps)
+      if (ConvertFormatProps==="html") {
+        newContent = newProps.importContent.replace(/[\s\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]\>/g,">");
+        if (newContent == "undefined" ||!newContent) {
+          newContent = "<p>&nbsp;</p>";
+        }
+      } else if (ConvertFormatProps==="markdown") {
+        newContent = newProps.importContent||"";
+        this.state.tempSouceContent=newContent;
+      } else if (ConvertFormatProps==="raw") {
+        newContent = newProps.importContent||"{}";
+      }
+    } else {
+      if (ConvertFormatProps==="html") {
+        newContent = "<p>&nbsp;</p>";
+      } else if (ConvertFormatProps==="markdown") {
+        newContent = "";
+        this.state.tempSouceContent=newContent;
+      } else if (ConvertFormatProps==="raw") {
+        newContent = "{}";
+      }
     }
+
     /*const decorator = new CompositeDecorator([
       LinkDecorator,
       ImageDecorator,
@@ -818,6 +835,7 @@ const Media = (props) => {
   return media;
 };
 
+
 EditorConcist.propTypes = {
   active: React.PropTypes.bool,
   importContent: React.PropTypes.string,
@@ -837,17 +855,18 @@ EditorConcist.propTypes = {
   fullScreen: React.PropTypes.bool,
   uploadConfig:React.PropTypes.shape({
     QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_IMG_TOKEN_URL: tokenPropTypes,
     QINIU_PFOP:React.PropTypes.shape({
       url: React.PropTypes.string.isRequired
     }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+    QINIU_VIDEO_TOKEN_URL: tokenPropTypes,
+    QINIU_FILE_TOKEN_URL: tokenPropTypes,
     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
     QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
    }),
   convertFormat: React.PropTypes.oneOf(['html', 'markdown', 'raw']),
+  needClearContent: React.PropTypes.bool,
 }
 EditorConcist.defaultProps = {
   undoRedo: true,
@@ -864,6 +883,7 @@ EditorConcist.defaultProps = {
   autoSave: true,
   fullScreen:true,
   convertFormat: 'html',
+  needClearContent: false,
 };
 // export default EditorConcist;
 module.exports = EditorConcist;

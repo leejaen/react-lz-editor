@@ -75,15 +75,16 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
     render() {
       const uploadConfig = {
         QINIU_URL: "http://up.qiniu.com", //上传地址，现在暂只支持七牛上传
-        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求图片的token
+        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求图片的token,支持提供一个返回token的函数
         QINIU_PFOP: {
           url: "http://www.yourServerAddress.mobi/doQiniuPicPersist.do" //七牛持久保存请求地址
         },
-        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求媒体资源的token
-        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取
+        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do", //请求媒体资源的token,支持提供一个返回token的函数
+        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch", //其他资源的token的获取,支持提供一个返回token的函数
         QINIU_IMG_DOMAIN_URL: "https://image.yourServerAddress.mobi", //图片文件地址的前缀
         QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi", //视频文件地址的前缀
-        QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀
+        QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/", //其他文件地址前缀,
+        isGenerateKeyByRandom: false // 上传时是否由编辑器产生随机的key
       }
 
       //uploadProps 配置方法见 https://ant.design/components/upload-cn/
@@ -122,6 +123,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | 配置项 | 类型 | 默认值 | 说明 |
 | -- | -- | -- | -- |
 | active | bool | false | 有更新时是否刷新 |
+| needClearContent | bool | flase | 是否需要清除编辑器里的内容 |
 | importContent | string | "" | 编辑器显示内容 |
 | cbReceiver | function | null | 编辑器内容更新后的回调函数，此函数接受一个改动后的返回参数值 |
 | undoRedo | bool | true | 是否启用撤销恢复功能，默认启用 |
