@@ -47,14 +47,16 @@ module.exports = {
                 qiniu_token = localStorage.getItem("qiniu_" + key + "_token");
             }
             return qiniu_token;
-
         },
         returnToken: function(uploadConfig,key = 'image', params = {}) {
-            let token = this.checkQiniuImgToken(key);
-            token = !!token == true
-                ? token
-                : this.getQiniuToken(uploadConfig, key, params);
-            return token;
+          if (!!uploadConfig||Object.keys(uploadConfig).length==0) {
+            return false;
+          }
+          let token = this.checkQiniuImgToken(key);
+          token = !!token == true
+              ? token
+              : this.getQiniuToken(uploadConfig, key, params);
+          return token;
         },
         getQiniuToken: function(uploadConfig,type = 'image', params) {
             //console.log("getQiniuToken");

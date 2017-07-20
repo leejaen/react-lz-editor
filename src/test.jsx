@@ -78,7 +78,6 @@ class Test extends React.Component {
           active={true}
           importContent={this.state.htmlContent}
           cbReceiver={this.receiveHtml}
-          uploadConfig={uploadConfig}
           uploadProps={uploadProps}/>
         <br/>
         <br/>

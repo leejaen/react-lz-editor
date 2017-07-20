@@ -19,7 +19,9 @@ class UploadImage extends Component {
     this.state = {
       isLoad: false,
       qiniu: {
-        token: PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig)
+        token: this.props.uploadConfig&&Object.keys(this.props.uploadConfig).length
+                ?PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig)
+                :null
       },
       files: [],
       upReceiverFun: null,
@@ -78,7 +80,7 @@ class UploadImage extends Component {
       message.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
       return false;
     }
-    if (!this.state.qiniu.token) {
+    if (!this.state.qiniu.token&&!uploadConfig) {
       let token = PRO_QINIU.checkQiniu.returnToken(this.props.uploadConfig);
       this.state.qiniu.token = token;
     }
@@ -198,7 +200,9 @@ class UploadImage extends Component {
 
   render() {
     let {properties,uploadProps} = this.props,that=this;
-    uploadProps = uploadProps||{
+    uploadProps = uploadProps&&Object.keys(uploadProps).length>0
+    ?uploadProps
+    :({
       action: PRO_URL.QINIU_URL||this.props.uploadConfig.QINIU_URL,
       onChange: this.onChange.bind(this),
       listType: 'picture',
@@ -217,7 +221,7 @@ class UploadImage extends Component {
       multiple: properties.isMultiple || false,
       beforeUpload: this.beforeUpload.bind(this),
       showUploadList: properties.isShowUploadList!=undefined?properties.isShowUploadList:true
-    };
+    });
     // console.log("uploadProps",uploadProps);
 
     return (

@@ -137,7 +137,6 @@ class ImgStyleControls extends Component {
   render() {
     let className = 'RichEditor-styleButton';
     let that = this;
-
     return (
       <div className="RichEditor-controls">
 
@@ -148,7 +147,8 @@ class ImgStyleControls extends Component {
         })}
           atuoSize={[650,0]}
           receiveSelectedPictures={this.groupAppend}
-          uploadConfig={this.props.uploadConfig}>
+          uploadConfig={this.props.uploadConfig}
+          uploadProps={this.props.uploadProps}>
           <span className={className}>
               <Icon type="editor_image_masker" title="水印图片"/>
           </span>
