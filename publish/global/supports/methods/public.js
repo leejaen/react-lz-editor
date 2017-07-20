@@ -48,6 +48,9 @@ module.exports = {
             var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'image';
             var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
+            if (!!uploadConfig || Object.keys(uploadConfig).length == 0) {
+                return false;
+            }
             var token = this.checkQiniuImgToken(key);
             token = !!token == true ? token : this.getQiniuToken(uploadConfig, key, params);
             return token;

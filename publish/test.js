@@ -108,7 +108,6 @@ var Test = function (_React$Component) {
           active: true,
           importContent: this.state.htmlContent,
           cbReceiver: this.receiveHtml,
-          uploadConfig: uploadConfig,
           uploadProps: uploadProps }),
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),

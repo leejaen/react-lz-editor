@@ -1,6 +1,6 @@
 {
   "name": "react-lz-editor",
-  "version": "0.10.19",
+  "version": "0.10.20",
   "description": "An open source react rich-text editor (mordern react editor includes media support such as texts, images, videos, audios, links etc.), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode.",
   "main": "index",
   "scripts": {
@@ -40,7 +40,7 @@
     "antd": "^2.8.3",
     "draft-js": "^0.10.0",
     "immutable": "^3.8.1",
-	  "js-base64": "^2.1.9",
+    "js-base64": "^2.1.9",
     "lodash": "^4.17.3",
     "synthetic-dom": "^0.2.1"
   },

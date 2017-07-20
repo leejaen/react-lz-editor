@@ -185,7 +185,6 @@ var ImgStyleControls = function (_Component) {
 
       var className = 'RichEditor-styleButton';
       var that = this;
-
       return _react2.default.createElement(
         'div',
         { className: 'RichEditor-controls' },
@@ -198,7 +197,8 @@ var ImgStyleControls = function (_Component) {
             }),
             atuoSize: [650, 0],
             receiveSelectedPictures: this.groupAppend,
-            uploadConfig: this.props.uploadConfig },
+            uploadConfig: this.props.uploadConfig,
+            uploadProps: this.props.uploadProps },
           _react2.default.createElement(
             'span',
             { className: className },
