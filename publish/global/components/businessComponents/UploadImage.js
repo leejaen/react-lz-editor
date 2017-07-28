@@ -224,10 +224,22 @@ var UploadImage = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      var _this5 = this;
+
+      clearTimeout(this.state.upReceiverFun);
+      if (nextProps.uploadProps) {
+
+        this.state.upReceiverFun = setTimeout(function () {
+          if (!!nextProps.uploadProps.fileList && nextProps.uploadProps.fileList.length == 0) {
+            return false;
+          }
+          _this5.props.cbReceiver(nextProps.uploadProps.fileList);
+        }, 1000);
+        return false;
+      }
       if ((0, _isEqual2.default)(nextProps.fileList, this.state.files)) {
         return false;
       }
-
       if (nextProps.isOpenModel) {
         this.state.files = [];
         this.forceUpdate();
@@ -247,7 +259,7 @@ var UploadImage = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _props = this.props,
           properties = _props.properties,
@@ -263,11 +275,11 @@ var UploadImage = function (_Component) {
           var token = that.state.qiniu.token,
               key = "";
           if (!token) {
-            token = _publicDatas.PRO_QINIU.checkQiniu.returnToken(_this5.props.uploadConfig);
+            token = _publicDatas.PRO_QINIU.checkQiniu.returnToken(_this6.props.uploadConfig);
           }
           key = _publicDatas.PRO_COMMON.String.RndNum(20) + "." + _publicDatas.PRO_COMMON.String.GetFileExtensionName(file.name)[0];
-          if (_this5.props.uploadConfig.QINIU_KEY_PREFIX) {
-            key = _this5.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key;
+          if (_this6.props.uploadConfig.QINIU_KEY_PREFIX) {
+            key = _this6.props.uploadConfig.QINIU_KEY_PREFIX + '/' + key;
           }
           return { token: token, key: key };
         },

@@ -44,11 +44,12 @@ module.exports = {
             }
             return qiniu_token;
         },
-        returnToken: function returnToken(uploadConfig) {
+        returnToken: function returnToken() {
+            var uploadConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'image';
             var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-            if (!!uploadConfig || Object.keys(uploadConfig).length == 0) {
+            if (Object.keys(uploadConfig).length == 0) {
                 return false;
             }
             var token = this.checkQiniuImgToken(key);
