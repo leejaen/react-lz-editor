@@ -150,7 +150,6 @@ class UploadImage extends Component {
 
     }, 1000);
   }
-
   supportFileType(props, propName, componentName) {
     componentName = componentName || 'ANONYMOUS';
     if (props[propName]) {
@@ -170,14 +169,23 @@ class UploadImage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("componentWillReceiveProps",nextProps.fileList,this.state.files);
-      // console.log("isEqual",isEqual(nextProps.fileList, this.state.files));
+    clearTimeout(this.state.upReceiverFun);
+    if (nextProps.uploadProps) {
+
+      this.state.upReceiverFun = setTimeout(() => {
+        //限制频繁调用组件制定的cbReceiver
+        if (!!nextProps.uploadProps.fileList && nextProps.uploadProps.fileList.length == 0) {
+          return false;
+        }
+        this.props.cbReceiver(nextProps.uploadProps.fileList);
+
+      }, 1000);
+      return false;
+    }
     if (isEqual(nextProps.fileList, this.state.files)) {
       return false;
     }
-    // console.log("我是变化",nextProps.isOpenModel);
     if(nextProps.isOpenModel){
-      // console.log("我是变化",nextProps.isOpenImg);
       // this.setState({
       //   files:[]
       // })

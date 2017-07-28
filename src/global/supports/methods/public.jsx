@@ -48,8 +48,8 @@ module.exports = {
             }
             return qiniu_token;
         },
-        returnToken: function(uploadConfig,key = 'image', params = {}) {
-          if (!!uploadConfig||Object.keys(uploadConfig).length==0) {
+        returnToken: function(uploadConfig={},key = 'image', params = {}) {
+          if (Object.keys(uploadConfig).length==0) {
             return false;
           }
           let token = this.checkQiniuImgToken(key);
