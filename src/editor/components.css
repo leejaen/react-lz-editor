@@ -173,7 +173,7 @@
 .RichEditor-activeButton {
   color: #fff;
   border-radius: 5px;
-  /*这里不能写默认颜色否则会替换自定义主题色*/
+  /*Can not use the default color, otherwise it will replace the custom theme color*/
 }
 
 .RichEditor-color {

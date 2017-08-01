@@ -39,6 +39,7 @@ import {stateToHTML,stateFromHTML,stateToMD,stateFromMD} from './utils';
 
 import getSelectedBlocks from './utils/stateUtils/getSelectedBlocks';
 import {PRO_COMMON} from '../global/supports/publicDatas';
+import {lang} from '../global/i18n';
 import LinkDecorator from "./decorators/LinkDecorator";
 import ImageDecorator from "./decorators/ImageDecorator";
 import VideoDecorator from "./decorators/VideoDecorator";
@@ -74,8 +75,8 @@ class EditorConcist extends React.Component {
     super(props);
 
     this.state = {
-      openFullTest:"全屏",
-      showSourceEditor:"源码",
+      openFullTest:"",
+      showSourceEditor:"",
       showURLInput: false,
       urlValue: '',
       hasPasted:false,
@@ -83,18 +84,17 @@ class EditorConcist extends React.Component {
       visible: false,
       showMarkdownSource:false,
       tempSouceContent:"",
+      language:"en",
 
       editorState: (() => {
         let originalString = this.props.importContent;
         originalString = !originalString
           ? " "
           : originalString;
-        if (!originalString) { //暂时不走createEmpty，有错。空的话给个空格规避
+        if (!originalString) { //Error, do not user 'createEmpty' for the time been.
           //this.state.alwaysEnterEmpty = true;
           return EditorState.createEmpty(decorator);
         } else {
-          // let contentDomElement= document.createElement('div'); contentDomElement.innerHTML= this.props.importContent;//转换成dom
-          // element
           const ConvertFormatProps = this.props.convertFormat;
           let contentState;
           if(ConvertFormatProps === 'html') {
@@ -115,7 +115,6 @@ class EditorConcist extends React.Component {
       })()
     };
 
-    // this.focus = () => this.refs.editor.focus();//使用babel转码之后不是react组件不能用refs方式
     this.onChange = (editorState) => {
       this.setState({editorState});
       let that = this;
@@ -123,7 +122,7 @@ class EditorConcist extends React.Component {
         clearTimeout(that.timer);
       }
       that.timer = setTimeout(function() {
-        //状态转对象
+        //convert state to object.
         let rawContentState = that.state.editorState.getCurrentContent()
         //const rawContent = convertToRaw(rawContentState);
         // console.log('rawContentState', rawContentState);
@@ -137,7 +136,9 @@ class EditorConcist extends React.Component {
           const rawContent = convertToRaw(rawContentState);
           content = JSON.stringify(rawContent);
         }
-        that.props.cbReceiver(content); //富文本编辑器在设置active是true时，不可使用forceUpdate，否则会造成无法选中文本的问题！
+        that.props.cbReceiver(content);
+        //NOTE: When you set 'active' as 'true' in the editor, DO NOT use 'this.forceUpdate();', or you could not have able to select the text in editor probably.
+        //富文本编辑器在设置active是true时，不可使用forceUpdate，否则会造成无法选中文本的问题！
       }, 300);
     };
 
@@ -148,7 +149,7 @@ class EditorConcist extends React.Component {
     this.customKeyBinding = this._customKeyBinding.bind(this);
     this.handlePastedText=this._handlePastedText.bind(this);
 
-    /*视频音频图片*/
+    /*VIDEO/AUDIO/IMAGE*/
     this.logState = () => {
       const content = this.state.editorState.getCurrentContent();
       //  console.log(convertToRaw(content));
@@ -177,8 +178,27 @@ class EditorConcist extends React.Component {
     this.solidHtml=this._solidHtml.bind(this);
     this.changeMrakdownContent=this._changeMrakdownContent.bind(this);
   }
+  get localLang(){
+    let lang= navigator.language||navigator.browserLanguage;
+    return{fullLang:lang,simpLang:lang.split("-")[0]}
+  }
   componentDidMount() {
-     let content = (this.props.importContent);
+    let currLang=this.localLang,language;
+    if (lang[this.props.lang]) {
+      language=this.props.lang;
+    }else if (lang[currLang.fullLang]) {
+      language=currLang.fullLang;
+    }else if (lang[currLang.simpLang]){
+      language=currLang.simpLang;
+    }
+    language=language||"en";
+    this.setState({language,
+      openFullTest:lang[language].fullScreen,
+      showSourceEditor:lang[language].sourceCode
+    });
+
+
+    let content = (this.props.importContent);
     // const decorator = new CompositeDecorator([
     //   LinkDecorator,
     //   ImageDecorator
@@ -189,10 +209,13 @@ class EditorConcist extends React.Component {
     // let values = EditorState.createWithContent(contentState, decorator);
     // this.state.editorState = values;
     this.state.autoSaveFun=setInterval(()=>{
+      // Automaticly save text to draft-box every minute.
       //每分钟自动保存草稿一次
       this.handleKeyCommand("editor-save");
     },60000);
-  } // 此钩子用作编辑时候的回调
+  }
+  // This hook function will be called while you edit text in editor.
+  // 此钩子用作编辑时候的回调
   componentWillReceiveProps(newProps) {
     if (!newProps.active) {
       return false;
@@ -241,12 +264,10 @@ class EditorConcist extends React.Component {
     clearInterval(this.state.autoSaveFun);
   }
   handleOk() {
-    // console.log('点击了确定');
     this.setState({visible: false});
   }
 
   handleCancel(e) {
-    //  console.log(e);
     this.setState({visible: false});
   }
 
@@ -254,7 +275,6 @@ class EditorConcist extends React.Component {
     e.preventDefault();
     const {editorState} = this.state;
     const selection = editorState.getSelection();
-    // console.log("111111selection", selection)
     if (!selection.isCollapsed()) {
 
       let that = this;
@@ -263,12 +283,9 @@ class EditorConcist extends React.Component {
         urlValue: '',
         visible: true
       }, () => {
-        // setTimeout(() => {
-        //     ReactDom.findDOMNode(that.refs.urltext).focus();//使用babel转码之后不是react组件不能用refs方式
-        // }, 0);
       });
     } else {
-      message.error("创建链接前请先选中链接文字！", 5);
+      message.error(lang[this.state.language].fullScreen, 5);
     }
   }
 
@@ -282,7 +299,6 @@ class EditorConcist extends React.Component {
       urlValue: ''
     }, () => {
       setTimeout(() => {
-        // this.refs.editor.focus()//使用babel转码之后不是react组件不能用refs方式
       }, 0);
     });
   }
@@ -303,7 +319,7 @@ class EditorConcist extends React.Component {
         editorState: RichUtils.toggleLink(editorState, selection, null)
       });
     } else {
-      message.error("移除链接前请先选中链接！", 5);
+      message.error(lang[this.state.language].selectedLink, 5);
     }
   }
   _openFull(e){
@@ -316,7 +332,7 @@ class EditorConcist extends React.Component {
         // affixToolBar.className="";
         // affixToolBar.style=""
         this.setState({
-          openFullTest:"全屏"
+          openFullTest:lang[this.state.language].fullScreen
         })
     }else{
         ele.className += ' openFullAll';
@@ -326,7 +342,7 @@ class EditorConcist extends React.Component {
           // affixToolBar.style="position: fixed; top: 0; left: 0; width: "+affix.offsetWidth+"px;margin: 0 15px 15px;"
         },500)
         this.setState({
-          openFullTest:"退出全屏"
+          openFullTest:lang[this.state.language].quitFullScreen
         })
     }
 
@@ -337,13 +353,13 @@ class EditorConcist extends React.Component {
     if(ele.classList.contains("showSource")){
         ele.className = ele.className.replace("showSource","");
         this.setState({
-          showSourceEditor:"源码",
+          showSourceEditor:lang[this.state.language].sourceCode,
           showMarkdownSource:false
         })
     }else{
         ele.className += ' showSource';
         this.setState({
-          showSourceEditor:"预览",
+          showSourceEditor:lang[this.state.language].preview,
           showMarkdownSource:true
         })
     }
@@ -357,7 +373,7 @@ class EditorConcist extends React.Component {
     this.state.editorState = values;
     this.forceUpdate();
   }
-  //弹窗url，end
+
   _handleKeyCommand(command) {
     // console.log("command",command);
     const {editorState} = this.state;
@@ -385,7 +401,7 @@ class EditorConcist extends React.Component {
       }
       let start30Text=newText.substr(0,30);
       PRO_COMMON.localDB.setter("$d"+start30Text, content);
-      message.success("编辑器内容已更新到保险库中",5)
+      message.success(lang[this.state.language].successToDraftBox,5)
       return true;
     }else if(command==="editor-paste"){
       return true;
@@ -405,7 +421,9 @@ class EditorConcist extends React.Component {
     return getDefaultKeyBinding(e);
   }
   _solidHtml(html) {
-    // html=html.replace(/"((?:\\.|[^"\\])*)"/g,"");//去掉所有英文单引号里面的内容，比如style="" class=""
+    // html=html.replace(/"((?:\\.|[^"\\])*)"/g,"");
+    //Remove all content in quote. e.g. style="" class=""
+    //去掉所有英文单引号里面的内容，比如 style="" class=""
     let walk_the_DOM = function walk(node, func) {
       func(node);
       node = node.firstChild;
@@ -477,9 +495,11 @@ class EditorConcist extends React.Component {
 
     let values = EditorState.createWithContent(contentState, decorator);
     this.state.editorState = values;
-    message.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。",5);
+    message.success(lang[this.state.language].successPasteCleanText,5);
     this.forceUpdate();
-    return true;//覆盖编辑器的默认粘贴行为
+    return true;
+    //Override the default paste behavior of the editor
+    //覆盖编辑器的默认粘贴行为
   }
 
   _toggleBlockType(blockType) {
@@ -487,7 +507,8 @@ class EditorConcist extends React.Component {
   }
 
   _toggleAlignment(alignment) {
-    //这种方式仅支持的数据类型
+    //This method only supports the data type like:
+    //这种方式仅支持的数据类型:
     // https://github.com/facebook/draft-js/blob/master/src/model/constants/DraftBlockType.js
 
     // const {editorState} = this.state;
@@ -506,12 +527,12 @@ class EditorConcist extends React.Component {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
   }
 
-  /*视频音频图片*/
+  /*VIDEO/AUDIO/IMAGE*/
 
   _addMedia(type, Object) {
     let src = Object.url;
     if (!src) {
-      throw new Error("！！！！！！！！！！上传文件错误！！！！！！！！！！");
+      throw new Error(lang[this.state.language].errorUploadingFile);
       return false;
     }
     const entityKey = Entity.create(type, 'IMMUTABLE', {src});
@@ -655,7 +676,7 @@ class EditorConcist extends React.Component {
     // ref="urltext"
     if (this.state.showURLInput) {
       urlInput = <Modal
-        title="请输出你要跳转的链接"
+        title={lang[this.state.language].directToURL}
         visible={this.state.visible}
         onOk={this.confirmLink}
         onCancel={this.handleCancel}
@@ -666,7 +687,7 @@ class EditorConcist extends React.Component {
           value={this.state.urlValue}
           placeholder="http:// or https://"
           onKeyDown={this.onLinkInputKeyDown}/>
-        <span style={{color:"red"}}>请输入符合规范的网址链接（以“http://” 或 “https://”为前导）</span>
+        <span style={{color:"red"}}>{lang[this.state.language].directToURLTip}</span>
       </Modal>
     }
 
@@ -725,7 +746,7 @@ class EditorConcist extends React.Component {
             style={{height:"100%",width:"100%",overflowY:"visible" }}
             onChange={this.changeMrakdownContent}
             value={this.state.tempSouceContent||this.props.importContent}
-            placeholder="请在这里编辑您的markdown内容"/>
+            placeholder={lang[this.state.language].markdownTip}/>
         </div>
         {urlInput}
       </div>

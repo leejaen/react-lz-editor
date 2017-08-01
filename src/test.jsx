@@ -143,7 +143,8 @@ class Test extends React.Component {
       <div>
         <div>Editor demo 1 (use default html format ):
         </div>
-        <LzEditor active={true} importContent={this.state.htmlContent} cbReceiver={this.receiveHtml} uploadProps={uploadProps}/>
+        <LzEditor active={true} importContent={this.state.htmlContent} cbReceiver={this.receiveHtml} uploadProps={uploadProps}
+        lang="en"/>
         <br/>
         <br/>
         <div>Editor demo 2 (use markdown format ):
@@ -168,7 +169,8 @@ class Test extends React.Component {
           image={false}
           video={false}
           audio={false}
-          convertFormat="raw"/>
+          convertFormat="raw"
+          lang="zh-CN"/>
       </div>
     );
   }
