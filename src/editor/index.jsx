@@ -285,7 +285,7 @@ class EditorConcist extends React.Component {
       }, () => {
       });
     } else {
-      message.error(lang[this.state.language].fullScreen, 5);
+      message.error(lang[this.state.language].selectedText, 5);
     }
   }
 
@@ -708,24 +708,24 @@ class EditorConcist extends React.Component {
     return (
       <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
         <div>
-          {this.state.showMarkdownSource==false&&this.props.undoRedo&&<UndoRedo onToggle={this.undoRedo}/>}
-          {this.state.showMarkdownSource==false&&this.props.removeStyle&&<RemoveStyleControls onToggle={this.removeStyle}/>}
-          {this.state.showMarkdownSource==false&&this.props.pasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle}/>}
-          {this.state.showMarkdownSource==false&&this.props.blockStyle&&<BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType}/>}
-          {this.props.alignment&&this.props.convertFormat!=="markdown"&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment}/>}
-          {this.state.showMarkdownSource==false&&this.props.inlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle}/>}
-          {this.props.color&&this.props.convertFormat!=="markdown"&&<ColorControls editorState={editorState} onToggle={this.toggleColor}/>}
-          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage}
+          {this.state.showMarkdownSource==false&&this.props.undoRedo&&<UndoRedo onToggle={this.undoRedo} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.removeStyle&&<RemoveStyleControls onToggle={this.removeStyle} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.pasteNoStyle&&<PasteNoStyleControls receiveText={this.pasteNoStyle} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.blockStyle&&<BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} lang={lang[this.state.language]}/>}
+          {this.props.alignment&&this.props.convertFormat!=="markdown"&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.inlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle} lang={lang[this.state.language]}/>}
+          {this.props.color&&this.props.convertFormat!=="markdown"&&<ColorControls editorState={editorState} onToggle={this.toggleColor} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage} lang={lang[this.state.language]}
           uploadProps={this.props.uploadProps}/>}
-          {this.state.showMarkdownSource==false&&this.props.video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo}
+          {this.state.showMarkdownSource==false&&this.props.video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo} lang={lang[this.state.language]}
           uploadProps={this.props.uploadProps}/>}
-          {this.state.showMarkdownSource==false&&this.props.audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio}
+          {this.state.showMarkdownSource==false&&this.props.audio&&<AudioStyleControls uploadConfig={this.props.uploadConfig} receiveAudio={this.addAudio} lang={lang[this.state.language]}
           uploadProps={this.props.uploadProps}/>}
-          {this.state.showMarkdownSource==false&&this.props.urls&&<AddUrl editorState={editorState} onToggle={this.promptForLink}/>}
-          {this.state.showMarkdownSource==false&&this.props.urls&&<CloseUrl editorState={editorState} onToggle={this.removeLink}/>}
-          {this.state.showMarkdownSource==false&&this.props.autoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave}/>}
-          {this.props.fullScreen&&<OpenFull editorState={editorState} onToggle={this.openFull} coverTitle={this.state.openFullTest}/>}
-          {this.props.convertFormat=="markdown"&&<SourceEditor editorState={editorState} onToggle={this.toggleSource} coverTitle={this.state.showSourceEditor}/>}
+          {this.state.showMarkdownSource==false&&this.props.urls&&<AddUrl editorState={editorState} onToggle={this.promptForLink} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.urls&&<CloseUrl editorState={editorState} onToggle={this.removeLink} lang={lang[this.state.language]}/>}
+          {this.state.showMarkdownSource==false&&this.props.autoSave&&<AutoSaveControls receiveSavedItem={this.choiceAutoSave} lang={lang[this.state.language]}/>}
+          {this.props.fullScreen&&<OpenFull editorState={editorState} onToggle={this.openFull} coverTitle={this.state.openFullTest} lang={lang[this.state.language]}/>}
+          {this.props.convertFormat=="markdown"&&<SourceEditor editorState={editorState} onToggle={this.toggleSource} coverTitle={this.state.showSourceEditor} lang={lang[this.state.language]}/>}
         </div>
         <div className={className} onClick={this.focus} style={{display:this.state.showMarkdownSource==true?"none":"block"}}>
           <Editor

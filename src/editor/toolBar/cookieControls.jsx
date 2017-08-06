@@ -23,7 +23,7 @@ class AutoSave extends Component {
     return (
       <div className="RichEditor-controls">
         <span className="RichEditor-styleButton" onClick={this.props.onToggle}>
-          自动保存库
+          {this.props.lang.autoSave}
         </span>
       </div>
     )

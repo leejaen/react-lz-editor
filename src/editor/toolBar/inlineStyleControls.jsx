@@ -5,27 +5,28 @@ class InlineStyleControls extends Component {
     super(props);
   }
   render() {
+    const {editorState,onToggle,lang} = this.props;
     const INLINE_STYLES = [
       {
-        text: '加粗',
+        text: lang.textBold,
         style: 'BOLD',
         label: "editor_b"
       }, {
-        text: '斜体',
+        text: lang.textItalic,
         style: 'ITALIC',
         label: "editor_i"
       }, {
-        text: '下划线',
+        text: lang.textUnderline,
         style: 'UNDERLINE',
         label: "editor_u"
       }, {
-        text: '等宽字体',
+        text: lang.textCode,
         style: 'CODE',
         label: "editor_e"
       }
     ];
-    let currentStyle = this.props.editorState
-      ? this.props.editorState.getCurrentInlineStyle()
+    let currentStyle = editorState
+      ? editorState.getCurrentInlineStyle()
       : {};
     return (
       <div className="RichEditor-controls">
@@ -34,7 +35,7 @@ class InlineStyleControls extends Component {
           text={type.text}
           active={currentStyle.has(type.style)}
           label={type.label}
-          onToggle={this.props.onToggle}
+          onToggle={onToggle}
           style={type.style}/>)}
       </div>
     )

@@ -87,7 +87,7 @@ class AutoSaveControls extends Component {
 
     const columns = [
       {
-        title: '内容预览',
+        title: this.props.lang.previewMsg,
         dataIndex: 'keyName',
         key: 'keyName',
         render: (text, record, index) => (text + "...")
@@ -95,7 +95,7 @@ class AutoSaveControls extends Component {
         title: '',
         key: 'operation',
         render: (text, record) => (
-          <a onClick={() => this.doDelete(record.keyName)}>删除</a>
+          <a onClick={() => this.doDelete(record.keyName)}>{this.props.lang.deleteDraftItem}</a>
         )
       }
     ];
@@ -116,19 +116,19 @@ class AutoSaveControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span>
-            <span className={className} onClick={that.onAutoSaveToggle} title="保险库——编辑器中按Ctrl+S或Cmd+S存入保险库，点击打开保险库以继续"><Icon type="editor_safty"/>
+            <span className={className} onClick={that.onAutoSaveToggle} title={this.props.lang.draftTipMsg}><Icon type="editor_safty"/>
             </span>
         </span>
         <Modal
-          title="编辑器保险库条目列表："
+          title={this.props.lang.draftModalTitle}
           visible={that.state.visible}
           closable={false}
           width={600}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
-          } > 取 消 < /Button>,
-            <Popconfirm placement="right" title="确定后编辑器内容将会被最后一次保存的内容替换，若有更改，替换后将不可恢复，是否继续？" onConfirm={that.sendSavedItemToEditor}>
-              &nbsp;&nbsp;&nbsp;&nbsp;<Button key="submit" type="primary" size="large" disabled={!that.state.selectedRowKeys.length}> 确 定 </Button >
+          } >  {this.props.lang.cancelText}  < /Button>,
+            <Popconfirm placement="right" title={this.props.lang.confirmUseDraft} onConfirm={that.sendSavedItemToEditor}>
+              &nbsp;&nbsp;&nbsp;&nbsp;<Button key="submit" type="primary" size="large" disabled={!that.state.selectedRowKeys.length}> {this.props.lang.OKText} </Button >
             </Popconfirm>]}>
           <Table
             rowSelection={rowSelection}
@@ -136,7 +136,7 @@ class AutoSaveControls extends Component {
             columns={columns}
             dataSource={that.state.list}
             size="small"
-            /><span style={{color:"#ccc"}}>编辑器内容默认一分钟保存一次，可以手动Ctrl+S或Cmd+S保存，内容小于20字时将不会保存在保险库中；列表中不用数据请及时删除维护，否则会影响保险库保存容量！</span>
+            /><span style={{color:"#ccc"}}>{this.props.lang.draftCautionMsg}</span>
         </Modal>
       </div>
     )

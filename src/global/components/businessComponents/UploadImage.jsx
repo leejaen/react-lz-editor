@@ -56,7 +56,7 @@ class UploadImage extends Component {
       },100);
     }
     else {
-      this.state.inputVideoHelp = "验证您填写的URL地址无效，请检查！";
+      this.state.inputVideoHelp = this.props.lang.invalidUrl;
       this.forceUpdate();
     }
   }
@@ -77,7 +77,7 @@ class UploadImage extends Component {
     // key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY if (!!this.props.limit && file.length > this.props.limit) {    // message.error("由于限制，您最多只能选择" + this.props.limit + "张图片，请重新选择。", 5);    return false; }    // console.log("key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY");
     let isFormat = PRO_COMMON.Array.inArray(PRO_QINIU.supportMime[this.props.fileType], file.type);
     if (!isFormat) {
-      message.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
+      message.error(this.props.lang.supportMimeMsg+' File Mimetype: ' + PRO_QINIU.supportMime[this.props.fileType].join(", "), 10);
       return false;
     }
     if (!this.state.qiniu.token&&!uploadConfig) {
@@ -158,10 +158,10 @@ class UploadImage extends Component {
         var isInSupport = !!PRO_QINIU.supportMime[value];
         return isInSupport
           ? null
-          : new Error(propName + ' in ' + componentName + "不合法的上传资源类型！");
+          : new Error(propName + ' in ' + componentName + this.props.lang.invalidType);
       }
     } else {
-      throw new Error(propName + ' in ' + componentName + "必须填写fileType（字符串型）：image或video或audio！");
+      throw new Error(propName + ' in ' + componentName + this.props.lang.invalidFileType);
       return false;
     }
     // assume all ok

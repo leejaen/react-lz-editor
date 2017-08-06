@@ -8,7 +8,7 @@ class RemoveStyleControls extends Component {
     let className = 'RichEditor-styleButton';
     return (
       <div className="RichEditor-controls">
-        <Popconfirm title="确认移除所选择文字的样式？" onConfirm={this.props.onToggle} okText="确认移除" cancelText="取消操作">
+        <Popconfirm title={this.props.lang.confirmToRemove} onConfirm={this.props.onToggle} okText={this.props.lang.doRemove} cancelText={this.props.lang.doNotRemove}>
           <span className={className}>
             <Icon key="empty_style" type="editor_empty_style" />
           </span>

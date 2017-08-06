@@ -59,15 +59,15 @@ class VideoStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span className={className} onClick={that.onVideoToggle}>
-            <Icon type="editor_video" title="上传视频"/>
+            <Icon type="editor_video" title={this.props.lang.insertVideoTip}/>
         </span>
         <Modal
-          title="插入视频"
+          title={this.props.lang.insertVideoModalTitle}
           visible={that.state.visible}
           closable={false}
           footer={[<Button key = "back" size = "large" onClick = {
             that.handleCancel
-          }> 取消 </Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendVideoToEditor}> 确定 </Button>]}>
+          }> {this.props.lang.cancelText} </Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendVideoToEditor}> {this.props.lang.OKText} </Button>]}>
           <UploadImage isMultiple={true}
             limit={10}
             fileList={that.state.videos}

@@ -58,15 +58,15 @@ class AudioStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
         <span className={className} onClick={that.onAudioToggle}>
-            <Icon type="editor_audio" title="上传音频"/>
+            <Icon type="editor_audio" title={this.props.lang.insertAudioTip}/>
         </span>
         <Modal
-          title="插入音频"
+          title={this.props.lang.insertAudioModalTitle}
           visible={that.state.visible}
           closable={false}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
-          } > 取 消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendAudioToEditor}> 确 定 </Button >]}>
+          } > {this.props.lang.cancelText} < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendAudioToEditor}>{this.props.lang.OKText} </Button >]}>
           <UploadImage isMultiple={true}
             fileList={that.state.audios}
             isOpenModel={that.state.visible}

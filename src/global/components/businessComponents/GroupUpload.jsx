@@ -153,7 +153,7 @@ class GroupUpload extends Component {
     });
     // console.log("getPfop pictureList",pictureList);
     // setTimeout(()=>{//防止在持久保存成功前过快加载导致图片显示不出
-    message.info("图片正在处理请稍等片刻",10);
+    message.info(this.props.lang.inPfopProgress,10);
     setTimeout(() => {
       this.props.receiveSelectedPictures(pictureList);
     }, 100);
@@ -173,7 +173,7 @@ class GroupUpload extends Component {
       // dispatch(gotPfopPicturesSuccessfully(theData.data));
     }
   } else {
-    message.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
+    message.error(this.props.lang.pfopError + theData.des, 5);
   }
 }
   getPictures(listPicture) { //上传完毕
@@ -214,7 +214,7 @@ class GroupUpload extends Component {
         {(() => {
           if (!this.props.children) {
             return (
-              <Button onClick={this.openModal}>批量添加</Button>
+              <Button onClick={this.openModal}>{this.props.lang.btnAddBatch}</Button>
             );
           } else {
             const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {onClick: this.openModal}));
@@ -222,13 +222,13 @@ class GroupUpload extends Component {
           }
         })()}
         <Modal
-          title={<span> <span>批量上传图片</span> &nbsp;
+          title={<span> <span>{this.props.lang.batchAddModalTitle}</span> &nbsp;
         &nbsp;
         &nbsp;
         &nbsp;
         <Checkbox onChange = {
           this.autoWaterMark
-        }> 自动加水印 </Checkbox>
+        }> {this.props.lang.chkAutoWaterMask} </Checkbox>
         &nbsp;&nbsp;&nbsp;&nbsp;<Select size="small"
         disabled={!this.state.isAutoWaterMark}
         defaultValue={this.state.selectedWaterMarkType}
@@ -263,7 +263,7 @@ class GroupUpload extends Component {
           </Select.OptGroup>
         </Select>&nbsp;&nbsp;&nbsp;&nbsp;{
           this.props.atuoSize
-          ?<Checkbox onChange={this.onAutoSizeChange} defaultChecked={this.state.isAutoSize}>按照图片{this.props.atuoSize[0]==0?"高度":"宽度"}自动缩放到{this.props.atuoSize[0]||"[自动]"}*{this.props.atuoSize[1]||"[自动]"}</Checkbox>
+          ?<Checkbox onChange={this.onAutoSizeChange} defaultChecked={this.state.isAutoSize}>按照图片{this.props.atuoSize[0]==0?"高度":"宽度"}自动缩放到{this.props.atuoSize[0]||"[auto]"}*{this.props.atuoSize[1]||"[auto]"}</Checkbox>
           :null
         }
       </span>}
@@ -275,12 +275,12 @@ class GroupUpload extends Component {
           footer={[
             <Button key = "back"
                     size = "large"
-                    onClick = {this.closeModal}> 取消 </Button>
+                    onClick = {this.closeModal}> {this.props.lang.cancelText} </Button>
           , <Button key="submit"
                     type="primary"
                     size="large"
                     disabled={this.state.selectedPictureList.length==0}
-                    onClick={this.handlePictureSeletorOK}> 确定 </Button >]}>
+                    onClick={this.handlePictureSeletorOK}> {this.props.lang.OKText} </Button >]}>
           <div className="picture-list">
             {this.state.pictureList.length === 0
               ? <div>请上传图片，数量请尽可能不要多余{this.props.limitCount || 10}，图片数量过多会引起用户体验问题及数据流量压力！</div>
@@ -308,7 +308,8 @@ class GroupUpload extends Component {
               isShowUploadList={true}
               uploadConfig={this.props.uploadConfig}
               limit={this.props.limitCount || 10}
-              uploadProps={this.props.uploadProps}/>
+              uploadProps={this.props.uploadProps}
+              lang={this.props.lang}/>
           </div>
         </Modal>
       </span>
