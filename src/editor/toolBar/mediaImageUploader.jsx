@@ -149,6 +149,7 @@ class ImgStyleControls extends Component {
           receiveSelectedPictures={this.groupAppend}
           uploadConfig={this.props.uploadConfig}
           uploadProps={this.props.uploadProps}
+          watermarkImage={this.props.watermarkImage}
           lang={this.props.lang}>
           <span className={className}>
               <Icon type="editor_image_masker" title={this.props.lang.imageMasker}/>

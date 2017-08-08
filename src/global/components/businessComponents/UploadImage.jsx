@@ -73,8 +73,6 @@ class UploadImage extends Component {
   }
 
   beforeUpload(file) {
-    // console.log("file.type",file);
-    // key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY if (!!this.props.limit && file.length > this.props.limit) {    // message.error("由于限制，您最多只能选择" + this.props.limit + "张图片，请重新选择。", 5);    return false; }    // console.log("key需要唯一，此处不可使用直接获取的方式，否则会出现相同KEY");
     let isFormat = PRO_COMMON.Array.inArray(PRO_QINIU.supportMime[this.props.fileType], file.type);
     if (!isFormat) {
       message.error(this.props.lang.supportMimeMsg+' File Mimetype: ' + PRO_QINIU.supportMime[this.props.fileType].join(", "), 10);
@@ -126,7 +124,7 @@ class UploadImage extends Component {
       if (!!file.response) {
         //上传列表数量的限制，只显示最近上传的限制个数，旧的会被新的顶掉
         if (!!_this.props.limit && _this.state.files.length > _this.props.limit) {
-          message.info(`只能保留最后上传的 ${_this.props.limit} 个文件，其他超出的已经被顶掉。`, 5);
+          message.info(_this.props.lang.limitCountTip.replace("$limit$",_this.props.limit), 5);
           PRO_COMMON.Array.removeByIndex(_this.state.files, 0)
         }
       }
@@ -237,23 +235,19 @@ class UploadImage extends Component {
         <Upload {...uploadProps}>
           <Button>
             <Icon type="upload"/>
-            点击上传
+            {this.props.lang.btnUpload}
           </Button>
         </Upload>
 
         <div style={{margin:"10px 0 0"}}>
           <Input
-          placeholder={`您还可以手动输入${{'image':'图片','video':'视频','audio':'音频'}[this.props.fileType]}资源地址${this.props.fileType=="image"?"（仅支持七牛）":""}，输入完毕按回车键确认`}
+          placeholder={this.props.lang.manuallyUploadTip}
           value={this.state.inputVideoUrl}
           onChange={this.changeInputVideo}
           onPressEnter={this.getInputVideo}/>
           <span style={{color:'red'}}>{this.state.inputVideoHelp}&nbsp;</span>
         </div>
-        <span>{`${this.props.limit > 1
-            ? "最多"
-            : "只"}可以上传 ${this.props.limit} 个类型为 ${PRO_QINIU.supportMime[this.props.fileType].join("、")} 的 ${{'image':'图片','video':'视频','audio':'音频'}[this.props.fileType]} 文件。${
-              this.props.fileType=="image"?"推荐安装“Hover Zoom+”扩展支持。":""+this.props.description
-            }`}</span>
+        <span>{this.props.lang.limitAndTypeTip.replace("$limit$",this.props.limit).replace("$type$",PRO_QINIU.supportMime[this.props.fileType].join(", "))}</span>
       </div>
     )
   }

@@ -209,12 +209,13 @@ class GroupUpload extends Component {
     }
   }
   render() {
+    let {lang,watermarkImage,atuoSize}=this.props;
     return (
       <span>
         {(() => {
           if (!this.props.children) {
             return (
-              <Button onClick={this.openModal}>{this.props.lang.btnAddBatch}</Button>
+              <Button onClick={this.openModal}>{lang.btnAddBatch}</Button>
             );
           } else {
             const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {onClick: this.openModal}));
@@ -222,48 +223,50 @@ class GroupUpload extends Component {
           }
         })()}
         <Modal
-          title={<span> <span>{this.props.lang.batchAddModalTitle}</span> &nbsp;
+          title={<span> <span>{lang.batchAddModalTitle}</span> &nbsp;
         &nbsp;
         &nbsp;
         &nbsp;
         <Checkbox onChange = {
           this.autoWaterMark
-        }> {this.props.lang.chkAutoWaterMask} </Checkbox>
+        }
+        disabled={!watermarkImage||watermarkImage.length==0}> {lang.chkAutoWaterMask} </Checkbox>
         &nbsp;&nbsp;&nbsp;&nbsp;<Select size="small"
-        disabled={!this.state.isAutoWaterMark}
+        disabled={!this.state.isAutoWaterMark||!watermarkImage||watermarkImage.length==0}
         defaultValue={this.state.selectedWaterMarkType}
         style={{ width: 100 }}
         onChange={this.chooseWaterMake}>
-        <Select.Option value="white_small">白色小图</Select.Option >
-          <Select.Option value="white_big">白色大图</Select.Option>
-          <Select.Option value = "gray_small" > 灰色小图 </Select.Option>
-          <Select.Option value="gray_big">灰色大图</Select.Option>
-          <Select.Option value="black_small">黑色小图</Select.Option>
-          <Select.Option value = "black_big" > 黑色大图 </Select.Option>
+          {watermarkImage&&watermarkImage.map((item)=>{
+            return <Select.Option value={item.type}>{item.tip}</Select.Option>
+          })}
         </Select>
         &nbsp;&nbsp;&nbsp;&nbsp;<Select size="small"
-        disabled={!this.state.isAutoWaterMark}
+        disabled={!this.state.isAutoWaterMark||!watermarkImage||watermarkImage.length==0}
         defaultValue={this.state.selectedWaterMarkPositon}
         style={{ width: 100 }}
         onChange={this.chooseWaterMakePosition}>
-          <Select.OptGroup label="上">
-            <Select.Option value="NorthWest">左上</Select.Option >
-            <Select.Option value="North">中上</Select.Option>
-            <Select.Option value = "NorthEast" > 右上 </Select.Option>
+          <Select.OptGroup label={lang.watermarkPos.north}>
+            <Select.Option value="NorthWest">{lang.watermarkPos.northWest}</Select.Option >
+            <Select.Option value="North">{lang.watermarkPos.northCenter}</Select.Option>
+            <Select.Option value = "NorthEast" > {lang.watermarkPos.northEast} </Select.Option>
           </Select.OptGroup>
-          <Select.OptGroup label="中">
-            <Select.Option value="West">左中</Select.Option>
-            <Select.Option value="Center">中心</Select.Option>
-            <Select.Option value = "East" > 右中 </Select.Option>
+          <Select.OptGroup label={lang.watermarkPos.center}>
+            <Select.Option value="West">{lang.watermarkPos.west}</Select.Option>
+            <Select.Option value="Center">{lang.watermarkPos.centerCenter}</Select.Option>
+            <Select.Option value = "East" > {lang.watermarkPos.east} </Select.Option>
           </Select.OptGroup>
-          <Select.OptGroup label="下">
-            <Select.Option value="SouthWest">左下</Select.Option>
-            <Select.Option value="South">中下</Select.Option>
-            <Select.Option value = "SouthEast" > 右下 </Select.Option>
+          <Select.OptGroup label={lang.watermarkPos.south}>
+            <Select.Option value="SouthWest">{lang.watermarkPos.southWest}</Select.Option>
+            <Select.Option value="South">{lang.watermarkPos.southCenter}</Select.Option>
+            <Select.Option value = "SouthEast" > {lang.watermarkPos.southEast} </Select.Option>
           </Select.OptGroup>
         </Select>&nbsp;&nbsp;&nbsp;&nbsp;{
-          this.props.atuoSize
-          ?<Checkbox onChange={this.onAutoSizeChange} defaultChecked={this.state.isAutoSize}>按照图片{this.props.atuoSize[0]==0?"高度":"宽度"}自动缩放到{this.props.atuoSize[0]||"[auto]"}*{this.props.atuoSize[1]||"[auto]"}</Checkbox>
+          atuoSize
+          ?<Checkbox onChange={this.onAutoSizeChange} defaultChecked={this.state.isAutoSize}>
+          {lang.zoomTipMsg
+            .replace("$accordingSize$",atuoSize[0]==0?lang.height:lang.width)
+          .replace("$targetSize$",((atuoSize[0]||lang.auto)+"*"+(atuoSize[1]||lang.auto))
+          )}</Checkbox>
           :null
         }
       </span>}
@@ -271,19 +274,19 @@ class GroupUpload extends Component {
           onCancel={this.closeModal}
           closable={false}
           maskClosable={false}
-          width={900}
+          width={1000}
           footer={[
             <Button key = "back"
                     size = "large"
-                    onClick = {this.closeModal}> {this.props.lang.cancelText} </Button>
+                    onClick = {this.closeModal}> {lang.cancelText} </Button>
           , <Button key="submit"
                     type="primary"
                     size="large"
                     disabled={this.state.selectedPictureList.length==0}
-                    onClick={this.handlePictureSeletorOK}> {this.props.lang.OKText} </Button >]}>
+                    onClick={this.handlePictureSeletorOK}> {lang.OKText} </Button >]}>
           <div className="picture-list">
             {this.state.pictureList.length === 0
-              ? <div>请上传图片，数量请尽可能不要多余{this.props.limitCount || 10}，图片数量过多会引起用户体验问题及数据流量压力！</div>
+              ? <div>{lang.pleaseUploading}</div>
               : <div>
                 {this.state.pictureList.map(item => {
                   return <Checkbox
@@ -309,7 +312,7 @@ class GroupUpload extends Component {
               uploadConfig={this.props.uploadConfig}
               limit={this.props.limitCount || 10}
               uploadProps={this.props.uploadProps}
-              lang={this.props.lang}/>
+              lang={lang}/>
           </div>
         </Modal>
       </span>

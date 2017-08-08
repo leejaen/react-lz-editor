@@ -715,7 +715,7 @@ class EditorConcist extends React.Component {
           {this.props.alignment&&this.props.convertFormat!=="markdown"&&<AlignmentControls editorState={editorState} onToggle={this.toggleAlignment} lang={lang[this.state.language]}/>}
           {this.state.showMarkdownSource==false&&this.props.inlineStyle&&<InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle} lang={lang[this.state.language]}/>}
           {this.props.color&&this.props.convertFormat!=="markdown"&&<ColorControls editorState={editorState} onToggle={this.toggleColor} lang={lang[this.state.language]}/>}
-          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage} lang={lang[this.state.language]}
+          {this.state.showMarkdownSource==false&&this.props.image&&<ImgStyleControls uploadConfig={this.props.uploadConfig} receiveImage={this.addImage} watermarkImage={this.props.watermarkImage} lang={lang[this.state.language]}
           uploadProps={this.props.uploadProps}/>}
           {this.state.showMarkdownSource==false&&this.props.video&&<VideoStyleControls uploadConfig={this.props.uploadConfig} receiveVideo={this.addVideo} lang={lang[this.state.language]}
           uploadProps={this.props.uploadProps}/>}

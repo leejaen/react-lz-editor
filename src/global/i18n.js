@@ -76,7 +76,33 @@ module.exports = {
       pfopError:"An error occurred while pfoping image! Please refer to:",
       btnAddBatch:"Batch add",
       batchAddModalTitle:"Bulk upload pictures",
-      chkAutoWaterMask:"Automatic watermarking"
+      chkAutoWaterMask:"Automatic watermarking",
+
+      uploadingTipMsg:"Please upload as requested.",
+      limitCountTip:"Just keep $limit$ files, the others has been droped.",
+      btnUpload:"Click to upload",
+      manuallyUploadTip:"You can manually input an image, 'Enter' to confirm.",
+      limitAndTypeTip:"You can uploading $limit$ files.($type$)",
+
+      auto:"[AUTO]",
+      height:"height",
+      width:"width",
+      zoomTipMsg:"Zoomout or zoomin to $targetSize$ according image $accordingSize$ ",
+      pleaseUploading:"please uploading",
+      watermarkPos:{
+        north:"north",
+          northWest:"north west",
+          northCenter:"north center",
+          northEast: "north east" ,
+        center:"center",
+          west:"west",
+          centerCenter:"absolute center",
+          east:  "east" ,
+        south:"south",
+          southWest:"south west",
+          southCenter:"south center",
+          southEast:  "south east" ,
+      }
     },
     'zh-CN': {
       cancelText:"取消",
@@ -160,7 +186,32 @@ module.exports = {
       supportMimeMsg:"只能上传指定文件，请重新选择！参考",
       invalidType:"不合法的上传资源类型！",
       invalidFileType:"必须填写fileType（字符串型）：image或video或audio！",
-      uploadTipMsg:"请根据要求上传。"
+
+      uploadingTipMsg:"请根据要求上传。",
+      limitCountTip:"只能保留最后上传的 $limit$ 个文件，其他超出的已经被顶掉。",
+      btnUpload:"点击上传",
+      manuallyUploadTip:"您还可以手动输入文件资源地址，输入完毕按回车键确认",
+      limitAndTypeTip:"您可以上传 $limit$ 个类型为 $type$ 的文件。",
+
+      auto:"[自动]",
+      height:"高度",
+      width:"宽度",
+      zoomTipMsg:"按照图片$accordingSize$自动缩放到$targetSize$",
+      pleaseUploading:"请上传图片",
+      watermarkPos:{
+        north:"上",
+          northWest:"左上",
+          northCenter:"中上",
+          northEast: "右上" ,
+        center:"中",
+          west:"左中",
+          centerCenter:"中心",
+          east:  "右中" ,
+        south:"下",
+          southWest:"左下",
+          southCenter:"中下",
+          southEast:  "右下" ,
+      }
     }
   }
 }
