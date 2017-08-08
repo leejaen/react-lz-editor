@@ -42,14 +42,14 @@ var undoRedo = function (_Component) {
           'span',
           { className: 'RichEditor-styleButton', onClick: function onClick() {
               return _this2.props.onToggle("undo");
-            }, title: '\u64A4\u9500\uFF08Ctrl-Z\uFF0CCmd-Z\uFF09' },
+            }, title: this.props.lang.undo },
           _react2.default.createElement(_icon2.default, { key: '_undo', type: 'editor_undo' })
         ),
         _react2.default.createElement(
           'span',
           { className: 'RichEditor-styleButton', onClick: function onClick() {
               return _this2.props.onToggle("redo");
-            }, title: '\u91CD\u505A\uFF08Ctrl-Y\uFF0CCmd-Shift-Z\uFF09' },
+            }, title: this.props.lang.redo },
           _react2.default.createElement(_icon2.default, { key: '_redo', type: 'editor_redo' })
         )
       );

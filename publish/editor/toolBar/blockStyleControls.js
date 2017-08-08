@@ -11,40 +11,41 @@ var _styleButton2 = _interopRequireDefault(_styleButton);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var BlockStyleControls = function BlockStyleControls(props) {
-  var editorState = props.editorState;
+  var editorState = props.editorState,
+      lang = props.lang;
 
   var selection = editorState.getSelection();
   var blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
   var BLOCK_TYPES = [{
-    text: "标题1",
+    text: lang.H1,
     label: "editor_H1",
     style: 'header-one'
   }, {
-    text: "标题2",
+    text: lang.H2,
     label: "editor_H2",
     style: 'header-two'
   }, {
-    text: "标题3",
+    text: lang.H3,
     label: "editor_H3",
     style: 'header-three'
   }, {
-    text: "标题4",
+    text: lang.H4,
     label: "editor_H4",
     style: 'header-four'
   }, {
-    text: "引用",
+    text: lang.refs,
     label: "editor_refs",
     style: 'blockquote'
   }, {
-    text: "无序列表",
+    text: lang.ul,
     label: "editor_ul",
     style: 'unordered-list-item'
   }, {
-    text: "有序列表",
+    text: lang.ol,
     label: "editor_ol",
     style: 'ordered-list-item'
   }, {
-    text: "区段",
+    text: lang.pre,
     label: "editor_pre",
     style: 'code-block'
   }];

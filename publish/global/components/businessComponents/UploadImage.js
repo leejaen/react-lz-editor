@@ -113,7 +113,7 @@ var UploadImage = function (_Component) {
           }, 100);
         }, 100);
       } else {
-        this.state.inputVideoHelp = "验证您填写的URL地址无效，请检查！";
+        this.state.inputVideoHelp = this.props.lang.invalidUrl;
         this.forceUpdate();
       }
     }
@@ -134,7 +134,7 @@ var UploadImage = function (_Component) {
     value: function beforeUpload(file) {
       var isFormat = _publicDatas.PRO_COMMON.Array.inArray(_publicDatas.PRO_QINIU.supportMime[this.props.fileType], file.type);
       if (!isFormat) {
-        _message2.default.error('只能上传指定文件，请重新选择！参考 File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join("、"), 10);
+        _message2.default.error(this.props.lang.supportMimeMsg + ' File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join(", "), 10);
         return false;
       }
       if (!this.state.qiniu.token && !uploadConfig) {
@@ -184,7 +184,7 @@ var UploadImage = function (_Component) {
         }
         if (!!file.response) {
           if (!!_this.props.limit && _this.state.files.length > _this.props.limit) {
-            _message2.default.info('\u53EA\u80FD\u4FDD\u7559\u6700\u540E\u4E0A\u4F20\u7684 ' + _this.props.limit + ' \u4E2A\u6587\u4EF6\uFF0C\u5176\u4ED6\u8D85\u51FA\u7684\u5DF2\u7ECF\u88AB\u9876\u6389\u3002', 5);
+            _message2.default.info(_this.props.lang.limitCountTip.replace("$limit$", _this.props.limit), 5);
             _publicDatas.PRO_COMMON.Array.removeByIndex(_this.state.files, 0);
           }
         }
@@ -212,10 +212,10 @@ var UploadImage = function (_Component) {
         var value = props[propName];
         if (typeof value === 'string') {
           var isInSupport = !!_publicDatas.PRO_QINIU.supportMime[value];
-          return isInSupport ? null : new Error(propName + ' in ' + componentName + "不合法的上传资源类型！");
+          return isInSupport ? null : new Error(propName + ' in ' + componentName + this.props.lang.invalidType);
         }
       } else {
-        throw new Error(propName + ' in ' + componentName + "必须填写fileType（字符串型）：image或video或audio！");
+        throw new Error(propName + ' in ' + componentName + this.props.lang.invalidFileType);
         return false;
       }
 
@@ -299,14 +299,14 @@ var UploadImage = function (_Component) {
             _button2.default,
             null,
             _react2.default.createElement(_icon2.default, { type: 'upload' }),
-            '\u70B9\u51FB\u4E0A\u4F20'
+            this.props.lang.btnUpload
           )
         ),
         _react2.default.createElement(
           'div',
           { style: { margin: "10px 0 0" } },
           _react2.default.createElement(_input2.default, {
-            placeholder: '\u60A8\u8FD8\u53EF\u4EE5\u624B\u52A8\u8F93\u5165' + { 'image': '图片', 'video': '视频', 'audio': '音频' }[this.props.fileType] + '\u8D44\u6E90\u5730\u5740' + (this.props.fileType == "image" ? "（仅支持七牛）" : "") + '\uFF0C\u8F93\u5165\u5B8C\u6BD5\u6309\u56DE\u8F66\u952E\u786E\u8BA4',
+            placeholder: this.props.lang.manuallyUploadTip,
             value: this.state.inputVideoUrl,
             onChange: this.changeInputVideo,
             onPressEnter: this.getInputVideo }),
@@ -320,7 +320,7 @@ var UploadImage = function (_Component) {
         _react2.default.createElement(
           'span',
           null,
-          (this.props.limit > 1 ? "最多" : "只") + '\u53EF\u4EE5\u4E0A\u4F20 ' + this.props.limit + ' \u4E2A\u7C7B\u578B\u4E3A ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join("、") + ' \u7684 ' + { 'image': '图片', 'video': '视频', 'audio': '音频' }[this.props.fileType] + ' \u6587\u4EF6\u3002' + (this.props.fileType == "image" ? "推荐安装“Hover Zoom+”扩展支持。" : "" + this.props.description)
+          this.props.lang.limitAndTypeTip.replace("$limit$", this.props.limit).replace("$type$", _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join(", "))
         )
       );
     }

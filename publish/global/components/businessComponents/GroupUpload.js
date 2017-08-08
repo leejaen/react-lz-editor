@@ -232,7 +232,7 @@ var GroupUpload = function (_Component) {
         return picture;
       });
 
-      _message2.default.info("图片正在处理请稍等片刻", 10);
+      _message2.default.info(this.props.lang.inPfopProgress, 10);
       setTimeout(function () {
         _this3.props.receiveSelectedPictures(pictureList);
       }, 100);
@@ -254,7 +254,7 @@ var GroupUpload = function (_Component) {
       if (theData.rc == "0") {
         return function (dispatch) {};
       } else {
-        _message2.default.error("持久保存图片过程中发生错误！请参考：" + theData.des, 5);
+        _message2.default.error(this.props.lang.pfopError + theData.des, 5);
       }
     }
   }, {
@@ -302,6 +302,11 @@ var GroupUpload = function (_Component) {
     value: function render() {
       var _this5 = this;
 
+      var _props = this.props,
+          lang = _props.lang,
+          watermarkImage = _props.watermarkImage,
+          atuoSize = _props.atuoSize;
+
       return _react2.default.createElement(
         'span',
         null,
@@ -310,7 +315,7 @@ var GroupUpload = function (_Component) {
             return _react2.default.createElement(
               _button2.default,
               { onClick: _this5.openModal },
-              '\u6279\u91CF\u6DFB\u52A0'
+              lang.btnAddBatch
             );
           } else {
             var childrenWithProps = _react2.default.Children.map(_this5.props.children, function (child) {
@@ -329,142 +334,125 @@ var GroupUpload = function (_Component) {
               _react2.default.createElement(
                 'span',
                 null,
-                '\u6279\u91CF\u4E0A\u4F20\u56FE\u7247'
+                lang.batchAddModalTitle
               ),
               ' \xA0 \xA0 \xA0 \xA0',
               _react2.default.createElement(
                 _checkbox2.default,
-                { onChange: this.autoWaterMark },
-                ' \u81EA\u52A8\u52A0\u6C34\u5370 '
+                { onChange: this.autoWaterMark,
+                  disabled: !watermarkImage || watermarkImage.length == 0 },
+                ' ',
+                lang.chkAutoWaterMask,
+                ' '
               ),
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
                 _select2.default,
                 { size: 'small',
-                  disabled: !this.state.isAutoWaterMark,
+                  disabled: !this.state.isAutoWaterMark || !watermarkImage || watermarkImage.length == 0,
                   defaultValue: this.state.selectedWaterMarkType,
                   style: { width: 100 },
                   onChange: this.chooseWaterMake },
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'white_small' },
-                  '\u767D\u8272\u5C0F\u56FE'
-                ),
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'white_big' },
-                  '\u767D\u8272\u5927\u56FE'
-                ),
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'gray_small' },
-                  ' \u7070\u8272\u5C0F\u56FE '
-                ),
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'gray_big' },
-                  '\u7070\u8272\u5927\u56FE'
-                ),
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'black_small' },
-                  '\u9ED1\u8272\u5C0F\u56FE'
-                ),
-                _react2.default.createElement(
-                  _select2.default.Option,
-                  { value: 'black_big' },
-                  ' \u9ED1\u8272\u5927\u56FE '
-                )
+                watermarkImage && watermarkImage.map(function (item) {
+                  return _react2.default.createElement(
+                    _select2.default.Option,
+                    { value: item.type },
+                    item.tip
+                  );
+                })
               ),
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
                 _select2.default,
                 { size: 'small',
-                  disabled: !this.state.isAutoWaterMark,
+                  disabled: !this.state.isAutoWaterMark || !watermarkImage || watermarkImage.length == 0,
                   defaultValue: this.state.selectedWaterMarkPositon,
                   style: { width: 100 },
                   onChange: this.chooseWaterMakePosition },
                 _react2.default.createElement(
                   _select2.default.OptGroup,
-                  { label: '\u4E0A' },
+                  { label: lang.watermarkPos.north },
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'NorthWest' },
-                    '\u5DE6\u4E0A'
+                    lang.watermarkPos.northWest
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'North' },
-                    '\u4E2D\u4E0A'
+                    lang.watermarkPos.northCenter
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'NorthEast' },
-                    ' \u53F3\u4E0A '
+                    ' ',
+                    lang.watermarkPos.northEast,
+                    ' '
                   )
                 ),
                 _react2.default.createElement(
                   _select2.default.OptGroup,
-                  { label: '\u4E2D' },
+                  { label: lang.watermarkPos.center },
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'West' },
-                    '\u5DE6\u4E2D'
+                    lang.watermarkPos.west
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'Center' },
-                    '\u4E2D\u5FC3'
+                    lang.watermarkPos.centerCenter
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'East' },
-                    ' \u53F3\u4E2D '
+                    ' ',
+                    lang.watermarkPos.east,
+                    ' '
                   )
                 ),
                 _react2.default.createElement(
                   _select2.default.OptGroup,
-                  { label: '\u4E0B' },
+                  { label: lang.watermarkPos.south },
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'SouthWest' },
-                    '\u5DE6\u4E0B'
+                    lang.watermarkPos.southWest
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'South' },
-                    '\u4E2D\u4E0B'
+                    lang.watermarkPos.southCenter
                   ),
                   _react2.default.createElement(
                     _select2.default.Option,
                     { value: 'SouthEast' },
-                    ' \u53F3\u4E0B '
+                    ' ',
+                    lang.watermarkPos.southEast,
+                    ' '
                   )
                 )
               ),
               '\xA0\xA0\xA0\xA0',
-              this.props.atuoSize ? _react2.default.createElement(
+              atuoSize ? _react2.default.createElement(
                 _checkbox2.default,
                 { onChange: this.onAutoSizeChange, defaultChecked: this.state.isAutoSize },
-                '\u6309\u7167\u56FE\u7247',
-                this.props.atuoSize[0] == 0 ? "高度" : "宽度",
-                '\u81EA\u52A8\u7F29\u653E\u5230',
-                this.props.atuoSize[0] || "[自动]",
-                '*',
-                this.props.atuoSize[1] || "[自动]"
+                lang.zoomTipMsg.replace("$accordingSize$", atuoSize[0] == 0 ? lang.height : lang.width).replace("$targetSize$", (atuoSize[0] || lang.auto) + "*" + (atuoSize[1] || lang.auto))
               ) : null
             ),
             visible: this.state.showPictureSeletor,
             onCancel: this.closeModal,
             closable: false,
             maskClosable: false,
-            width: 900,
+            width: 1000,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back',
                 size: 'large',
                 onClick: this.closeModal },
-              ' \u53D6\u6D88 '
+              ' ',
+              lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit',
@@ -472,7 +460,9 @@ var GroupUpload = function (_Component) {
                 size: 'large',
                 disabled: this.state.selectedPictureList.length == 0,
                 onClick: this.handlePictureSeletorOK },
-              ' \u786E\u5B9A '
+              ' ',
+              lang.OKText,
+              ' '
             )] },
           _react2.default.createElement(
             'div',
@@ -480,9 +470,7 @@ var GroupUpload = function (_Component) {
             this.state.pictureList.length === 0 ? _react2.default.createElement(
               'div',
               null,
-              '\u8BF7\u4E0A\u4F20\u56FE\u7247\uFF0C\u6570\u91CF\u8BF7\u5C3D\u53EF\u80FD\u4E0D\u8981\u591A\u4F59',
-              this.props.limitCount || 10,
-              '\uFF0C\u56FE\u7247\u6570\u91CF\u8FC7\u591A\u4F1A\u5F15\u8D77\u7528\u6237\u4F53\u9A8C\u95EE\u9898\u53CA\u6570\u636E\u6D41\u91CF\u538B\u529B\uFF01'
+              lang.pleaseUploading
             ) : _react2.default.createElement(
               'div',
               null,
@@ -514,7 +502,8 @@ var GroupUpload = function (_Component) {
               isShowUploadList: true,
               uploadConfig: this.props.uploadConfig,
               limit: this.props.limitCount || 10,
-              uploadProps: this.props.uploadProps })
+              uploadProps: this.props.uploadProps,
+              lang: lang })
           )
         )
       );

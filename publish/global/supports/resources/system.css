@@ -19,9 +19,6 @@
   display: block;
   font-family: "anticon" !important;
 }
-.ant-calendar .ant-calendar-clear-btn:after {
-  content: "\ea0d";
-}
 .anticon-circles:before {
   content: "\e991";
 }

@@ -97,22 +97,26 @@ var VideoStyleControls = function (_Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onVideoToggle },
-          _react2.default.createElement(_icon2.default, { type: 'editor_video', title: '\u4E0A\u4F20\u89C6\u9891' })
+          _react2.default.createElement(_icon2.default, { type: 'editor_video', title: this.props.lang.insertVideoTip })
         ),
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u63D2\u5165\u89C6\u9891',
+            title: this.props.lang.insertVideoModalTitle,
             visible: that.state.visible,
             closable: false,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
-              ' \u53D6\u6D88 '
+              ' ',
+              this.props.lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.disabled, onClick: that.sendVideoToEditor },
-              ' \u786E\u5B9A '
+              ' ',
+              this.props.lang.OKText,
+              ' '
             )] },
           _react2.default.createElement(_businessComponents.UploadImage, { isMultiple: true,
             limit: 10,

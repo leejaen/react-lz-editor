@@ -32,7 +32,7 @@ var AutoSave = function (_Component) {
         _react2.default.createElement(
           "span",
           { className: "RichEditor-styleButton", onClick: this.props.onToggle },
-          "\u81EA\u52A8\u4FDD\u5B58\u5E93"
+          this.props.lang.autoSave
         )
       );
     }

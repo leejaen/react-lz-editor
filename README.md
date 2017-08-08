@@ -2,7 +2,7 @@
 
 # react-lz-editor
 
-An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode.
+An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode. It's supports multiple languages well(just English and Chinese for now) and welcome to add your language supports.
 
 ## Live demo
 

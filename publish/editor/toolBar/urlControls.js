@@ -37,7 +37,7 @@ var AddUrl = function (_Component) {
         { className: "RichEditor-controls" },
         _react2.default.createElement(
           "span",
-          { className: "RichEditor-styleButton", onClick: this.props.onToggle, title: "\u589E\u52A0\u94FE\u63A5" },
+          { className: "RichEditor-styleButton", onClick: this.props.onToggle, title: this.props.lang.addLink },
           _react2.default.createElement(_icon2.default, { type: "editor_link" })
         )
       );
@@ -64,7 +64,7 @@ var CloseUrl = function (_Component2) {
         { className: "RichEditor-controls" },
         _react2.default.createElement(
           "span",
-          { className: "RichEditor-styleButton", onClick: this.props.onToggle, title: "\u79FB\u9664\u94FE\u63A5" },
+          { className: "RichEditor-styleButton", onClick: this.props.onToggle, title: this.props.lang.removeLink },
           _react2.default.createElement(_icon2.default, { type: "editor_unlink" })
         )
       );
