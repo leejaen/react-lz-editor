@@ -67,7 +67,7 @@ export default class ImageSpan extends Component {
 
     //   return (       <span           className="editor-inline-image"           style={imageStyle}
     // onClick={this._onClick}           >   {this.props.children} </span>   );
-    //<tips> {imageStyle.width&&imageStyle.height?`宽${imageStyle.width}px；高${imageStyle.height}px`:""}</tips>
+    //<tips> {imageStyle.width&&imageStyle.height?`Width ${imageStyle.width}px Height ${imageStyle.height}px`:""}</tips>
     return (
       <div className="editor-inline-image" onClick={this._onClick}>
         <img src={`${this.state.imageSrc}`} className="media-image" onClick={(event)=>{this.onImageClick(event,key);event.stopPropagation();}} onDoubleClick={this.onDoubleClick}/>
@@ -76,7 +76,7 @@ export default class ImageSpan extends Component {
   }
 
   _onDoubleClick() {
-    //弹框编辑
+    //Popup a modal to edit
     let currentPicture=ReactDom.findDOMNode(this).querySelector("img");
     let pictureWidth=currentPicture.naturalWidth;
     let pictureSrc=currentPicture.src;
@@ -100,7 +100,7 @@ export default class ImageSpan extends Component {
     // console.log("blockTree",blockTree);
     // this.setState({imageSrc:"https://image.qiluyidian.mobi/87928142151028397142qn1d609U291dGhFYXN0.jpg"});
     if (pictureWidth==0) {
-      message.error("图片地址错误！")
+      message.error("图片地址错误！");
     }else if(pictureWidth>650) {
       message.error("图片尺寸过大将会导致用户流量浪费！请调整至最大650px。",10);
     }

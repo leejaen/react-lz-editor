@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import StyleButton from "./styleButton"
 const AlignmentControls = (props) => {
-  const {editorState} = props;
+  const {editorState,lang} = props;
   const selection = editorState.getSelection();
   const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
   const BLOCK_TYPES = [
     {
-      text:"左对齐",
+      text:lang.alignLeft,
       label: "editor_alignment_left",
       style: 'left'
     }, {
-      text:"居中",
+      text:lang.alignCenter,
       label: "editor_alignment_center",
       style: 'center'
     }, {
-      text:"右对齐",
+      text:lang.alignRight,
       label: "editor_alignment_right",
       style: 'right'
     }, {
-      text:"两端对齐",
+      text:lang.alignJustify,
       label: "editor_alignment_justify",
       style: 'justify'
     }

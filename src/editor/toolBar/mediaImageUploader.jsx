@@ -7,7 +7,7 @@ import {
 } from 'antd';
 import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
 import cloneDeep from "lodash/cloneDeep";
-/*视频音频图片*/
+
 class ImgStyleControls extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class ImgStyleControls extends Component {
   }
   prepareToSendImageToEditor() {
     if (!!this.state.images.length) {
-      this.state.loadingRemoteImageFun = message.loading('图片正在处理并生成预览，请稍等片刻...', 0);
+      this.state.loadingRemoteImageFun = message.loading(this.props.lang.inPreviewProgress, 0);
     }
   }
   successLoading(type) {
@@ -76,7 +76,7 @@ class ImgStyleControls extends Component {
     let picture = this.state.images[index].url;
     if (!!picture && picture != "reset") {
       setTimeout(() => {
-        //无效时每100毫秒刷新一次
+        //auto refresh when invalid
         this.reloadPfopingPictrue(picture, index);
       }, 300)
     }
@@ -148,13 +148,15 @@ class ImgStyleControls extends Component {
           atuoSize={[650,0]}
           receiveSelectedPictures={this.groupAppend}
           uploadConfig={this.props.uploadConfig}
-          uploadProps={this.props.uploadProps}>
+          uploadProps={this.props.uploadProps}
+          watermarkImage={this.props.watermarkImage}
+          lang={this.props.lang}>
           <span className={className}>
-              <Icon type="editor_image_masker" title="水印图片"/>
+              <Icon type="editor_image_masker" title={this.props.lang.imageMasker}/>
           </span>
         </GroupUpload>
         <span className={className} onClick={that.onImgToggle}>
-            <Icon type="editor_image" title="原始图片"/>
+            <Icon type="editor_image" title={this.props.lang.originalImage}/>
         </span>
 
         <div
@@ -174,12 +176,12 @@ class ImgStyleControls extends Component {
             () => this.successLoading("fromImg")
           } />)}</div>
         <Modal
-          title="插入图片"
+          title={this.props.lang.insertImageModalTitle}
           visible={that.state.provisible}
           closable={false}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
-          } > 取 消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={()=>that.successLoading("fromOld")}> 确 定 </Button >]}>
+          } > {this.props.lang.cancelText} < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={()=>that.successLoading("fromOld")}> {this.props.lang.OKText} </Button >]}>
           <UploadImage
             isMultiple={true}
             fileList={that.state.images}
@@ -191,18 +193,18 @@ class ImgStyleControls extends Component {
             fileType="image"/>
         </Modal>
         <Modal
-          title="图片预览"
+          title={this.props.lang.previewImageModalTitle}
           visible={that.state.previsible}
           width={800}
           closable={false}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancelUploading
-          } > 取消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.pfopImages.length==0} onClick={()=>that.realLoading("fromOld")}> 确认无误 </Button >]}>
+          } > {this.props.lang.cancelText} < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.pfopImages.length==0} onClick={()=>that.realLoading("fromOld")}> {this.props.lang.validatedImage} </Button >]}>
           <div className="uploadingImagies">{that.state.pfopImages.map((item, index) => {
               // console.log("item,index", item, index);
               let url = item.url;
               return <div>
-                <a onClick={() => that.reloadUploadingPictrue(url, index)} title="手动刷新"><Icon type="reload"/></a><img src={url}/></div>
+                <a onClick={() => that.reloadUploadingPictrue(url, index)} title={this.props.lang.refreshImage}><Icon type="reload"/></a><img src={url}/></div>
             })
 }</div>
         </Modal>

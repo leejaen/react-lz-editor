@@ -56,19 +56,19 @@ class PasteNoStyleControls extends Component {
     return (
       <div className="RichEditor-controls">
 
-        <span className={className} onClick={that.onTextToggle} title="纯文本粘贴">
+        <span className={className} onClick={that.onTextToggle} title={that.props.lang.pasteText}>
           <Icon key="paset_text" type="editor_paset_text" />
         </span>
 
         <Modal
-          title="插入无样式文本内容"
+          title={that.props.lang.insertNoStyleText}
           visible={that.state.visible}
           closable={false}
           width={800}
           footer={[< Button key = "back" size = "large" onClick = {
             that.handleCancel
-          } > 取消 < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendTextToEditor}> 确定 </Button >]}>
-            <Input type="textarea" rows={10} onChange={that.pasteContent} value={that.state.plantext} placeholder="请在这里粘贴内容后点击确定按钮"/>
+          } > {that.props.lang.cancelText} < /Button>, <Button key="submit" type="primary" size="large" disabled={that.state.disabled} onClick={that.sendTextToEditor}>{that.props.lang.OKText}  </Button >]}>
+            <Input type="textarea" rows={10} onChange={that.pasteContent} value={that.state.plantext} placeholder={that.props.lang.pasteTipMsg}/>
         </Modal>
       </div>
     )
