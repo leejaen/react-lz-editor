@@ -6,7 +6,7 @@ An open source react rich-text editor ( mordern react editor includes media supp
 
 ## Live demo
 
-[react-lz-editor https://leejaen.github.io/react-lz-editor/index.html](https://leejaen.github.io/react-lz-editor/index.html)
+[react-lz-editor:](https://leejaen.github.io/react-lz-editor/index.html) https://leejaen.github.io/react-lz-editor/index.html
 
 Disabled media insert feature on demo page, because of there was no online API support for the time being, here is [The server side API demo in java](https://github.com/leejaen/react-lz-editor/blob/master/java_demo/getQiniuUptoken.java) you may want.
 
@@ -17,7 +17,6 @@ OR
 yarn add react-lz-editor
 ```
 
-
 Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
 
 # Git
@@ -25,7 +24,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 
 # Usage & Examples
 
-  [code example](https://github.com/leejaen/react-lz-editor/blob/master/src/test.jsx)
+  [clicking to code example](https://github.com/leejaen/react-lz-editor/blob/master/src/test.jsx)
 
   ``` js
   import React from 'react';
@@ -86,13 +85,13 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 
   ```
 
-![e.g.](https://image.qiluyidian.mobi/54541628992197066868.png)
+![screenshot](https://image.qiluyidian.mobi/54541628992197066868.png)
 
 # API
 | props | type | default | description |
 | -- | -- | -- | -- |
 | active | bool | false | Is reloading content after changing |
-| importContent | string | "" | Eeditor content value, default to "" |
+| importContent | string | "" | Editor content value, default to "" |
 | cbReceiver | function | null | `Callback` function, the changed value will be sent to its parameter. |
 | undoRedo | bool | true | Enabled `undo and redo` feature, default to true |
 | removeStyle | bool | true | Enabled `remove style` feature, default to true |
@@ -106,6 +105,5 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | urls | bool | true | Enabled `add hyper link` feature, default to true |
 | autoSave | bool | true | Enabled `auto save to draft-box` feature, default to true |
 | fullScreen | bool | true | Enabled `full screen` feature, default to true |
-| convertFormat | string | "html" | Set support format `(html, markdown, raw)`, default to `html` |
+| convertFormat | string | "html" | Set support format `(html, markdown, raw)`, default to "html" |
 | uploadProps | object | null | Customize uploading settings. [API: Antd.Upload](https://ant.design/components/upload/) |
-# QA
