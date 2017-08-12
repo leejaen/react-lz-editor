@@ -191,8 +191,7 @@ var Test = function (_React$Component) {
           null,
           'Editor demo 1 (use default html format ):'
         ),
-        _react2.default.createElement(_index2.default, { active: true, importContent: this.state.htmlContent, cbReceiver: this.receiveHtml, uploadProps: uploadProps,
-          lang: 'en' }),
+        _react2.default.createElement(_index2.default, { active: true, importContent: this.state.htmlContent, cbReceiver: this.receiveHtml, uploadProps: uploadProps }),
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
         _react2.default.createElement(

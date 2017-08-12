@@ -92,6 +92,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | -- | -- | -- | -- |
 | active | bool | false | Is reloading content after changing |
 | importContent | string | "" | Editor content value, default to "" |
+| lang | string | "" | Editor using language, default to your browser language settings |
 | cbReceiver | function | null | `Callback` function, the changed value will be sent to its parameter. |
 | undoRedo | bool | true | Enabled `undo and redo` feature, default to true |
 | removeStyle | bool | true | Enabled `remove style` feature, default to true |
