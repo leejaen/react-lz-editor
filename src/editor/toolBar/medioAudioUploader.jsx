@@ -74,7 +74,8 @@ class AudioStyleControls extends Component {
             cbReceiver={that.getAudioObject}
             fileType="audio"
             uploadConfig={this.props.uploadConfig}
-            uploadProps={this.props.uploadProps}/>
+            uploadProps={this.props.uploadProps}
+            lang={this.props.lang}/>
         </Modal>
       </div>
     )

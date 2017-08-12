@@ -165,8 +165,7 @@ class Test extends React.Component {
       <div>
         <div>Editor demo 1 (use default html format ):
         </div>
-        <LzEditor active={true} importContent={this.state.htmlContent} cbReceiver={this.receiveHtml} uploadProps={uploadProps}
-        lang="en"/>
+        <LzEditor active={true} importContent={this.state.htmlContent} cbReceiver={this.receiveHtml} uploadProps={uploadProps}/>
         <br/>
         <br/>
         <div>Editor demo 2 (use markdown format ):
