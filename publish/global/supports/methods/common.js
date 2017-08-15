@@ -1,7 +1,5 @@
 'use strict';
 
-var _css = require('antd/lib/message/style/css');
-
 var _message = require('antd/lib/message');
 
 var _message2 = _interopRequireDefault(_message);

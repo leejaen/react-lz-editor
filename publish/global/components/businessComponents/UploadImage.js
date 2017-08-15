@@ -1,30 +1,20 @@
 'use strict';
 
-var _css = require('antd/lib/input/style/css');
-
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
-
-var _css2 = require('antd/lib/upload/style/css');
 
 var _upload = require('antd/lib/upload');
 
 var _upload2 = _interopRequireDefault(_upload);
 
-var _css3 = require('antd/lib/button/style/css');
-
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css4 = require('antd/lib/icon/style/css');
-
 var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
-
-var _css5 = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 

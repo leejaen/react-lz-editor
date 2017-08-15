@@ -1,18 +1,15 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css3 = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 

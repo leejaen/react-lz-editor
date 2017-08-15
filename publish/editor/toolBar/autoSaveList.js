@@ -1,30 +1,25 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/table/style/css');
 
 var _table = require('antd/lib/table');
 
 var _table2 = _interopRequireDefault(_table);
 
-var _css3 = require('antd/lib/popconfirm/style/css');
 
 var _popconfirm = require('antd/lib/popconfirm');
 
 var _popconfirm2 = _interopRequireDefault(_popconfirm);
 
-var _css4 = require('antd/lib/button/style/css');
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css5 = require('antd/lib/icon/style/css');
 
 var _icon = require('antd/lib/icon');
 

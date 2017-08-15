@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _css = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 
