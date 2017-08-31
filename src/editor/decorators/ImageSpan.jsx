@@ -29,7 +29,7 @@ export default class ImageSpan extends Component {
     const entity = Entity.get(this.props.entityKey);
     const image = new Image();
     let {src} = entity.getData();
-    src=src.replace(/[-?*!].*$/g,"");
+    src=src.replace(/[?#&].*$/g,"");
     this.setState({imageSrc:src});
     image.src = this.state.imageSrc;
     image.onload = () => {
