@@ -1,8 +1,8 @@
-[中文版](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md)
+[中文](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md)
 
 # react-lz-editor
 
-An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode.
+An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode. It's supports multiple languages well(just English and Chinese for now) and welcome you add your language supports.
 
 ## Live demo
 
@@ -34,7 +34,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
     constructor(props) {
       super(props);
       this.state = {
-        htmlContent: `<h1> Head level 1</h1>
+        htmlContent: `<h1>Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful</h1>
                   <p>Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi’s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.</p>`,
         markdownContent: "## HEAD 2 \n markdown examples \n ``` welcome ```"
         responseList: []
@@ -92,6 +92,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | -- | -- | -- | -- |
 | active | bool | false | Is reloading content after changing |
 | importContent | string | "" | Editor content value, default to "" |
+| lang | string | "" | Editor using language, default to your browser language settings |
 | cbReceiver | function | null | `Callback` function, the changed value will be sent to its parameter. |
 | undoRedo | bool | true | Enabled `undo and redo` feature, default to true |
 | removeStyle | bool | true | Enabled `remove style` feature, default to true |

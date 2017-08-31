@@ -1,6 +1,5 @@
 'use strict';
 
-var _css = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 
@@ -86,42 +85,6 @@ var commonFun = {
         break;
       case 10:
         str = "live_video_news";
-        break;
-    }
-    return str;
-  },
-  retNewsType: function retNewsType(info) {
-    var text = parseInt(info);
-
-    var str = "";
-    switch (text) {
-      case 1:
-        str = "普通";
-        break;
-      case 2:
-        str = "图集";
-        break;
-      case 3:
-        str = "视频";
-        break;
-      case 4:
-        str = "专题";
-        break;
-      case 5:
-        str = "产品";
-        break;
-      case 6:
-        str = "活动";
-        break;
-      case 7:
-      case 100:
-        str = "美女";
-        break;
-      case 8:
-        str = "图文直播";
-        break;
-      case 10:
-        str = "视频直播";
         break;
     }
     return str;

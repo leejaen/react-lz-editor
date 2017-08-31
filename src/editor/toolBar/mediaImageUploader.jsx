@@ -189,6 +189,7 @@ class ImgStyleControls extends Component {
             cbReceiver={that.getImgObject}
             uploadConfig={this.props.uploadConfig}
             uploadProps={this.props.uploadProps}
+            lang={this.props.lang}
             limit={10}
             fileType="image"/>
         </Modal>

@@ -434,7 +434,9 @@ var MarkupGenerator = function () {
           return '<a' + attrString + '>' + content + '</a>';
         } else if (entityType != null && entityType === _main.ENTITY_TYPE.IMAGE) {
           var _attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
+
           var _attrString = stringifyAttrs(_attrs);
+
           return '<img' + _attrString + '/>';
         } else if (entityType != null && entityType === _main.ENTITY_TYPE.VIDEO) {
           var _attrs2 = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
@@ -484,7 +486,7 @@ function stringifyAttrs(attrs) {
 
       var attrValue = attrs[attrKey];
       if (attrKey == "src") {
-        attrValue = attrValue.replace(/[-?#&].*$/g, "");
+        attrValue = attrValue.replace(/[?#&].*$/g, "");
       }
       if (attrValue != null) {
         parts.push(' ' + attrKey + '="' + encodeAttr(attrValue + '') + '"');

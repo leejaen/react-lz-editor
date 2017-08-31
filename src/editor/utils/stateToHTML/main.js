@@ -307,7 +307,9 @@ class MarkupGenerator {
         return `<a${attrString}>${content}</a>`;
       } else if (entityType != null && entityType === ENTITY_TYPE.IMAGE) {
         let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
+        // console.log("renderBlockContent attrs",attrs);
         let attrString = stringifyAttrs(attrs);
+        // console.log("renderBlockContent attrString",attrString);
         return `<img${attrString}/>`;
       }  else if (entityType != null && entityType === ENTITY_TYPE.VIDEO) {
         let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
@@ -350,7 +352,7 @@ function stringifyAttrs(attrs) {
   for (let attrKey of Object.keys(attrs)) {
     let attrValue = attrs[attrKey];
     if (attrKey=="src") {// Get reality url resources.
-      attrValue=attrValue.replace(/[-?#&].*$/g,"");
+      attrValue=attrValue.replace(/[?#&].*$/g,"");
     }
     if (attrValue != null) {
       parts.push(` ${attrKey}="${encodeAttr(attrValue + '')}"`);

@@ -11,24 +11,25 @@ var _styleButton2 = _interopRequireDefault(_styleButton);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AlignmentControls = function AlignmentControls(props) {
-  var editorState = props.editorState;
+  var editorState = props.editorState,
+      lang = props.lang;
 
   var selection = editorState.getSelection();
   var blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
   var BLOCK_TYPES = [{
-    text: "左对齐",
+    text: lang.alignLeft,
     label: "editor_alignment_left",
     style: 'left'
   }, {
-    text: "居中",
+    text: lang.alignCenter,
     label: "editor_alignment_center",
     style: 'center'
   }, {
-    text: "右对齐",
+    text: lang.alignRight,
     label: "editor_alignment_right",
     style: 'right'
   }, {
-    text: "两端对齐",
+    text: lang.alignJustify,
     label: "editor_alignment_justify",
     style: 'justify'
   }];

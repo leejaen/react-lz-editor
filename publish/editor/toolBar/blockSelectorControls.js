@@ -1,6 +1,5 @@
 'use strict';
 
-var _css = require('antd/lib/icon/style/css');
 
 var _icon = require('antd/lib/icon');
 

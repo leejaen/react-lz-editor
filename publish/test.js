@@ -49,9 +49,9 @@ var Test = function (_React$Component) {
     var _this2 = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
 
     _this2.state = {
-      htmlContent: "",
-      markdownContent: "## 二级标题 HEAD 2 \n markdown 格式示例 \n ``` 欢迎使用 ```",
-      rawContent: '{"entityMap":{"0":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/4305350813991067' + '8747.jpg"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/430535081399106787' + '47.jpg"}}},"blocks":[{"key":"fr2lj","text":"正文示例","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[]' + ',"data":{}},{"key":"90kdv","text":"一度金融的消息称，乐视金融同数码视讯的接触尚处在高层范围内进行，因此对于收购价格，暂时还不能确定。","type":"unstyled","depth":0,"inlin' + 'eStyleRanges":[],"entityRanges":[],"data":{}},{"key":"b60ni","text":"如果乐视金融拿下数码视讯的两张金融牌照，并且在到期后能够获得央行审核顺利延期，意味着乐视可以通过移动设' + '备和电视两个终端来链接用户的银行卡。","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"eui4h","text' + '":"乐视金融在去年11月份首度公开亮相的时候，缺少银行和支付两张关键牌照就一直是外界关注的问题。","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"29t6l","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":0}],"data":{}},{"key":"7ujeo","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"3n9d4","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":1}],"data":{}},{"key":"9r0k2","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}}]}',
+      htmlContent: '<h1> Head level 1</h1>\n                <p style=\'text-align:center;\'><span style="color:#ED5565">red text</span>,center ,<strong>bold</strong>\uFF0C<em>italic</em></p>\n                <blockquote style=\'text-align:left;\'><span style="color:#967adc">C</span> <span style="color:#a0d468">O</span><span style="color:#48cfad">L</span><span style="color:#4a89dc">O</span><span style="color:#967adc">R</span><span style="color:#434a54">S</span></blockquote>\n                <p><br></p>\n                <ul>\n                  <li><span style="color:#434a54">list 1</span></li>\n                  <li><span style="color:#434a54">list 2</span></li>\n                  <li><span style="color:#434a54">list 3</span></li>\n                </ul>\n                <pre><code>Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <p><img src="https://image.qiluyidian.mobi/43053508139910678747.jpg"/></p>\n                <p><br></p>\n                <h2>Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful</h2>\n                <p>Leaning over the railing from his perch on the top step of the first-base dugout this past weekend in Cleveland, Yankees Manager Joe Girardi did not have to divert his gaze to catch glimpses of the out-of-town scoreboard./p>\n                <p>It was all there on the left-field wall.</p>\n                <p>\u201CYou\u2019re going to look \u2014 it\u2019s impossible not to,\u201D Girardi said. \u201CI haven\u2019t seen a ballpark where they put it behind you. You pay attention, of course.\u201D</p>\n                <p>Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi\u2019s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.</p>',
+      markdownContent: "## HEAD 2 \n markdown examples \n ``` welcome ```",
+      rawContent: '{"entityMap":{"0":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/4305350813991067' + '8747.jpg"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/430535081399106787' + '47.jpg"}}},"blocks":[{"key":"fr2lj","text":"Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[]' + ',"data":{}},{"key":"90kdv","text":"Leaning over the railing from his perch on the top step of the first-base dugout this past weekend in Cleveland, Yankees Manager Joe Girardi did not have to divert his gaze to catch glimpses of the out-of-town scoreboard.","type":"unstyled","depth":0,"inlin' + 'eStyleRanges":[],"entityRanges":[],"data":{}},{"key":"b60ni","text":"Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi’s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"eui4h","text' + '":"The Yankees, who trail the Red Sox by three games in the American League East, will have their rivals right in front of them on three of the next four weekends, beginning Friday night at Yankee Stadium.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"29t6l","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":0}],"data":{}},{"key":"7ujeo","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"3n9d4","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":1}],"data":{}},{"key":"9r0k2","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}}]}',
       responseList: []
     };
     _this2.receiveHtml = _this2.receiveHtml.bind(_this2);
@@ -86,7 +86,6 @@ var Test = function (_React$Component) {
     key: 'onChange',
     value: function onChange(info) {
       var currFileList = info.fileList;
-
       currFileList = currFileList.filter(function (f) {
         return !f.length;
       });
@@ -152,17 +151,6 @@ var Test = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var uploadConfig = {
-        QINIU_URL: "http://up.qiniu.com",
-        QINIU_IMG_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do",
-        QINIU_PFOP: {
-          url: "http://www.yourServerAddress.mobi/doQiniuPicPersist.do" },
-        QINIU_VIDEO_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do",
-        QINIU_FILE_TOKEN_URL: "http://www.yourServerAddress.mobi/getUptokenOfQiniu.do?name=patch",
-        QINIU_DOMAIN_IMG_URL: "https://image.yourServerAddress.mobi",
-        QINIU_DOMAIN_VIDEO_URL: "https://video.yourServerAddress.mobi",
-        QINIU_DOMAIN_FILE_URL: "https://static.yourServerAddress.com/" };
-
       var policy = "";
 
       var uploadProps = {
@@ -184,6 +172,17 @@ var Test = function (_React$Component) {
         beforeUpload: this.beforeUpload,
         showUploadList: true
       };
+      var watermarkImage = [{
+        type: "white_small",
+        tip: "white small",
+        value: "http://7xjl1j.com1.z0.glb.clouddn.com/white_small.png",
+        valuebase64: "aHR0cDovLzd4amwxai5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS93aGl0ZV9zbWFsbC5wbmc="
+      }, {
+        type: "white_big",
+        tip: "white big",
+        value: "http://7xjl1j.com1.z0.glb.clouddn.com/white_big.png",
+        valuebase64: "aHR0cDovLzd4amwxai5jb20xLnowLmdsYi5jbG91ZGRuLmNvbS93aGl0ZV9iaWcucG5n"
+      }];
       return _react2.default.createElement(
         'div',
         null,
@@ -219,11 +218,11 @@ var Test = function (_React$Component) {
           active: true,
           importContent: this.state.rawContent,
           cbReceiver: this.receiveRaw,
-          uploadConfig: uploadConfig,
           image: false,
           video: false,
           audio: false,
-          convertFormat: 'raw' })
+          convertFormat: 'raw',
+          lang: 'zh-CN' })
       );
     }
   }]);

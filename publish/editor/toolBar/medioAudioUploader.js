@@ -1,18 +1,17 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/button/style/css');
+
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css3 = require('antd/lib/icon/style/css');
+
 
 var _icon = require('antd/lib/icon');
 
@@ -95,22 +94,25 @@ var AudioStyleControls = function (_Component) {
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onAudioToggle },
-          _react2.default.createElement(_icon2.default, { type: 'editor_audio', title: '\u4E0A\u4F20\u97F3\u9891' })
+          _react2.default.createElement(_icon2.default, { type: 'editor_audio', title: this.props.lang.insertAudioTip })
         ),
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u63D2\u5165\u97F3\u9891',
+            title: this.props.lang.insertAudioModalTitle,
             visible: that.state.visible,
             closable: false,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
-              ' \u53D6 \u6D88 '
+              ' ',
+              this.props.lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.disabled, onClick: that.sendAudioToEditor },
-              ' \u786E \u5B9A '
+              this.props.lang.OKText,
+              ' '
             )] },
           _react2.default.createElement(_businessComponents.UploadImage, { isMultiple: true,
             fileList: that.state.audios,
@@ -119,7 +121,8 @@ var AudioStyleControls = function (_Component) {
             cbReceiver: that.getAudioObject,
             fileType: 'audio',
             uploadConfig: this.props.uploadConfig,
-            uploadProps: this.props.uploadProps })
+            uploadProps: this.props.uploadProps,
+            lang: this.props.lang })
         )
       );
     }

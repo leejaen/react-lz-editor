@@ -1,24 +1,22 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css3 = require('antd/lib/button/style/css');
+
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css4 = require('antd/lib/icon/style/css');
+
 
 var _icon = require('antd/lib/icon');
 
@@ -106,26 +104,29 @@ var PasteNoStyleControls = function (_Component) {
         { className: 'RichEditor-controls' },
         _react2.default.createElement(
           'span',
-          { className: className, onClick: that.onTextToggle, title: '\u7EAF\u6587\u672C\u7C98\u8D34' },
+          { className: className, onClick: that.onTextToggle, title: that.props.lang.pasteText },
           _react2.default.createElement(_icon2.default, { key: 'paset_text', type: 'editor_paset_text' })
         ),
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u63D2\u5165\u65E0\u6837\u5F0F\u6587\u672C\u5185\u5BB9',
+            title: that.props.lang.insertNoStyleText,
             visible: that.state.visible,
             closable: false,
             width: 800,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
-              ' \u53D6\u6D88 '
+              ' ',
+              that.props.lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.disabled, onClick: that.sendTextToEditor },
-              ' \u786E\u5B9A '
+              that.props.lang.OKText,
+              '  '
             )] },
-          _react2.default.createElement(_input2.default, { type: 'textarea', rows: 10, onChange: that.pasteContent, value: that.state.plantext, placeholder: '\u8BF7\u5728\u8FD9\u91CC\u7C98\u8D34\u5185\u5BB9\u540E\u70B9\u51FB\u786E\u5B9A\u6309\u94AE' })
+          _react2.default.createElement(_input2.default, { type: 'textarea', rows: 10, onChange: that.pasteContent, value: that.state.plantext, placeholder: that.props.lang.pasteTipMsg })
         )
       );
     }

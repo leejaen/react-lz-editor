@@ -1,12 +1,10 @@
 'use strict';
 
-var _css = require('antd/lib/popconfirm/style/css');
 
 var _popconfirm = require('antd/lib/popconfirm');
 
 var _popconfirm2 = _interopRequireDefault(_popconfirm);
 
-var _css2 = require('antd/lib/icon/style/css');
 
 var _icon = require('antd/lib/icon');
 
@@ -44,7 +42,7 @@ var RemoveStyleControls = function (_Component) {
         { className: 'RichEditor-controls' },
         _react2.default.createElement(
           _popconfirm2.default,
-          { title: '\u786E\u8BA4\u79FB\u9664\u6240\u9009\u62E9\u6587\u5B57\u7684\u6837\u5F0F\uFF1F', onConfirm: this.props.onToggle, okText: '\u786E\u8BA4\u79FB\u9664', cancelText: '\u53D6\u6D88\u64CD\u4F5C' },
+          { title: this.props.lang.confirmToRemove, onConfirm: this.props.onToggle, okText: this.props.lang.doRemove, cancelText: this.props.lang.doNotRemove },
           _react2.default.createElement(
             'span',
             { className: className },

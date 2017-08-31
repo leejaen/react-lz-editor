@@ -1,30 +1,27 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/table/style/css');
 
 var _table = require('antd/lib/table');
 
 var _table2 = _interopRequireDefault(_table);
 
-var _css3 = require('antd/lib/popconfirm/style/css');
 
 var _popconfirm = require('antd/lib/popconfirm');
 
 var _popconfirm2 = _interopRequireDefault(_popconfirm);
 
-var _css4 = require('antd/lib/button/style/css');
+
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css5 = require('antd/lib/icon/style/css');
+
 
 var _icon = require('antd/lib/icon');
 
@@ -145,7 +142,7 @@ var AutoSaveControls = function (_Component) {
       var that = this;
 
       var columns = [{
-        title: '内容预览',
+        title: this.props.lang.previewMsg,
         dataIndex: 'keyName',
         key: 'keyName',
         render: function render(text, record, index) {
@@ -160,7 +157,7 @@ var AutoSaveControls = function (_Component) {
             { onClick: function onClick() {
                 return _this2.doDelete(record.keyName);
               } },
-            '\u5220\u9664'
+            _this2.props.lang.deleteDraftItem
           );
         }
       }];
@@ -184,29 +181,33 @@ var AutoSaveControls = function (_Component) {
           null,
           _react2.default.createElement(
             'span',
-            { className: className, onClick: that.onAutoSaveToggle, title: '\u4FDD\u9669\u5E93\u2014\u2014\u7F16\u8F91\u5668\u4E2D\u6309Ctrl+S\u6216Cmd+S\u5B58\u5165\u4FDD\u9669\u5E93\uFF0C\u70B9\u51FB\u6253\u5F00\u4FDD\u9669\u5E93\u4EE5\u7EE7\u7EED' },
+            { className: className, onClick: that.onAutoSaveToggle, title: this.props.lang.draftTipMsg },
             _react2.default.createElement(_icon2.default, { type: 'editor_safty' })
           )
         ),
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u7F16\u8F91\u5668\u4FDD\u9669\u5E93\u6761\u76EE\u5217\u8868\uFF1A',
+            title: this.props.lang.draftModalTitle,
             visible: that.state.visible,
             closable: false,
             width: 600,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
-              ' \u53D6 \u6D88 '
+              '  ',
+              this.props.lang.cancelText,
+              '  '
             ), _react2.default.createElement(
               _popconfirm2.default,
-              { placement: 'right', title: '\u786E\u5B9A\u540E\u7F16\u8F91\u5668\u5185\u5BB9\u5C06\u4F1A\u88AB\u6700\u540E\u4E00\u6B21\u4FDD\u5B58\u7684\u5185\u5BB9\u66FF\u6362\uFF0C\u82E5\u6709\u66F4\u6539\uFF0C\u66FF\u6362\u540E\u5C06\u4E0D\u53EF\u6062\u590D\uFF0C\u662F\u5426\u7EE7\u7EED\uFF1F', onConfirm: that.sendSavedItemToEditor },
+              { placement: 'right', title: this.props.lang.confirmUseDraft, onConfirm: that.sendSavedItemToEditor },
               '\xA0\xA0\xA0\xA0',
               _react2.default.createElement(
                 _button2.default,
                 { key: 'submit', type: 'primary', size: 'large', disabled: !that.state.selectedRowKeys.length },
-                ' \u786E \u5B9A '
+                ' ',
+                this.props.lang.OKText,
+                ' '
               )
             )] },
           _react2.default.createElement(_table2.default, {
@@ -219,7 +220,7 @@ var AutoSaveControls = function (_Component) {
           _react2.default.createElement(
             'span',
             { style: { color: "#ccc" } },
-            '\u7F16\u8F91\u5668\u5185\u5BB9\u9ED8\u8BA4\u4E00\u5206\u949F\u4FDD\u5B58\u4E00\u6B21\uFF0C\u53EF\u4EE5\u624B\u52A8Ctrl+S\u6216Cmd+S\u4FDD\u5B58\uFF0C\u5185\u5BB9\u5C0F\u4E8E20\u5B57\u65F6\u5C06\u4E0D\u4F1A\u4FDD\u5B58\u5728\u4FDD\u9669\u5E93\u4E2D\uFF1B\u5217\u8868\u4E2D\u4E0D\u7528\u6570\u636E\u8BF7\u53CA\u65F6\u5220\u9664\u7EF4\u62A4\uFF0C\u5426\u5219\u4F1A\u5F71\u54CD\u4FDD\u9669\u5E93\u4FDD\u5B58\u5BB9\u91CF\uFF01'
+            this.props.lang.draftCautionMsg
           )
         )
       );

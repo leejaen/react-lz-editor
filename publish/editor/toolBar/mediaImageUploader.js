@@ -1,24 +1,24 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
+
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/button/style/css');
+
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _css3 = require('antd/lib/icon/style/css');
+
 
 var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _css4 = require('antd/lib/message/style/css');
+
 
 var _message = require('antd/lib/message');
 
@@ -90,7 +90,7 @@ var ImgStyleControls = function (_Component) {
     key: 'prepareToSendImageToEditor',
     value: function prepareToSendImageToEditor() {
       if (!!this.state.images.length) {
-        this.state.loadingRemoteImageFun = _message2.default.loading('图片正在处理并生成预览，请稍等片刻...', 0);
+        this.state.loadingRemoteImageFun = _message2.default.loading(this.props.lang.inPreviewProgress, 0);
       }
     }
   }, {
@@ -198,17 +198,19 @@ var ImgStyleControls = function (_Component) {
             atuoSize: [650, 0],
             receiveSelectedPictures: this.groupAppend,
             uploadConfig: this.props.uploadConfig,
-            uploadProps: this.props.uploadProps },
+            uploadProps: this.props.uploadProps,
+            watermarkImage: this.props.watermarkImage,
+            lang: this.props.lang },
           _react2.default.createElement(
             'span',
             { className: className },
-            _react2.default.createElement(_icon2.default, { type: 'editor_image_masker', title: '\u6C34\u5370\u56FE\u7247' })
+            _react2.default.createElement(_icon2.default, { type: 'editor_image_masker', title: this.props.lang.imageMasker })
           )
         ),
         _react2.default.createElement(
           'span',
           { className: className, onClick: that.onImgToggle },
-          _react2.default.createElement(_icon2.default, { type: 'editor_image', title: '\u539F\u59CB\u56FE\u7247' })
+          _react2.default.createElement(_icon2.default, { type: 'editor_image', title: this.props.lang.originalImage })
         ),
         _react2.default.createElement(
           'div',
@@ -233,19 +235,23 @@ var ImgStyleControls = function (_Component) {
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u63D2\u5165\u56FE\u7247',
+            title: this.props.lang.insertImageModalTitle,
             visible: that.state.provisible,
             closable: false,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancel },
-              ' \u53D6 \u6D88 '
+              ' ',
+              this.props.lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.disabled, onClick: function onClick() {
                   return that.successLoading("fromOld");
                 } },
-              ' \u786E \u5B9A '
+              ' ',
+              this.props.lang.OKText,
+              ' '
             )] },
           _react2.default.createElement(_businessComponents.UploadImage, {
             isMultiple: true,
@@ -254,26 +260,31 @@ var ImgStyleControls = function (_Component) {
             cbReceiver: that.getImgObject,
             uploadConfig: this.props.uploadConfig,
             uploadProps: this.props.uploadProps,
+            lang: this.props.lang,
             limit: 10,
             fileType: 'image' })
         ),
         _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u56FE\u7247\u9884\u89C8',
+            title: this.props.lang.previewImageModalTitle,
             visible: that.state.previsible,
             width: 800,
             closable: false,
             footer: [_react2.default.createElement(
               _button2.default,
               { key: 'back', size: 'large', onClick: that.handleCancelUploading },
-              ' \u53D6\u6D88 '
+              ' ',
+              this.props.lang.cancelText,
+              ' '
             ), _react2.default.createElement(
               _button2.default,
               { key: 'submit', type: 'primary', size: 'large', disabled: that.state.pfopImages.length == 0, onClick: function onClick() {
                   return that.realLoading("fromOld");
                 } },
-              ' \u786E\u8BA4\u65E0\u8BEF '
+              ' ',
+              this.props.lang.validatedImage,
+              ' '
             )] },
           _react2.default.createElement(
             'div',
@@ -287,7 +298,7 @@ var ImgStyleControls = function (_Component) {
                   'a',
                   { onClick: function onClick() {
                       return that.reloadUploadingPictrue(url, index);
-                    }, title: '\u624B\u52A8\u5237\u65B0' },
+                    }, title: _this3.props.lang.refreshImage },
                   _react2.default.createElement(_icon2.default, { type: 'reload' })
                 ),
                 _react2.default.createElement('img', { src: url })

@@ -1,18 +1,15 @@
 'use strict';
 
-var _css = require('antd/lib/modal/style/css');
 
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
-var _css2 = require('antd/lib/input/style/css');
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css3 = require('antd/lib/message/style/css');
 
 var _message = require('antd/lib/message');
 
@@ -41,6 +38,8 @@ var _getSelectedBlocks = require('./utils/stateUtils/getSelectedBlocks');
 var _getSelectedBlocks2 = _interopRequireDefault(_getSelectedBlocks);
 
 var _publicDatas = require('../global/supports/publicDatas');
+
+var _i18n = require('../global/i18n');
 
 var _LinkDecorator = require('./decorators/LinkDecorator');
 
@@ -145,8 +144,8 @@ var EditorConcist = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (EditorConcist.__proto__ || Object.getPrototypeOf(EditorConcist)).call(this, props));
 
     _this.state = {
-      openFullTest: "全屏",
-      showSourceEditor: "源码",
+      openFullTest: "",
+      showSourceEditor: "",
       showURLInput: false,
       urlValue: '',
       hasPasted: false,
@@ -154,6 +153,7 @@ var EditorConcist = function (_React$Component) {
       visible: false,
       showMarkdownSource: false,
       tempSouceContent: "",
+      language: "en",
 
       editorState: function () {
         var originalString = _this.props.importContent;
@@ -256,6 +256,21 @@ var EditorConcist = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var currLang = this.localLang,
+          language = void 0;
+      if (_i18n.lang[this.props.lang]) {
+        language = this.props.lang;
+      } else if (_i18n.lang[currLang.fullLang]) {
+        language = currLang.fullLang;
+      } else if (_i18n.lang[currLang.simpLang]) {
+        language = currLang.simpLang;
+      }
+      language = language || "en";
+      this.setState({ language: language,
+        openFullTest: _i18n.lang[language].fullScreen,
+        showSourceEditor: _i18n.lang[language].sourceCode
+      });
+
       var content = this.props.importContent;
 
       var contentState = (0, _utils.stateFromHTML)(content);
@@ -323,7 +338,6 @@ var EditorConcist = function (_React$Component) {
       var editorState = this.state.editorState;
 
       var selection = editorState.getSelection();
-
       if (!selection.isCollapsed()) {
 
         var that = this;
@@ -333,7 +347,7 @@ var EditorConcist = function (_React$Component) {
           visible: true
         }, function () {});
       } else {
-        _message2.default.error("创建链接前请先选中链接文字！", 5);
+        _message2.default.error(_i18n.lang[this.state.language].selectedText, 5);
       }
     }
   }, {
@@ -372,7 +386,7 @@ var EditorConcist = function (_React$Component) {
           editorState: _draftJs.RichUtils.toggleLink(editorState, selection, null)
         });
       } else {
-        _message2.default.error("移除链接前请先选中链接！", 5);
+        _message2.default.error(_i18n.lang[this.state.language].selectedLink, 5);
       }
     }
   }, {
@@ -385,13 +399,13 @@ var EditorConcist = function (_React$Component) {
         ele.className = ele.className.replace("openFullAll", "");
 
         this.setState({
-          openFullTest: "全屏"
+          openFullTest: _i18n.lang[this.state.language].fullScreen
         });
       } else {
         ele.className += ' openFullAll';
         setTimeout(function () {}, 500);
         this.setState({
-          openFullTest: "退出全屏"
+          openFullTest: _i18n.lang[this.state.language].quitFullScreen
         });
       }
     }
@@ -403,13 +417,13 @@ var EditorConcist = function (_React$Component) {
       if (ele.classList.contains("showSource")) {
         ele.className = ele.className.replace("showSource", "");
         this.setState({
-          showSourceEditor: "源码",
+          showSourceEditor: _i18n.lang[this.state.language].sourceCode,
           showMarkdownSource: false
         });
       } else {
         ele.className += ' showSource';
         this.setState({
-          showSourceEditor: "预览",
+          showSourceEditor: _i18n.lang[this.state.language].preview,
           showMarkdownSource: true
         });
       }
@@ -453,7 +467,7 @@ var EditorConcist = function (_React$Component) {
         }
         var start30Text = newText.substr(0, 30);
         _publicDatas.PRO_COMMON.localDB.setter("$d" + start30Text, content);
-        _message2.default.success("编辑器内容已更新到保险库中", 5);
+        _message2.default.success(_i18n.lang[this.state.language].successToDraftBox, 5);
         return true;
       } else if (command === "editor-paste") {
         return true;
@@ -545,7 +559,7 @@ var EditorConcist = function (_React$Component) {
 
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
-      _message2.default.success("已经清空样式并成功粘贴，可能部分图片因原网站防盗链功能暂未显示。", 5);
+      _message2.default.success(_i18n.lang[this.state.language].successPasteCleanText, 5);
       this.forceUpdate();
       return true;
     }
@@ -569,7 +583,7 @@ var EditorConcist = function (_React$Component) {
     value: function _addMedia(type, Object) {
       var src = Object.url;
       if (!src) {
-        throw new Error("！！！！！！！！！！上传文件错误！！！！！！！！！！");
+        throw new Error(_i18n.lang[this.state.language].errorUploadingFile);
         return false;
       }
       var entityKey = _draftJs.Entity.create(type, 'IMMUTABLE', { src: src });
@@ -717,7 +731,7 @@ var EditorConcist = function (_React$Component) {
         urlInput = _react2.default.createElement(
           _modal2.default,
           {
-            title: '\u8BF7\u8F93\u51FA\u4F60\u8981\u8DF3\u8F6C\u7684\u94FE\u63A5',
+            title: _i18n.lang[this.state.language].directToURL,
             visible: this.state.visible,
             onOk: this.confirmLink,
             onCancel: this.handleCancel,
@@ -731,7 +745,7 @@ var EditorConcist = function (_React$Component) {
           _react2.default.createElement(
             'span',
             { style: { color: "red" } },
-            '\u8BF7\u8F93\u5165\u7B26\u5408\u89C4\u8303\u7684\u7F51\u5740\u94FE\u63A5\uFF08\u4EE5\u201Chttp://\u201D \u6216 \u201Chttps://\u201D\u4E3A\u524D\u5BFC\uFF09'
+            _i18n.lang[this.state.language].directToURLTip
           )
         );
       }
@@ -752,24 +766,24 @@ var EditorConcist = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          this.state.showMarkdownSource == false && this.props.undoRedo && _react2.default.createElement(_undoredoControls2.default, { onToggle: this.undoRedo }),
-          this.state.showMarkdownSource == false && this.props.removeStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle }),
-          this.state.showMarkdownSource == false && this.props.pasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle }),
-          this.state.showMarkdownSource == false && this.props.blockStyle && _react2.default.createElement(_blockStyleControls2.default, { editorState: editorState, onToggle: this.toggleBlockType }),
-          this.props.alignment && this.props.convertFormat !== "markdown" && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment }),
-          this.state.showMarkdownSource == false && this.props.inlineStyle && _react2.default.createElement(_inlineStyleControls2.default, { editorState: editorState, onToggle: this.toggleInlineStyle }),
-          this.props.color && this.props.convertFormat !== "markdown" && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor }),
-          this.state.showMarkdownSource == false && this.props.image && _react2.default.createElement(_mediaImageUploader2.default, { uploadConfig: this.props.uploadConfig, receiveImage: this.addImage,
+          this.state.showMarkdownSource == false && this.props.undoRedo && _react2.default.createElement(_undoredoControls2.default, { onToggle: this.undoRedo, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.removeStyle && _react2.default.createElement(_removeStyleControls2.default, { onToggle: this.removeStyle, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.pasteNoStyle && _react2.default.createElement(_pasteNoStyleControls2.default, { receiveText: this.pasteNoStyle, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.blockStyle && _react2.default.createElement(_blockStyleControls2.default, { editorState: editorState, onToggle: this.toggleBlockType, lang: _i18n.lang[this.state.language] }),
+          this.props.alignment && this.props.convertFormat !== "markdown" && _react2.default.createElement(_alignmentControls2.default, { editorState: editorState, onToggle: this.toggleAlignment, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.inlineStyle && _react2.default.createElement(_inlineStyleControls2.default, { editorState: editorState, onToggle: this.toggleInlineStyle, lang: _i18n.lang[this.state.language] }),
+          this.props.color && this.props.convertFormat !== "markdown" && _react2.default.createElement(_colorControls2.default, { editorState: editorState, onToggle: this.toggleColor, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.image && _react2.default.createElement(_mediaImageUploader2.default, { uploadConfig: this.props.uploadConfig, receiveImage: this.addImage, watermarkImage: this.props.watermarkImage, lang: _i18n.lang[this.state.language],
             uploadProps: this.props.uploadProps }),
-          this.state.showMarkdownSource == false && this.props.video && _react2.default.createElement(_medioVideoUploader2.default, { uploadConfig: this.props.uploadConfig, receiveVideo: this.addVideo,
+          this.state.showMarkdownSource == false && this.props.video && _react2.default.createElement(_medioVideoUploader2.default, { uploadConfig: this.props.uploadConfig, receiveVideo: this.addVideo, lang: _i18n.lang[this.state.language],
             uploadProps: this.props.uploadProps }),
-          this.state.showMarkdownSource == false && this.props.audio && _react2.default.createElement(_medioAudioUploader2.default, { uploadConfig: this.props.uploadConfig, receiveAudio: this.addAudio,
+          this.state.showMarkdownSource == false && this.props.audio && _react2.default.createElement(_medioAudioUploader2.default, { uploadConfig: this.props.uploadConfig, receiveAudio: this.addAudio, lang: _i18n.lang[this.state.language],
             uploadProps: this.props.uploadProps }),
-          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.AddUrl, { editorState: editorState, onToggle: this.promptForLink }),
-          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.CloseUrl, { editorState: editorState, onToggle: this.removeLink }),
-          this.state.showMarkdownSource == false && this.props.autoSave && _react2.default.createElement(_autoSaveList2.default, { receiveSavedItem: this.choiceAutoSave }),
-          this.props.fullScreen && _react2.default.createElement(_cookieControls.OpenFull, { editorState: editorState, onToggle: this.openFull, coverTitle: this.state.openFullTest }),
-          this.props.convertFormat == "markdown" && _react2.default.createElement(_cookieControls.SourceEditor, { editorState: editorState, onToggle: this.toggleSource, coverTitle: this.state.showSourceEditor })
+          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.AddUrl, { editorState: editorState, onToggle: this.promptForLink, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.urls && _react2.default.createElement(_urlControls.CloseUrl, { editorState: editorState, onToggle: this.removeLink, lang: _i18n.lang[this.state.language] }),
+          this.state.showMarkdownSource == false && this.props.autoSave && _react2.default.createElement(_autoSaveList2.default, { receiveSavedItem: this.choiceAutoSave, lang: _i18n.lang[this.state.language] }),
+          this.props.fullScreen && _react2.default.createElement(_cookieControls.OpenFull, { editorState: editorState, onToggle: this.openFull, coverTitle: this.state.openFullTest, lang: _i18n.lang[this.state.language] }),
+          this.props.convertFormat == "markdown" && _react2.default.createElement(_cookieControls.SourceEditor, { editorState: editorState, onToggle: this.toggleSource, coverTitle: this.state.showSourceEditor, lang: _i18n.lang[this.state.language] })
         ),
         _react2.default.createElement(
           'div',
@@ -788,10 +802,16 @@ var EditorConcist = function (_React$Component) {
             style: { height: "100%", width: "100%", overflowY: "visible" },
             onChange: this.changeMrakdownContent,
             value: this.state.tempSouceContent || this.props.importContent,
-            placeholder: '\u8BF7\u5728\u8FD9\u91CC\u7F16\u8F91\u60A8\u7684markdown\u5185\u5BB9' })
+            placeholder: _i18n.lang[this.state.language].markdownTip })
         ),
         urlInput
       );
+    }
+  }, {
+    key: 'localLang',
+    get: function get() {
+      var lang = navigator.language || navigator.browserLanguage;
+      return { fullLang: lang, simpLang: lang.split("-")[0] };
     }
   }]);
 

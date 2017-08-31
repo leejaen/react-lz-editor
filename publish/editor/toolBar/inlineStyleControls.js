@@ -30,26 +30,29 @@ var InlineStyleControls = function (_Component) {
   _createClass(InlineStyleControls, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _props = this.props,
+          editorState = _props.editorState,
+          onToggle = _props.onToggle,
+          lang = _props.lang;
 
       var INLINE_STYLES = [{
-        text: '加粗',
+        text: lang.textBold,
         style: 'BOLD',
         label: "editor_b"
       }, {
-        text: '斜体',
+        text: lang.textItalic,
         style: 'ITALIC',
         label: "editor_i"
       }, {
-        text: '下划线',
+        text: lang.textUnderline,
         style: 'UNDERLINE',
         label: "editor_u"
       }, {
-        text: '等宽字体',
+        text: lang.textCode,
         style: 'CODE',
         label: "editor_e"
       }];
-      var currentStyle = this.props.editorState ? this.props.editorState.getCurrentInlineStyle() : {};
+      var currentStyle = editorState ? editorState.getCurrentInlineStyle() : {};
       return _react2.default.createElement(
         'div',
         { className: 'RichEditor-controls' },
@@ -59,7 +62,7 @@ var InlineStyleControls = function (_Component) {
             text: type.text,
             active: currentStyle.has(type.style),
             label: type.label,
-            onToggle: _this2.props.onToggle,
+            onToggle: onToggle,
             style: type.style });
         })
       );
