@@ -306,6 +306,110 @@ module.exports = {
         southCenter: "中下",
         southEast: "右下"
       }
-    }
+    },
+    ru: {
+            cancelText: "Отмена",
+            OKText: "OK",
+
+            fullScreen: "Перейти в полноэкранный режим",
+            quitFullScreen: "Выйти из полноэкранного режима",
+            sourceCode: "Исходный код",
+            preview: "Предварительный просмотр",
+            selectedText: "Для добавления новой ссылки необходимо выделить текст!",
+            selectedLink: "Необходимо выбрать ссылку для удаления!",
+            successToDraftBox: "Содержимое сохранено в Draft-Box",
+            successPasteCleanText: "Вставка теста без стиля выполнена, он не будет отображаться если URL картинки является 'Anti-Leech'.",
+            errorUploadingFile: "!!!!!!!!!!!!ОШИБКА ЗАГРУЗКИ!!!!!!!!!!!!",
+            directToURL: "Пожалуйста введите URL",
+            directToURLTip: "Пожалуйста введите URL(с префиксом \"http://\" или \"https://\".)",
+            markdownTip: "Введите Markdown текст",
+            wrongImageAddress: 'Неверный адрес картинки!',
+
+            undo: "Отменить (Ctrl-Z/Cmd-Z)",
+            redo: "Повторить (Ctrl-Y/Cmd-Shift-Z)",
+
+            confirmToRemove: "Вы действительно хотите удалить стили у выделенного текста?",
+            doRemove: "Да",
+            doNotRemove: "Нет",
+
+            pasteText: "Вставка неформатированного текста ",
+            insertNoStyleText: "Вставьте неформатированный текст",
+            pasteTipMsg: "Вставьте содержимое и нажмите OK",
+
+            H1: "Заголовок 1 уровня",
+            H2: "Заголовок 2 уровня",
+            H3: "Заголовок 3 уровня",
+            H4: "Заголовок 4 уровня",
+            refs: "Кавычки",
+            ul: "Несортированный список",
+            ol: "Сортированный список",
+            pre: "Предварительно форматированный текст",
+            alignLeft: "По левому краю",
+            alignCenter: "По центру",
+            alignRight: "По правому краю",
+            alignJustify: "Выравнивание",
+            textBold: "Жирный",
+            textItalic: "Курсив",
+            textUnderline: "Подчеркнутый",
+            textCode: "Код",
+
+            insertImageModalTitle: "Вставка изображение",
+            previewImageModalTitle: "Предварительный просмотр изображения",
+            inPreviewProgress: "Генерация превью, пожалуйста подождите...",
+            imageMasker: "Вставить изображение (уменьшенный размер)",
+            originalImage: "Вставить изображение (оригинальный размер)",
+            validatedImage: "Проверено",
+            refreshImage: "Обновить",
+
+            insertVideoTip: "Загрузить видео",
+            insertVideoModalTitle: "Добавление видео",
+
+            insertAudioTip: "Загрузить аудио",
+            insertAudioModalTitle: "Добавление аудио",
+
+            addLink: "Добавить ссылку",
+            removeLink: "Удалить ссылку",
+
+            previewMsg: 'Содержимое',
+            deleteDraftItem: "Удалить черновик",
+            draftTipMsg: "Draft-Box - вы можете нажать Ctrl+S или Cmd+S для сохранения содержимого в хранилище черновиков.",
+            draftModalTitle: "Список черновиков",
+            confirmUseDraft: "Текущее содержимое редактора будет заменено содержимым выбранного черновика, продолжить?",
+            draftCautionMsg: "Содержимое автоматически сохраняется в Draft-Box каждую минуту, вы можете выполнить сохранение вручную нажатием Ctrl+S or Cmd+S. Если длина содержимого менее 20 символов, автосохранение выполняться не будет.",
+
+            autoSave: "Автоматическое сохранение черновика",
+
+            inPfopProgress: "Пожалуйста подождите пока изображение будет обработано",
+            pfopError: "Произошла ошибка при обработке изображения! Подробности:",
+            btnAddBatch: "Пакетная вставка",
+            batchAddModalTitle: "Пакетная загрузка изображений",
+            chkAutoWaterMask: "Автоматическое изменение размера",
+
+            uploadingTipMsg: "Загрузка...",
+            limitCountTip: "Максимальное число файлов: $limit$.",
+            btnUpload: "Нажмите для загрузки",
+            manuallyUploadTip: "Вы можете вручную выбрать изображение, нажмите 'Enter' для подтверждения.",
+            limitAndTypeTip: "Максимальное число загружаемых файлов: $limit$.($type$)",
+
+            auto: "[AUTO]",
+            height: "Высота",
+            width: "Ширина",
+            zoomTipMsg: "Уменьшение или увеличение до $targetSize$ в соответствии с $accordingSize$ ",
+            pleaseUploading: "Загрузка",
+            watermarkPos: {
+                north: "Север",
+                northWest: "Север запад",
+                northCenter: "Север центр",
+                northEast: "Север восток",
+                center: "Центр",
+                west: "Запад",
+                centerCenter: "Абсолютный центр",
+                east: "Восток",
+                south: "Юг",
+                southWest: "Юг запад",
+                southCenter: "Юг центр",
+                southEast: "Юг восток"
+            }
+        }
   }
 }
