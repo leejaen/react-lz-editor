@@ -167,15 +167,15 @@ class GroupUpload extends Component {
     });
   }
   gotPfopPictures (theData)  {
-  // console.log("gotPfopPictures theData",theData);
-  if (theData.rc == "0") {
-    return (dispatch) => {
-      // dispatch(gotPfopPicturesSuccessfully(theData.data));
+    // console.log("gotPfopPictures theData",theData);
+    if (theData.rc == "0") {
+      return (dispatch) => {
+        // dispatch(gotPfopPicturesSuccessfully(theData.data));
+      }
+    } else {
+      message.error(this.props.lang.pfopError + theData.des, 5);
     }
-  } else {
-    message.error(this.props.lang.pfopError + theData.des, 5);
   }
-}
   getPictures(listPicture) { //上传完毕
     let newPictures = listPicture.map(item => {
       if (typeof(item.url) != undefined) {
@@ -195,12 +195,13 @@ class GroupUpload extends Component {
     this.setState({showPictureSeletor: false});
   }
   componentWillReceiveProps(prevProps,nextProps){
-    // console.log("nextProps",nextProps)
+    console.log("componentWillReceiveProps nextProps",prevProps,nextProps,!!nextProps&&nextProps.hasOwnProperty("imageList"))
     if (!!nextProps&&nextProps.hasOwnProperty("imageList")) {
       this.setState({pictureList:nextProps.imageList,selectedPictureList: cloneDeep(nextProps.imageList)});
     }else {
       this.setState({pictureList:[],selectedPictureList:[]});
     }
+    this.forceUpdate();
   }
   componentDidMount(){
     if ((this.props.atuoSize[0] <= 300&&this.props.atuoSize[0] != 0 )|| (this.props.atuoSize[1]<=64&&this.props.atuoSize[1] != 0)) {

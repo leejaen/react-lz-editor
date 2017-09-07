@@ -111,16 +111,23 @@ class ImgStyleControls extends Component {
     this.forceUpdate();
   }
   groupAppend(pictureList) {
-    // console.log("pictureList", pictureList);
+    console.log("groupAppend this.state.images", pictureList, this.state.images);
     if (!pictureList.length) {
-      // console.log("return false", pictureList.lenght);
+      console.warn("ERROR: no pictureList sent to me, see pictureList", pictureList);
       return false;
     }
     let images = pictureList.map(item => {
       return {"url": item};
     })
-    this.setState({ previsible: true,"images": images});
-    this.prepareToSendImageToEditor()
+    // this.setState({ provisible: false, previsible: false,"images": images });
+    // this.prepareToSendImageToEditor();
+
+    this.setState({images: [], pfopImages: []});
+    setTimeout(()=>{
+      this.setState({provisible: false, previsible: false});
+    },1000);
+    this.props.receiveImage(cloneDeep(images));
+    pictureList=[];
   }
 
   onImgToggle() {
@@ -143,8 +150,8 @@ class ImgStyleControls extends Component {
         <GroupUpload
           limitCount={50}
           imageList={this.state.images.map((item) => {
-          item.url
-        })}
+            item.url
+          })}
           atuoSize={[650,0]}
           receiveSelectedPictures={this.groupAppend}
           uploadConfig={this.props.uploadConfig}

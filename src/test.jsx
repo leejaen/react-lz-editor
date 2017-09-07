@@ -14,6 +14,7 @@ class Test extends React.Component {
       htmlContent: `<h1> Head level 1</h1>
                 <p style='text-align:center;'><span style="color:#ED5565">red text</span>,center ,<strong>bold</strong>，<em>italic</em></p>
                 <blockquote style='text-align:left;'><span style="color:#967adc">C</span> <span style="color:#a0d468">O</span><span style="color:#48cfad">L</span><span style="color:#4a89dc">O</span><span style="color:#967adc">R</span><span style="color:#434a54">S</span></blockquote>
+                <p>Note that the upload feature cannot be uploaded in this demo page because of server configuration. Here only the code demos are available.</p>
                 <p><br></p>
                 <ul>
                   <li><span style="color:#434a54">list 1</span></li>
@@ -54,6 +55,8 @@ class Test extends React.Component {
   }
   receiveHtml(content) {
     console.log("recieved HTML content", content);
+    //清空responseList
+    this.setState({responseList:[]});
   }
   componentDidMount() {}
   receiveMarkdown(content) {
