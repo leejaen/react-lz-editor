@@ -1,25 +1,20 @@
 'use strict';
 
-
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
-
 
 var _select = require('antd/lib/select');
 
 var _select2 = _interopRequireDefault(_select);
 
-
 var _checkbox = require('antd/lib/checkbox');
 
 var _checkbox2 = _interopRequireDefault(_checkbox);
 
-
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
-
 
 var _message = require('antd/lib/message');
 
@@ -279,11 +274,13 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(prevProps, nextProps) {
+      console.log("componentWillReceiveProps nextProps", prevProps, nextProps, !!nextProps && nextProps.hasOwnProperty("imageList"));
       if (!!nextProps && nextProps.hasOwnProperty("imageList")) {
         this.setState({ pictureList: nextProps.imageList, selectedPictureList: (0, _cloneDeep2.default)(nextProps.imageList) });
       } else {
         this.setState({ pictureList: [], selectedPictureList: [] });
       }
+      this.forceUpdate();
     }
   }, {
     key: 'componentDidMount',

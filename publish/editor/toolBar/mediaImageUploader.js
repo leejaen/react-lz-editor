@@ -1,20 +1,16 @@
 'use strict';
 
-
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
-
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-
 var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
-
 
 var _message = require('antd/lib/message');
 
@@ -150,14 +146,24 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'groupAppend',
     value: function groupAppend(pictureList) {
+      var _this3 = this;
+
+      console.log("groupAppend this.state.images", pictureList, this.state.images);
       if (!pictureList.length) {
+        console.warn("ERROR: no pictureList sent to me, see pictureList", pictureList);
         return false;
       }
       var images = pictureList.map(function (item) {
         return { "url": item };
       });
-      this.setState({ previsible: true, "images": images });
-      this.prepareToSendImageToEditor();
+
+
+      this.setState({ images: [], pfopImages: [] });
+      setTimeout(function () {
+        _this3.setState({ provisible: false, previsible: false });
+      }, 1000);
+      this.props.receiveImage((0, _cloneDeep2.default)(images));
+      pictureList = [];
     }
   }, {
     key: 'onImgToggle',
@@ -177,7 +183,7 @@ var ImgStyleControls = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var className = 'RichEditor-styleButton';
       var that = this;
@@ -221,10 +227,10 @@ var ImgStyleControls = function (_Component) {
           this.state.images.map(function (item, index) {
             return _react2.default.createElement('img', { style: { width: "100px" }, src: item.url + "?t=10",
               onError: function onError(event) {
-                return _this3.failureLoading(event, index);
+                return _this4.failureLoading(event, index);
               },
               onLoad: function onLoad() {
-                return _this3.successLoading("fromImg");
+                return _this4.successLoading("fromImg");
               } });
           })
         ),
@@ -294,7 +300,7 @@ var ImgStyleControls = function (_Component) {
                   'a',
                   { onClick: function onClick() {
                       return that.reloadUploadingPictrue(url, index);
-                    }, title: _this3.props.lang.refreshImage },
+                    }, title: _this4.props.lang.refreshImage },
                   _react2.default.createElement(_icon2.default, { type: 'reload' })
                 ),
                 _react2.default.createElement('img', { src: url })

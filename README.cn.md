@@ -70,6 +70,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
     }
     receiveHtml(content) {
       console.log("recieved HTML content", content);
+      this.setState({responseList:[]});
     }
     componentDidMount() {}
     receiveMarkdown(content) {

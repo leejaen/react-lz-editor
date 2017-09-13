@@ -2,7 +2,7 @@
 
 # react-lz-editor
 
-An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode. It's supports multiple languages well(just English and Chinese for now) and welcome you add your language supports.
+An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode. It's supports multiple languages well(English, Chinese and Russian for now) and welcome you add your language supports.
 
 ## Live demo
 
@@ -43,6 +43,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
     }
     receiveHtml(content) {
       console.log("recieved HTML content", content);
+      this.setState({responseList:[]});
     }
     render() {
       let policy = "";

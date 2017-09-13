@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dbc363c183ab03a1d566"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e9d753c6ea97de0dd24c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8512,7 +8512,7 @@
 	    var _this2 = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
 
 	    _this2.state = {
-	      htmlContent: '<h1> Head level 1</h1>\n                <p style=\'text-align:center;\'><span style="color:#ED5565">red text</span>,center ,<strong>bold</strong>\uFF0C<em>italic</em></p>\n                <blockquote style=\'text-align:left;\'><span style="color:#967adc">C</span> <span style="color:#a0d468">O</span><span style="color:#48cfad">L</span><span style="color:#4a89dc">O</span><span style="color:#967adc">R</span><span style="color:#434a54">S</span></blockquote>\n                <p><br></p>\n                <ul>\n                  <li><span style="color:#434a54">list 1</span></li>\n                  <li><span style="color:#434a54">list 2</span></li>\n                  <li><span style="color:#434a54">list 3</span></li>\n                </ul>\n                <pre><code>Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <p><img src="https://image.qiluyidian.mobi/43053508139910678747.jpg"/></p>\n                <p><br></p>\n                <h2>Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful</h2>\n                <p>Leaning over the railing from his perch on the top step of the first-base dugout this past weekend in Cleveland, Yankees Manager Joe Girardi did not have to divert his gaze to catch glimpses of the out-of-town scoreboard./p>\n                <p>It was all there on the left-field wall.</p>\n                <p>\u201CYou\u2019re going to look \u2014 it\u2019s impossible not to,\u201D Girardi said. \u201CI haven\u2019t seen a ballpark where they put it behind you. You pay attention, of course.\u201D</p>\n                <p>Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi\u2019s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.</p>',
+	      htmlContent: '<h1> Head level 1</h1>\n                <p style=\'text-align:center;\'><span style="color:#ED5565">red text</span>,center ,<strong>bold</strong>\uFF0C<em>italic</em></p>\n                <blockquote style=\'text-align:left;\'><span style="color:#967adc">C</span> <span style="color:#a0d468">O</span><span style="color:#48cfad">L</span><span style="color:#4a89dc">O</span><span style="color:#967adc">R</span><span style="color:#434a54">S</span></blockquote>\n                <p>Note that the upload feature cannot be uploaded in this demo page because of server configuration. Here only the code demos are available.</p>\n                <p><br></p>\n                <ul>\n                  <li><span style="color:#434a54">list 1</span></li>\n                  <li><span style="color:#434a54">list 2</span></li>\n                  <li><span style="color:#434a54">list 3</span></li>\n                </ul>\n                <pre><code>Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <pre><code>Block here.Block here.Block here.Block here.Block here.</code></pre>\n                <p><img src="https://image.qiluyidian.mobi/43053508139910678747.jpg"/></p>\n                <p><br></p>\n                <h2>Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful</h2>\n                <p>Leaning over the railing from his perch on the top step of the first-base dugout this past weekend in Cleveland, Yankees Manager Joe Girardi did not have to divert his gaze to catch glimpses of the out-of-town scoreboard./p>\n                <p>It was all there on the left-field wall.</p>\n                <p>\u201CYou\u2019re going to look \u2014 it\u2019s impossible not to,\u201D Girardi said. \u201CI haven\u2019t seen a ballpark where they put it behind you. You pay attention, of course.\u201D</p>\n                <p>Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi\u2019s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.</p>',
 	      markdownContent: "## HEAD 2 \n markdown examples \n ``` welcome ```",
 	      rawContent: '{"entityMap":{"0":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/4305350813991067' + '8747.jpg"}},"1":{"type":"image","mutability":"IMMUTABLE","data":{"src":"https://image.qiluyidian.mobi/430535081399106787' + '47.jpg"}}},"blocks":[{"key":"fr2lj","text":"Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[]' + ',"data":{}},{"key":"90kdv","text":"Leaning over the railing from his perch on the top step of the first-base dugout this past weekend in Cleveland, Yankees Manager Joe Girardi did not have to divert his gaze to catch glimpses of the out-of-town scoreboard.","type":"unstyled","depth":0,"inlin' + 'eStyleRanges":[],"entityRanges":[],"data":{}},{"key":"b60ni","text":"Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi’s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"eui4h","text' + '":"The Yankees, who trail the Red Sox by three games in the American League East, will have their rivals right in front of them on three of the next four weekends, beginning Friday night at Yankee Stadium.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"29t6l","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":0}],"data":{}},{"key":"7ujeo","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}},{"key":"3n9d4","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"lengt' + 'h":1,"key":1}],"data":{}},{"key":"9r0k2","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],' + '"data":{}}]}',
 	      responseList: []
@@ -8531,6 +8531,8 @@
 	    key: 'receiveHtml',
 	    value: function receiveHtml(content) {
 	      console.log("recieved HTML content", content);
+	      //清空responseList
+	      this.setState({ responseList: [] });
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -73974,6 +73976,110 @@
 	                        southCenter: "中下",
 	                        southEast: "右下"
 	                  }
+	            },
+	            ru: {
+	                  cancelText: "Отмена",
+	                  OKText: "OK",
+
+	                  fullScreen: "Перейти в полноэкранный режим",
+	                  quitFullScreen: "Выйти из полноэкранного режима",
+	                  sourceCode: "Исходный код",
+	                  preview: "Предварительный просмотр",
+	                  selectedText: "Для добавления новой ссылки необходимо выделить текст!",
+	                  selectedLink: "Необходимо выбрать ссылку для удаления!",
+	                  successToDraftBox: "Содержимое сохранено в Draft-Box",
+	                  successPasteCleanText: "Вставка теста без стиля выполнена, он не будет отображаться если URL картинки является 'Anti-Leech'.",
+	                  errorUploadingFile: "!!!!!!!!!!!!ОШИБКА ЗАГРУЗКИ!!!!!!!!!!!!",
+	                  directToURL: "Пожалуйста введите URL",
+	                  directToURLTip: "Пожалуйста введите URL(с префиксом \"http://\" или \"https://\".)",
+	                  markdownTip: "Введите Markdown текст",
+	                  wrongImageAddress: 'Неверный адрес картинки!',
+
+	                  undo: "Отменить (Ctrl-Z/Cmd-Z)",
+	                  redo: "Повторить (Ctrl-Y/Cmd-Shift-Z)",
+
+	                  confirmToRemove: "Вы действительно хотите удалить стили у выделенного текста?",
+	                  doRemove: "Да",
+	                  doNotRemove: "Нет",
+
+	                  pasteText: "Вставка неформатированного текста ",
+	                  insertNoStyleText: "Вставьте неформатированный текст",
+	                  pasteTipMsg: "Вставьте содержимое и нажмите OK",
+
+	                  H1: "Заголовок 1 уровня",
+	                  H2: "Заголовок 2 уровня",
+	                  H3: "Заголовок 3 уровня",
+	                  H4: "Заголовок 4 уровня",
+	                  refs: "Кавычки",
+	                  ul: "Несортированный список",
+	                  ol: "Сортированный список",
+	                  pre: "Предварительно форматированный текст",
+	                  alignLeft: "По левому краю",
+	                  alignCenter: "По центру",
+	                  alignRight: "По правому краю",
+	                  alignJustify: "Выравнивание",
+	                  textBold: "Жирный",
+	                  textItalic: "Курсив",
+	                  textUnderline: "Подчеркнутый",
+	                  textCode: "Код",
+
+	                  insertImageModalTitle: "Вставка изображение",
+	                  previewImageModalTitle: "Предварительный просмотр изображения",
+	                  inPreviewProgress: "Генерация превью, пожалуйста подождите...",
+	                  imageMasker: "Вставить изображение (уменьшенный размер)",
+	                  originalImage: "Вставить изображение (оригинальный размер)",
+	                  validatedImage: "Проверено",
+	                  refreshImage: "Обновить",
+
+	                  insertVideoTip: "Загрузить видео",
+	                  insertVideoModalTitle: "Добавление видео",
+
+	                  insertAudioTip: "Загрузить аудио",
+	                  insertAudioModalTitle: "Добавление аудио",
+
+	                  addLink: "Добавить ссылку",
+	                  removeLink: "Удалить ссылку",
+
+	                  previewMsg: 'Содержимое',
+	                  deleteDraftItem: "Удалить черновик",
+	                  draftTipMsg: "Draft-Box - вы можете нажать Ctrl+S или Cmd+S для сохранения содержимого в хранилище черновиков.",
+	                  draftModalTitle: "Список черновиков",
+	                  confirmUseDraft: "Текущее содержимое редактора будет заменено содержимым выбранного черновика, продолжить?",
+	                  draftCautionMsg: "Содержимое автоматически сохраняется в Draft-Box каждую минуту, вы можете выполнить сохранение вручную нажатием Ctrl+S or Cmd+S. Если длина содержимого менее 20 символов, автосохранение выполняться не будет.",
+
+	                  autoSave: "Автоматическое сохранение черновика",
+
+	                  inPfopProgress: "Пожалуйста подождите пока изображение будет обработано",
+	                  pfopError: "Произошла ошибка при обработке изображения! Подробности:",
+	                  btnAddBatch: "Пакетная вставка",
+	                  batchAddModalTitle: "Пакетная загрузка изображений",
+	                  chkAutoWaterMask: "Автоматическое изменение размера",
+
+	                  uploadingTipMsg: "Загрузка...",
+	                  limitCountTip: "Максимальное число файлов: $limit$.",
+	                  btnUpload: "Нажмите для загрузки",
+	                  manuallyUploadTip: "Вы можете вручную выбрать изображение, нажмите 'Enter' для подтверждения.",
+	                  limitAndTypeTip: "Максимальное число загружаемых файлов: $limit$.($type$)",
+
+	                  auto: "[AUTO]",
+	                  height: "Высота",
+	                  width: "Ширина",
+	                  zoomTipMsg: "Уменьшение или увеличение до $targetSize$ в соответствии с $accordingSize$ ",
+	                  pleaseUploading: "Загрузка",
+	                  watermarkPos: {
+	                        north: "Север",
+	                        northWest: "Север запад",
+	                        northCenter: "Север центр",
+	                        northEast: "Север восток",
+	                        center: "Центр",
+	                        west: "Запад",
+	                        centerCenter: "Абсолютный центр",
+	                        east: "Восток",
+	                        south: "Юг",
+	                        southWest: "Юг запад",
+	                        southCenter: "Юг центр",
+	                        southEast: "Юг восток"
+	                  }
 	            }
 	      }
 	};
@@ -74152,7 +74258,7 @@
 	      var _entity$getData2 = entity.getData(),
 	          src = _entity$getData2.src;
 
-	      src = src.replace(/[-?*!].*$/g, "");
+	      src = src.replace(/[?#&].*$/g, "");
 	      this.setState({ imageSrc: src });
 	      image.src = this.state.imageSrc;
 	      image.onload = function () {
@@ -74833,16 +74939,25 @@
 	  }, {
 	    key: 'groupAppend',
 	    value: function groupAppend(pictureList) {
-	      // console.log("pictureList", pictureList);
+	      var _this3 = this;
+
+	      console.log("groupAppend this.state.images", pictureList, this.state.images);
 	      if (!pictureList.length) {
-	        // console.log("return false", pictureList.lenght);
+	        console.warn("ERROR: no pictureList sent to me, see pictureList", pictureList);
 	        return false;
 	      }
 	      var images = pictureList.map(function (item) {
 	        return { "url": item };
 	      });
-	      this.setState({ previsible: true, "images": images });
-	      this.prepareToSendImageToEditor();
+	      // this.setState({ provisible: false, previsible: false,"images": images });
+	      // this.prepareToSendImageToEditor();
+
+	      this.setState({ images: [], pfopImages: [] });
+	      setTimeout(function () {
+	        _this3.setState({ provisible: false, previsible: false });
+	      }, 1000);
+	      this.props.receiveImage((0, _cloneDeep2.default)(images));
+	      pictureList = [];
 	    }
 	  }, {
 	    key: 'onImgToggle',
@@ -74863,7 +74978,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var className = 'RichEditor-styleButton';
 	      var that = this;
@@ -74907,10 +75022,10 @@
 	          this.state.images.map(function (item, index) {
 	            return _react2.default.createElement('img', { style: { width: "100px" }, src: item.url + "?t=10",
 	              onError: function onError(event) {
-	                return _this3.failureLoading(event, index);
+	                return _this4.failureLoading(event, index);
 	              },
 	              onLoad: function onLoad() {
-	                return _this3.successLoading("fromImg");
+	                return _this4.successLoading("fromImg");
 	              } });
 	          })
 	        ),
@@ -74981,7 +75096,7 @@
 	                  'a',
 	                  { onClick: function onClick() {
 	                      return that.reloadUploadingPictrue(url, index);
-	                    }, title: _this3.props.lang.refreshImage },
+	                    }, title: _this4.props.lang.refreshImage },
 	                  _react2.default.createElement(_icon2.default, { type: 'reload' })
 	                ),
 	                _react2.default.createElement('img', { src: url })
@@ -81859,12 +81974,13 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(prevProps, nextProps) {
-	      // console.log("nextProps",nextProps)
+	      console.log("componentWillReceiveProps nextProps", prevProps, nextProps, !!nextProps && nextProps.hasOwnProperty("imageList"));
 	      if (!!nextProps && nextProps.hasOwnProperty("imageList")) {
 	        this.setState({ pictureList: nextProps.imageList, selectedPictureList: (0, _cloneDeep2.default)(nextProps.imageList) });
 	      } else {
 	        this.setState({ pictureList: [], selectedPictureList: [] });
 	      }
+	      this.forceUpdate();
 	    }
 	  }, {
 	    key: 'componentDidMount',
