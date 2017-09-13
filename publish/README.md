@@ -17,7 +17,7 @@ OR
 yarn add react-lz-editor
 ```
 
-Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at last 2.8.3 in your project is recommended.
+Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at least from 2.8.3 in your project is recommended.
 
 # Git
     git+ssh://git@github.com/leejaen/react-lz-editor.git
