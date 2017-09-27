@@ -35,7 +35,7 @@ class UploadImage extends Component {
 
   changeInputVideo(e){
     let value=e.target.value;
-    console.log("changeInputVideo",value);
+    // console.log("changeInputVideo",value);
     this.setState({inputVideoUrl:value});
   }
 
@@ -49,9 +49,7 @@ class UploadImage extends Component {
         this.state.files.push({url:value,name:value,status:"done",uid:"uid_"+PRO_COMMON.String.RndNum(20)});
         // this.getVideoObject();
         setTimeout(()=>{
-          console.log("tstd")
           this.props.cbReceiver(this.state.files);
-          console.log("tsta")
         },100);
       },100);
     }
