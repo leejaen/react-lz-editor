@@ -5,7 +5,7 @@
 An open source react rich-text editor ( mordern react editor includes media support such as texts, images, videos, audios, links etc. ), development based on Draft-Js and Ant-design, good support html, markdown, draft-raw mode. It's supports multiple languages well and welcome you add your language supports.
 
 ## languages
-:pray: English, Chinese, Russian @[borisblack](https://github.com/borisblack), Japanese @[sibaservice](https://github.com/sibaservice)
+:pray: English, Chinese, Russian from [@borisblack](https://github.com/borisblack), Japanese from [@sibaservice](https://github.com/sibaservice)
 
 ## Live demo
 
