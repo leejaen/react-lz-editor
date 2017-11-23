@@ -81,11 +81,11 @@
   line-height: initial;
 }
 
-.public-DraftEditor-content>div>* {
+.RichEditor-editor .public-DraftEditor-content>div>* {
   margin: 10px 0;
 }
 
-.public-DraftEditor-content pre {
+.RichEditor-editor .public-DraftEditor-content pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
