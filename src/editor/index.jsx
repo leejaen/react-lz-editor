@@ -293,8 +293,8 @@ class EditorConcist extends React.Component {
     // console.log("_confirmLink urlValue", urlValue)
     const {editorState, urlValue} = this.state;
     const entityKey = Entity.create('LINK', 'MUTABLE', {url: urlValue});
+    this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey));
     this.setState({
-      editorState: RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey),
       showURLInput: false,
       urlValue: ''
     }, () => {
@@ -315,9 +315,7 @@ class EditorConcist extends React.Component {
     const {editorState} = this.state;
     const selection = editorState.getSelection();
     if (!selection.isCollapsed()) {
-      this.setState({
-        editorState: RichUtils.toggleLink(editorState, selection, null)
-      });
+      this.onChange(RichUtils.toggleLink(editorState, selection, null));
     } else {
       message.error(lang[this.state.language].selectedLink, 5);
     }
