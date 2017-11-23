@@ -412,6 +412,110 @@ module.exports = {
                         southCenter: "Юг центр",
                         southEast: "Юг восток"
                   }
+            },
+            ja: {
+                  cancelText: "キャンセル",
+                  OKText: "OK",
+
+                  fullScreen: "最大化",
+                  quitFullScreen: "最小化",
+                  sourceCode: "ソースコード",
+                  preview: "プレビュー",
+                  selectedText: "新しいリンクを追加する前にテキストを選択してください",
+                  selectedLink: "リンクを削除する前にリンクを選択してください",
+                  successToDraftBox: "入力内容が一時保存されました",
+                  successPasteCleanText: "スタイルのないテキストの貼り付けに成功しました, 画像のURLが不正な場合は表示されません",
+                  errorUploadingFile: "!!!!!!!!!!!!エラーアップロード!!!!!!!!!!!!",
+                  directToURL: "URLを入力してください",
+                  directToURLTip: "一般的な URL形式(\"http://\" or \"https://\")",
+                  markdownTip: "ここにマークダウンを入力してください",
+                  wrongImageAddress: 'イメージURLが間違っています',
+
+                  undo: "元に戻す (Ctrl-Z/Cmd-Z)",
+                  redo: "やり直す (Ctrl-Y/Cmd-Shift-Z)",
+
+                  confirmToRemove: "選択したテキストからスタイルを削除します, よろしいですか？",
+                  doRemove: "はい",
+                  doNotRemove: "いいえ",
+
+                  pasteText: "プレーンテキストの貼り付け",
+                  insertNoStyleText: "プレーンテキストをここに入力してください",
+                  pasteTipMsg: "プレーンテキストを貼り付けてOKを押してください",
+
+                  H1: "見出し1",
+                  H2: "見出し2",
+                  H3: "見出し3",
+                  H4: "見出し4",
+                  refs: "引用",
+                  ul: "箇条書き",
+                  ol: "数順 箇条書き",
+                  pre: "装飾",
+                  alignLeft: "左寄せ",
+                  alignCenter: "中央寄せ",
+                  alignRight: "右寄せ",
+                  alignJustify: "両端揃え",
+                  textBold: "太字",
+                  textItalic: "イタリック",
+                  textUnderline: "下線",
+                  textCode: "テキストコード",
+
+                  insertImageModalTitle: "画像挿入",
+                  previewImageModalTitle: "画像プレビュー",
+                  inPreviewProgress: "プレビューを作成しています　しばらくお待ちください",
+                  imageMasker: "透かし画像の挿入",
+                  originalImage: "元の画像を挿入",
+                  validatedImage: "検証済",
+                  refreshImage: "手動で更新する",
+
+                  insertVideoTip: "動画アップロード",
+                  insertVideoModalTitle: "動画挿入",
+
+                  insertAudioTip: "音楽アップロード",
+                  insertAudioModalTitle: "音楽挿入",
+
+                  addLink: "リンク追加",
+                  removeLink: "リンク削除",
+
+                  previewMsg: "入力内容",
+                  deleteDraftItem: "一時保存の削除",
+                  draftTipMsg: "一時保存 -- Ctrl+S Cmd+S で内容を一時保存,クリックして開く",
+                  draftModalTitle: "一時保存アイテムリスト",
+                  confirmUseDraft: "現在の入力内容が一時保存データで上書きされます よろしいですか?",
+                  draftCautionMsg: "入力内容は毎分自動で一時保存されます, Ctrl+S or Cmd+S で手動保存できます, コンテンツの長さが20文字未満の間は保存されません。",
+
+                  autoSave: "入力内容を自動で一時保存しました",
+
+                  inPfopProgress: "画像の処理中です, しばらくお待ちください",
+                  pfopError: "画像の作成中にエラーが発生しました! 参照:",
+                  btnAddBatch: "一括追加",
+                  batchAddModalTitle: "画像の一括アップロード",
+                  chkAutoWaterMask: "自動透かし",
+
+                  uploadingTipMsg: "リクエストに応じてアップロードしてください",
+                  limitCountTip: "最大ファイル数： $limit$",
+                  btnUpload: "アップロード",
+                  manuallyUploadTip: "画像を手動で選択して[Enter]を押して確定します.",
+                  limitAndTypeTip: "アップロードされるファイルの最大数： $limit$ ($Type$)",
+
+                  auto: "[AUTO]",
+                  height: "高さ",
+                  width: "幅",
+                  zoomTipMsg: "$accordingSize$ に応じて $targetSize$ に自動で拡大縮小します",
+                  pleaseUploading: "アップロードしてください",
+                  watermarkPos: {
+                        north: "上",
+                        northWest: "左上",
+                        northCenter: "中上",
+                        northEast: "右上",
+                        center: "中",
+                        west: "左中",
+                        centerCenter: "中央",
+                        east: "右中",
+                        south: "下",
+                        southWest: "左下",
+                        southCenter: "中下",
+                        southEast: "右下"
+                  }
             }
       }
 };

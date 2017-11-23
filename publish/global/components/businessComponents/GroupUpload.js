@@ -274,7 +274,6 @@ var GroupUpload = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(prevProps, nextProps) {
-      console.log("componentWillReceiveProps nextProps", prevProps, nextProps, !!nextProps && nextProps.hasOwnProperty("imageList"));
       if (!!nextProps && nextProps.hasOwnProperty("imageList")) {
         this.setState({ pictureList: nextProps.imageList, selectedPictureList: (0, _cloneDeep2.default)(nextProps.imageList) });
       } else {

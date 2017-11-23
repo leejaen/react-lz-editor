@@ -80,7 +80,7 @@ var UploadImage = function (_Component) {
     key: 'changeInputVideo',
     value: function changeInputVideo(e) {
       var value = e.target.value;
-      console.log("changeInputVideo", value);
+
       this.setState({ inputVideoUrl: value });
     }
   }, {
@@ -97,9 +97,7 @@ var UploadImage = function (_Component) {
           _this3.state.files.push({ url: value, name: value, status: "done", uid: "uid_" + _publicDatas.PRO_COMMON.String.RndNum(20) });
 
           setTimeout(function () {
-            console.log("tstd");
             _this3.props.cbReceiver(_this3.state.files);
-            console.log("tsta");
           }, 100);
         }, 100);
       } else {

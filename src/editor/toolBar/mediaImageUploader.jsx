@@ -56,7 +56,7 @@ class ImgStyleControls extends Component {
       this.successedCount = 0;
       setTimeout(this.state.loadingRemoteImageFun, 500);
     }
-    let pfopImages = this.state.images.map((item) => {
+    let pfopImages = this.state.images&&this.state.images.map((item) => {
       item.url = item.url.substr(0, ~ item.url.lastIndexOf("?t=")
         ? item.url.lastIndexOf("?t=")
         : item.url.length)+"?t=foreditor"
@@ -149,7 +149,7 @@ class ImgStyleControls extends Component {
 
         <GroupUpload
           limitCount={50}
-          imageList={this.state.images.map((item) => {
+          imageList={this.state.images&&this.state.images.map((item) => {
             item.url
           })}
           atuoSize={[650,0]}
@@ -173,7 +173,7 @@ class ImgStyleControls extends Component {
           display: "inline",
           overflow: "hidden",
           position: "absolute"
-        }}>{this.state.images.map((item, index) => <img style = {{width:"100px"}} src = {
+        }}>{this.state.images&&this.state.images.map((item, index) => <img style = {{width:"100px"}} src = {
             item.url+"?t=10"
           }
           onError = {
@@ -220,21 +220,22 @@ class ImgStyleControls extends Component {
     )
   }
 }
-ImgStyleControls.propTypes = {
-  receiveImage: React.PropTypes.func.isRequired,
-  uploadConfig:React.PropTypes.shape({
-    QINIU_URL: React.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_PFOP:React.PropTypes.shape({
-      url: React.PropTypes.string.isRequired
-    }),
-    QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
-   })
-};
+// Remove `propTypes` validation to fit React 16
+// ImgStyleControls.propTypes = {
+//   receiveImage: React.PropTypes.func.isRequired,
+//   uploadConfig:React.PropTypes.shape({
+//     QINIU_URL: React.PropTypes.string.isRequired,
+//     QINIU_IMG_TOKEN_URL: React.PropTypes.string.isRequired,
+//     QINIU_PFOP:React.PropTypes.shape({
+//       url: React.PropTypes.string.isRequired
+//     }),
+//     QINIU_VIDEO_TOKEN_URL: React.PropTypes.string.isRequired,
+//     QINIU_FILE_TOKEN_URL: React.PropTypes.string.isRequired,
+//     QINIU_DOMAIN_IMG_URL: React.PropTypes.string.isRequired,
+//     QINIU_DOMAIN_VIDEO_URL: React.PropTypes.string.isRequired,
+//     QINIU_DOMAIN_FILE_URL: React.PropTypes.string.isRequired
+//    })
+// };
 
 ImgStyleControls.defaultProps = {};
 module.exports = ImgStyleControls;
