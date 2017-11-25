@@ -62,12 +62,6 @@
 .public-DraftStyleDefault-ol {
   padding-left: 2.0rem;
   list-style-type: decimal;
-  counter-reset: ol-counter;
-}
-
-.public-DraftStyleDefault-ol:before {
-  content: counter(ol-counter);
-  counter-increment: ol-counter;
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
