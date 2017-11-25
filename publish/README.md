@@ -104,6 +104,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | color | bool | true | Enabled `color text` feature, default to true |
 | image | bool | true | Enabled `insert image` feature, default to true |
 | video | bool | true | Enabled `insert video` feature, default to true |
+| audio | bool | true | Enabled `insert audio` feature, default to true |
 | urls | bool | true | Enabled `add hyper link` feature, default to true |
 | autoSave | bool | true | Enabled `auto save to draft-box` feature, default to true |
 | fullScreen | bool | true | Enabled `full screen` feature, default to true |

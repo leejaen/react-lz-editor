@@ -229,7 +229,8 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | inlineStyle | bool | true | 是否启用文字样式设置功能（加粗、倾斜、下划线等），默认启用 |
 | color | bool | true | 是否启用文字颜色设置功能，默认启用 |
 | image | bool | true | 是否启用图片上传后插入功能，默认启用 |
-| video | bool | true | 是否启用音视频上传后插入功能，默认启用 |
+| video | bool | true | 是否启用视频上传后插入功能，默认启用 |
+| audio | bool | true | 是否启用音频上传后插入功能，默认启用 |
 | urls | bool | true | 是否启用添加删除链接功能，默认启用 |
 | autoSave | bool | true | 是否启用自动保存功能，默认启用 |
 | fullScreen | bool | true | 是否启用全屏功能，默认启用 |
