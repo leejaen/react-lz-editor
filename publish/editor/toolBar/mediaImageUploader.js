@@ -96,7 +96,7 @@ var ImgStyleControls = function (_Component) {
         this.successedCount = 0;
         setTimeout(this.state.loadingRemoteImageFun, 500);
       }
-      var pfopImages = this.state.images.map(function (item) {
+      var pfopImages = this.state.images && this.state.images.map(function (item) {
         item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
         return item;
       });
@@ -194,7 +194,7 @@ var ImgStyleControls = function (_Component) {
           _businessComponents.GroupUpload,
           {
             limitCount: 50,
-            imageList: this.state.images.map(function (item) {
+            imageList: this.state.images && this.state.images.map(function (item) {
               item.url;
             }),
             atuoSize: [650, 0],
@@ -224,7 +224,7 @@ var ImgStyleControls = function (_Component) {
               overflow: "hidden",
               position: "absolute"
             } },
-          this.state.images.map(function (item, index) {
+          this.state.images && this.state.images.map(function (item, index) {
             return _react2.default.createElement('img', { style: { width: "100px" }, src: item.url + "?t=10",
               onError: function onError(event) {
                 return _this4.failureLoading(event, index);
@@ -314,22 +314,6 @@ var ImgStyleControls = function (_Component) {
 
   return ImgStyleControls;
 }(_react.Component);
-
-ImgStyleControls.propTypes = {
-  receiveImage: _react2.default.PropTypes.func.isRequired,
-  uploadConfig: _react2.default.PropTypes.shape({
-    QINIU_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_PFOP: _react2.default.PropTypes.shape({
-      url: _react2.default.PropTypes.string.isRequired
-    }),
-    QINIU_VIDEO_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_IMG_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
-  })
-};
 
 ImgStyleControls.defaultProps = {};
 module.exports = ImgStyleControls;

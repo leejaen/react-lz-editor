@@ -317,28 +317,6 @@ var UploadImage = function (_Component) {
   return UploadImage;
 }(_react.Component);
 
-UploadImage.propTypes = {
-  cbReceiver: _react2.default.PropTypes.func.isRequired,
-  limit: _react2.default.PropTypes.number,
-  isMultiple: _react2.default.PropTypes.bool,
-  isShowUploadList: _react2.default.PropTypes.bool,
-  fileType: UploadImage.prototype.supportFileType,
-  description: _react2.default.PropTypes.string,
-  fileList: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({ url: _react2.default.PropTypes.string.isRequired, thumbUrl: _react2.default.PropTypes.string, name: _react2.default.PropTypes.string })),
-  uploadConfig: _react2.default.PropTypes.shape({
-    QINIU_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_PFOP: _react2.default.PropTypes.shape({
-      url: _react2.default.PropTypes.string.isRequired
-    }),
-    QINIU_VIDEO_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_IMG_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
-  })
-};
-
 UploadImage.defaultProps = {
   limit: 1,
   isMultiple: false,

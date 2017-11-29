@@ -355,8 +355,8 @@ var EditorConcist = function (_React$Component) {
           urlValue = _state.urlValue;
 
       var entityKey = _draftJs.Entity.create('LINK', 'MUTABLE', { url: urlValue });
+      this.onChange(_draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey));
       this.setState({
-        editorState: _draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey),
         showURLInput: false,
         urlValue: ''
       }, function () {
@@ -379,9 +379,7 @@ var EditorConcist = function (_React$Component) {
 
       var selection = editorState.getSelection();
       if (!selection.isCollapsed()) {
-        this.setState({
-          editorState: _draftJs.RichUtils.toggleLink(editorState, selection, null)
-        });
+        this.onChange(_draftJs.RichUtils.toggleLink(editorState, selection, null));
       } else {
         _message2.default.error(_i18n.lang[this.state.language].selectedLink, 5);
       }
@@ -896,37 +894,6 @@ var Media = function Media(props) {
   return media;
 };
 
-EditorConcist.propTypes = {
-  active: _react2.default.PropTypes.bool,
-  importContent: _react2.default.PropTypes.string,
-  cbReceiver: _react2.default.PropTypes.func.isRequired,
-  undoRedo: _react2.default.PropTypes.bool,
-  removeStyle: _react2.default.PropTypes.bool,
-  pasteNoStyle: _react2.default.PropTypes.bool,
-  blockStyle: _react2.default.PropTypes.bool,
-  alignment: _react2.default.PropTypes.bool,
-  inlineStyle: _react2.default.PropTypes.bool,
-  color: _react2.default.PropTypes.bool,
-  image: _react2.default.PropTypes.bool,
-  video: _react2.default.PropTypes.bool,
-  audio: _react2.default.PropTypes.bool,
-  urls: _react2.default.PropTypes.bool,
-  autoSave: _react2.default.PropTypes.bool,
-  fullScreen: _react2.default.PropTypes.bool,
-  uploadConfig: _react2.default.PropTypes.shape({
-    QINIU_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_IMG_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_PFOP: _react2.default.PropTypes.shape({
-      url: _react2.default.PropTypes.string.isRequired
-    }),
-    QINIU_VIDEO_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_FILE_TOKEN_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_IMG_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_VIDEO_URL: _react2.default.PropTypes.string.isRequired,
-    QINIU_DOMAIN_FILE_URL: _react2.default.PropTypes.string.isRequired
-  }),
-  convertFormat: _react2.default.PropTypes.oneOf(['html', 'markdown', 'raw'])
-};
 EditorConcist.defaultProps = {
   undoRedo: true,
   removeStyle: true,
