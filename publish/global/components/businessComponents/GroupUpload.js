@@ -16,13 +16,23 @@ var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+require('antd/lib/modal/style/css');
+
+require('antd/lib/select/style/css');
+
+require('antd/lib/checkbox/style/css');
+
+require('antd/lib/button/style/css');
+
+require('antd/lib/message/style/css');
 
 var _react = require('react');
 
@@ -222,7 +232,7 @@ var GroupUpload = function (_Component) {
         return picture;
       });
 
-      _message2.default.info(this.props.lang.inPfopProgress, 10);
+      _message3.default.info(this.props.lang.inPfopProgress, 10);
       setTimeout(function () {
         _this3.props.receiveSelectedPictures(pictureList);
       }, 100);
@@ -244,7 +254,7 @@ var GroupUpload = function (_Component) {
       if (theData.rc == "0") {
         return function (dispatch) {};
       } else {
-        _message2.default.error(this.props.lang.pfopError + theData.des, 5);
+        _message3.default.error(this.props.lang.pfopError + theData.des, 5);
       }
     }
   }, {

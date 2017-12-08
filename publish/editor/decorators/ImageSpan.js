@@ -4,11 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+require('antd/lib/message/style/css');
 
 var _react = require('react');
 
@@ -141,9 +143,9 @@ var ImageSpan = function (_Component) {
       var blockTree = editorState.getBlockTree(this.props.children[0].key);
 
       if (pictureWidth == 0) {
-        _message2.default.error("图片地址错误！");
+        _message3.default.error("图片地址错误！");
       } else if (pictureWidth > 650) {
-        _message2.default.error("图片尺寸过大将会导致用户流量浪费！请调整至最大650px。", 10);
+        _message3.default.error("图片尺寸过大将会导致用户流量浪费！请调整至最大650px。", 10);
       }
     }
   }, {
