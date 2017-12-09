@@ -12,11 +12,19 @@ var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+require('antd/lib/modal/style/css');
+
+require('antd/lib/button/style/css');
+
+require('antd/lib/icon/style/css');
+
+require('antd/lib/message/style/css');
 
 var _react = require('react');
 
@@ -82,7 +90,7 @@ var ImgStyleControls = function (_Component) {
     key: 'prepareToSendImageToEditor',
     value: function prepareToSendImageToEditor() {
       if (!!this.state.images.length) {
-        this.state.loadingRemoteImageFun = _message2.default.loading(this.props.lang.inPreviewProgress, 0);
+        this.state.loadingRemoteImageFun = _message3.default.loading(this.props.lang.inPreviewProgress, 0);
       }
     }
   }, {

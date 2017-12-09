@@ -203,7 +203,7 @@ class UploadImage extends Component {
   }
 
   render() {
-    let {properties,uploadProps} = this.props,that=this;
+    let {isMultiple, isShowUploadList, uploadProps} = this.props,that=this;
     uploadProps = uploadProps&&Object.keys(uploadProps).length>0
     ?uploadProps
     :({
@@ -222,9 +222,9 @@ class UploadImage extends Component {
           }
           return {token,key}
         },
-      multiple: properties.isMultiple || false,
+      multiple: isMultiple || false,
       beforeUpload: this.beforeUpload.bind(this),
-      showUploadList: properties.isShowUploadList!=undefined?properties.isShowUploadList:true
+      showUploadList: isShowUploadList !== undefined ? isShowUploadList : true
     });
     // console.log("uploadProps",uploadProps);
 
