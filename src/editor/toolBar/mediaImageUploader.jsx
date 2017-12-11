@@ -7,6 +7,7 @@ import {
 } from 'antd';
 import {UploadImage,GroupUpload} from '../../global/components/businessComponents';
 import cloneDeep from "lodash/cloneDeep";
+import find from "lodash/cloneDeep";
 
 class ImgStyleControls extends Component {
   constructor(props) {
@@ -58,13 +59,20 @@ class ImgStyleControls extends Component {
     }
     console.log('successLoading this.state.images',this.state.images);
     let pfopImages = this.state.images&&this.state.images.map((item) => {
-      item.url = item.url.substr(0, ~ item.url.lastIndexOf("?t=")
+      item.url = item.url && item.url.substr(0, ~ item.url.lastIndexOf("?t=")
         ? item.url.lastIndexOf("?t=")
         : item.url.length)+"?t=foreditor"
       return item;
     });
     // console.log("successLoading provisible false");
-    this.setState({provisible: false,pfopImages: pfopImages, previsible: true});
+    let validPfopImages = find(pfopImages, (item) => {
+      return !!item.url;
+    });
+    if (validPfopImages.length) {
+      this.setState({provisible: false, pfopImages: validPfopImages, previsible: true});
+    } else {
+      console.warn('Invalid uploading images, please check your uploading object again!')
+    }
   }
   realLoading(type) {
     let images = cloneDeep(this.state.pfopImages);
