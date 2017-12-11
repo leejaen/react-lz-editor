@@ -16,11 +16,21 @@ var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+require('antd/lib/input/style/css');
+
+require('antd/lib/upload/style/css');
+
+require('antd/lib/button/style/css');
+
+require('antd/lib/icon/style/css');
+
+require('antd/lib/message/style/css');
 
 var _react = require('react');
 
@@ -122,7 +132,7 @@ var UploadImage = function (_Component) {
     value: function beforeUpload(file) {
       var isFormat = _publicDatas.PRO_COMMON.Array.inArray(_publicDatas.PRO_QINIU.supportMime[this.props.fileType], file.type);
       if (!isFormat) {
-        _message2.default.error(this.props.lang.supportMimeMsg + ' File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join(", "), 10);
+        _message3.default.error(this.props.lang.supportMimeMsg + ' File Mimetype: ' + _publicDatas.PRO_QINIU.supportMime[this.props.fileType].join(", "), 10);
         return false;
       }
       if (!this.state.qiniu.token && !uploadConfig) {
@@ -172,7 +182,7 @@ var UploadImage = function (_Component) {
         }
         if (!!file.response) {
           if (!!_this.props.limit && _this.state.files.length > _this.props.limit) {
-            _message2.default.info(_this.props.lang.limitCountTip.replace("$limit$", _this.props.limit), 5);
+            _message3.default.info(_this.props.lang.limitCountTip.replace("$limit$", _this.props.limit), 5);
             _publicDatas.PRO_COMMON.Array.removeByIndex(_this.state.files, 0);
           }
         }
@@ -250,7 +260,8 @@ var UploadImage = function (_Component) {
       var _this6 = this;
 
       var _props = this.props,
-          properties = _props.properties,
+          isMultiple = _props.isMultiple,
+          isShowUploadList = _props.isShowUploadList,
           uploadProps = _props.uploadProps,
           that = this;
 
@@ -271,9 +282,9 @@ var UploadImage = function (_Component) {
           }
           return { token: token, key: key };
         },
-        multiple: properties.isMultiple || false,
+        multiple: isMultiple || false,
         beforeUpload: this.beforeUpload.bind(this),
-        showUploadList: properties.isShowUploadList != undefined ? properties.isShowUploadList : true
+        showUploadList: isShowUploadList !== undefined ? isShowUploadList : true
       };
 
 

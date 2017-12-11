@@ -1,10 +1,12 @@
 'use strict';
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+require('antd/lib/message/style/css');
 
 var _forIn = require('lodash/forIn');
 
@@ -371,9 +373,9 @@ var commonFun = {
     },
     retResult: function retResult(data, path) {
       if (data.rc == 0) {
-        _message2.default.success("操作成功", 4);
+        _message3.default.success("操作成功", 4);
       } else {
-        _message2.default.error("操作失败:" + data.des, 4);
+        _message3.default.error("操作失败:" + data.des, 4);
       }
     }
   },
@@ -935,11 +937,11 @@ var commonFun = {
     log: function log(message) {
       var messageDiv = document.getElementById("messageDiv");
       if (!!messageDiv) {
-        messageDiv.innerHTML = message + "<br />" + messageDiv.innerHTML;
+        messageDiv.innerHTML = _message3.default + "<br />" + messageDiv.innerHTML;
       } else {
         var newEl = document.createElement('div');
         newEl.setAttribute('id', 'messageDiv');
-        newEl.innerHTML = _message2.default;
+        newEl.innerHTML = _message3.default;
         document.querySelector("body").appendChild(newEl);
         messageDiv = newEl;
       }

@@ -1,10 +1,12 @@
 'use strict';
 
-var _message = require('antd/lib/message');
+var _message2 = require('antd/lib/message');
 
-var _message2 = _interopRequireDefault(_message);
+var _message3 = _interopRequireDefault(_message2);
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+require('antd/lib/message/style/css');
 
 var _common = require('./common');
 
@@ -73,12 +75,12 @@ module.exports = {
             try {
               _data = JSON.parse(xhr.responseText);
             } catch (e) {
-              _message2.default.error("数据返回出错，请通知技术部排查，参考原因：“" + e.toString() + "”；返回数据：“" + (xhr.responseText.length > 20 ? xhr.responseText.substr(0, 20) + "……(详见控制台)" : xhr.responseText) + "”", 10);
+              _message3.default.error("数据返回出错，请通知技术部排查，参考原因：“" + e.toString() + "”；返回数据：“" + (xhr.responseText.length > 20 ? xhr.responseText.substr(0, 20) + "……(详见控制台)" : xhr.responseText) + "”", 10);
 
               return false;
             }
             if (_data.rc == "405") {
-              _message2.default.info("验证登录超时请重新登陆", 10);
+              _message3.default.info("验证登录超时请重新登陆", 10);
               return false;
             }
             onSuccess(_data);
@@ -138,10 +140,10 @@ module.exports = {
         return res.json();
       }).then(function (theData) {
         if (theData.rc === "400") {
-          _message2.default.info("验证您的权限设置有更新，请重新登陆", 10);
+          _message3.default.info("验证您的权限设置有更新，请重新登陆", 10);
           return false;
         } else if (theData.rc == "405") {
-          _message2.default.info("验证登录超时请重新登陆", 10);
+          _message3.default.info("验证登录超时请重新登陆", 10);
           return false;
         } else {
           doProcess(theData);
