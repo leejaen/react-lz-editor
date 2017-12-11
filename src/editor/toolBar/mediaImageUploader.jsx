@@ -56,6 +56,7 @@ class ImgStyleControls extends Component {
       this.successedCount = 0;
       setTimeout(this.state.loadingRemoteImageFun, 500);
     }
+    console.log('successLoading this.state.images',this.state.images);
     let pfopImages = this.state.images&&this.state.images.map((item) => {
       item.url = item.url.substr(0, ~ item.url.lastIndexOf("?t=")
         ? item.url.lastIndexOf("?t=")
@@ -111,7 +112,7 @@ class ImgStyleControls extends Component {
     this.forceUpdate();
   }
   groupAppend(pictureList) {
-    console.log("groupAppend this.state.images", pictureList, this.state.images);
+    // console.log("groupAppend this.state.images", pictureList, this.state.images);
     if (!pictureList.length) {
       console.warn("ERROR: no pictureList sent to me, see pictureList", pictureList);
       return false;
