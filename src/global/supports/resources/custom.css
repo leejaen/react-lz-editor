@@ -30,6 +30,9 @@
 .uploadingImagies {
     text-align: center;
 }
+.uploadingImagies img{
+    max-width: 100%;
+}
 .uploadingImagies a {
     font-size: 20px;
     position: relative;
