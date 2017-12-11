@@ -1,30 +1,30 @@
 'use strict';
 
+
+
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
+
+
 
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
 
+
+
 var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _message2 = require('antd/lib/message');
 
-var _message3 = _interopRequireDefault(_message2);
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-require('antd/lib/modal/style/css');
-
-require('antd/lib/button/style/css');
-
-require('antd/lib/icon/style/css');
-
-require('antd/lib/message/style/css');
 
 var _react = require('react');
 
@@ -90,7 +90,7 @@ var ImgStyleControls = function (_Component) {
     key: 'prepareToSendImageToEditor',
     value: function prepareToSendImageToEditor() {
       if (!!this.state.images.length) {
-        this.state.loadingRemoteImageFun = _message3.default.loading(this.props.lang.inPreviewProgress, 0);
+        this.state.loadingRemoteImageFun = _message2.default.loading(this.props.lang.inPreviewProgress, 0);
       }
     }
   }, {
@@ -104,12 +104,20 @@ var ImgStyleControls = function (_Component) {
         this.successedCount = 0;
         setTimeout(this.state.loadingRemoteImageFun, 500);
       }
+      console.log('successLoading this.state.images', this.state.images);
       var pfopImages = this.state.images && this.state.images.map(function (item) {
-        item.url = item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
+        item.url = item.url && item.url.substr(0, ~item.url.lastIndexOf("?t=") ? item.url.lastIndexOf("?t=") : item.url.length) + "?t=foreditor";
         return item;
       });
 
-      this.setState({ provisible: false, pfopImages: pfopImages, previsible: true });
+      var validPfopImages = (0, _cloneDeep2.default)(pfopImages, function (item) {
+        return !!item.url;
+      });
+      if (validPfopImages.length) {
+        this.setState({ provisible: false, pfopImages: validPfopImages, previsible: true });
+      } else {
+        console.warn('Invalid uploading images, please check your uploading object again!');
+      }
     }
   }, {
     key: 'realLoading',
@@ -156,7 +164,6 @@ var ImgStyleControls = function (_Component) {
     value: function groupAppend(pictureList) {
       var _this3 = this;
 
-      console.log("groupAppend this.state.images", pictureList, this.state.images);
       if (!pictureList.length) {
         console.warn("ERROR: no pictureList sent to me, see pictureList", pictureList);
         return false;

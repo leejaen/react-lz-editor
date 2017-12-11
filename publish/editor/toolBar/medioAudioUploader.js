@@ -1,24 +1,24 @@
 'use strict';
 
+
+
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
+
+
 var _button = require('antd/lib/button');
 
 var _button2 = _interopRequireDefault(_button);
+
+
 
 var _icon = require('antd/lib/icon');
 
 var _icon2 = _interopRequireDefault(_icon);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-require('antd/lib/modal/style/css');
-
-require('antd/lib/button/style/css');
-
-require('antd/lib/icon/style/css');
 
 var _react = require('react');
 

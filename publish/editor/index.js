@@ -1,24 +1,24 @@
 'use strict';
 
+
+
 var _modal = require('antd/lib/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
+
+
 
 var _input = require('antd/lib/input');
 
 var _input2 = _interopRequireDefault(_input);
 
-var _message2 = require('antd/lib/message');
 
-var _message3 = _interopRequireDefault(_message2);
+
+var _message = require('antd/lib/message');
+
+var _message2 = _interopRequireDefault(_message);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-require('antd/lib/modal/style/css');
-
-require('antd/lib/input/style/css');
-
-require('antd/lib/message/style/css');
 
 require('./components.css');
 
@@ -350,7 +350,7 @@ var EditorConcist = function (_React$Component) {
           visible: true
         }, function () {});
       } else {
-        _message3.default.error(_i18n.lang[this.state.language].selectedText, 5);
+        _message2.default.error(_i18n.lang[this.state.language].selectedText, 5);
       }
     }
   }, {
@@ -387,7 +387,7 @@ var EditorConcist = function (_React$Component) {
       if (!selection.isCollapsed()) {
         this.onChange(_draftJs.RichUtils.toggleLink(editorState, selection, null));
       } else {
-        _message3.default.error(_i18n.lang[this.state.language].selectedLink, 5);
+        _message2.default.error(_i18n.lang[this.state.language].selectedLink, 5);
       }
     }
   }, {
@@ -468,7 +468,7 @@ var EditorConcist = function (_React$Component) {
         }
         var start30Text = newText.substr(0, 30);
         _publicDatas.PRO_COMMON.localDB.setter("$d" + start30Text, content);
-        _message3.default.success(_i18n.lang[this.state.language].successToDraftBox, 5);
+        _message2.default.success(_i18n.lang[this.state.language].successToDraftBox, 5);
         return true;
       } else if (command === "editor-paste") {
         return true;
@@ -560,7 +560,7 @@ var EditorConcist = function (_React$Component) {
 
       var values = _draftJs.EditorState.createWithContent(contentState, decorator);
       this.state.editorState = values;
-      _message3.default.success(_i18n.lang[this.state.language].successPasteCleanText, 5);
+      _message2.default.success(_i18n.lang[this.state.language].successPasteCleanText, 5);
       this.forceUpdate();
       return true;
     }
