@@ -42,7 +42,7 @@ module.exports = {
       test: /\.less$/,
       loader: 'style!css!less'
     }, {
-      test: /.css$/, // Only .css files
+      test: /\.css$/, // Only .css files
       loader: 'style!css' // Run both loaders
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
