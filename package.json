@@ -55,14 +55,14 @@
     "md5": "^2.2.1"
   },
   "dependencies": {
-    "antd": "^2.8.3",
-    "draft-js": "^0.10.0",
-    "immutable": "^3.8.1",
-    "js-base64": "^2.1.9",
-    "lodash": "^4.17.3",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "synthetic-dom": "^0.2.1",
+    "antd": "^3.1.1",
+    "draft-js": "^0.10.4",
+    "immutable": "^3.8.2",
+    "js-base64": "^2.4.0",
+    "lodash": "^4.17.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "synthetic-dom": "^1.2.0",
     "whatwg-fetch": "^2.0.3"
   }
 }
