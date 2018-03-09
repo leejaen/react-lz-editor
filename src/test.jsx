@@ -189,7 +189,6 @@ class Test extends React.Component {
           active={true}
           importContent={this.state.rawContent}
           cbReceiver={this.receiveRaw}
-          image={false}
           video={false}
           audio={false}
           convertFormat="raw"
