@@ -1,4 +1,26 @@
-[中文](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md) 
+# Entropy react-lz-editor guide
+
+A Entropy-customized react rich-text editor based off of [react-lz-editor](https://leejaen.github.io/react-lz-editor/index.html).
+
+## How to contribute
+```
+// clone this repo and go to the repo folder.
+
+yarn && yarn dev
+
+// All the source code is under /src. 
+// Create a new branch and open with your favorite editor.
+
+git checkout -b [dev_name]/[feature_branch]
+
+// After you finish your development, you open a PR. Get approval and then merge into master.
+// The admin run the following command to publish it (IT IS A MUST! 
+// Otherwise, our front-end repo wouldn't be able to access the code.)
+
+git checkout master && yarn publish
+
+// Go to localhost:8080. Enjoy coding!
+```
 [![npm license](https://img.shields.io/npm/l/awesome-badges.svg)](https://www.npmjs.org/package/awesome-badges)
 
 # react-lz-editor
