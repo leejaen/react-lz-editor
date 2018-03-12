@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/leejaen/react-lz-editor.git"
+    "url": "git+ssh://git@github.com/JuNeng/react-lz-editor.git"
   },
   "keywords": [
     "react-editor",
@@ -26,12 +26,12 @@
     "richtext",
     "editor"
   ],
-  "author": "leejaen@gmail.com",
+  "author": "Entropy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/leejaen/react-lz-editor/issues"
+    "url": "https://github.com/JuNeng/react-lz-editor/issues"
   },
-  "homepage": "https://github.com/leejaen/react-lz-editor#readme",
+  "homepage": "https://github.com/JuNeng/react-lz-editor#readme",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.4",
