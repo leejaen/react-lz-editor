@@ -10,7 +10,7 @@ An open source react rich-text editor ( mordern react editor includes media supp
 [![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Boris Chernysh]()](https://github.com/borisblack) | [![SibaService.inc](https://avatars1.githubusercontent.com/u/1687663?s=50&v=4)](https://github.com/sibaservice)
 ---|---|---|---
 [Li Zhen](https://github.com/leejaen) | [Li Zhen](https://github.com/leejaen) | [Boris Chernysh](https://github.com/borisblack) | [SibaService.inc](https://github.com/sibaservice)
-English | Chinese(S. & T.) | Russian | Japannese
+English | Chinese (S. & T.) | Russian | Japanese
 
 ## Live demo
 
