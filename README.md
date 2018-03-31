@@ -1,4 +1,4 @@
-[中文](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md) 
+[中文](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md)
 [![npm license](https://img.shields.io/npm/l/awesome-badges.svg)](https://www.npmjs.org/package/awesome-badges)
 
 # react-lz-editor
@@ -117,4 +117,5 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
 | autoSave | bool | true | Enabled `auto save to draft-box` feature, default to true |
 | fullScreen | bool | true | Enabled `full screen` feature, default to true |
 | convertFormat | string | "html" | Set support format `(html, markdown, raw)`, default to "html" |
+| disabled | bool | false | Disabled editor or not |
 | uploadProps | object | null | Customize uploading settings. [API: Antd.Upload](https://ant.design/components/upload/) |
