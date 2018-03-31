@@ -678,7 +678,9 @@ class EditorConcist extends React.Component {
         visible={this.state.visible}
         onOk={this.confirmLink}
         onCancel={this.handleCancel}
-        closable={false}>
+        closable={false}
+        okText={lang[this.state.language].OKText}
+        cancelText={lang[this.state.language].cancelText}>
         <Input
           type="text"
           onChange={this.onURLChange}

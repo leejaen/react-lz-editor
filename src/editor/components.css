@@ -155,6 +155,7 @@
   margin: 8px 5px;
   line-height: 20px;
   font-size: 16px;
+  border: 1px solid transparent;
 }
 .RichEditor-styleButton.ant-btn.ant-btn-primary.ant-btn-icon-only{
   color: #fff;
