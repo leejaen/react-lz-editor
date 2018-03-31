@@ -222,6 +222,7 @@ var Test = function (_React$Component) {
           cbReceiver: this.receiveRaw,
           image: false,
           video: false,
+          disabled: true,
           audio: false,
           convertFormat: 'raw',
           lang: 'zh-CN' })

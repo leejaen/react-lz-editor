@@ -736,7 +736,9 @@ var EditorConcist = function (_React$Component) {
             visible: this.state.visible,
             onOk: this.confirmLink,
             onCancel: this.handleCancel,
-            closable: false },
+            closable: false,
+            okText: _i18n.lang[this.state.language].OKText,
+            cancelText: _i18n.lang[this.state.language].cancelText },
           _react2.default.createElement(_input2.default, {
             type: 'text',
             onChange: this.onURLChange,
@@ -763,7 +765,7 @@ var EditorConcist = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'RichEditor-root editorHidden', content: this.state.HTML, id: 'text-editor-container' },
+        { className: 'RichEditor-root editorHidden ' + (this.props.disabled ? 'disabled-editor' : ''), content: this.state.HTML, id: 'text-editor-container' },
         _react2.default.createElement(
           'div',
           null,
@@ -788,8 +790,9 @@ var EditorConcist = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: className, onClick: this.focus, style: { display: this.state.showMarkdownSource == true ? "none" : "block" } },
+          { className: 'editor-board ' + className, onClick: this.focus, style: { display: this.state.showMarkdownSource == true ? "none" : "block" } },
           _react2.default.createElement(_draftJs.Editor, (_React$createElement = {
+            className: '',
             blockRendererFn: mediaBlockRenderer,
             editorState: this.state.editorState,
             blockStyleFn: getBlockStyle,
@@ -805,6 +808,7 @@ var EditorConcist = function (_React$Component) {
             value: this.state.tempSouceContent || this.props.importContent,
             placeholder: _i18n.lang[this.state.language].markdownTip })
         ),
+        _react2.default.createElement('div', { className: 'disabled-mask', style: { display: this.props.disabled ? 'block' : 'none' } }),
         urlInput
       );
     }
