@@ -191,6 +191,7 @@ class Test extends React.Component {
           cbReceiver={this.receiveRaw}
           image={false}
           video={false}
+          disabled
           audio={false}
           convertFormat="raw"
           lang="zh-CN"/>

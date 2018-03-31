@@ -704,7 +704,7 @@ class EditorConcist extends React.Component {
 // <Affix offsetTop={0} id="text-editor-affix">
 // </Affix>
     return (
-      <div className="RichEditor-root editorHidden" content={this.state.HTML} id="text-editor-container">
+      <div className={`RichEditor-root editorHidden ${this.props.disabled?'disabled-editor':''}`} content={this.state.HTML} id="text-editor-container">
         <div>
           {this.state.showMarkdownSource==false&&this.props.undoRedo&&<UndoRedo onToggle={this.undoRedo} lang={lang[this.state.language]}/>}
           {this.state.showMarkdownSource==false&&this.props.removeStyle&&<RemoveStyleControls onToggle={this.removeStyle} lang={lang[this.state.language]}/>}
@@ -725,8 +725,9 @@ class EditorConcist extends React.Component {
           {this.props.fullScreen&&<OpenFull editorState={editorState} onToggle={this.openFull} coverTitle={this.state.openFullTest} lang={lang[this.state.language]}/>}
           {this.props.convertFormat=="markdown"&&<SourceEditor editorState={editorState} onToggle={this.toggleSource} coverTitle={this.state.showSourceEditor} lang={lang[this.state.language]}/>}
         </div>
-        <div className={className} onClick={this.focus} style={{display:this.state.showMarkdownSource==true?"none":"block"}}>
+        <div className={`editor-board ${className}`} onClick={this.focus} style={{display:this.state.showMarkdownSource==true?"none":"block"}}>
           <Editor
+            className=""
             blockRendererFn={mediaBlockRenderer}
             editorState={this.state.editorState}
             blockStyleFn={getBlockStyle}
@@ -746,6 +747,7 @@ class EditorConcist extends React.Component {
             value={this.state.tempSouceContent||this.props.importContent}
             placeholder={lang[this.state.language].markdownTip}/>
         </div>
+        <div className="disabled-mask" style={{display:this.props.disabled?'block':'none'}}></div>
         {urlInput}
       </div>
     );
