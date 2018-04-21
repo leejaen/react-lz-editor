@@ -747,6 +747,7 @@ class EditorConcist extends React.Component {
             onChange={this.onChange}
             handlePastedText={this.handlePastedText}
             spellCheck={true}
+            readOnly={this.props.readOnly}
             {...this.props.editorProps}
           />
         </div>
