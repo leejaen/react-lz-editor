@@ -73,7 +73,7 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-  min-height: 400px;
+  min-height: 100px;
   line-height: initial;
 }
 
