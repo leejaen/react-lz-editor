@@ -2,7 +2,6 @@
  * Created by lizhen on 4/26/2016.
  */
 
-// import 'antd/dist/antd.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -46,6 +45,27 @@ const decorator = new CompositeDecorator([
   VideoDecorator,
   AudioDecorator
 ]);
+
+const Audio = props => <audio controls src={props.src} className='media' />;
+const Image = props => <img src={props.src} className='media' alt='media' />;
+const Video = props => <video controls src={props.src} className='media' />;
+
+const Media = (props) => {
+  const entity = Entity.get(props.block.getEntityAt(0));
+  const { src } = entity.getData();
+  const type = entity.getType();
+  // console.log("Media type",src);
+  // console.log("Media entity",type);
+  let media;
+  if (type === 'audio') {
+    media = <Audio src={src} />;
+  } else if (type === 'image') {
+    media = <Image src={src} />;
+  } else if (type === 'video') {
+    media = <Video src={src} />;
+  }
+  return media;
+};
 
 class EditorConcist extends React.Component {
   constructor(props) {
@@ -118,41 +138,35 @@ class EditorConcist extends React.Component {
       }, 300);
     };
 
-    this.handleKeyCommand = command => this._handleKeyCommand(command);
-    this.toggleBlockType = type => this._toggleBlockType(type);
-    this.toggleAlignment = type => this._toggleAlignment(type);
-    this.toggleInlineStyle = style => this._toggleInlineStyle(style);
-    this.customKeyBinding = this._customKeyBinding.bind(this);
-    this.handlePastedText = this._handlePastedText.bind(this);
+    this.handleKeyCommand = command => this.handleKeyCommand(command);
+    this.toggleBlockType = type => this.toggleBlockType(type);
+    this.toggleAlignment = type => this.toggleAlignment(type);
+    this.toggleInlineStyle = style => this.toggleInlineStyle(style);
+    this.customKeyBinding = this.customKeyBinding.bind(this);
+    this.handlePastedText = this.handlePastedText.bind(this);
 
-    /* VIDEO/AUDIO/IMAGE */
-    this.logState = () => {
-      const content = this.state.editorState.getCurrentContent();
-      //  console.log(convertToRaw(content));
-    };
+    this.addMedia = this.addMedia.bind(this);
+    this.addAudio = this.addAudio.bind(this);
+    this.addImage = this.addImage.bind(this);
+    this.addVideo = this.addVideo.bind(this);
+    this.undoRedo = this.undoRedo.bind(this);
+    this.removeStyle = this.removeStyle.bind(this);
+    this.pasteNoStyle = this.pasteNoStyle.bind(this);
+    this.choiceAutoSave = this.choiceAutoSave.bind(this);
 
-    this.addMedia = this._addMedia.bind(this);
-    this.addAudio = this._addAudio.bind(this);
-    this.addImage = this._addImage.bind(this);
-    this.addVideo = this._addVideo.bind(this);
-    this.undoRedo = this._undoRedo.bind(this);
-    this.removeStyle = this._removeStyle.bind(this);
-    this.pasteNoStyle = this._pasteNoStyle.bind(this);
-    this.choiceAutoSave = this._choiceAutoSave.bind(this);
+    this.toggleColor = toggledColor => this.toggleColor(toggledColor);
 
-    this.toggleColor = toggledColor => this._toggleColor(toggledColor);
-
-    this.promptForLink = this._promptForLink.bind(this);
+    this.promptForLink = this.promptForLink.bind(this);
     this.onURLChange = e => this.setState({ urlValue: e.target.value });
-    this.confirmLink = this._confirmLink.bind(this);
-    this.onLinkInputKeyDown = this._onLinkInputKeyDown.bind(this);
-    this.removeLink = this._removeLink.bind(this);
-    this.openFull = this._openFull.bind(this);
-    this.toggleSource = this._toggleSource.bind(this);
+    this.confirmLink = this.confirmLink.bind(this);
+    this.onLinkInputKeyDown = this.onLinkInputKeyDown.bind(this);
+    this.removeLink = this.removeLink.bind(this);
+    this.openFull = this.openFull.bind(this);
+    this.toggleSource = this.toggleSource.bind(this);
     this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.solidHtml = this._solidHtml.bind(this);
-    this.changeMrakdownContent = this._changeMrakdownContent.bind(this);
+    this.solidHtml = this.solidHtml.bind(this);
+    this.changeMrakdownContent = this.changeMrakdownContent.bind(this);
   }
   get localLang() {
     const lang = navigator.language || navigator.browserLanguage;
@@ -249,7 +263,7 @@ class EditorConcist extends React.Component {
     this.setState({ visible: false });
   }
 
-  _promptForLink(e) {
+  promptForLink(e) {
     e.preventDefault();
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -266,8 +280,8 @@ class EditorConcist extends React.Component {
     }
   }
 
-  _confirmLink(e) {
-    // console.log("_confirmLink urlValue", urlValue)
+  confirmLink(e) {
+    // console.log("confirmLink urlValue", urlValue)
     const { editorState, urlValue } = this.state;
     const entityKey = Entity.create('LINK', 'MUTABLE', { url: urlValue });
     this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey));
@@ -280,14 +294,14 @@ class EditorConcist extends React.Component {
     });
   }
 
-  _onLinkInputKeyDown(e) {
+  onLinkInputKeyDown(e) {
     if (e.which === 13) {
-      this._confirmLink(e);
+      this.confirmLink(e);
       return false;
     }
   }
 
-  _removeLink(e) {
+  removeLink(e) {
     e.preventDefault();
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -297,7 +311,7 @@ class EditorConcist extends React.Component {
       message.error(lang[this.state.language].selectedLink, 5);
     }
   }
-  _openFull(e) {
+  openFull(e) {
     e.preventDefault();
     const ele = document.querySelector('.RichEditor-root');
     // let affix=document.querySelector("#text-editor-affix"),affixToolBar=document.querySelector("#text-editor-affix>div");
@@ -321,7 +335,7 @@ class EditorConcist extends React.Component {
       });
     }
   }
-  _toggleSource(e) {
+  toggleSource(e) {
     e.preventDefault();
     const ele = document.querySelector('.RichEditor-root');
     if (ele.classList.contains('showSource')) {
@@ -338,7 +352,7 @@ class EditorConcist extends React.Component {
       });
     }
   }
-  _changeMrakdownContent(e) {
+  changeMrakdownContent(e) {
     const markdownContent = e.target.value;
     // console.log("markdownContent",markdownContent);
     const contentState = stateFromMD(markdownContent);
@@ -348,7 +362,7 @@ class EditorConcist extends React.Component {
     this.forceUpdate();
   }
 
-  _handleKeyCommand(command) {
+  handleKeyCommand(command) {
     // console.log("command",command);
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -387,7 +401,7 @@ class EditorConcist extends React.Component {
     }
     return false;
   }
-  _customKeyBinding(e) {
+  customKeyBinding(e) {
     const { hasCommandModifier } = KeyBindingUtil;
     if (e.keyCode === 83/* `S` key */ && hasCommandModifier(e)) {
       return 'editor-save';
@@ -395,7 +409,7 @@ class EditorConcist extends React.Component {
     }
     return getDefaultKeyBinding(e);
   }
-  _solidHtml(html) {
+  solidHtml(html) {
     // html=html.replace(/"((?:\\.|[^"\\])*)"/g,"");
     // Remove all content in quote. e.g. style="" class=""
     // 去掉所有英文单引号里面的内容，比如 style="" class=""
@@ -418,12 +432,12 @@ class EditorConcist extends React.Component {
     });
     return wrapper.innerHTML;
   }
-  _handlePastedText(text, sourceString) {
+  handlePastedText(text, sourceString) {
     sourceString = this.solidHtml(sourceString);
-    // console.log("_handlePastedText text",text);
-    // console.log("_handlePastedText sourceString",typeof(sourceString),sourceString);
+    // console.log("handlePastedText text",text);
+    // console.log("handlePastedText sourceString",typeof(sourceString),sourceString);
     if (text == 'undefined' && sourceString == 'undefined') {
-      // console.log("_handlePastedText return false");
+      // console.log("handlePastedText return false");
       return false;
     }
     if (sourceString == 'undefined' || !sourceString) {
@@ -478,11 +492,11 @@ class EditorConcist extends React.Component {
     // 覆盖编辑器的默认粘贴行为
   }
 
-  _toggleBlockType(blockType) {
+  toggleBlockType(blockType) {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   }
 
-  _toggleAlignment(alignment) {
+  toggleAlignment(alignment) {
     // This method only supports the data type like:
     // 这种方式仅支持的数据类型:
     // https://github.com/facebook/draft-js/blob/master/src/model/constants/DraftBlockType.js
@@ -499,13 +513,13 @@ class EditorConcist extends React.Component {
     this.onChange(ExtendedRichUtils.toggleAlignment(this.state.editorState, alignment));
   }
 
-  _toggleInlineStyle(inlineStyle) {
+  toggleInlineStyle(inlineStyle) {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
   }
 
   /* VIDEO/AUDIO/IMAGE */
 
-  _addMedia(type, Object) {
+  addMedia(type, Object) {
     const src = Object.url;
     if (!src) {
       throw new Error(lang[this.state.language].errorUploadingFile);
@@ -515,7 +529,7 @@ class EditorConcist extends React.Component {
     return AtomicBlockUtils.insertAtomicBlock(this.state.editorState, entityKey, ' ');
   }
 
-  _addAudio(Objects) {
+  addAudio(Objects) {
     const that = this;
 
     Objects.map((item, i) => {
@@ -523,7 +537,7 @@ class EditorConcist extends React.Component {
     });
   }
 
-  _addImage(Objects) {
+  addImage(Objects) {
     const that = this;
     // console.log("Objects Objects", Objects);
     Objects.map((item, i) => {
@@ -535,13 +549,13 @@ class EditorConcist extends React.Component {
     });
   }
 
-  _addVideo(Objects) {
+  addVideo(Objects) {
     const that = this;
     Objects.map((item, i) => {
       setTimeout(() => that.onChange(that.addMedia('video', item)), i * 100);
     });
   }
-  _pasteNoStyle(sourceString) {
+  pasteNoStyle(sourceString) {
     const decorator = new CompositeDecorator([
       LinkDecorator,
       ImageDecorator,
@@ -560,13 +574,13 @@ class EditorConcist extends React.Component {
     } else if (ConvertFormatProps === 'raw') {
       contentState = convertFromRaw(sourceString);
     }
-    // console.log("_pasteNoStyle sourceString",sourceString);
-    // console.log("_pasteNoStyle contentState",JSON.stringify(contentState));
+    // console.log("pasteNoStyle sourceString",sourceString);
+    // console.log("pasteNoStyle contentState",JSON.stringify(contentState));
     const values = EditorState.createWithContent(contentState, decorator);
     this.state.editorState = values;
     this.forceUpdate();
   }
-  _undoRedo(type) {
+  undoRedo(type) {
     if (this.state.editorState) {
       let newEditorState = null;
       if (type == 'undo') {
@@ -577,7 +591,7 @@ class EditorConcist extends React.Component {
       this.setState({ editorState: newEditorState });
     }
   }
-  _removeStyle() {
+  removeStyle() {
     const { editorState } = this.state;
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
@@ -591,7 +605,7 @@ class EditorConcist extends React.Component {
       editorState: EditorState.push(editorState, removeBlock)
     });
   }
-  _choiceAutoSave(savedImportContent) {
+  choiceAutoSave(savedImportContent) {
     const decorator = new CompositeDecorator([
       LinkDecorator,
       ImageDecorator,
@@ -614,7 +628,7 @@ class EditorConcist extends React.Component {
     this.forceUpdate();
   }
 
-  _toggleColor(toggledColor) {
+  toggleColor(toggledColor) {
     const { editorState } = this.state;
     const selection = editorState.getSelection();
 
@@ -806,30 +820,6 @@ function mediaBlockRenderer(block) {
   return null;
 }
 
-const Audio = props => <audio controls src={props.src} className='media' />;
-
-const Image = props =>
-//   console.log("props",props.src);
-  <img src={props.src} className='media' />;
-const Video = props => <video controls src={props.src} className='media' />;
-
-const Media = (props) => {
-  const entity = Entity.get(props.block.getEntityAt(0));
-  const { src } = entity.getData();
-  const type = entity.getType();
-  // console.log("Media type",src);
-  // console.log("Media entity",type);
-  let media;
-  if (type === 'audio') {
-    media = <Audio src={src} />;
-  } else if (type === 'image') {
-    media = <Image src={src} />;
-  } else if (type === 'video') {
-    media = <Video src={src} />;
-  }
-  return media;
-};
-
 EditorConcist.propTypes = {
   wrapperClass: PropTypes.string,
   disabled: PropTypes.bool,
@@ -850,6 +840,7 @@ EditorConcist.propTypes = {
   autoSave: PropTypes.bool,
   fullScreen: PropTypes.bool,
   readOnly: PropTypes.bool,
+  editorProps: PropTypes.object,
   uploadConfig: PropTypes.shape({
     QINIU_URL: PropTypes.string.isRequired,
     QINIU_IMG_TOKEN_URL: PropTypes.string.isRequired,
