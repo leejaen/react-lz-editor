@@ -43,15 +43,17 @@
 
 .RichEditor-root {
   background: #FFF;
-  border: 1px solid #DDD;
   font-size: 14px;
   padding: 15px;
 }
 
 .RichEditor-editor {
-  border-top: 1px solid #DDD;
   cursor: text;
   font-size: 16px;
+}
+
+.RichEditor-toolbar {
+  border-bottom: 1px solid #DDD;
 }
 
 .public-DraftStyleDefault-ul {
@@ -71,7 +73,7 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-  min-height: 400px;
+  min-height: 100px;
   line-height: initial;
 }
 

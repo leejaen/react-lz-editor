@@ -1,13 +1,13 @@
 {
   "name": "react-lz-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An open source react editor based on draft-Js and ant design, good support HTML, markdown and Draft Raw format.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "typecheck": "flow",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build && lessc src/global/supports/resources/system.less src/global/supports/resources/system.css",
+    "dev": "webpack-dev-server --port 4000 --devtool eval --progress --colors --hot --content-base build && lessc src/global/supports/resources/system.less src/global/supports/resources/system.css",
     "release": "webpack -p --progress --colors --config webpack.release.config.js",
     "publish": "babel -d publish/ src/ --no-comments && lessc src/global/supports/resources/system.less publish/global/supports/resources/system.css"
   },

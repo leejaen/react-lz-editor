@@ -1,21 +1,36 @@
 {
-    "env": {
-        "browser": true,
-        "node": true
-    },
-
-    "globals": {
-        "React": true
-    },
-
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true
-        }
-    },
-
-    "plugins": [
-        "react"
-    ]
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
+  "globals": {
+    "_": false,
+    "enquire": false,
+    "Raven": false
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "max-len": 0,
+    "jsx-quotes": [2, "prefer-single"],
+    "generator-star-spacing": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "import/no-dynamic-require": 0,
+    "class-methods-use-this": 0,
+    "function-paren-newline": 0,
+    "react/jsx-no-bind": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": 0,
+    "react/forbid-prop-types": 0,
+    "jsx-a11y/anchor-is-valid": 0, 
+    "react/sort-comp": 0,
+    "prefer-destructuring": 0,
+    "react/require-default-props": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "import/no-unresolved": 0
+  }
 }

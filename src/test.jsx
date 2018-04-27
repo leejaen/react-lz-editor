@@ -11,6 +11,7 @@ class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      readOnlyContent: `<h1> Read Only Editor</h1>`,
       htmlContent: `<h1> Head level 1</h1>
                 <p style='text-align:center;'><span style="color:#ED5565">red text</span>,center ,<strong>bold</strong>，<em>italic</em></p>
                 <blockquote style='text-align:left;'><span style="color:#967adc">C</span> <span style="color:#a0d468">O</span><span style="color:#48cfad">L</span><span style="color:#4a89dc">O</span><span style="color:#967adc">R</span><span style="color:#434a54">S</span></blockquote>
@@ -195,6 +196,10 @@ class Test extends React.Component {
           audio={false}
           convertFormat="raw"
           lang="zh-CN"/>
+
+        <div>Readonly demo (use default html format ):
+        </div>
+        <LzEditor readOnly={true} active={true} importContent={this.state.readOnlyContent} cbReceiver={this.receiveHtml} uploadProps={uploadProps}/>
       </div>
     );
   }

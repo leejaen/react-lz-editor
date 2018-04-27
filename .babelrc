@@ -1,11 +1,27 @@
 {
-    "presets": [
-        'es2015', 'react','stage-2'
-    ],
-    "plugins": [
-        ["import", {
-          "libraryName": "antd",
-          "style": 'css'
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-class-properties"
+  ],
+  "presets": [
+    ["es2015", {"loose" : true}],
+    "stage-2",
+    "react"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        ["react-transform", {
+          "transforms": [{
+            "transform": "react-transform-hmr",
+            "imports": ["react"],
+            "locals": ["module"]
+          }, {
+            "transform": "react-transform-catch-errors",
+            "imports": ["react", "redbox-react"]
+          }]
         }]
-    ]
+      ]
+    }
+  }
 }
