@@ -514,6 +514,110 @@ module.exports = {
               southCenter: "中下",
               southEast: "右下"
           }
+      },
+    vi: {
+        cancelText: "Huỷ",
+        OKText: "OK",
+
+        fullScreen: "Toàn màn hình",
+        quitFullScreen: "Thoát",
+        sourceCode: "Mã nguồn",
+        preview: "xem trước",
+        selectedText: "Chắc chắn rằng bạn đã chọn văn bản trước khi thêm liên kết.",
+        selectedLink: "Chắc chắn rằng bạn đã chọn liên kết trước khi xoá nó!",
+        successToDraftBox: "Nội dung đã được lưu vào hộp nháp",
+        successPasteCleanText: "Đã dán văn bản chưa định dạng, hình ảnh có thể không được hiển thị nếu địa chỉ URL của nó bị chặn.",
+        errorUploadingFile: "!!!!!!!!!!!!LỖI TẢI LÊN!!!!!!!!!!!!",
+        directToURL: "Vui lòng nhập địa chỉ URL hợp lệ",
+        directToURLTip: "Vui lòng nhập địa chỉ URL thông thường(bắt đầu bằng \"http://\" hoặc \"https://\".)",
+        markdownTip: "Vui lòng đánh dấu ở đây",
+        wrongImageAddress: 'Địa chỉ hình ảnh sai!',
+
+        undo: "undo (Ctrl-Z/Cmd-Z)",
+        redo: "redo (Ctrl-Y/Cmd-Shift-Z)",
+
+        confirmToRemove: "Bạn có chắc chắn muốn xóa định dạng của văn bản đã chọn không?",
+        doRemove: "Đồng ý",
+        doNotRemove: "Không",
+
+        pasteText: "Dán văn bản thuần tuý ",
+        insertNoStyleText: "Vui lòng chèn nội dung văn bản thuần tại đây",
+        pasteTipMsg: "Vui lòng dán nội dung vào đây và nhấn nút OK",
+
+        H1: "Tiêu đề cấp 1",
+        H2: "Tiêu đề cấp 2",
+        H3: "Tiêu đề cấp 3",
+        H4: "Tiêu đề cấp 4",
+        refs: "Trích dẫn",
+        ul: "Danh sách không có thứ tự",
+        ol: "Danh sách có thứ tự",
+        pre: "Được xác định trước",
+        alignLeft: "Căn trái",
+        alignCenter: "Căn giữa",
+        alignRight: "Căn phải",
+        alignJustify: "Căn đều",
+        textBold: "In đậm",
+        textItalic: "In nghiêng",
+        textUnderline: "Gạch chân",
+        textCode: "Mã code",
+
+        insertImageModalTitle: "Chèn ảnh",
+        previewImageModalTitle: "Xem trước ảnh",
+        inPreviewProgress: "Đang xử lý và tạo bản xem trước, vui lòng chờ khoảng 1 phút...",
+        imageMasker: "Chèn watermark",
+        originalImage: "Chèn hình gốc",
+        validatedImage: "đã xác thực",
+        refreshImage: "làm tươi",
+
+        insertVideoTip: "Tải lên video",
+        insertVideoModalTitle: "Chèn những video",
+
+        insertAudioTip: "Tải lên âm thanh",
+        insertAudioModalTitle: "Chèn những âm thanh",
+
+        addLink: "thêm liên kết",
+        removeLink: "xoá liên kết",
+
+        previewMsg: 'nội dung',
+        deleteDraftItem: "xóa mục nháp",
+        draftTipMsg: "Hộp nháp - bạn có thể sử dụng Ctrl + S hoặc Cmd + S lưu nội dung vào hộp nháp, nhấp để mở.",
+        draftModalTitle: "Danh sách mục nháp",
+        confirmUseDraft: "Nội dung trình soạn thảo hiện tại sẽ được thay thế bằng mục nháp đã chọn của bạn, tiếp tục?",
+        draftCautionMsg: "Nội dung tự động lưu vào hộp nháp mỗi phút, bạn có thể lưu theo cách thủ công bằng Ctrl + S hoặc Cmd + S, nó sẽ không lưu nếu độ dài nội dung dưới 20 ký tự.",
+
+        autoSave: "Tự động lưu vào bản nháp",
+
+        inPfopProgress: "Vui lòng chờ trong khi hình ảnh đang được xử lý",
+        pfopError: "Một lỗi xảy ra trong quá trình pfoping ảnh! Vui lòng tham khảo:",
+        btnAddBatch: "Thêm hàng loạt",
+        batchAddModalTitle: "Tải hình ảnh lên hàng loạt",
+        chkAutoWaterMask: "Tự động gắn watermark",
+
+        uploadingTipMsg: "Vui lòng tải lên theo yêu cầu.",
+        limitCountTip: "Giữ dung lượng tệp dưới $limit$, những tệp có kích thước lớn hơn sẽ bị loại bỏ.",
+        btnUpload: "Nhấp để tải lên",
+        manuallyUploadTip: "Bạn có thể nhập hình ảnh một cách thủ công, 'Enter' để xác nhận.",
+        limitAndTypeTip: "Bạn có thể tải lên tệp tin có dung lượng dưới $limit$.($type$)",
+
+        auto: "[TỰ ĐỘNG]",
+        height: "cao",
+        width: "rộng",
+        zoomTipMsg: "Thu nhỏ hoặc phóng to tới kích thước $targetSize$ theo kích thước ảnh $accordingSize$ ",
+        pleaseUploading: "vui lòng tải lên",
+        watermarkPos: {
+          north: "bắc",
+          northWest: "bắc - tây",
+          northCenter: "bắc - trung tâm",
+          northEast: "bắc - đông",
+          center: "trung tâm",
+          west: "tây",
+          centerCenter: "trung tâm tuyệt đối",
+          east: "đông",
+          south: "nam",
+          southWest: "nam - tây",
+          southCenter: "nam - trung tâm",
+          southEast: "nam - đông"
+        }
       }
   }
 }
