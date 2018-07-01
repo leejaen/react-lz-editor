@@ -105,58 +105,6 @@ module.exports = {
       }
     },
     
-    
-    
-      insertVideoTip: "Upload video",
-      insertVideoModalTitle: "Insert videos",
-
-      insertAudioTip: "Upload audio",
-      insertAudioModalTitle: "Insert audios",
-
-      addLink: "add link",
-      removeLink: "remove link",
-
-      previewMsg: 'content',
-      deleteDraftItem: "remove draft item",
-      draftTipMsg: "Draft Box--you can use Ctrl+S or Cmd+S save content to draft box, click to open.",
-      draftModalTitle: "Draft item list",
-      confirmUseDraft: "Current editor context will be replaced by your selected draft item, continue?",
-      draftCautionMsg: "Content auto save to draft box every minute, you could save it manually by Ctrl+S or Cmd+S, it would not saving while content length less than 20 characters.",
-
-      autoSave: "Automatically save to draft",
-
-      inPfopProgress: "Please wait while the picture is being processed",
-      pfopError: "An error occurred while pfoping image! Please refer to:",
-      btnAddBatch: "Batch add",
-      batchAddModalTitle: "Bulk upload pictures",
-      chkAutoWaterMask: "Automatic watermarking",
-
-      uploadingTipMsg: "Please upload as requested.",
-      limitCountTip: "Just keep $limit$ files, the others has been droped.",
-      btnUpload: "Click to upload",
-      manuallyUploadTip: "You can manually input an image, 'Enter' to confirm.",
-      limitAndTypeTip: "You can uploading $limit$ files.($type$)",
-
-      auto: "[AUTO]",
-      height: "height",
-      width: "width",
-      zoomTipMsg: "Zoomout or zoomin to $targetSize$ according image $accordingSize$ ",
-      pleaseUploading: "please uploading",
-      watermarkPos: {
-        north: "north",
-        northWest: "north west",
-        northCenter: "north center",
-        northEast: "north east",
-        center: "center",
-        west: "west",
-        centerCenter: "absolute center",
-        east: "east",
-        south: "south",
-        southWest: "south west",
-        southCenter: "south center",
-        southEast: "south east"
-      }
-    },
 
     'th': {
       cancelText: "ยกเลิก",
@@ -263,56 +211,6 @@ module.exports = {
       }
     },
     
-      insertVideoTip: "อัพโหลดวิดีโอ",
-      insertVideoModalTitle: "เพิ่มวิดีโอ",
-
-      insertAudioTip: "อัพโหลดเสียง",
-      insertAudioModalTitle: "เพิ่มเสียง",
-
-      addLink: "เพิ่มลิ้งค์",
-      removeLink: "ลบลิ้งค์",
-
-      previewMsg: 'เนื้อหา',
-      deleteDraftItem: "ลบรายการแบบร่าง",
-      draftTipMsg: "Draft Box--สามารถกด Ctrl+S หรือ Cmd+S บันทึกร่างข้อความ, คลิกเพิ่มเปิด.",
-      draftModalTitle: "รายการแบบร่าง",
-      confirmUseDraft: "ขณะนี้ได้บันทึกลงไปแบบร่างแล้ว, ต่อไป?",
-      draftCautionMsg: "บันทึกแบบร่างอัตโนมัติทุก ๆ นาที, คุณสามารถบันทึกด้วยตนเอง โดยกด Ctrl+S หรือ Cmd+S, ไม่สามารถบันทึกได้หากมีข้อความต่ำกว่า 20 ข้อความ.",
-
-      autoSave: "บันทึกแบบร่างอัตโนมัติ",
-
-      inPfopProgress: "รูปภาพกำลังประมวลผล",
-      pfopError: "มีข้อผิดพลาดบางอย่าง! รายละเอียด:",
-      btnAddBatch: "เพิ่มเป็นชุด",
-      batchAddModalTitle: "อัพโหลดรูปภาพเป็นชุด",
-      chkAutoWaterMask: "เพิ่มลายน้ำอัตโนมัติ",
-
-      uploadingTipMsg: "กรุณาอัตโหลด",
-      limitCountTip: "จำนวนสูงสุด $limit$ ไฟล์, ในการเพิ่มแต่ละครั้ง",
-      btnUpload: "คลิกเพื่ออัพโหลด",
-      manuallyUploadTip: "คุณสามารถเพิ่มรูปภาพด้วยตนเอง, 'Enter' เพื่อยืนยัน",
-      limitAndTypeTip: "คุณสามารถอัพโหลดได้ $limit$ ไฟล์.($type$)",
-
-      auto: "[AUTO]",
-      height: "ความสูง",
-      width: "ความกว้าง",
-      zoomTipMsg: "ขยาดออก หรือ ขยาดเข้า เมื่อขนาดรูปภาพระหว่าง $targetSize$ ถึง $accordingSize$ ",
-      pleaseUploading: "please uploading",
-      watermarkPos: {
-        north: "บน",
-        northWest: "ซ้ายบน",
-        northCenter: "บนตรงกลาง",
-        northEast: "ขวาบน",
-        center: "ตรงกลาง",
-        west: "ซ้าย",
-        centerCenter: "ลอยอยู่ตรงกลาง",
-        east: "ขวา",
-        south: "ล่าง",
-        southWest: "ซ้ายล่าง",
-        southCenter: "ล่างตรงกลาง",
-        southEast: "ขวาล่าง"
-      }
-    },
 
     'zh-CN': {
       cancelText: "取消",
