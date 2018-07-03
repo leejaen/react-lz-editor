@@ -7,10 +7,10 @@ An open source react rich-text editor ( mordern react editor includes media supp
 
 ## Language Contributors
 
-[![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Boris Chernysh](https://avatars1.githubusercontent.com/u/16339593?s=50&v=4)](https://github.com/borisblack) | [![SibaService.inc](https://avatars1.githubusercontent.com/u/1687663?s=50&v=4)](https://github.com/sibaservice) | [![Quốc Khánh](https://avatars1.githubusercontent.com/u/16166195?s=50&v=4)](https://github.com/bkdev98)
----|---|---|---|---
-[Li Zhen](https://github.com/leejaen) | [Li Zhen](https://github.com/leejaen) | [Boris Chernysh](https://github.com/borisblack) | [SibaService.inc](https://github.com/sibaservice) | [Quốc Khánh](https://github.com/bkdev98)
-English | Chinese (S. & T.) | Russian | Japanese | Vietnamese
+[![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Li Zhen](https://avatars3.githubusercontent.com/u/1638970?s=50&v=4)](https://github.com/leejaen) | [![Boris Chernysh](https://avatars1.githubusercontent.com/u/16339593?s=50&v=4)](https://github.com/borisblack) | [![SibaService.inc](https://avatars1.githubusercontent.com/u/1687663?s=50&v=4)](https://github.com/sibaservice) | [![Quốc Khánh](https://avatars1.githubusercontent.com/u/16166195?s=50&v=4)](https://github.com/bkdev98) | [![This JJ](https://avatars3.githubusercontent.com/u/32838161?s=50&v=4)](https://github.com/thisJJ)
+---|---|---|---|---|---
+[Li Zhen](https://github.com/leejaen) | [Li Zhen](https://github.com/leejaen) | [Boris Chernysh](https://github.com/borisblack) | [SibaService.inc](https://github.com/sibaservice) | [Quốc Khánh](https://github.com/bkdev98) | [This JJ](https://github.com/thisJJ)
+English | Chinese (S. & T.) | Russian | Japanese | Vietnamese | Thai
 
 ## Live demo
 
