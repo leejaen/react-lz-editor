@@ -44,7 +44,7 @@ Version note: React 15.4.2+ and react-dom 15.4.2+ is required. Antd version at l
       this.state = {
         htmlContent: `<h1>Yankees, Peeking at the Red Sox, Will Soon Get an Eyeful</h1>
                   <p>Whenever Girardi stole a glance, there was rarely any good news for the Yankees. While Girardi’s charges were clawing their way to a split of their four-game series against the formidable Indians, the Boston Red Sox were plowing past the rebuilding Chicago White Sox, sweeping four games at Fenway Park.</p>`,
-        markdownContent: "## HEAD 2 \n markdown examples \n ``` welcome ```"
+        markdownContent: "## HEAD 2 \n markdown examples \n ``` welcome ```",
         responseList: []
       }
       this.receiveHtml=this.receiveHtml.bind(this);
