@@ -623,7 +623,7 @@ module.exports = {
         cancelText: "ยกเลิก",
         OKText: "ตกลง",
 
-        fullScreen: "ขนายเต็มจอ",
+        fullScreen: "ขยายเต็มจอ",
         quitFullScreen: "ขนาดปกติ",
         sourceCode: "โค้ด",
         preview: "ก่อนหน้า",
@@ -684,10 +684,10 @@ module.exports = {
 
         previewMsg: 'เนื้อหา',
         deleteDraftItem: "ลบแบบร่าง",
-        draftTipMsg: "Draft Box--สามารถกด Ctrl+S หรือ Cmd+S บันทึกร่างข้อความ, คลิกเพิ่มเปิด.",
+        draftTipMsg: "สามารถกด Ctrl+S หรือ Cmd+S บันทึกร่างข้อความ, คลิกเพิ่มเปิด.",
         draftModalTitle: "รายการแบบร่าง",
-        confirmUseDraft: "ขณะนี้ได้บันทึกลงไปแบบร่างแล้ว, ต่อไป?",
-        draftCautionMsg: "บันทึกแบบร่างอัตโนมัติทุก ๆ นาที, คุณสามารถบันทึกด้วยตนเอง โดยกด Ctrl+S หรือ Cmd+S, ไม่สามารถบันทึกได้หากมีข้อความต่ำกว่า 20 ข้อความ.",
+        confirmUseDraft: "ยืนยันการบันทึกแบบร่าง ดำเนินการต่อไป?",
+        draftCautionMsg: "บันทึกแบบร่างอัตโนมัติทุก 1 นาที, คุณสามารถบันทึกด้วยตนเอง โดยกด Ctrl+S หรือ Cmd+S, สามารถบันทึกได้เมื่อมีข้อความมากกว่า 20 ข้อความ",
 
         autoSave: "บันทึกแบบร่างอัตโนมัติ",
 
@@ -698,16 +698,16 @@ module.exports = {
         chkAutoWaterMask: "เพิ่มลายน้ำอัตโนมัติ",
 
         uploadingTipMsg: "กรุณาอัตโหลด",
-        limitCountTip: "จำนวนสูงสุด $limit$ ไฟล์, ในการเพิ่มแต่ละครั้ง",
+        limitCountTip: "จำนวนสูงสุด $limit$ ไฟล์, ในการอัพโหลดแต่ละครั้ง",
         btnUpload: "คลิกเพื่ออัพโหลด",
         manuallyUploadTip: "คุณสามารถเพิ่มรูปภาพด้วยตนเอง, 'Enter' เพื่อยืนยัน",
-        limitAndTypeTip: "คุณสามารถอัพโหลดได้ $limit$ ไฟล์.($type$)",
+        limitAndTypeTip: "คุณสามารถอัพโหลดขนาด $limit$ และนามสกุล($type$)",
 
         auto: "[AUTO]",
         height: "ความสูง",
         width: "ความกว้าง",
-        zoomTipMsg: "ขยาดออก หรือ ขยาดเข้า เมื่อขนาดรูปภาพระหว่าง $targetSize$ ถึง $accordingSize$ ",
-        pleaseUploading: "please uploading",
+        zoomTipMsg: "สามารถขยายออก หรือ ขยายเข้า เมื่อขนาดรูปภาพระหว่าง $targetSize$ ถึง $accordingSize$ ",
+        pleaseUploading: "กรุณาอัพโหลด",
         watermarkPos: {
           north: "บน",
           northWest: "ซ้ายบน",
@@ -715,7 +715,7 @@ module.exports = {
           northEast: "ขวาบน",
           center: "ตรงกลาง",
           west: "ซ้าย",
-          centerCenter: "ลอยอยู่ตรงกลาง",
+          centerCenter: "ตรงกลาง",
           east: "ขวา",
           south: "ล่าง",
           southWest: "ซ้ายล่าง",
