@@ -1,3 +1,11 @@
+```js
+/**
+* 感谢各位对本仓库的star和关注，以及提出的宝贵意见，万分抱歉没有及时跟进issue list，
+* 本仓库最近着手使用ts进行重写，但会保持向下兼容，修复之前出现的问题，增加移动端适配等特性，
+* 一份996的工作真的会没有自己生活，请有996传统的公司不要再联系
+*/
+```
+
 [中文](https://github.com/leejaen/react-lz-editor/blob/master/README.cn.md)
 [![npm license](https://img.shields.io/npm/l/awesome-badges.svg)](https://www.npmjs.org/package/awesome-badges)
 
